@@ -1,0 +1,33 @@
+name: DebugStickPro
+version: '${project.version}'
+main: dev.twme.debugstickpro.DebugStickPro
+api-version: '1.20'
+prefix: DSP
+authors: [TWME]
+commands:
+  debugstickpro:
+    description: DebugStickPro command
+    permission: debugstickpro.help
+    aliases:
+      - dsp
+      - debugstickpro
+    usage: /<command> [help|reload|give] (player)
+    permission-message: You don't have permission to use this command.
+    default: op
+
+permissions:
+  debugstickpro.help:
+    description: Allows access to the help command
+    default: true
+  debugstickpro.reload:
+    description: Allows access to the reload command
+    default: op
+  debugstickpro.use:
+    description: Allows use of the DebugStickPro
+    default: op
+  debugstickpro.give:
+    description: Allows use of the DebugStickPro
+    default: op
+  debugstickpro.give.other:
+    description: Allows use of the DebugStickPro
+    default: op
