@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.commmands;
 
+import dev.twme.debugstickpro.util.ActionbarUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,7 +43,11 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         } else {
             player.sendMessage("You do not have permission to use this command!");
         }
-        
+
+        if (strings[0].equalsIgnoreCase("a")){
+            ActionbarUtil.sendActionBar(player, "Text: " + strings[1]);
+            return true;
+        }
 
         return false;
     }

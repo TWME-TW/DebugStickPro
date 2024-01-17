@@ -10,5 +10,4 @@ public class LeftClickListener implements Listener {
         }
 
     }
-
 }

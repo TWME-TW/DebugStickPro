@@ -1,19 +1,24 @@
-package dev.twme.debugstickpro.util.blockdatautil;
+package dev.twme.debugstickpro.util.blockutil.blockdatautil;
 
 import dev.twme.debugstickpro.util.Log;
-import org.bukkit.block.Block;
+import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.AgeableData;
+import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.SubBlockData;
 import org.bukkit.block.data.*;
 import org.bukkit.block.data.type.*;
 
+import java.util.ArrayList;
+
 
 public class BlockDataSeparater {
-    public static void Separate(Block block) {
+    public static ArrayList<SubBlockData> Separate(BlockData blockData) {
 
-        BlockData blockData = block.getBlockData();
+
+        ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
 
         if (blockData instanceof Ageable) {
             Log.info("Ageable");
-
+            SubBlockData ageableUtil = new AgeableData(blockData);
+            blockDataList.add(ageableUtil);
         }
 
         if (blockData instanceof AnaloguePowerable) {
@@ -25,61 +30,61 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof Bamboo) {
-
+            Log.info("Bamboo");
         }
 
         if (blockData instanceof Bed) {
-
+            Log.info("Bed");
         }
 
         if (blockData instanceof Beehive) {
-
+            Log.info("Beehive");
         }
         if (blockData instanceof Bell) {
-
+            Log.info("Bell");
         }
         if (blockData instanceof BigDripleaf) {
-
+            Log.info("BigDripleaf");
         }
 
         if (blockData instanceof Bisected) {
-
+            Log.info("Bisected");
         }
 
         if (blockData instanceof BrewingStand) {
-
+            Log.info("BrewingStand");
         }
 
         if (blockData instanceof Brushable) {
-
+            Log.info("Brushable");
         }
 
         if (blockData instanceof BubbleColumn) {
-
+            Log.info("BubbleColumn");
         }
 
         if (blockData instanceof Cake) {
-
+            Log.info("Cake");
         }
 
         if (blockData instanceof CalibratedSculkSensor) {
-
+            Log.info("CalibratedSculkSensor");
         }
 
         if (blockData instanceof Campfire) {
-
+            Log.info("Campfire");
         }
 
         if (blockData instanceof Candle) {
-
+            Log.info("Candle");
         }
 
         if (blockData instanceof CaveVines) {
-
+            Log.info("CaveVines");
         }
 
         if (blockData instanceof CaveVinesPlant) {
-
+            Log.info("CaveVinesPlant");
         }
 
         if (blockData instanceof Chain) {
@@ -419,8 +424,10 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof Waterlogged) {
-
+            Log.info("Waterlogged");
         }
 
+
+        return blockDataList;
     }
 }

@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.util.Log;
-import dev.twme.debugstickpro.util.blockdatautil.BlockDataSeparater;
+import dev.twme.debugstickpro.util.blockutil.blockdatautil.BlockDataSeparater;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,6 +40,6 @@ public class RightClickListener implements Listener {
 
         player.sendMessage("BlockData: " + block.getBlockData().toString());
 
-        BlockDataSeparater.Separate(block);
+        BlockDataSeparater.Separate(block.getBlockData());
     }
 }
