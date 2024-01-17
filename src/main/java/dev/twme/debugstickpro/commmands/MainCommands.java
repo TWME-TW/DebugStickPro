@@ -42,7 +42,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         } else {
             player.sendMessage("You do not have permission to use this command!");
         }
-
+        
 
         return false;
     }
