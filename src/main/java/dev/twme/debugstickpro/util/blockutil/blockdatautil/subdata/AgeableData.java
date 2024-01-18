@@ -5,14 +5,14 @@ import org.bukkit.block.data.BlockData;
 
 public class AgeableData implements SubBlockData {
 
-    public final String NAME = "Age";
-    public BlockData blockData;
+    private final String NAME = "Age";
+    private BlockData blockData;
+    private int age;
 
     public AgeableData(BlockData blockData) {
         this.blockData = blockData;
+        this.age = ((Ageable) blockData).getAge();
     }
-
-    private int age;
 
     @Override
     public String NAME() {
@@ -20,25 +20,42 @@ public class AgeableData implements SubBlockData {
     }
 
     @Override
-    public String getData() {
-        Ageable age = (Ageable) blockData;
-        this.age = age.getAge();
-        return String.valueOf(this.age);
+    public BlockData getData() {
+        return blockData;
     }
     @Override
-    public BlockData setNextData() {
+    public BlockData getNextData() {
+        nextAge();
+        return blockData;
+    }
+
+    @Override
+    public String getAsString() {
+        return "Age: " + age;
+    }
+
+    @Override
+    public String getNextAsString() {
+        return null;
+    }
+
+    @Override
+    public String getDataAsString(BlockData blockData) {
+        return String.valueOf(age);
+    }
+
+    @Override
+    public String getNextDataAsString() {
+        nextAge();
+        return String.valueOf(age);
+    }
+    private void nextAge() {
         Ageable age = (Ageable) blockData;
         if (age.getAge() >= age.getMaximumAge()) {
             age.setAge(0);
         } else {
             age.setAge(age.getAge() + 1);
         }
-        return blockData;
-    }
-
-    @Override
-    public String getAsString() {
-        String str = "Age: " + age;
-        return null;
+        this.age = age.getAge();
     }
 }

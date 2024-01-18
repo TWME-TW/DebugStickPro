@@ -4,10 +4,14 @@ import org.bukkit.block.data.BlockData;
 
 public interface SubBlockData {
     public abstract String NAME();
-    public abstract String getData();
+    public abstract BlockData getData();
 
-    public abstract BlockData setNextData();
+    public abstract BlockData getNextData();
 
     public abstract String getAsString();
+    public abstract String getNextAsString();
+
+    public abstract String getDataAsString(BlockData blockData);
+    public abstract String getNextDataAsString();
 
 }

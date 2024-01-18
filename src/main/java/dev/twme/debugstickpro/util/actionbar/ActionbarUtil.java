@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.util;
+package dev.twme.debugstickpro.util.actionbar;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;

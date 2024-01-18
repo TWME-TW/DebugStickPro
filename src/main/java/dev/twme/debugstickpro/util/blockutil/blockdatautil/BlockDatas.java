@@ -7,18 +7,21 @@ import java.util.ArrayList;
 
 public class BlockDatas {
     private ArrayList<SubBlockData> blockDatas = new ArrayList<SubBlockData>();
+    private BlockData blockData;
+
     public BlockDatas(BlockData blockData) {
         blockDatas.addAll(BlockDataSeparater.Separate(blockData));
     }
 
-    public void add(BlockData blockData) {
-        blockDatas.addAll(BlockDataSeparater.Separate(blockData));
+    public ArrayList<SubBlockData> getBlockDatas() {
+        return blockDatas;
     }
 
-    public SubBlockData[] get() {
-        SubBlockData[] array = (SubBlockData[]) blockDatas.toArray();
-        return array;
+    public String getAsString() {
+        StringBuilder str = new StringBuilder();
+        for (SubBlockData subBlockData : blockDatas) {
+            str.append(subBlockData.getAsString()).append(" ");
+        }
+        return str.toString();
     }
-
-
 }

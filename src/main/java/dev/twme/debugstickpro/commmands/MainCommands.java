@@ -1,11 +1,16 @@
 package dev.twme.debugstickpro.commmands;
 
-import dev.twme.debugstickpro.util.ActionbarUtil;
+import dev.twme.debugstickpro.util.actionbar.ActionbarUtil;
+import dev.twme.debugstickpro.util.PersistentKey;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +21,8 @@ public class MainCommands implements CommandExecutor , TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (!(commandSender instanceof Player)){
-            return false;
+            commandSender.sendMessage("You need to be a player to use this command!");
+            return true;
         }
         Player player = (Player) commandSender;
 
@@ -34,6 +40,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             return true;
         }
         if (strings[0].equalsIgnoreCase("give")){
+            player.getInventory().addItem(getDebugStickItem());
             player.sendMessage("Give command");
             return true;
         }
@@ -69,5 +76,16 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             list.add("give");
         }
         return null;
+    }
+
+    private static ItemStack getDebugStickItem(){
+        ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("Debug Stick Pro");
+        itemMeta.getPersistentDataContainer().set(PersistentKey.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
+
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
     }
 }

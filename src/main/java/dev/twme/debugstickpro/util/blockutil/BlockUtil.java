@@ -1,10 +1,21 @@
 package dev.twme.debugstickpro.util.blockutil;
 
+import dev.twme.debugstickpro.util.blockutil.blockdatautil.BlockDatas;
+import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 
 import java.util.*;
 
 public class BlockUtil {
+
+    private static Map<UUID, BlockDatas> playerBlcokList = new HashMap<>();
+
+    public static void add(UUID uuid, BlockData blockData) {
+        BlockDatas blockDatas = new BlockDatas(blockData);
+        playerBlcokList.put(uuid, blockDatas);
+    }
+    /*
+
     private static Map<UUID,BlcokList> playerBlcokList = new HashMap<>();
 
     public static void add(UUID uuid, BlockData blockData, boolean isAdd) {
@@ -27,7 +38,18 @@ public class BlockUtil {
         }
     }
 
+
+
+    public static BlockData get(UUID uuid){
+        return playerBlcokList.get(uuid).get(0);
+    }
+    public static BlockData get(UUID uuid, int index){
+        return playerBlcokList.get(uuid).get(index);
+    }
+    */
+
     public static void remove(UUID uuid) {
         playerBlcokList.remove(uuid);
     }
+
 }
