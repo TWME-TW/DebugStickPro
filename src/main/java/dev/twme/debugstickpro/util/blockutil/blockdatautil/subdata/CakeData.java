@@ -1,18 +1,16 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
-import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Cake;
 
-public class AgeableData implements SubBlockData {
-    private final String NAME = "Age";
+public class CakeData implements SubBlockData{
+    private String NAME = "Cake";
     private BlockData blockData;
-    private int age;
-
-    public AgeableData(BlockData blockData) {
+    private int bites;
+    public CakeData(BlockData blockData){
         this.blockData = blockData;
-        this.age = ((Ageable) blockData).getAge();
+        this.bites = ((Cake)blockData).getBites();
     }
-
     @Override
     public String NAME() {
         return NAME;
@@ -25,39 +23,39 @@ public class AgeableData implements SubBlockData {
 
     @Override
     public BlockData getNextData() {
-        nextAge();
+        nextBite();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Age: " + age;
+        return "Bites: " + bites;
     }
 
     @Override
     public String getNextAsString() {
-        nextAge();
-        return "Age: " + age;
+        nextBite();
+        return "Bites: " + bites;
     }
 
     @Override
     public String getDataAsString(BlockData blockData) {
-        return String.valueOf(age);
+        return String.valueOf(bites);
     }
 
     @Override
     public String getNextDataAsString() {
-        nextAge();
-        return String.valueOf(age);
+        nextBite();
+        return String.valueOf(bites);
     }
-
-    private void nextAge() {
-        Ageable age = (Ageable) blockData;
-        if (age.getAge() >= age.getMaximumAge()) {
-            age.setAge(0);
+    private void nextBite(){
+        Cake cake = ((Cake) blockData);
+        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
+            cake.setBites(0);
         } else {
-            age.setAge(age.getAge() + 1);
+            cake.setBites(cake.getBites() + 1);
         }
-        this.age = age.getAge();
+        this.bites = cake.getBites();
+
     }
 }

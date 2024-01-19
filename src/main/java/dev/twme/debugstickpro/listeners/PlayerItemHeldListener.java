@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.util.PersistentKey;
 import dev.twme.debugstickpro.util.actionbar.ActionBarTask;
+import dev.twme.debugstickpro.util.actionbar.ActionbarUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,12 +22,14 @@ public class PlayerItemHeldListener implements Listener {
         }
 
         Inventory inventory = player.getInventory();
-        PersistentDataContainer playerHandItemDataNew = inventory.getItem(event.getNewSlot()).getItemMeta().getPersistentDataContainer();
-        PersistentDataContainer playerHandItemDataOld = inventory.getItem(event.getPreviousSlot()).getItemMeta().getPersistentDataContainer();
-        if (playerHandItemDataNew.has(PersistentKey.DEBUG_STICK_ITEM)) {
+        ItemStack newItem = inventory.getItem(event.getNewSlot());
+        ItemStack oldItem = inventory.getItem(event.getPreviousSlot());
+        if (newItem != null && newItem.getItemMeta() != null && newItem.getItemMeta().getPersistentDataContainer().has(PersistentKey.DEBUG_STICK_ITEM)) {
             ActionBarTask.playerList.add(player.getUniqueId());
-        } else {
-            ActionBarTask.playerList.remove(player.getUniqueId());
+        } else if (oldItem != null && oldItem.getItemMeta() != null && oldItem.getItemMeta().getPersistentDataContainer().has(PersistentKey.DEBUG_STICK_ITEM)){
+            ActionbarUtil.removeActionBar(player.getUniqueId());
+        } else if(newItem == null || oldItem == null){
+            ActionbarUtil.removeActionBar(player.getUniqueId());
         }
     }
 }

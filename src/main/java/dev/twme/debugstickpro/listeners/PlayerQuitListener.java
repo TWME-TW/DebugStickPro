@@ -10,6 +10,5 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event){
         BlockUtil.remove(event.getPlayer().getUniqueId());
-        ActionbarUtil.sendActionBar(event.getPlayer()," ");
     }
 }

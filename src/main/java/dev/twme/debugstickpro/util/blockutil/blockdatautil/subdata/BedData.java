@@ -1,18 +1,16 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
-import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Bed;
 
-public class AgeableData implements SubBlockData {
-    private final String NAME = "Age";
+public class BedData implements SubBlockData{
+    private String NAME = "Bed Part";
     private BlockData blockData;
-    private int age;
-
-    public AgeableData(BlockData blockData) {
+    private Bed.Part part;
+    public BedData(BlockData blockData) {
         this.blockData = blockData;
-        this.age = ((Ageable) blockData).getAge();
+        this.part = ((Bed) blockData).getPart();
     }
-
     @Override
     public String NAME() {
         return NAME;
@@ -25,39 +23,38 @@ public class AgeableData implements SubBlockData {
 
     @Override
     public BlockData getNextData() {
-        nextAge();
+        nextPart();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Age: " + age;
+        return "Bed Part: " + part.name();
     }
 
     @Override
     public String getNextAsString() {
-        nextAge();
-        return "Age: " + age;
+        nextPart();
+        return "Bed Part: " + part.name();
     }
 
     @Override
     public String getDataAsString(BlockData blockData) {
-        return String.valueOf(age);
+        return part.name();
     }
 
     @Override
     public String getNextDataAsString() {
-        nextAge();
-        return String.valueOf(age);
+        nextPart();
+        return part.name();
     }
-
-    private void nextAge() {
-        Ageable age = (Ageable) blockData;
-        if (age.getAge() >= age.getMaximumAge()) {
-            age.setAge(0);
+    private void nextPart() {
+        Bed bed = (Bed) blockData;
+        if (bed.getPart() == Bed.Part.FOOT) {
+            bed.setPart(Bed.Part.HEAD);
         } else {
-            age.setAge(age.getAge() + 1);
+            bed.setPart(Bed.Part.FOOT);
         }
-        this.age = age.getAge();
+        this.part = ((Bed) blockData).getPart();
     }
 }

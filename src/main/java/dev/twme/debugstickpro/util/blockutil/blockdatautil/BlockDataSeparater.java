@@ -1,8 +1,7 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil;
 
 import dev.twme.debugstickpro.util.Log;
-import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.AgeableData;
-import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.*;
 import org.bukkit.block.data.*;
 import org.bukkit.block.data.type.*;
 
@@ -16,83 +15,116 @@ public class BlockDataSeparater {
         ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
 
         if (blockData instanceof Ageable) {
-            Log.info("Ageable");
             SubBlockData ageableUtil = new AgeableData(blockData);
             blockDataList.add(ageableUtil);
         }
 
+        /* NOTE: Not Used
+        if (blockData instanceof AmethystCluster) {
+            Log.info("AmethystCluster");
+        }
+        */
+
         if (blockData instanceof AnaloguePowerable) {
-            Log.info("AnaloguePowerable");
+            SubBlockData analoguePowerableData = new AnaloguePowerableData(blockData);
+            blockDataList.add(analoguePowerableData);
         }
 
         if (blockData instanceof Attachable) {
-            Log.info("Attachable");
+            SubBlockData attachableData = new AttachableData(blockData);
+            blockDataList.add(attachableData);
         }
 
         if (blockData instanceof Bamboo) {
-            Log.info("Bamboo");
+            SubBlockData bambooData = new BambooData(blockData);
+            blockDataList.add(bambooData);
         }
 
+        /* NOTE: Not Used
+        if (blockData instanceof Barrel) {
+            Log.info("Barrel");
+        }
+        */
+
         if (blockData instanceof Bed) {
-            Log.info("Bed");
+            SubBlockData bedData = new BedData(blockData);
+            blockDataList.add(bedData);
         }
 
         if (blockData instanceof Beehive) {
-            Log.info("Beehive");
+            SubBlockData beehiveData = new BeehiveData(blockData);
+            blockDataList.add(beehiveData);
         }
         if (blockData instanceof Bell) {
-            Log.info("Bell");
+            SubBlockData bellData = new BellData(blockData);
+            blockDataList.add(bellData);
         }
         if (blockData instanceof BigDripleaf) {
-            Log.info("BigDripleaf");
+            SubBlockData bigDripleafData = new BigDripleafData(blockData);
+            blockDataList.add(bigDripleafData);
         }
 
         if (blockData instanceof Bisected) {
-            Log.info("Bisected");
+            SubBlockData bisectedData = new BisectedData(blockData);
+            blockDataList.add(bisectedData);
         }
 
         if (blockData instanceof BrewingStand) {
-            Log.info("BrewingStand");
+            SubBlockData brewingStandBottle_0 = new BrewingStandBottle_0(blockData);
+            SubBlockData brewingStandBottle_1 = new BrewingStandBottle_1(blockData);
+            SubBlockData brewingStandBottle_2 = new BrewingStandBottle_2(blockData);
+            blockDataList.add(brewingStandBottle_0);
+            blockDataList.add(brewingStandBottle_1);
+            blockDataList.add(brewingStandBottle_2);
         }
 
         if (blockData instanceof Brushable) {
-            Log.info("Brushable");
+            SubBlockData brushable = new BrushableData(blockData);
+            blockDataList.add(brushable);
         }
 
         if (blockData instanceof BubbleColumn) {
-            Log.info("BubbleColumn");
+            SubBlockData bubbleColumn = new BrushableData(blockData);
+            blockDataList.add(bubbleColumn);
         }
 
         if (blockData instanceof Cake) {
-            Log.info("Cake");
+            SubBlockData cake = new CakeData(blockData);
+            blockDataList.add(cake);
         }
 
+        /* NOTE: Not Used
         if (blockData instanceof CalibratedSculkSensor) {
             Log.info("CalibratedSculkSensor");
         }
+        */
 
         if (blockData instanceof Campfire) {
-            Log.info("Campfire");
+            SubBlockData campfire = new CampfireData(blockData);
+            blockDataList.add(campfire);
         }
 
         if (blockData instanceof Candle) {
-            Log.info("Candle");
+            SubBlockData candle = new CandleData(blockData);
+            blockDataList.add(candle);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof CaveVines) {
             Log.info("CaveVines");
         }
-
+        */
         if (blockData instanceof CaveVinesPlant) {
-            Log.info("CaveVinesPlant");
+            SubBlockData caveVinesPlant = new CaveVinesPlantData(blockData);
+            blockDataList.add(caveVinesPlant);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Chain) {
 
         }
-
+        */
         if (blockData instanceof Chest) {
-
+            SubBlockData chest = new ChestData(blockData);
+            blockDataList.add(chest);
         }
 
         if (blockData instanceof ChiseledBookshelf) {

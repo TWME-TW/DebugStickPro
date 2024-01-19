@@ -51,5 +51,4 @@ public class BlockUtil {
     public static void remove(UUID uuid) {
         playerBlcokList.remove(uuid);
     }
-
 }
