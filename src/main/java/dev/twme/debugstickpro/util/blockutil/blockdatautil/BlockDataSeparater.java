@@ -329,7 +329,7 @@ public class BlockDataSeparater {
 
         }
         */
-        //TODO: ReDesign MultipleFacing
+        //TODO: ReDesign MultipleFacing(not work)
         if (blockData instanceof MultipleFacing) {
             SubBlockData multipleFacing = new MultipleFacingData(blockData);
             blockDataList.add(multipleFacing);
@@ -393,56 +393,80 @@ public class BlockDataSeparater {
 
         }
         */
+        //TODO: ReDesign This (Not Work)
         if (blockData instanceof RedstoneWire) {
-
+            SubBlockData redstoneWireNorth = new RedstoneWireNorthData(blockData);
+            blockDataList.add(redstoneWireNorth);
+            SubBlockData redstoneWireEast = new RedstoneWireEastData(blockData);
+            blockDataList.add(redstoneWireEast);
+            SubBlockData redstoneWireSouth = new RedstoneWireSouthData(blockData);
+            blockDataList.add(redstoneWireSouth);
+            SubBlockData redstoneWireWest = new RedstoneWireWestData(blockData);
+            blockDataList.add(redstoneWireWest);
         }
 
         if (blockData instanceof Repeater) {
-
+            SubBlockData repeaterDelayData = new RepeaterDelayData(blockData);
+            blockDataList.add(repeaterDelayData);
+            SubBlockData repeaterLocked = new RepeaterLockedData(blockData);
+            blockDataList.add(repeaterLocked);
         }
 
         if (blockData instanceof RespawnAnchor) {
-
+            SubBlockData respawnAnchorCharges = new RespawnAnchorData(blockData);
+            blockDataList.add(respawnAnchorCharges);
         }
 
         if (blockData instanceof Rotatable) {
-
+            SubBlockData rotatable = new RotatableData(blockData);
+            blockDataList.add(rotatable);
         }
 
         if (blockData instanceof Sapling) {
-
+            SubBlockData saplingStage = new SaplingData(blockData);
+            blockDataList.add(saplingStage);
         }
 
         if (blockData instanceof Scaffolding) {
-
+            SubBlockData scaffoldingBottom = new ScaffoldingBottomData(blockData);
+            blockDataList.add(scaffoldingBottom);
+            SubBlockData scaffoldingDistance = new ScaffoldingDistanceData(blockData);
+            blockDataList.add(scaffoldingDistance);
         }
 
         if (blockData instanceof SculkCatalyst) {
-
+            SubBlockData sculkCatalyst = new SculkCatalystData(blockData);
+            blockDataList.add(sculkCatalyst);
         }
 
         if (blockData instanceof SculkSensor) {
-
+            SubBlockData sculkSensor = new SculkSensorData(blockData);
+            blockDataList.add(sculkSensor);
         }
 
         if (blockData instanceof SculkShrieker) {
-
+            SubBlockData shriekerCanSummonData = new SculkShriekerCanSummonData(blockData);
+            blockDataList.add(shriekerCanSummonData);
+            SubBlockData sculkShriekerShriekingData = new SculkShriekerShriekingData(blockData);
+            blockDataList.add(sculkShriekerShriekingData);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof SculkVein) {
 
         }
-
+        */
         if (blockData instanceof SeaPickle) {
-
+            SubBlockData seaPickleData = new SeaPickleData(blockData);
+            blockDataList.add(seaPickleData);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Sign) {
 
         }
-
+        */
         if (blockData instanceof Slab) {
-
+            SubBlockData slabData = new SlabData(blockData);
+            blockDataList.add(slabData);
         }
 
         if (blockData instanceof SmallDripleaf) {

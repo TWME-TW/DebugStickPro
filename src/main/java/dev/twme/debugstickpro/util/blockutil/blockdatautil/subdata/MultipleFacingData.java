@@ -4,6 +4,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.MultipleFacing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultipleFacingData implements SubBlockData{
@@ -57,12 +58,14 @@ public class MultipleFacingData implements SubBlockData{
     }
 
     private void nextFace(){
-        List<BlockFace> bf = ((MultipleFacing) blockData).getAllowedFaces().stream().toList();
-        if (bf.indexOf(face) == bf.size() - 1){
+        MultipleFacing blockData = ((MultipleFacing) this.blockData);
+        List<BlockFace> bf = new ArrayList<>(blockData.getAllowedFaces());
+
+        if (bf.indexOf(face) >= (bf.size() - 1)){
             face = bf.get(0);
         } else {
             face = bf.get(bf.indexOf(face) + 1);
         }
-        ((MultipleFacing) blockData).setFace(face, true);
+        blockData.setFace(face, true);
     }
 }

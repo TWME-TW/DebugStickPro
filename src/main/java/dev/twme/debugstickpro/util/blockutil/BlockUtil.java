@@ -14,6 +14,12 @@ public class BlockUtil {
         BlockDatas blockDatas = new BlockDatas(block);
         playerBlcokList.put(uuid, blockDatas);
     }
+    public static BlockDatas get(UUID uuid) {
+        return playerBlcokList.get(uuid);
+    }
+    public static boolean contains(UUID uuid) {
+        return playerBlcokList.containsKey(uuid);
+    }
 
 
 

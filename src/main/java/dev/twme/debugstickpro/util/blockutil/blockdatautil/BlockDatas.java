@@ -11,7 +11,11 @@ public class BlockDatas {
     private BlockData blockData;
 
     public BlockDatas(Block block) {
+        blockData = block.getBlockData();
         blockDatas.addAll(BlockDataSeparater.Separate(block));
+    }
+    public BlockData getBlockData() {
+        return blockData;
     }
 
     public ArrayList<SubBlockData> getBlockDatas() {

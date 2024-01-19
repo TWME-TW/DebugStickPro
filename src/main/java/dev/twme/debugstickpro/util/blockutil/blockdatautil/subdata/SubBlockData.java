@@ -14,5 +14,4 @@ public interface SubBlockData {
     public abstract String getDataAsString();
     public abstract String getNextDataAsString();
     public abstract void setIsUsing(boolean isUsing);
-
 }
