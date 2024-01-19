@@ -31,8 +31,10 @@ public class ActionBarTask implements Runnable {
                     blockData = block.getBlockData();
                 }
                 if (blockData != null) {
-                    player.sendActionBar(Component.text("Test: " + new BlockDatas(blockData).getAsString()));
+                    player.sendActionBar(Component.text("Test: " + new BlockDatas(block).getAsString()));
                 }
+            } else {
+                player.sendActionBar(Component.text(" "));
             }
         }
     }

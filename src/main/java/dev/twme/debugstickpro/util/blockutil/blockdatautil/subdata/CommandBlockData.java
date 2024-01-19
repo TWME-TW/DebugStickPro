@@ -51,11 +51,7 @@ public class CommandBlockData implements SubBlockData{
     }
     private void nextConditionalProperty(){
         CommandBlock commandBlock = ((CommandBlock) blockData);
-        if (commandBlock.isConditional()){
-            commandBlock.setConditional(false);
-        } else {
-            commandBlock.setConditional(true);
-        }
+        commandBlock.setConditional(!commandBlock.isConditional());
         this.conditional = commandBlock.isConditional();
     }
 }

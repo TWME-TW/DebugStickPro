@@ -54,11 +54,7 @@ public class BrewingStandBottle_1 implements SubBlockData {
     private void next() {
         BrewingStand brewingStand = ((BrewingStand) blockData);
 
-        if (brewingStand.hasBottle(1)) {
-            brewingStand.setBottle(1, false);
-        } else {
-            brewingStand.setBottle(1, true);
-        }
+        brewingStand.setBottle(1, !brewingStand.hasBottle(1));
         this.bottle = brewingStand.hasBottle(1);
     }
 }

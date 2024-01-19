@@ -1,16 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
-import org.bukkit.block.data.Attachable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Leaves;
 
-public class AttachableData implements SubBlockData{
-    private final String NAME = "Attached";
+public class LeavesPersistentData implements SubBlockData{
+    private String NAME = "Leaves Persistent";
     private BlockData blockData;
-    boolean isAttached;
-
-    public AttachableData(BlockData blockData) {
+    private boolean persistent;
+    public LeavesPersistentData(BlockData blockData){
         this.blockData = blockData;
-        this.isAttached = ((Attachable) blockData).isAttached();
+        this.persistent = ((Leaves) blockData).isPersistent();
     }
     @Override
     public String NAME() {
@@ -24,33 +23,31 @@ public class AttachableData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextAttached();
+        nextPersistentProperty();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Attached: " + isAttached;
+        return "Persistent: " + persistent;
     }
 
     @Override
     public String getNextAsString() {
-        nextAttached();
-        return "Attached: " + isAttached;
+        nextPersistentProperty();
+        return "Persistent: " + persistent;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(isAttached);
+        return String.valueOf(persistent);
     }
 
     @Override
     public String getNextDataAsString() {
-        return String.valueOf(isAttached);
+        return String.valueOf(persistent);
     }
-
-    private void nextAttached() {
-        ((Attachable) blockData).setAttached(!isAttached);
-        this.isAttached = ((Attachable) blockData).isAttached();
+    private void nextPersistentProperty(){
+        ((Leaves) blockData).setPersistent(!persistent);
     }
 }

@@ -30,6 +30,8 @@ public class PlayerItemHeldListener implements Listener {
             ActionbarUtil.removeActionBar(player.getUniqueId());
         } else if(newItem == null || oldItem == null){
             ActionbarUtil.removeActionBar(player.getUniqueId());
+        } else {
+            ActionbarUtil.removeActionBar(player.getUniqueId());
         }
     }
 }

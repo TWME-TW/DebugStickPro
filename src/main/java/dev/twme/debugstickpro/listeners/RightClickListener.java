@@ -39,8 +39,9 @@ public class RightClickListener implements Listener {
 
         Log.info("3");
 
+
         player.sendMessage("BlockData: " + block.getBlockData().toString());
 
-        BlockUtil.add(player.getUniqueId(), block.getBlockData());
+        BlockUtil.add(player.getUniqueId(), block);
     }
 }

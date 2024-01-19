@@ -50,11 +50,7 @@ public class CaveVinesPlantData implements SubBlockData{
     }
     private void nextBerriesProperty(){
         CaveVinesPlant caveVinesPlant = ((CaveVinesPlant) blockData);
-        if (caveVinesPlant.isBerries()){
-            caveVinesPlant.setBerries(false);
-        } else {
-            caveVinesPlant.setBerries(true);
-        }
+        caveVinesPlant.setBerries(!caveVinesPlant.isBerries());
         this.isBerries = caveVinesPlant.isBerries();
     }
 }

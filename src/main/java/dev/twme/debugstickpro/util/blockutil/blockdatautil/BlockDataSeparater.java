@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil;
 
 import dev.twme.debugstickpro.util.Log;
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.*;
+import org.bukkit.block.Block;
 import org.bukkit.block.data.*;
 import org.bukkit.block.data.type.*;
 
@@ -9,8 +10,8 @@ import java.util.ArrayList;
 
 
 public class BlockDataSeparater {
-    public static ArrayList<SubBlockData> Separate(BlockData blockData) {
-
+    public static ArrayList<SubBlockData> Separate(Block block) {
+        BlockData blockData = block.getBlockData();
 
         ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
 
@@ -126,14 +127,14 @@ public class BlockDataSeparater {
             SubBlockData chest = new ChestData(blockData);
             blockDataList.add(chest);
         }
-
+        //TODO: ReDesign ChiseledBookshelf
         if (blockData instanceof ChiseledBookshelf) {
             SubBlockData chiseledBookshelfSlot_0 = new ChiseledBookshelfSlot_0(blockData);
             SubBlockData chiseledBookshelfSlot_1 = new ChiseledBookshelfSlot_1(blockData);
             SubBlockData chiseledBookshelfSlot_2 = new ChiseledBookshelfSlot_2(blockData);
             SubBlockData chiseledBookshelfSlot_3 = new ChiseledBookshelfSlot_3(blockData);
-            SubBlockData chiseledBookshelfSlot_4 = new ChiseledBookshelfSlot_2(blockData);
-            SubBlockData chiseledBookshelfSlot_5 = new ChiseledBookshelfSlot_3(blockData);
+            SubBlockData chiseledBookshelfSlot_4 = new ChiseledBookshelfSlot_4(blockData);
+            SubBlockData chiseledBookshelfSlot_5 = new ChiseledBookshelfSlot_5(blockData);
             blockDataList.add(chiseledBookshelfSlot_0);
             blockDataList.add(chiseledBookshelfSlot_1);
             blockDataList.add(chiseledBookshelfSlot_2);
@@ -214,73 +215,86 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof FaceAttachable) {
-
+            SubBlockData faceAttachable = new FaceAttachableData(blockData);
+            blockDataList.add(faceAttachable);
         }
 
         if (blockData instanceof Farmland) {
-
+            SubBlockData farmlandMoisture = new FarmlandData(blockData);
+            blockDataList.add(farmlandMoisture);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Fence) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof Fire) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof Furnace) {
 
         }
-
+        */
         if (blockData instanceof Gate) {
-
+            SubBlockData gateInWall = new GateData(blockData);
+            blockDataList.add(gateInWall);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof GlassPane) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof GlowLichen) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof Grindstone) {
 
         }
-
+        */
         if (blockData instanceof Hangable) {
-
+            SubBlockData hangable = new HangableData(blockData);
+            blockDataList.add(hangable);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof HangingSign) {
 
         }
-
+        */
         if (blockData instanceof Hatchable) {
-
+            SubBlockData hatchable = new HatchableData(blockData);
+            blockDataList.add(hatchable);
         }
 
         if (blockData instanceof Hopper) {
-
+            SubBlockData hopperEnabled = new HopperData(blockData);
+            blockDataList.add(hopperEnabled);
         }
 
         if (blockData instanceof Jigsaw) {
-
+            SubBlockData jigsaw = new JigsawData(blockData);
+            blockDataList.add(jigsaw);
         }
-
+        /*TODO: ReDesign JigsawOrientation
         if (blockData instanceof Jukebox) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof Ladder) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof Lantern) {
 
         }
-
+        */
         if (blockData instanceof Leaves) {
 
         }

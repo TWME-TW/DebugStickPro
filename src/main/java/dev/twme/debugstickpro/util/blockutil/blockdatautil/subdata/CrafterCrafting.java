@@ -53,11 +53,7 @@ public class CrafterCrafting implements SubBlockData{
 
     private void nextCraftingProperty(){
         Crafter crafter = ((Crafter) blockData);
-        if (crafter.isCrafting()){
-            crafter.setCrafting(false);
-        } else {
-            crafter.setCrafting(true);
-        }
+        crafter.setCrafting(!crafter.isCrafting());
         this.crafting = crafter.isCrafting();
     }
 }

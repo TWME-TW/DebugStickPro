@@ -51,11 +51,7 @@ public class BubbleColumnData implements SubBlockData{
     }
     private void nextDragProperty(){
         BubbleColumn bubbleColumn = ((BubbleColumn) blockData);
-        if (bubbleColumn.isDrag()){
-            bubbleColumn.setDrag(false);
-        } else {
-            bubbleColumn.setDrag(true);
-        }
+        bubbleColumn.setDrag(!bubbleColumn.isDrag());
         this.hasBubbleColumn = bubbleColumn.isDrag();
     }
 }

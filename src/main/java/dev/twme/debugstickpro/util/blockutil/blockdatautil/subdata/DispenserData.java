@@ -51,11 +51,7 @@ public class DispenserData implements SubBlockData{
 
     private void nextTriggeredProperty(){
         Dispenser dispenser = ((Dispenser) blockData);
-        if (dispenser.isTriggered()){
-            dispenser.setTriggered(false);
-        } else {
-            dispenser.setTriggered(true);
-        }
+        dispenser.setTriggered(!dispenser.isTriggered());
         this.triggered = dispenser.isTriggered();
     }
 }

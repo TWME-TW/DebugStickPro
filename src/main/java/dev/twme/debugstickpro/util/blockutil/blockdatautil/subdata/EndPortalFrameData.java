@@ -51,11 +51,7 @@ public class EndPortalFrameData implements SubBlockData{
 
     private void nextEyeProperty(){
         EndPortalFrame endPortalFrame = ((EndPortalFrame) blockData);
-        if (endPortalFrame.hasEye()){
-            endPortalFrame.setEye(false);
-        } else {
-            endPortalFrame.setEye(true);
-        }
+        endPortalFrame.setEye(!endPortalFrame.hasEye());
         this.eye = endPortalFrame.hasEye();
     }
 }

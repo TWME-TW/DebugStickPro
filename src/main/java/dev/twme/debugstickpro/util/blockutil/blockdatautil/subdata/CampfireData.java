@@ -52,11 +52,7 @@ public class CampfireData implements SubBlockData{
 
     private void nextSignalFireProperty(){
         Campfire campfire = ((Campfire) blockData);
-        if (campfire.isSignalFire()){
-            campfire.setSignalFire(false);
-        } else {
-            campfire.setSignalFire(true);
-        }
+        campfire.setSignalFire(!campfire.isSignalFire());
         this.isSignalFire = campfire.isSignalFire();
     }
 }
