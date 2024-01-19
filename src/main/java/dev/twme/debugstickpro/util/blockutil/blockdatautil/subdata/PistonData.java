@@ -1,15 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.type.Piston;
 
-public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
+public class PistonData implements SubBlockData{
+    private String NAME = "Piston";
     private BlockData blockData;
-    private int bites;
-    public CakeData(BlockData blockData){
+    private boolean extended;
+    public PistonData(BlockData blockData) {
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.extended = ((Piston) blockData).isExtended();
     }
     @Override
     public String NAME() {
@@ -23,45 +23,39 @@ public class CakeData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextBite();
+        nextExtended();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return "Extended: " + extended;
     }
 
     @Override
     public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
+        nextExtended();
+        return "Extended: " + extended;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(bites);
+        return String.valueOf(extended);
     }
 
     @Override
     public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+        nextExtended();
+        return String.valueOf(extended);
     }
 
     @Override
     public void setIsUsing(boolean isUsing) {
 
     }
-
-    private void nextBite(){
-        Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
-            cake.setBites(0);
-        } else {
-            cake.setBites(cake.getBites() + 1);
-        }
-        this.bites = cake.getBites();
-
+    private void nextExtended(){
+        Piston piston = ((Piston) blockData);
+        extended = !extended;
+        piston.setExtended(extended);
     }
 }

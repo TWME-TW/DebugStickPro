@@ -49,6 +49,12 @@ public class FaceAttachableData implements SubBlockData{
         nextAttachedFace();
         return attachedFace.name();
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextAttachedFace() {
         FaceAttachable faceAttachable = ((FaceAttachable) blockData);
         if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.CEILING) {

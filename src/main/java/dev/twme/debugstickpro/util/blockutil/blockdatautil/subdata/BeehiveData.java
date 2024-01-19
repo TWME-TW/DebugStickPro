@@ -50,6 +50,11 @@ public class BeehiveData implements SubBlockData{
         return String.valueOf(honeyLevel);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextHoneyLevel() {
         Beehive beehive = (Beehive) blockData;
         if (honeyLevel >= beehive.getHoneyLevel()) {

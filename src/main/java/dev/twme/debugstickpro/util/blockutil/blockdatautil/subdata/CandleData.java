@@ -49,6 +49,11 @@ public class CandleData implements SubBlockData{
         return String.valueOf(candleCount);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextCandleCount(){
         Candle candle = ((Candle) blockData);
         if (candle.getCandles() >= candle.getMaximumCandles()){

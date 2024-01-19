@@ -51,6 +51,11 @@ public class BrewingStandBottle_0 implements SubBlockData {
         return String.valueOf(bottle);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void next() {
         BrewingStand brewingStand = ((BrewingStand) blockData);
 

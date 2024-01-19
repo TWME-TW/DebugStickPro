@@ -50,6 +50,11 @@ public class DaylightDetectorData implements SubBlockData{
         return String.valueOf(inverted);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextInvertedProperty(){
         DaylightDetector daylightDetector = ((DaylightDetector) blockData);
         daylightDetector.setInverted(!daylightDetector.isInverted());

@@ -49,6 +49,11 @@ public class AttachableData implements SubBlockData{
         return String.valueOf(isAttached);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextAttached() {
         ((Attachable) blockData).setAttached(!isAttached);
         this.isAttached = ((Attachable) blockData).isAttached();

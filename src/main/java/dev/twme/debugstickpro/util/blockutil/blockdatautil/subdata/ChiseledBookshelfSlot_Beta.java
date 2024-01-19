@@ -50,6 +50,12 @@ public class ChiseledBookshelfSlot_Beta implements SubBlockData{
         nextSlot();
         return String.valueOf(((org.bukkit.block.data.type.ChiseledBookshelf) block.getBlockData()).isSlotOccupied(5));
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextSlot(){
         ChiseledBookshelfInventory cf = ((ChiseledBookshelf) block.getState()).getInventory();
         if (cf.getItem(5) == null) {

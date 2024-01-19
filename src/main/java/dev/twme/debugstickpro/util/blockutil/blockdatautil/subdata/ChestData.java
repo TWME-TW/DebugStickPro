@@ -51,6 +51,11 @@ public class ChestData implements SubBlockData {
         return type.name();
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextType() {
         Chest chest = (Chest) blockData;
         if (chest.getType() == Chest.Type.SINGLE) {

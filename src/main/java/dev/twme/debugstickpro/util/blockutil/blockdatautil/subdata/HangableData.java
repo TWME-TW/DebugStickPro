@@ -50,6 +50,11 @@ public class HangableData implements SubBlockData{
         return String.valueOf(hangable);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextHangableProperty(){
         Hangable hangable = ((Hangable) blockData);
         hangable.setHanging(!hangable.isHanging());

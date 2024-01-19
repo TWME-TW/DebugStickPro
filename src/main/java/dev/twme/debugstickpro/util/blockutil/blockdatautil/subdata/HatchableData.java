@@ -49,6 +49,12 @@ public class HatchableData implements SubBlockData{
         nextHatchProperty();
         return String.valueOf(hatch);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextHatchProperty(){
         Hatchable hatchable = ((Hatchable) blockData);
         if (hatchable.getHatch() >= hatchable.getMaximumHatch()) {

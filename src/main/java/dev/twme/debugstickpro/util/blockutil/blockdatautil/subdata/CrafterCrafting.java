@@ -50,6 +50,11 @@ public class CrafterCrafting implements SubBlockData{
         return String.valueOf(crafting);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
 
     private void nextCraftingProperty(){
         Crafter crafter = ((Crafter) blockData);

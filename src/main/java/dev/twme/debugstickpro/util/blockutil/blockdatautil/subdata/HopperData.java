@@ -49,6 +49,12 @@ public class HopperData implements SubBlockData{
         nextEnabledProperty();
         return String.valueOf(enabled);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextEnabledProperty(){
         Hopper hopper = ((Hopper) blockData);
         hopper.setEnabled(!hopper.isEnabled());

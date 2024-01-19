@@ -49,6 +49,12 @@ public class BisectedData implements SubBlockData{
         nextHalf();
         return half.name();
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextHalf(){
         Bisected bisected = ((Bisected) blockData);
         if (bisected.getHalf() == Bisected.Half.TOP) {

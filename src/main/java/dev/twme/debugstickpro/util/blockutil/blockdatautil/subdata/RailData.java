@@ -1,15 +1,17 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.Rail;
 
-public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
+import java.util.List;
+
+public class RailData implements SubBlockData{
+    private final String NAME = "Rail";
     private BlockData blockData;
-    private int bites;
-    public CakeData(BlockData blockData){
+    private Rail.Shape shape;
+    public RailData(BlockData blockData) {
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.shape = ((Rail) blockData).getShape();
     }
     @Override
     public String NAME() {
@@ -23,45 +25,43 @@ public class CakeData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextBite();
-        return blockData;
+        return null;
     }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return null;
     }
 
     @Override
     public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
+        return null;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(bites);
+        return null;
     }
 
     @Override
     public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+        return null;
     }
 
     @Override
     public void setIsUsing(boolean isUsing) {
 
     }
-
-    private void nextBite(){
-        Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
-            cake.setBites(0);
+    private void nextData(){
+        Rail rail = ((Rail) blockData);
+        List<Rail.Shape> shapes = rail.getShapes().stream().toList();
+        int index = shapes.indexOf(shape);
+        if (index >= shapes.size() - 1) {
+            index = 0;
         } else {
-            cake.setBites(cake.getBites() + 1);
+            index++;
         }
-        this.bites = cake.getBites();
-
+        shape = shapes.get(index);
+        rail.setShape(shape);
     }
 }

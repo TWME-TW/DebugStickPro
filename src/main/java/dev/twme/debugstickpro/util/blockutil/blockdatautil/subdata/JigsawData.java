@@ -49,6 +49,12 @@ public class JigsawData implements SubBlockData{
         nextOrientationProperty();
         return orientation.name();
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextOrientationProperty(){
         if (orientation == Jigsaw.Orientation.DOWN_EAST){
             ((Jigsaw) blockData).setOrientation(Jigsaw.Orientation.DOWN_NORTH);

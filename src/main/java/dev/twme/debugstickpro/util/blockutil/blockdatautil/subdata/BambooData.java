@@ -50,6 +50,11 @@ public class BambooData implements SubBlockData{
         return leaves.name();
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextLeaveType() {
         Bamboo bamboo = (Bamboo) blockData;
         if (bamboo.getLeaves() == Bamboo.Leaves.NONE) {

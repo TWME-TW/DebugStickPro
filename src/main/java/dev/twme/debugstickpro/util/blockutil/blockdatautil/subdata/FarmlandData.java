@@ -49,6 +49,11 @@ public class FarmlandData implements SubBlockData{
         return String.valueOf(moisture);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextMoisture() {
         Farmland farmland = (Farmland) blockData;
         if (moisture >= farmland.getMaximumMoisture()) {

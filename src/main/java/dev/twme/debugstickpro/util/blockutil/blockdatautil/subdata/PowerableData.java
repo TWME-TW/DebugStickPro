@@ -1,15 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.Powerable;
 
-public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
+public class PowerableData implements SubBlockData{
+    private final String NAME = "Powerable";
     private BlockData blockData;
-    private int bites;
-    public CakeData(BlockData blockData){
+    private boolean powered;
+    public PowerableData(BlockData blockData) {
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.powered = ((Powerable) blockData).isPowered();
     }
     @Override
     public String NAME() {
@@ -23,45 +23,39 @@ public class CakeData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextBite();
+        nextPowered();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return "Powered: " + powered;
     }
 
     @Override
     public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
+        nextPowered();
+        return "Powered: " + powered;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(bites);
+        return String.valueOf(powered);
     }
 
     @Override
     public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+        nextPowered();
+        return String.valueOf(powered);
     }
 
     @Override
     public void setIsUsing(boolean isUsing) {
 
     }
-
-    private void nextBite(){
-        Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
-            cake.setBites(0);
-        } else {
-            cake.setBites(cake.getBites() + 1);
-        }
-        this.bites = cake.getBites();
-
+    private void nextPowered(){
+        Powerable powerable = ((Powerable) blockData);
+        powered = !powered;
+        powerable.setPowered(powered);
     }
 }

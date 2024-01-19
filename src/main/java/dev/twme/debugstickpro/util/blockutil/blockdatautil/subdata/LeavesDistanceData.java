@@ -7,6 +7,10 @@ public class LeavesDistanceData implements SubBlockData{
     private String NAME = "Leaves Distance";
     private BlockData blockData;
     private int distance;
+    public LeavesDistanceData(BlockData blockData){
+        this.blockData = blockData;
+        this.distance = ((Leaves) blockData).getDistance();
+    }
     @Override
     public String NAME() {
         return NAME;
@@ -44,6 +48,12 @@ public class LeavesDistanceData implements SubBlockData{
         nextDistanceProperty();
         return String.valueOf(distance);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextDistanceProperty(){
         Leaves leaves = (Leaves) blockData;
         if (distance >= leaves.getMaximumDistance()) {

@@ -48,6 +48,12 @@ public class BellData implements SubBlockData{
         nextAttachment();
         return attachment.name();
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextAttachment(){
         Bell bell = (Bell) blockData;
         if (attachment == Bell.Attachment.CEILING){

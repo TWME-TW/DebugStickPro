@@ -29,13 +29,13 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData{
 
     @Override
     public String getAsString() {
-        return "Bookshelf Slot 4: " + slot_4;
+        return "Slot 4: " + slot_4;
     }
 
     @Override
     public String getNextAsString() {
         nextSlotProperty();
-        return "Bookshelf Slot 4: " + slot_4;
+        return "Slot 4: " + slot_4;
     }
 
     @Override
@@ -47,6 +47,11 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData{
     public String getNextDataAsString() {
         nextSlotProperty();
         return String.valueOf(slot_4);
+    }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
     }
 
     private void nextSlotProperty(){

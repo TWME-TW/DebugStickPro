@@ -50,6 +50,11 @@ public class ComparatorData implements SubBlockData{
         return mode.name();
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextModeProperty(){
         Comparator comparator = ((Comparator) blockData);
         if (comparator.getMode() == Comparator.Mode.COMPARE){

@@ -49,6 +49,11 @@ public class CrafterOrientationData implements SubBlockData{
         return orientation.name();
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextOrientationProperty(){
         Crafter crafter = ((Crafter) blockData);
         if (crafter.getOrientation() == Crafter.Orientation.DOWN_EAST){

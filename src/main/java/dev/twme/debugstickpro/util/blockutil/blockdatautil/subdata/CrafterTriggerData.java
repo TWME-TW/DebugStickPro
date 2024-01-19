@@ -49,6 +49,11 @@ public class CrafterTriggerData implements SubBlockData{
         return String.valueOf(triggered);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextTriggeredProperty(){
         Crafter crafter = ((Crafter) blockData);
         crafter.setTriggered(!crafter.isTriggered());

@@ -49,6 +49,12 @@ public class GateData implements SubBlockData{
         nextInWallProperty();
         return String.valueOf(inWall);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextInWallProperty(){
         Gate gate = ((org.bukkit.block.data.type.Gate) blockData);
         gate.setInWall(!gate.isInWall());

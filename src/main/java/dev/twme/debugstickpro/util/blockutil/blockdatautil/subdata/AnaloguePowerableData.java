@@ -50,6 +50,11 @@ public class AnaloguePowerableData implements SubBlockData{
         return String.valueOf(power);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextPower() {
         AnaloguePowerable analoguePowerable = (AnaloguePowerable) blockData;
         if (analoguePowerable.getPower() >= analoguePowerable.getMaximumPower()) {

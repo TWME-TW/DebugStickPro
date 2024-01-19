@@ -49,6 +49,11 @@ public class EndPortalFrameData implements SubBlockData{
         return String.valueOf(eye);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextEyeProperty(){
         EndPortalFrame endPortalFrame = ((EndPortalFrame) blockData);
         endPortalFrame.setEye(!endPortalFrame.hasEye());

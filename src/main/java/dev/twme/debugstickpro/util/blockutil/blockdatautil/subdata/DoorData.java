@@ -49,6 +49,12 @@ public class DoorData implements SubBlockData{
         nextHingeProperty();
         return hinge.name();
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextHingeProperty(){
         Door door = ((Door) blockData);
         if (door.getHinge() == Door.Hinge.LEFT){

@@ -52,6 +52,11 @@ public class DirectionalData implements SubBlockData{
         return direction.name();
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextDirectionProperty(){
         List<BlockFace> blockFaces = ((Directional) blockData).getFaces().stream().toList();
         int index = blockFaces.indexOf(direction);

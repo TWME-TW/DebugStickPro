@@ -50,6 +50,11 @@ public class CampfireData implements SubBlockData{
         return String.valueOf(isSignalFire);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextSignalFireProperty(){
         Campfire campfire = ((Campfire) blockData);
         campfire.setSignalFire(!campfire.isSignalFire());

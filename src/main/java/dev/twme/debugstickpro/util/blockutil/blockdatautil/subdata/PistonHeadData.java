@@ -1,15 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.type.PistonHead;
 
-public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
+public class PistonHeadData implements SubBlockData{
+    private String NAME = "PistonHead";
     private BlockData blockData;
-    private int bites;
-    public CakeData(BlockData blockData){
+    private boolean shortArm;
+    public PistonHeadData(BlockData blockData) {
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.shortArm = ((PistonHead) blockData).isShort();
     }
     @Override
     public String NAME() {
@@ -23,45 +23,39 @@ public class CakeData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextBite();
+        nextShortArm();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return "ShortArm: " + shortArm;
     }
 
     @Override
     public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
+        nextShortArm();
+        return "ShortArm: " + shortArm;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(bites);
+        return String.valueOf(shortArm);
     }
 
     @Override
     public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+        nextShortArm();
+        return String.valueOf(shortArm);
     }
 
     @Override
     public void setIsUsing(boolean isUsing) {
 
     }
-
-    private void nextBite(){
-        Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
-            cake.setBites(0);
-        } else {
-            cake.setBites(cake.getBites() + 1);
-        }
-        this.bites = cake.getBites();
-
+    private void nextShortArm(){
+        PistonHead pistonHead = ((PistonHead) blockData);
+        shortArm = !shortArm;
+        pistonHead.setShort(shortArm);
     }
 }

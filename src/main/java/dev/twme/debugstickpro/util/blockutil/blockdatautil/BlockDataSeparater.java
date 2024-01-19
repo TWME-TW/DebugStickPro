@@ -296,89 +296,103 @@ public class BlockDataSeparater {
         }
         */
         if (blockData instanceof Leaves) {
-
+            SubBlockData leavesDistance = new LeavesDistanceData(blockData);
+            blockDataList.add(leavesDistance);
+            SubBlockData leavesPersistent = new LeavesPersistentData(blockData);
+            blockDataList.add(leavesPersistent);
         }
-
+        /* TODO: ReDesign Lever
         if (blockData instanceof Lectern) {
 
         }
-
+        */
         if (blockData instanceof Levelled) {
-
+            SubBlockData levelled = new LevelledData(blockData);
+            blockDataList.add(levelled);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Light) {
 
         }
-
+        */
         if (blockData instanceof Lightable) {
-
+            SubBlockData lightable = new LightableData(blockData);
+            blockDataList.add(lightable);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof LightningRod) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof MangrovePropagule) {
 
         }
-
+        */
+        //TODO: ReDesign MultipleFacing
         if (blockData instanceof MultipleFacing) {
-
+            SubBlockData multipleFacing = new MultipleFacingData(blockData);
+            blockDataList.add(multipleFacing);
         }
-
+        //TODO: ReDesign NoteBlock
         if (blockData instanceof NoteBlock) {
 
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Observer) {
 
         }
-
+        */
         if (blockData instanceof Orientable) {
-
+            SubBlockData orientable = new OrientableData(blockData);
+            blockDataList.add(orientable);
         }
 
         if (blockData instanceof PinkPetals) {
-
+            SubBlockData pinkPetals = new PinkPetalsData(blockData);
+            blockDataList.add(pinkPetals);
         }
 
         if (blockData instanceof Piston) {
-
-        }
-
-        if (blockData instanceof Piston) {
-
+            SubBlockData pistonExtended = new PistonData(blockData);
+            blockDataList.add(pistonExtended);
         }
 
         if (blockData instanceof PistonHead) {
-
+            SubBlockData pistonHeadShort = new PistonHeadData(blockData);
+            blockDataList.add(pistonHeadShort);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof PitcherCrop) {
 
         }
-
+        */
         if (blockData instanceof PointedDripstone) {
-
+            SubBlockData pointedDripstoneThickness = new PointedDripstoneThicknessData(blockData);
+            blockDataList.add(pointedDripstoneThickness);
+            SubBlockData pointedDripstoneVerticalDirection = new PointedDripstoneVerticalDirectionData(blockData);
+            blockDataList.add(pointedDripstoneVerticalDirection);
         }
 
         if (blockData instanceof Powerable) {
-
+            SubBlockData powerable = new PowerableData(blockData);
+            blockDataList.add(powerable);
         }
 
         if (blockData instanceof Rail) {
-
+            SubBlockData railShape = new RailData(blockData);
+            blockDataList.add(railShape);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof RedstoneRail) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof RedstoneWallTorch) {
 
         }
-
+        */
         if (blockData instanceof RedstoneWire) {
 
         }

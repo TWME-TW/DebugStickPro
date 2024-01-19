@@ -49,6 +49,12 @@ public class CommandBlockData implements SubBlockData{
         nextConditionalProperty();
         return String.valueOf(conditional);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextConditionalProperty(){
         CommandBlock commandBlock = ((CommandBlock) blockData);
         commandBlock.setConditional(!commandBlock.isConditional());

@@ -51,6 +51,11 @@ public class BigDripleafData implements SubBlockData {
         return tilt.name();
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextTiltType() {
         BigDripleaf bigDripleaf = ((BigDripleaf) blockData);
 

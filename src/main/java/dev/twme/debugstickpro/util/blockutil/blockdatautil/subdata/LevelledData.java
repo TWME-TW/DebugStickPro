@@ -1,15 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.Levelled;
 
-public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
+public class LevelledData implements SubBlockData{
+    private String NAME = "Levelled";
     private BlockData blockData;
-    private int bites;
-    public CakeData(BlockData blockData){
+    private int level;
+    public LevelledData(BlockData blockData){
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.level = ((Levelled) blockData).getLevel();
     }
     @Override
     public String NAME() {
@@ -23,30 +23,30 @@ public class CakeData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextBite();
+        nextLevel();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return "Level: " + level;
     }
 
     @Override
     public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
+        nextLevel();
+        return "Level: " + level;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(bites);
+        return String.valueOf(level);
     }
 
     @Override
     public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+        nextLevel();
+        return String.valueOf(level);
     }
 
     @Override
@@ -54,14 +54,14 @@ public class CakeData implements SubBlockData{
 
     }
 
-    private void nextBite(){
-        Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
-            cake.setBites(0);
+    private void nextLevel(){
+        Levelled levelled = ((Levelled) blockData);
+        if (level == levelled.getMaximumLevel()){
+            level = levelled.getMinimumLevel();
         } else {
-            cake.setBites(cake.getBites() + 1);
+            level++;
         }
-        this.bites = cake.getBites();
-
+        levelled.setLevel(level);
     }
+
 }

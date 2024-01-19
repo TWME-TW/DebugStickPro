@@ -6,6 +6,7 @@ import dev.twme.debugstickpro.util.blockutil.BlockUtil;
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.BlockDataSeparater;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.ChiseledBookshelf;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,9 +37,6 @@ public class RightClickListener implements Listener {
         event.setCancelled(true);
 
         block = event.getClickedBlock();
-
-        Log.info("3");
-
 
         player.sendMessage("BlockData: " + block.getBlockData().toString());
 

@@ -51,6 +51,11 @@ public class AgeableData implements SubBlockData {
         return String.valueOf(age);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextAge() {
         Ageable age = (Ageable) blockData;
         if (age.getAge() >= age.getMaximumAge()) {

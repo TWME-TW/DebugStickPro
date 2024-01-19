@@ -48,6 +48,12 @@ public class BedData implements SubBlockData{
         nextPart();
         return part.name();
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextPart() {
         Bed bed = (Bed) blockData;
         if (bed.getPart() == Bed.Part.FOOT) {

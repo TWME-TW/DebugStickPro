@@ -47,6 +47,12 @@ public class LeavesPersistentData implements SubBlockData{
     public String getNextDataAsString() {
         return String.valueOf(persistent);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextPersistentProperty(){
         ((Leaves) blockData).setPersistent(!persistent);
     }

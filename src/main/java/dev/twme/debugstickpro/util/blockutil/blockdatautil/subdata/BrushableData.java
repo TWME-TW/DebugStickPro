@@ -48,6 +48,12 @@ public class BrushableData implements SubBlockData{
         nextDustedProperty();
         return String.valueOf(dusted);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextDustedProperty(){
         Brushable brushable = ((Brushable) blockData);
         if (brushable.getDusted() >= brushable.getMaximumDusted()){

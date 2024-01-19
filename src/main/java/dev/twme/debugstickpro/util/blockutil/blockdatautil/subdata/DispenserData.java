@@ -49,6 +49,11 @@ public class DispenserData implements SubBlockData{
         return String.valueOf(triggered);
     }
 
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextTriggeredProperty(){
         Dispenser dispenser = ((Dispenser) blockData);
         dispenser.setTriggered(!dispenser.isTriggered());

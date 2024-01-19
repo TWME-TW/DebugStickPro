@@ -48,6 +48,12 @@ public class CaveVinesPlantData implements SubBlockData{
         nextBerriesProperty();
         return String.valueOf(isBerries);
     }
+
+    @Override
+    public void setIsUsing(boolean isUsing) {
+
+    }
+
     private void nextBerriesProperty(){
         CaveVinesPlant caveVinesPlant = ((CaveVinesPlant) blockData);
         caveVinesPlant.setBerries(!caveVinesPlant.isBerries());

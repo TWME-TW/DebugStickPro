@@ -1,16 +1,18 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.Lightable;
 
-public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
+public class LightableData implements SubBlockData {
+    private String NAME = "Lightable";
     private BlockData blockData;
-    private int bites;
-    public CakeData(BlockData blockData){
+    private boolean lit;
+
+    public LightableData(BlockData blockData) {
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.lit = ((Lightable) blockData).isLit();
     }
+
     @Override
     public String NAME() {
         return NAME;
@@ -23,30 +25,30 @@ public class CakeData implements SubBlockData{
 
     @Override
     public BlockData getNextData() {
-        nextBite();
+        nextLit();
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return "Lit: " + lit;
     }
 
     @Override
     public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
+        nextLit();
+        return "Lit: " + lit;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(bites);
+        return String.valueOf(lit);
     }
 
     @Override
     public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+        nextLit();
+        return String.valueOf(lit);
     }
 
     @Override
@@ -54,14 +56,9 @@ public class CakeData implements SubBlockData{
 
     }
 
-    private void nextBite(){
-        Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
-            cake.setBites(0);
-        } else {
-            cake.setBites(cake.getBites() + 1);
-        }
-        this.bites = cake.getBites();
-
+    private void nextLit() {
+        Lightable lightable = ((Lightable) blockData);
+        lightable.setLit(!lit);
+        this.lit = lightable.isLit();
     }
 }
