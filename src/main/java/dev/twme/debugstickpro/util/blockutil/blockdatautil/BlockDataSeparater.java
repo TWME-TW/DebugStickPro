@@ -128,63 +128,89 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof ChiseledBookshelf) {
-
+            SubBlockData chiseledBookshelfSlot_0 = new ChiseledBookshelfSlot_0(blockData);
+            SubBlockData chiseledBookshelfSlot_1 = new ChiseledBookshelfSlot_1(blockData);
+            SubBlockData chiseledBookshelfSlot_2 = new ChiseledBookshelfSlot_2(blockData);
+            SubBlockData chiseledBookshelfSlot_3 = new ChiseledBookshelfSlot_3(blockData);
+            SubBlockData chiseledBookshelfSlot_4 = new ChiseledBookshelfSlot_2(blockData);
+            SubBlockData chiseledBookshelfSlot_5 = new ChiseledBookshelfSlot_3(blockData);
+            blockDataList.add(chiseledBookshelfSlot_0);
+            blockDataList.add(chiseledBookshelfSlot_1);
+            blockDataList.add(chiseledBookshelfSlot_2);
+            blockDataList.add(chiseledBookshelfSlot_3);
+            blockDataList.add(chiseledBookshelfSlot_4);
+            blockDataList.add(chiseledBookshelfSlot_5);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Cocoa) {
 
         }
-
+        */
         if (blockData instanceof CommandBlock) {
-
+            SubBlockData commandBlockConditional = new CommandBlockData(blockData);
+            blockDataList.add(commandBlockConditional);
         }
 
         if (blockData instanceof Comparator) {
-
+            SubBlockData comparatorMode = new ComparatorData(blockData);
+            blockDataList.add(comparatorMode);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof CopperBulb) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof CoralWallFan) {
 
         }
-
+        */
         if (blockData instanceof Crafter) {
-
+            SubBlockData crafterOrientation = new CrafterOrientationData(blockData);
+            blockDataList.add(crafterOrientation);
+            SubBlockData crafterCrafting = new CrafterCrafting(blockData);
+            blockDataList.add(crafterCrafting);
+            SubBlockData crafterTriggered = new CrafterTriggerData(blockData);
+            blockDataList.add(crafterTriggered);
         }
 
         if (blockData instanceof DaylightDetector) {
-
+            SubBlockData daylightDetectorData = new DaylightDetectorData(blockData);
+            blockDataList.add(daylightDetectorData);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof DecoratedPot) {
 
         }
-
+        */
         if (blockData instanceof Directional) {
-
+            SubBlockData directionalData = new DirectionalData(blockData);
+            blockDataList.add(directionalData);
         }
 
         if (blockData instanceof Dispenser) {
-
+            SubBlockData dispenserTriggered = new DispenserData(blockData);
+            blockDataList.add(dispenserTriggered);
         }
 
         if (blockData instanceof Door) {
-
+            SubBlockData doorHinge = new DoorData(blockData);
+            blockDataList.add(doorHinge);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof Dripleaf) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof EnderChest) {
 
         }
+        */
 
         if (blockData instanceof EndPortalFrame) {
-
+            SubBlockData endPortalFrameEye = new EndPortalFrameData(blockData);
+            blockDataList.add(endPortalFrameEye);
         }
 
         if (blockData instanceof FaceAttachable) {

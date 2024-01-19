@@ -39,7 +39,7 @@ public class BellData implements SubBlockData{
     }
 
     @Override
-    public String getDataAsString(BlockData blockData) {
+    public String getDataAsString() {
         return attachment.name();
     }
 

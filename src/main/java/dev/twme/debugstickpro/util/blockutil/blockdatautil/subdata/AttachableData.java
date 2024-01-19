@@ -40,7 +40,7 @@ public class AttachableData implements SubBlockData{
     }
 
     @Override
-    public String getDataAsString(BlockData blockData) {
+    public String getDataAsString() {
         return String.valueOf(isAttached);
     }
 

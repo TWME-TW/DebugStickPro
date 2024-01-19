@@ -11,7 +11,7 @@ public interface SubBlockData {
     public abstract String getAsString();
     public abstract String getNextAsString();
 
-    public abstract String getDataAsString(BlockData blockData);
+    public abstract String getDataAsString();
     public abstract String getNextDataAsString();
 
 }

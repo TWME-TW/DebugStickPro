@@ -40,7 +40,7 @@ public class BisectedData implements SubBlockData{
     }
 
     @Override
-    public String getDataAsString(BlockData blockData) {
+    public String getDataAsString() {
         return half.name();
     }
 

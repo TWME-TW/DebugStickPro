@@ -40,7 +40,7 @@ public class BubbleColumnData implements SubBlockData{
     }
 
     @Override
-    public String getDataAsString(BlockData blockData) {
+    public String getDataAsString() {
         return String.valueOf(hasBubbleColumn);
     }
 

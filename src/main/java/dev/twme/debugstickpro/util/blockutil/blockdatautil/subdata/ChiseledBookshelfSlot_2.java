@@ -3,13 +3,13 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
-public class ChiseledBookshelfSlot_0 implements SubBlockData{
+public class ChiseledBookshelfSlot_2 implements SubBlockData{
     private String NAME = "Bookshelf Slot";
     private BlockData blockData;
-    private boolean slot_0;
-    public ChiseledBookshelfSlot_0(BlockData blockData){
+    private boolean slot_2;
+    public ChiseledBookshelfSlot_2(BlockData blockData){
         this.blockData = blockData;
-        this.slot_0 = ((ChiseledBookshelf) blockData).isSlotOccupied(0);
+        this.slot_2 = ((ChiseledBookshelf) blockData).isSlotOccupied(2);
     }
     @Override
     public String NAME() {
@@ -29,33 +29,33 @@ public class ChiseledBookshelfSlot_0 implements SubBlockData{
 
     @Override
     public String getAsString() {
-        return "Bookshelf Slot 0: " + slot_0;
+        return "Bookshelf Slot 2: " + slot_2;
     }
 
     @Override
     public String getNextAsString() {
         nextSlotProperty();
-        return "Bookshelf Slot 0: " + slot_0;
+        return "Bookshelf Slot 2: " + slot_2;
     }
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(slot_0);
+        return String.valueOf(slot_2);
     }
 
     @Override
     public String getNextDataAsString() {
         nextSlotProperty();
-        return String.valueOf(slot_0);
+        return String.valueOf(slot_2);
     }
 
     private void nextSlotProperty(){
         ChiseledBookshelf chiseledBookshelf = ((ChiseledBookshelf) blockData);
-        if (chiseledBookshelf.isSlotOccupied(0)){
-            chiseledBookshelf.setSlotOccupied(0, false);
+        if (chiseledBookshelf.isSlotOccupied(2)){
+            chiseledBookshelf.setSlotOccupied(2, false);
         } else {
-            chiseledBookshelf.setSlotOccupied(0, true);
+            chiseledBookshelf.setSlotOccupied(2, true);
         }
-        this.slot_0 = chiseledBookshelf.isSlotOccupied(0);
+        this.slot_2 = chiseledBookshelf.isSlotOccupied(2);
     }
 }

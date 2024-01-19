@@ -39,7 +39,7 @@ public class BedData implements SubBlockData{
     }
 
     @Override
-    public String getDataAsString(BlockData blockData) {
+    public String getDataAsString() {
         return part.name();
     }
 

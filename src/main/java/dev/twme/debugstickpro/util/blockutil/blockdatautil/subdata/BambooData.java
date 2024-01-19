@@ -40,7 +40,7 @@ public class BambooData implements SubBlockData{
     }
 
     @Override
-    public String getDataAsString(BlockData blockData) {
+    public String getDataAsString() {
         return leaves.name();
     }
 
