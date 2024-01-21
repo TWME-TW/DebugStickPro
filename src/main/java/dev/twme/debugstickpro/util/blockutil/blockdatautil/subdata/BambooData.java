@@ -1,20 +1,22 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bamboo;
 
-public class BambooData implements SubBlockData{
-    private final String NAME = "BambooLeaves";
+public class BambooData implements SubBlockData {
     private BlockData blockData;
     private Bamboo.Leaves leaves;
+    private boolean isUsing = false;
 
     public BambooData(BlockData blockData) {
         this.blockData = blockData;
         this.leaves = ((Bamboo) blockData).getLeaves();
     }
+
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,40 +24,31 @@ public class BambooData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextLeaveType();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "BambooLeaves: " + leaves;
+        return LangFile.Bamboo.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextLeaveType();
-        return "BambooLeaves: " + leaves;
-    }
 
     @Override
     public String getDataAsString() {
         return leaves.name();
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextLeaveType();
-        return leaves.name();
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextLeaveType() {
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         Bamboo bamboo = (Bamboo) blockData;
         if (bamboo.getLeaves() == Bamboo.Leaves.NONE) {
             bamboo.setLeaves(Bamboo.Leaves.SMALL);
@@ -65,5 +58,12 @@ public class BambooData implements SubBlockData{
             bamboo.setLeaves(Bamboo.Leaves.NONE);
         }
         this.leaves = bamboo.getLeaves();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Bamboo) blockData).setLeaves(leaves);
+        return blockData;
     }
 }

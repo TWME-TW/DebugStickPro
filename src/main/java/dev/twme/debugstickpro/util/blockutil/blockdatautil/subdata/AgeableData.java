@@ -20,11 +20,6 @@ public class AgeableData implements SubBlockData {
     }
 
     @Override
-    public String getDisplayName() {
-        return LangFile.ActionBar.formatSelectedData(getAsString(),isUsing);
-    }
-
-    @Override
     public BlockData getData() {
         return blockData;
     }
@@ -32,7 +27,7 @@ public class AgeableData implements SubBlockData {
 
     @Override
     public String getAsString() {
-        return LangFile.Ageable.replace("%age%",String.valueOf(age));
+        return LangFile.Ageable.replace("%data%", String.valueOf(age));
     }
 
 

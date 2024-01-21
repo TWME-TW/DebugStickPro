@@ -1,12 +1,13 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.BrewingStand;
 
 public class BrewingStandBottle_0 implements SubBlockData {
-    private String NAME = "Bottle_0";
     private BlockData blockData;
     private boolean bottle;
+    private boolean isUsing = false;
 
     public BrewingStandBottle_0(BlockData blockData) {
         this.blockData = blockData;
@@ -15,7 +16,7 @@ public class BrewingStandBottle_0 implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -23,43 +24,41 @@ public class BrewingStandBottle_0 implements SubBlockData {
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        next();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Bottle_0: " + bottle;
+        return LangFile.BrewingStandBottle_0.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        next();
-        return "Bottle_0: " + bottle;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(bottle);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        next();
-        return String.valueOf(bottle);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void next() {
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         BrewingStand brewingStand = ((BrewingStand) blockData);
 
         brewingStand.setBottle(0, !brewingStand.hasBottle(0));
         this.bottle = brewingStand.hasBottle(0);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((BrewingStand) blockData).setBottle(0, bottle);
+        return blockData;
     }
 }

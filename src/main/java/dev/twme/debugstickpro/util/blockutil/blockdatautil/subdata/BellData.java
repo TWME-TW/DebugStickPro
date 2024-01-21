@@ -1,19 +1,20 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bell;
 
 public class BellData implements SubBlockData{
-    private String NAME = "Bell Attachment";
     private BlockData blockData;
     private Bell.Attachment attachment;
+    private boolean isUsing = false;
     public BellData(BlockData blockData){
         this.blockData = blockData;
         this.attachment = ((Bell)blockData).getAttachment();
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -21,40 +22,31 @@ public class BellData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextAttachment();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Bell Attachment: " + attachment.name();
+        return LangFile.Bell.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextAttachment();
-        return "Bell Attachment: " + attachment.name();
-    }
 
     @Override
     public String getDataAsString() {
         return attachment.name();
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextAttachment();
-        return attachment.name();
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextAttachment(){
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData(){
         Bell bell = (Bell) blockData;
         if (attachment == Bell.Attachment.CEILING){
             bell.setAttachment(Bell.Attachment.DOUBLE_WALL);
@@ -66,5 +58,12 @@ public class BellData implements SubBlockData{
             bell.setAttachment(Bell.Attachment.CEILING);
         }
         attachment = bell.getAttachment();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Bell)blockData).setAttachment(attachment);
+        return blockData;
     }
 }

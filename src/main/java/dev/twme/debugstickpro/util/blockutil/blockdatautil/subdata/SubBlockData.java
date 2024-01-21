@@ -6,8 +6,6 @@ public interface SubBlockData {
 
     public String name();
 
-    public String getDisplayName();
-
     public abstract BlockData getData();
 
     public abstract String getAsString();

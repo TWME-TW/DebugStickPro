@@ -1,19 +1,23 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bed;
 
-public class BedData implements SubBlockData{
-    private String NAME = "Bed Part";
+public class BedData implements SubBlockData {
+
     private BlockData blockData;
     private Bed.Part part;
+    private boolean isUsing = false;
+
     public BedData(BlockData blockData) {
         this.blockData = blockData;
         this.part = ((Bed) blockData).getPart();
     }
+
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -21,40 +25,31 @@ public class BedData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextPart();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Bed Part: " + part.name();
+        return LangFile.Bed.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextPart();
-        return "Bed Part: " + part.name();
-    }
 
     @Override
     public String getDataAsString() {
         return part.name();
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextPart();
-        return part.name();
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextPart() {
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         Bed bed = (Bed) blockData;
         if (bed.getPart() == Bed.Part.FOOT) {
             bed.setPart(Bed.Part.HEAD);
@@ -62,5 +57,12 @@ public class BedData implements SubBlockData{
             bed.setPart(Bed.Part.FOOT);
         }
         this.part = ((Bed) blockData).getPart();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Bed) blockData).setPart(part);
+        return blockData;
     }
 }

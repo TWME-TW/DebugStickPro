@@ -1,12 +1,13 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.BigDripleaf;
 
 public class BigDripleafData implements SubBlockData {
-    private String NAME = "BigDripleaf Tilt";
     private BlockData blockData;
     private BigDripleaf.Tilt tilt;
+    private boolean isUsing = false;
 
     public BigDripleafData(BlockData blockData) {
         this.blockData = blockData;
@@ -15,7 +16,7 @@ public class BigDripleafData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -23,22 +24,12 @@ public class BigDripleafData implements SubBlockData {
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextTiltType();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "BigDripleaf Tilt: " + tilt.name();
+        return LangFile.BigDripleaf.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextTiltType();
-        return "BigDripleaf Tilt: " + tilt.name();
-    }
 
     @Override
     public String getDataAsString() {
@@ -46,17 +37,17 @@ public class BigDripleafData implements SubBlockData {
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextTiltType();
-        return tilt.name();
+    public void setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextTiltType() {
+    @Override
+    public SubBlockData nextData() {
         BigDripleaf bigDripleaf = ((BigDripleaf) blockData);
 
         if (bigDripleaf.getTilt() == BigDripleaf.Tilt.FULL) {
@@ -69,5 +60,12 @@ public class BigDripleafData implements SubBlockData {
             bigDripleaf.setTilt(BigDripleaf.Tilt.UNSTABLE);
         }
         this.tilt = bigDripleaf.getTilt();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((BigDripleaf) blockData).setTilt(tilt);
+        return blockData;
     }
 }

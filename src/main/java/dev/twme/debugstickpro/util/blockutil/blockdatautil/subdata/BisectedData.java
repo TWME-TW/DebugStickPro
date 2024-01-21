@@ -1,20 +1,23 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 
-public class BisectedData implements SubBlockData{
-    private String NAME = "Bisected";
+public class BisectedData implements SubBlockData {
+
     private BlockData blockData;
     private Bisected.Half half;
+    private boolean isUsing = false;
 
     public BisectedData(BlockData blockData) {
         this.blockData = blockData;
         this.half = ((Bisected) blockData).getHalf();
     }
+
     @Override
     public String name() {
-        return name();
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,40 +25,31 @@ public class BisectedData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextHalf();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Half: " + half.name();
+        return LangFile.Bisected.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextHalf();
-        return "Half: " + half.name();
-    }
 
     @Override
     public String getDataAsString() {
         return half.name();
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextHalf();
-        return half.name();
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextHalf(){
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         Bisected bisected = ((Bisected) blockData);
         if (bisected.getHalf() == Bisected.Half.TOP) {
             bisected.setHalf(Bisected.Half.BOTTOM);
@@ -63,5 +57,12 @@ public class BisectedData implements SubBlockData{
             bisected.setHalf(Bisected.Half.TOP);
         }
         this.half = bisected.getHalf();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Bisected) blockData).setHalf(half);
+        return blockData;
     }
 }

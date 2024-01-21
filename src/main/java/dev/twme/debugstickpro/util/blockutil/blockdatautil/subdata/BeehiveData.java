@@ -1,12 +1,13 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Beehive;
 
 public class BeehiveData implements SubBlockData{
-    private String NAME = "Beehive";
     private BlockData blockData;
     private int honeyLevel;
+    private boolean isUsing = false;
 
     public BeehiveData(BlockData blockData) {
         this.blockData = blockData;
@@ -14,7 +15,7 @@ public class BeehiveData implements SubBlockData{
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,40 +23,31 @@ public class BeehiveData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextHoneyLevel();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Honey Level: " + honeyLevel;
+        return LangFile.Beehive.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextHoneyLevel();
-        return "Honey Level: " + honeyLevel;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(honeyLevel);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextHoneyLevel();
-        return String.valueOf(honeyLevel);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextHoneyLevel() {
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         Beehive beehive = (Beehive) blockData;
         if (honeyLevel >= beehive.getHoneyLevel()) {
             honeyLevel = 0;
@@ -63,5 +55,12 @@ public class BeehiveData implements SubBlockData{
             honeyLevel++;
         }
         beehive.setHoneyLevel(honeyLevel);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Beehive) blockData).setHoneyLevel(honeyLevel);
+        return blockData;
     }
 }
