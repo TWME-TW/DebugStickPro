@@ -13,7 +13,7 @@ public class NoteBlockNoteData implements SubBlockData{
         this.note = ((NoteBlock) blockData).getNote();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

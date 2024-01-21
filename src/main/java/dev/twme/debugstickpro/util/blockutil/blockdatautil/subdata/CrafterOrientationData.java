@@ -12,7 +12,7 @@ public class CrafterOrientationData implements SubBlockData{
         this.orientation = ((Crafter) blockData).getOrientation();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

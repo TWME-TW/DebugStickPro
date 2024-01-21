@@ -13,7 +13,7 @@ public class AttachableData implements SubBlockData{
         this.isAttached = ((Attachable) blockData).isAttached();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

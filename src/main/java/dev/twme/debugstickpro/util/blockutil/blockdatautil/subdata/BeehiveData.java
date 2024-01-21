@@ -13,7 +13,7 @@ public class BeehiveData implements SubBlockData{
         this.honeyLevel = ((Beehive) blockData).getHoneyLevel();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

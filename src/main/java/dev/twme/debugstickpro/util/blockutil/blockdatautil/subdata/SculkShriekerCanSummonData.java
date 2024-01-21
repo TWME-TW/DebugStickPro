@@ -12,7 +12,7 @@ public class SculkShriekerCanSummonData implements SubBlockData{
         this.isCanSummon = ((SculkShrieker) blockData).isCanSummon();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

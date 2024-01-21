@@ -14,7 +14,7 @@ public class BrewingStandBottle_1 implements SubBlockData {
     }
 
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

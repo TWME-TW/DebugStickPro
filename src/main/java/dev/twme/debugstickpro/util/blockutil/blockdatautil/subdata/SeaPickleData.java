@@ -12,7 +12,7 @@ public class SeaPickleData implements SubBlockData{
         this.pickles = ((SeaPickle) blockData).getPickles();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -12,7 +12,7 @@ public class ChiseledBookshelfSlot_5 implements SubBlockData{
         this.slot_5 = ((ChiseledBookshelf) blockData).isSlotOccupied(5);
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

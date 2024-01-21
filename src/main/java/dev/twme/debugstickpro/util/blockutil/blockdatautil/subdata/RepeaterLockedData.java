@@ -12,7 +12,7 @@ public class RepeaterLockedData implements SubBlockData{
         this.locked = ((Repeater) blockData).isLocked();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -13,7 +13,7 @@ public class BambooData implements SubBlockData{
         this.leaves = ((Bamboo) blockData).getLeaves();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

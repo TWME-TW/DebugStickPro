@@ -12,7 +12,7 @@ public class CandleData implements SubBlockData{
         this.candleCount = ((Candle)blockData).getCandles();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -12,7 +12,7 @@ public class RespawnAnchorData implements SubBlockData{
         this.charges = ((RespawnAnchor) blockData).getCharges();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

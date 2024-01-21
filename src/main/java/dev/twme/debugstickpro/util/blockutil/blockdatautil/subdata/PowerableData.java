@@ -12,7 +12,7 @@ public class PowerableData implements SubBlockData{
         this.powered = ((Powerable) blockData).isPowered();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

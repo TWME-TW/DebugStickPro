@@ -12,7 +12,7 @@ public class EndPortalFrameData implements SubBlockData{
         this.eye = ((EndPortalFrame) blockData).hasEye();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

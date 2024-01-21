@@ -12,7 +12,7 @@ public class PinkPetalsData implements SubBlockData{
         this.flowerAmount = ((PinkPetals) blockData).getFlowerAmount();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

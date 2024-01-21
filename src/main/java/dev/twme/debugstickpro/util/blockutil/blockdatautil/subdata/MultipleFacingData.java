@@ -16,7 +16,7 @@ public class MultipleFacingData implements SubBlockData{
         this.face = ((MultipleFacing) blockData).getFaces().stream().toList().get(0);
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

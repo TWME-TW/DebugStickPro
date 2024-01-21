@@ -15,7 +15,7 @@ public class PointedDripstoneVerticalDirectionData implements SubBlockData{
         this.verticalDirection = ((PointedDripstone) blockData).getVerticalDirection();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

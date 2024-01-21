@@ -16,7 +16,7 @@ public class OrientableData implements SubBlockData{
         this.axis = ((org.bukkit.block.data.Orientable) blockData).getAxis();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

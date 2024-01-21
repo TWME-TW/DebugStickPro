@@ -12,7 +12,7 @@ public class CrafterTriggerData implements SubBlockData{
         this.triggered = ((Crafter) blockData).isTriggered();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

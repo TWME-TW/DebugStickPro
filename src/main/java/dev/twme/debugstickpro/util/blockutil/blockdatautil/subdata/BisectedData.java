@@ -13,8 +13,8 @@ public class BisectedData implements SubBlockData{
         this.half = ((Bisected) blockData).getHalf();
     }
     @Override
-    public String NAME() {
-        return NAME();
+    public String name() {
+        return name();
     }
 
     @Override

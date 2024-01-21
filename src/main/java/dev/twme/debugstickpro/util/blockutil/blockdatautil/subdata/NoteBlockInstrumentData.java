@@ -16,7 +16,7 @@ public class NoteBlockInstrumentData implements SubBlockData{
         this.instrument = ((NoteBlock) blockData).getInstrument();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -1,20 +1,26 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.AnaloguePowerable;
 import org.bukkit.block.data.BlockData;
 
 public class AnaloguePowerableData implements SubBlockData{
-    private final String NAME = "Power";
     private BlockData blockData;
     private int power;
+    private boolean isUsing = false;
 
     public AnaloguePowerableData(BlockData blockData) {
         this.blockData = blockData;
         this.power = ((AnaloguePowerable) blockData).getPower();
     }
     @Override
-    public String NAME() {
-        return NAME;
+    public String name() {
+        return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public String getDisplayName() {
+        return LangFile.ActionBar.formatSelectedData(getAsString(),isUsing);
     }
 
     @Override
@@ -22,22 +28,12 @@ public class AnaloguePowerableData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextPower();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Power: " + power;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextPower();
-        return "Power: " + power;
-    }
 
     @Override
     public String getDataAsString() {
@@ -45,17 +41,23 @@ public class AnaloguePowerableData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextPower();
-        return String.valueOf(power);
+    public void setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextPower() {
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((AnaloguePowerable)blockData).setPower(power);
+        return blockData;
+    }
+    @Override
+    public SubBlockData nextData() {
         AnaloguePowerable analoguePowerable = (AnaloguePowerable) blockData;
         if (analoguePowerable.getPower() >= analoguePowerable.getMaximumPower()) {
             analoguePowerable.setPower(0);
@@ -63,5 +65,6 @@ public class AnaloguePowerableData implements SubBlockData{
             analoguePowerable.setPower(analoguePowerable.getPower() + 1);
         }
         this.power = analoguePowerable.getPower();
+        return this;
     }
 }

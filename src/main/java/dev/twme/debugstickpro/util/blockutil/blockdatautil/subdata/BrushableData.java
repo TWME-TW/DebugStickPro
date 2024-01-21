@@ -12,7 +12,7 @@ public class BrushableData implements SubBlockData{
         this.dusted = ((Brushable) blockData).getDusted();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -12,7 +12,7 @@ public class SculkCatalystData implements SubBlockData{
         this.isBloom = ((SculkCatalyst) blockData).isBloom();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

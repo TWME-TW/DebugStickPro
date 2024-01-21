@@ -12,7 +12,7 @@ public class PistonHeadData implements SubBlockData{
         this.shortArm = ((PistonHead) blockData).isShort();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

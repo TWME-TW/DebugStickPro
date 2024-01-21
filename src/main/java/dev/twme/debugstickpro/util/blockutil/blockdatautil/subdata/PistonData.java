@@ -12,7 +12,7 @@ public class PistonData implements SubBlockData{
         this.extended = ((Piston) blockData).isExtended();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

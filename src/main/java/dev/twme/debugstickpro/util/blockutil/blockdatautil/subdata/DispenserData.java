@@ -12,7 +12,7 @@ public class DispenserData implements SubBlockData{
         this.triggered = ((Dispenser) blockData).isTriggered();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

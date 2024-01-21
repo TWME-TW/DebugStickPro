@@ -12,7 +12,7 @@ public class CakeData implements SubBlockData{
         this.bites = ((Cake)blockData).getBites();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

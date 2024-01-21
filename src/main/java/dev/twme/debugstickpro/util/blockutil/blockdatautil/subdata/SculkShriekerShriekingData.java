@@ -12,7 +12,7 @@ public class SculkShriekerShriekingData implements SubBlockData{
         this.isShrieking = ((SculkShrieker) blockData).isShrieking();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

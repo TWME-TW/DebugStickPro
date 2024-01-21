@@ -12,7 +12,7 @@ public class LeavesPersistentData implements SubBlockData{
         this.persistent = ((Leaves) blockData).isPersistent();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

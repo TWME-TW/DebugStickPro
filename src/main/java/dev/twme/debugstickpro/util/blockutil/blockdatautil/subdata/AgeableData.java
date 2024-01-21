@@ -1,12 +1,13 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 
 public class AgeableData implements SubBlockData {
-    private final String NAME = "Age";
     private BlockData blockData;
     private int age;
+    private boolean isUsing = false;
 
     public AgeableData(BlockData blockData) {
         this.blockData = blockData;
@@ -14,8 +15,13 @@ public class AgeableData implements SubBlockData {
     }
 
     @Override
-    public String NAME() {
-        return NAME;
+    public String name() {
+        return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public String getDisplayName() {
+        return LangFile.ActionBar.formatSelectedData(getAsString(),isUsing);
     }
 
     @Override
@@ -23,40 +29,31 @@ public class AgeableData implements SubBlockData {
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextAge();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Age: " + age;
+        return LangFile.Ageable.replace("%age%",String.valueOf(age));
     }
 
-    @Override
-    public String getNextAsString() {
-        nextAge();
-        return "Age: " + age;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(age);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextAge();
-        return String.valueOf(age);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextAge() {
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         Ageable age = (Ageable) blockData;
         if (age.getAge() >= age.getMaximumAge()) {
             age.setAge(0);
@@ -64,5 +61,12 @@ public class AgeableData implements SubBlockData {
             age.setAge(age.getAge() + 1);
         }
         this.age = age.getAge();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Ageable) blockData).setAge(this.age);
+        return blockData;
     }
 }

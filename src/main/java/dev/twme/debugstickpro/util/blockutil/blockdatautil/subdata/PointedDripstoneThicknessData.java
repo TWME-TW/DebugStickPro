@@ -12,7 +12,7 @@ public class PointedDripstoneThicknessData implements SubBlockData{
         this.thickness = ((PointedDripstone) blockData).getThickness();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -14,7 +14,7 @@ public class ChiseledBookshelfSlot_Beta implements SubBlockData{
         this.block = block;
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

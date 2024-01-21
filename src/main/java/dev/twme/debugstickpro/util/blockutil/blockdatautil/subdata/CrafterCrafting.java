@@ -13,7 +13,7 @@ public class CrafterCrafting implements SubBlockData{
         this.crafting = ((Crafter) blockData).isCrafting();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

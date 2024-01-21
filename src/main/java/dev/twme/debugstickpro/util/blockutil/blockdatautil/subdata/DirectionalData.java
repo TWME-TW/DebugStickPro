@@ -15,7 +15,7 @@ public class DirectionalData implements SubBlockData{
         this.direction = ((Directional) blockData).getFacing();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

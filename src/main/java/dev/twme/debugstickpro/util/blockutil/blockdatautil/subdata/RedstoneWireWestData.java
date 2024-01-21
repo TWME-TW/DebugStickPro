@@ -14,7 +14,7 @@ public class RedstoneWireWestData implements SubBlockData{
         this.face = BlockFace.WEST;
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

@@ -12,7 +12,7 @@ public class LevelledData implements SubBlockData{
         this.level = ((Levelled) blockData).getLevel();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

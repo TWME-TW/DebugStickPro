@@ -12,7 +12,7 @@ public class SaplingData implements SubBlockData{
         this.stage = ((Sapling) blockData).getStage();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

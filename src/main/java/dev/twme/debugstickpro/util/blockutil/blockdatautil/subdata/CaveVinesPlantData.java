@@ -12,7 +12,7 @@ public class CaveVinesPlantData implements SubBlockData{
         this.isBerries = ((CaveVinesPlant) blockData).isBerries();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

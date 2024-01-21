@@ -1,7 +1,7 @@
-package dev.twme.debugstickpro.util.player.playerdata;
+package dev.twme.debugstickpro.util.player.playerdata.util;
 
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.SubBlockData;
-import dev.twme.debugstickpro.util.player.playerdata.DebugStickMode;
+import dev.twme.debugstickpro.util.player.playerdata.util.DebugStickMode;
 
 public class PlayerData {
     private SubBlockData subBlockData;
@@ -22,7 +22,7 @@ public class PlayerData {
     }
 
     public boolean isEqualSubBlockData(SubBlockData subBlockData) {
-        return this.subBlockData.NAME().equals(subBlockData.NAME());
+        return this.subBlockData.name().equals(subBlockData.name());
     }
     public DebugStickMode getDebugStickMode() {
         return debugStickMode;

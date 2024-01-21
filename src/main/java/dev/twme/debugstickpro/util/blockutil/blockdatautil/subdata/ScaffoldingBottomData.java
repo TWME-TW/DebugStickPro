@@ -12,7 +12,7 @@ public class ScaffoldingBottomData implements SubBlockData{
         this.bottom = ((Scaffolding) blockData).isBottom();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

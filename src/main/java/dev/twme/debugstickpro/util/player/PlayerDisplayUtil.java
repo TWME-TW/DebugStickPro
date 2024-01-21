@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.util.player;
 
-import dev.twme.debugstickpro.util.player.playerdata.PlayerData;
+import dev.twme.debugstickpro.util.player.playerdata.util.PlayerData;
 
 import java.util.HashMap;
 import java.util.UUID;

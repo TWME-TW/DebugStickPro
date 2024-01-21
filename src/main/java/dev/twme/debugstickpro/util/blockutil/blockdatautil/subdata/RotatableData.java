@@ -15,7 +15,7 @@ public class RotatableData implements SubBlockData{
         this.blockFace = ((Rotatable) blockData).getRotation();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

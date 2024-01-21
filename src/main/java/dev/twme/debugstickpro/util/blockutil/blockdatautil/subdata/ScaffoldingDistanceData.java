@@ -12,7 +12,7 @@ public class ScaffoldingDistanceData implements SubBlockData{
         this.distance = ((Scaffolding) blockData).getDistance();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

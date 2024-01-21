@@ -12,7 +12,7 @@ public class BedData implements SubBlockData{
         this.part = ((Bed) blockData).getPart();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

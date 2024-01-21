@@ -13,7 +13,7 @@ public class BubbleColumnData implements SubBlockData{
         this.hasBubbleColumn = ((BubbleColumn) blockData).isDrag();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

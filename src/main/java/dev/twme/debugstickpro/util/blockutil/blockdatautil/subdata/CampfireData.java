@@ -13,7 +13,7 @@ public class CampfireData implements SubBlockData{
         this.isSignalFire = ((Campfire)blockData).isSignalFire();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 

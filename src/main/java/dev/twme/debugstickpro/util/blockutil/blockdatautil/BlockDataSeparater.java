@@ -282,7 +282,8 @@ public class BlockDataSeparater {
         }
         /*TODO: ReDesign JigsawOrientation
         if (blockData instanceof Jukebox) {
-
+            SubBlockData jukebox = new JukeboxData(blockData);
+            blockDataList.add(jukebox);
         }
         */
         /* NOTE: Not Used
@@ -330,10 +331,13 @@ public class BlockDataSeparater {
         }
         */
         //TODO: ReDesign MultipleFacing(not work)
+        /*
         if (blockData instanceof MultipleFacing) {
             SubBlockData multipleFacing = new MultipleFacingData(blockData);
             blockDataList.add(multipleFacing);
         }
+        */
+
         //TODO: ReDesign NoteBlock
         if (blockData instanceof NoteBlock) {
 
@@ -394,6 +398,7 @@ public class BlockDataSeparater {
         }
         */
         //TODO: ReDesign This (Not Work)
+        /*
         if (blockData instanceof RedstoneWire) {
             SubBlockData redstoneWireNorth = new RedstoneWireNorthData(blockData);
             blockDataList.add(redstoneWireNorth);
@@ -404,7 +409,7 @@ public class BlockDataSeparater {
             SubBlockData redstoneWireWest = new RedstoneWireWestData(blockData);
             blockDataList.add(redstoneWireWest);
         }
-
+        */
         if (blockData instanceof Repeater) {
             SubBlockData repeaterDelayData = new RepeaterDelayData(blockData);
             blockDataList.add(repeaterDelayData);
@@ -468,73 +473,86 @@ public class BlockDataSeparater {
             SubBlockData slabData = new SlabData(blockData);
             blockDataList.add(slabData);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof SmallDripleaf) {
 
         }
-
+        */
         if (blockData instanceof Snow) {
-
+            SubBlockData snowData = new SnowData(blockData);
+            blockDataList.add(snowData);
         }
 
         if (blockData instanceof Snowable) {
-
+            SubBlockData snowableData = new SnowableData(blockData);
+            blockDataList.add(snowableData);
         }
 
         if (blockData instanceof Stairs) {
-
+            SubBlockData stairsData = new StairsData(blockData);
+            blockDataList.add(stairsData);
         }
 
         if (blockData instanceof StructureBlock) {
-
+            SubBlockData structureBlockMode = new StructureBlockData(blockData);
+            blockDataList.add(structureBlockMode);
         }
-
+        //TODO: Maybe ReDesign Switch ????
+        /* NOTE: Not Used
         if (blockData instanceof Switch) {
 
         }
-
+        */
         if (blockData instanceof TechnicalPiston) {
-
+            SubBlockData technicalPistonData = new TechnicalPistonData(blockData);
+            blockDataList.add(technicalPistonData);
         }
 
         if (blockData instanceof TNT) {
-
+            SubBlockData tntUnstable = new TNTData(blockData);
+            blockDataList.add(tntUnstable);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof TrapDoor) {
 
         }
-
+        */
         if (blockData instanceof TrialSpawner) {
-
+            SubBlockData trialSpawnerDelay = new TrialSpawnerData(blockData);
+            blockDataList.add(trialSpawnerDelay);
         }
 
         if (blockData instanceof Tripwire) {
-
+            SubBlockData tripwire = new TripwireData(blockData);
+            blockDataList.add(tripwire);
         }
-
+        /* NOTE: Not Used
         if (blockData instanceof TripwireHook) {
 
         }
+        */
 
         if (blockData instanceof TurtleEgg) {
-
+            SubBlockData turtleEggHatch = new TurtleEggData(blockData);
+            blockDataList.add(turtleEggHatch);
         }
-
+        /*
         if (blockData instanceof Wall) {
 
         }
-
+        */
+        /* NOTE: Not Used
         if (blockData instanceof WallHangingSign) {
 
         }
 
+
         if (blockData instanceof WallSign) {
 
         }
-
+        */
         if (blockData instanceof Waterlogged) {
-            Log.info("Waterlogged");
+
         }
 
 

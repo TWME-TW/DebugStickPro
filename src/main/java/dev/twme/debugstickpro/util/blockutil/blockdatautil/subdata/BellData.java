@@ -12,7 +12,7 @@ public class BellData implements SubBlockData{
         this.attachment = ((Bell)blockData).getAttachment();
     }
     @Override
-    public String NAME() {
+    public String name() {
         return NAME;
     }
 
