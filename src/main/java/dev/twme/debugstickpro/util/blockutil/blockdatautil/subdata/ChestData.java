@@ -1,12 +1,13 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Chest;
 
 public class ChestData implements SubBlockData {
-    private final String NAME = "Chest Type";
     private BlockData blockData;
     private Chest.Type type;
+    private boolean isUsing = false;
 
     public ChestData(BlockData blockData) {
         this.blockData = blockData;
@@ -15,7 +16,7 @@ public class ChestData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -23,40 +24,30 @@ public class ChestData implements SubBlockData {
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextType();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Chest Type: " + type.name();
+        return LangFile.Chest.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextType();
-        return "Chest Type: " + type.name();
-    }
 
     @Override
     public String getDataAsString() {
         return type.name();
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextType();
-        return type.name();
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextType() {
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    public SubBlockData nextData() {
         Chest chest = (Chest) blockData;
         if (chest.getType() == Chest.Type.SINGLE) {
             chest.setType(Chest.Type.LEFT);
@@ -66,5 +57,12 @@ public class ChestData implements SubBlockData {
             chest.setType(Chest.Type.SINGLE);
         }
         this.type = chest.getType();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Chest) blockData).setType(type);
+        return blockData;
     }
 }

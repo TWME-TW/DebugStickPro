@@ -1,19 +1,22 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cake;
+import org.checkerframework.framework.qual.PreconditionAnnotation;
 
 public class CakeData implements SubBlockData{
-    private String NAME = "Cake";
     private BlockData blockData;
     private int bites;
+    private boolean isUsing = false;
+
     public CakeData(BlockData blockData){
         this.blockData = blockData;
         this.bites = ((Cake)blockData).getBites();
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -21,40 +24,32 @@ public class CakeData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextBite();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Bites: " + bites;
+        return LangFile.Cake.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextBite();
-        return "Bites: " + bites;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(bites);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextBite();
-        return String.valueOf(bites);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextBite(){
+    @Override
+    public SubBlockData nextData(){
         Cake cake = ((Cake) blockData);
         if (cake.getBites() >= (cake.getMaximumBites() - 1)){
             cake.setBites(0);
@@ -62,6 +57,12 @@ public class CakeData implements SubBlockData{
             cake.setBites(cake.getBites() + 1);
         }
         this.bites = cake.getBites();
+        return this;
+    }
 
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Cake) blockData).setBites(bites);
+        return blockData;
     }
 }

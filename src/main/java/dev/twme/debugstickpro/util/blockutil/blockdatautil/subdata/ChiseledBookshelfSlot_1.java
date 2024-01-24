@@ -1,19 +1,20 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
 public class ChiseledBookshelfSlot_1 implements SubBlockData{
-    private String NAME = "Bookshelf Slot";
     private BlockData blockData;
     private boolean slot_1;
+    private boolean isUsing = false;
     public ChiseledBookshelfSlot_1(BlockData blockData){
         this.blockData = blockData;
         this.slot_1 = ((ChiseledBookshelf) blockData).isSlotOccupied(1);
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -21,40 +22,30 @@ public class ChiseledBookshelfSlot_1 implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextSlotProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Slot 1: " + slot_1;
+        return LangFile.ChiseledBookshelfSlot_1.replace("%data%",getDataAsString()));
     }
 
-    @Override
-    public String getNextAsString() {
-        nextSlotProperty();
-        return "Slot 1: " + slot_1;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(slot_1);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextSlotProperty();
-        return String.valueOf(slot_1);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextSlotProperty(){
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    public SubBlockData nextData(){
         ChiseledBookshelf chiseledBookshelf = ((ChiseledBookshelf) blockData);
         if (chiseledBookshelf.isSlotOccupied(1)){
             chiseledBookshelf.setSlotOccupied(1, false);
@@ -62,5 +53,12 @@ public class ChiseledBookshelfSlot_1 implements SubBlockData{
             chiseledBookshelf.setSlotOccupied(1, true);
         }
         this.slot_1 = chiseledBookshelf.isSlotOccupied(1);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((ChiseledBookshelf)blockData).setSlotOccupied(1, slot_1);
+        return blockData;
     }
 }

@@ -1,11 +1,12 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Candle;
 
 public class CandleData implements SubBlockData{
-    private String NAME = "Candle";
     private BlockData blockData;
+    private boolean isUsing = false;
     private int candleCount;
     public CandleData(BlockData blockData){
         this.blockData = blockData;
@@ -13,7 +14,7 @@ public class CandleData implements SubBlockData{
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,39 +23,29 @@ public class CandleData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextCandleCount();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Candle Count: " + candleCount;
+        return LangFile.Candle.replace("%data%",getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextCandleCount();
-        return "Candle Count: " + candleCount;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(candleCount);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextCandleCount();
-        return String.valueOf(candleCount);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextCandleCount(){
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData(){
         Candle candle = ((Candle) blockData);
         if (candle.getCandles() >= candle.getMaximumCandles()){
             candle.setCandles(1);
@@ -62,5 +53,12 @@ public class CandleData implements SubBlockData{
             candle.setCandles(candle.getCandles() + 1);
         }
         candleCount = candle.getCandles();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Candle)blockData).setCandles(candleCount);
+        return blockData;
     }
 }

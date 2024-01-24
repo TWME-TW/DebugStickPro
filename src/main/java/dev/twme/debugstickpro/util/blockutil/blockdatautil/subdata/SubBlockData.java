@@ -12,7 +12,7 @@ public interface SubBlockData {
 
     public abstract String getDataAsString();
 
-    public abstract void setIsUsing(boolean isUsing);
+    public abstract SubBlockData setIsUsing(boolean isUsing);
     public abstract boolean isUsing();
 
     public abstract SubBlockData nextData();

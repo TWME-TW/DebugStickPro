@@ -37,8 +37,9 @@ public class BrushableData implements SubBlockData {
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
+    public SubBlockData setIsUsing(boolean isUsing) {
         this.isUsing = isUsing;
+        return this;
     }
 
     @Override

@@ -1,20 +1,23 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Brushable;
 import org.bukkit.block.data.type.BubbleColumn;
 
-public class BubbleColumnData implements SubBlockData{
-    private String NAME = "BubbleColumn";
+public class BubbleColumnData implements SubBlockData {
+
     private BlockData blockData;
     private boolean hasBubbleColumn;
-    public BubbleColumnData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public BubbleColumnData(BlockData blockData) {
         this.blockData = blockData;
         this.hasBubbleColumn = ((BubbleColumn) blockData).isDrag();
     }
+
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,42 +25,40 @@ public class BubbleColumnData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextDragProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "BubbleColumn: " + hasBubbleColumn;
+        return LangFile.BubbleColumn.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextDragProperty();
-        return "BubbleColumn: " + hasBubbleColumn;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(hasBubbleColumn);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextDragProperty();
-        return String.valueOf(hasBubbleColumn);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextDragProperty(){
+    public SubBlockData nextData() {
         BubbleColumn bubbleColumn = ((BubbleColumn) blockData);
         bubbleColumn.setDrag(!bubbleColumn.isDrag());
         this.hasBubbleColumn = bubbleColumn.isDrag();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((BubbleColumn) blockData).setDrag(hasBubbleColumn);
+        return blockData;
     }
 }

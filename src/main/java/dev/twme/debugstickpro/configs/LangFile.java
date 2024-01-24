@@ -22,4 +22,12 @@ public class LangFile {
     public static String BrewingStandBottle_1 = "Bottle 1: %data%";
     public static String BrewingStandBottle_2 = "Bottle 2: %data%";
     public static String Brushable = "Brushed: %data%";
+    public static String BubbleColumn = "Drag: %data%";
+    public static String Cake = "Bites: %data%";
+    public static String Campfire = "Signal Fire: %data%";
+    public static String Candle = "Candle Count: %data%";
+    public static String CaveVinesPlant = "Berries: %data%";
+    public static String Chest = "Chest Type: %data%";
+    public static String ChiseledBookshelfSlot_0 = "Slot 0: %data%";
+    public static String ChiseledBookshelfSlot_1 = "Slot 1: %data%";
 }

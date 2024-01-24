@@ -1,20 +1,22 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.BubbleColumn;
 import org.bukkit.block.data.type.Campfire;
 
-public class CampfireData implements SubBlockData{
-    private String NAME = "Campfire";
+public class CampfireData implements SubBlockData {
     private BlockData blockData;
     private boolean isSignalFire;
-    public CampfireData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public CampfireData(BlockData blockData) {
         this.blockData = blockData;
-        this.isSignalFire = ((Campfire)blockData).isSignalFire();
+        this.isSignalFire = ((Campfire) blockData).isSignalFire();
     }
+
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,42 +24,40 @@ public class CampfireData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextSignalFireProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Signal Fire: " + isSignalFire;
+        return LangFile.Campfire.replace("%data%", getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextSignalFireProperty();
-        return "Signal Fire: " + isSignalFire;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(isSignalFire);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextSignalFireProperty();
-        return String.valueOf(isSignalFire);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
 
-    private void nextSignalFireProperty(){
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SubBlockData nextData() {
         Campfire campfire = ((Campfire) blockData);
         campfire.setSignalFire(!campfire.isSignalFire());
         this.isSignalFire = campfire.isSignalFire();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Campfire) blockData).setSignalFire(isSignalFire);
+        return blockData;
     }
 }
