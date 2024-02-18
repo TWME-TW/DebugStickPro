@@ -3,13 +3,16 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Tripwire;
 
-public class TripwireData implements SubBlockData{
+public class TripwireData implements SubBlockData {
     private BlockData blockData;
     private boolean isDisarmed;
-    public TripwireData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public TripwireData(BlockData blockData) {
         this.blockData = blockData;
-        this.isDisarmed = ((Tripwire)blockData).isDisarmed();
+        this.isDisarmed = ((Tripwire) blockData).isDisarmed();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
@@ -21,19 +24,7 @@ public class TripwireData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Disarmed: " + isDisarmed;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "Disarmed: " + isDisarmed;
     }
 
@@ -43,18 +34,26 @@ public class TripwireData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(isDisarmed);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData() {
         Tripwire tripwire = ((Tripwire) blockData);
         isDisarmed = !isDisarmed;
         tripwire.setDisarmed(isDisarmed);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Tripwire) blockData).setDisarmed(isDisarmed);
+        return blockData;
     }
 }

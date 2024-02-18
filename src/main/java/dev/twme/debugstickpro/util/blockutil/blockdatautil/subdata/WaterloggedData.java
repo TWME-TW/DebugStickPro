@@ -6,6 +6,7 @@ import org.bukkit.block.data.Waterlogged;
 public class WaterloggedData implements SubBlockData{
     private BlockData blockData;
     private boolean waterlogged;
+    private boolean isUsing = false;
     public WaterloggedData(BlockData blockData){
         this.blockData = blockData;
         this.waterlogged = ((Waterlogged)blockData).isWaterlogged();
@@ -21,42 +22,40 @@ public class WaterloggedData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Waterlogged: " + waterlogged;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Waterlogged: " + waterlogged;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(waterlogged);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(waterlogged);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextData(){
+    public SubBlockData nextData(){
         Waterlogged waterlogged = ((Waterlogged) blockData);
         this.waterlogged = !waterlogged.isWaterlogged();
         waterlogged.setWaterlogged(this.waterlogged);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Waterlogged)blockData).setWaterlogged(waterlogged);
+        return blockData;
     }
 }

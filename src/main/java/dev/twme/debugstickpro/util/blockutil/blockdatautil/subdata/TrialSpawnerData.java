@@ -6,6 +6,7 @@ import org.bukkit.block.data.type.TrialSpawner;
 public class TrialSpawnerData implements SubBlockData{
     private BlockData blockData;
     private TrialSpawner.State state;
+    private boolean isUsing = false;
     public TrialSpawnerData(BlockData blockData){
         this.blockData = blockData;
         this.state = ((TrialSpawner) blockData).getTrialSpawnerState();
@@ -21,21 +22,10 @@ public class TrialSpawnerData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "State: " + state.name();
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "State: " + state.name();
-    }
 
     @Override
     public String getDataAsString() {
@@ -43,16 +33,17 @@ public class TrialSpawnerData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return state.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         TrialSpawner trialSpawner = ((TrialSpawner) blockData);
         if (state == TrialSpawner.State.ACTIVE) {
             state = TrialSpawner.State.COOLDOWN;
@@ -68,5 +59,12 @@ public class TrialSpawnerData implements SubBlockData{
             state = TrialSpawner.State.ACTIVE;
         }
         trialSpawner.setTrialSpawnerState(state);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((TrialSpawner)blockData).setTrialSpawnerState(state);
+        return blockData;
     }
 }

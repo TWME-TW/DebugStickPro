@@ -6,6 +6,7 @@ import org.bukkit.block.data.type.TechnicalPiston;
 public class TechnicalPistonData implements SubBlockData {
     private BlockData blockData;
     private TechnicalPiston.Type type;
+    private boolean isUsing = false;
 
     public TechnicalPistonData(BlockData blockData) {
         this.blockData = blockData;
@@ -23,39 +24,29 @@ public class TechnicalPistonData implements SubBlockData {
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "Type: " + type.name();
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Type: " + type.name();
-    }
 
     @Override
     public String getDataAsString() {
         return type.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return type.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextData() {
+    public SubBlockData nextData() {
         TechnicalPiston technicalPiston = ((TechnicalPiston) blockData);
         if (type == TechnicalPiston.Type.NORMAL) {
             type = TechnicalPiston.Type.STICKY;
@@ -63,5 +54,11 @@ public class TechnicalPistonData implements SubBlockData {
             type = TechnicalPiston.Type.NORMAL;
         }
         technicalPiston.setType(type);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        return null;
     }
 }

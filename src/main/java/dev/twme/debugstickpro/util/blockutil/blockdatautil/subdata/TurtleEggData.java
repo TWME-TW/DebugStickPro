@@ -6,6 +6,8 @@ import org.bukkit.block.data.type.TurtleEgg;
 public class TurtleEggData implements SubBlockData{
     private BlockData blockData;
     private int eggs;
+    private boolean isUsing = false;
+
     public TurtleEggData(BlockData blockData){
         this.blockData = blockData;
         this.eggs = ((TurtleEgg)blockData).getEggs();
@@ -20,11 +22,6 @@ public class TurtleEggData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
@@ -32,26 +29,23 @@ public class TurtleEggData implements SubBlockData{
     }
 
     @Override
-    public String getNextAsString() {
-        nextData();
-        return "Eggs: " + eggs;
-    }
-
-    @Override
     public String getDataAsString() {
-        return null;
+        return String.valueOf(eggs);
+    }
+
+
+    @Override
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return  this;
     }
 
     @Override
-    public String getNextDataAsString() {
-        return null;
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    @Override
-    public void setIsUsing(boolean isUsing) {
-
-    }
-    private void nextData(){
+    public SubBlockData nextData(){
         TurtleEgg turtleEgg = ((TurtleEgg) blockData);
         if (eggs >= turtleEgg.getMaximumEggs()){
             eggs = turtleEgg.getMinimumEggs();
@@ -59,5 +53,12 @@ public class TurtleEggData implements SubBlockData{
             eggs++;
         }
         turtleEgg.setEggs(eggs);
+        return  this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((TurtleEgg)blockData).setEggs(eggs);
+        return blockData;
     }
 }
