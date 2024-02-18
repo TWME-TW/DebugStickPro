@@ -7,6 +7,7 @@ public class HopperData implements SubBlockData{
     private final String NAME = "Hopper Enabled";
     private BlockData blockData;
     private boolean enabled;
+    private boolean isUsing = false;
     public HopperData(BlockData blockData){
         this.blockData = blockData;
         this.enabled = ((Hopper) blockData).isEnabled();
@@ -22,42 +23,42 @@ public class HopperData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextEnabledProperty();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Enabled: " + enabled;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextEnabledProperty();
-        return "Enabled: " + enabled;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(enabled);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextEnabledProperty();
-        return String.valueOf(enabled);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextEnabledProperty(){
+    public SubBlockData nextData(){
         Hopper hopper = ((Hopper) blockData);
         hopper.setEnabled(!hopper.isEnabled());
         this.enabled = hopper.isEnabled();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Hopper)blockData).setEnabled(enabled);
+        return blockData;
     }
 }

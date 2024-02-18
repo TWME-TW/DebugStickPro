@@ -7,6 +7,7 @@ public class HangableData implements SubBlockData{
     private String NAME = "Hangable";
     private BlockData blockData;
     private boolean hangable;
+    private boolean isUsing =  false;
     public HangableData(BlockData blockData){
         this.blockData = blockData;
         this.hangable = ((Hangable) blockData).isHanging();
@@ -22,42 +23,44 @@ public class HangableData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextHangableProperty();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Hangable: " + hangable;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextHangableProperty();
-        return "Hangable: " + hangable;
-    }
+
 
     @Override
     public String getDataAsString() {
         return String.valueOf(hangable);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextHangableProperty();
-        return String.valueOf(hangable);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextHangableProperty(){
+    @Override
+    public SubBlockData nextData(){
         Hangable hangable = ((Hangable) blockData);
         hangable.setHanging(!hangable.isHanging());
         this.hangable = hangable.isHanging();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Hangable)blockData).setHanging(hangable);
+        return blockData;
     }
 }

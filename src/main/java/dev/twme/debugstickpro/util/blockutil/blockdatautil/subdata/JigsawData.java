@@ -7,6 +7,7 @@ public class JigsawData implements SubBlockData{
     private String NAME = "Jigsaw";
     private BlockData blockData;
     private Jigsaw.Orientation orientation;
+    private boolean isUsing = false;
     public JigsawData(BlockData blockData){
         this.blockData = blockData;
         this.orientation = ((Jigsaw) blockData).getOrientation();
@@ -22,20 +23,9 @@ public class JigsawData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextOrientationProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "orientation: " + orientation.name();
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextOrientationProperty();
         return "orientation: " + orientation.name();
     }
 
@@ -45,17 +35,18 @@ public class JigsawData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextOrientationProperty();
-        return orientation.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextOrientationProperty(){
+    @Override
+    public SubBlockData nextData(){
         if (orientation == Jigsaw.Orientation.DOWN_EAST){
             ((Jigsaw) blockData).setOrientation(Jigsaw.Orientation.DOWN_NORTH);
         } else if (orientation == Jigsaw.Orientation.DOWN_NORTH){
@@ -82,5 +73,12 @@ public class JigsawData implements SubBlockData{
             ((Jigsaw) blockData).setOrientation(Jigsaw.Orientation.DOWN_EAST);
         }
         orientation = ((Jigsaw) blockData).getOrientation();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Jigsaw)blockData).setOrientation(orientation);
+        return blockData;
     }
 }

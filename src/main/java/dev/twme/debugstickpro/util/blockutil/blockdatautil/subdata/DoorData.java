@@ -3,11 +3,13 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Door;
 
-public class DoorData implements SubBlockData{
+public class DoorData implements SubBlockData {
     private String NAME = "Door Hinge";
     private BlockData blockData;
     private Door.Hinge hinge;
-    public DoorData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public DoorData(BlockData blockData) {
         this.blockData = blockData;
         this.hinge = ((Door) blockData).getHinge();
     }
@@ -22,46 +24,47 @@ public class DoorData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextHingeProperty();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Door Hinge: " + hinge;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextHingeProperty();
-        return "Door Hinge: " + hinge;
-    }
+
 
     @Override
     public String getDataAsString() {
         return hinge.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextHingeProperty();
-        return hinge.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextHingeProperty(){
+    @Override
+    public SubBlockData nextData() {
         Door door = ((Door) blockData);
-        if (door.getHinge() == Door.Hinge.LEFT){
+        if (door.getHinge() == Door.Hinge.LEFT) {
             door.setHinge(Door.Hinge.RIGHT);
         } else {
             door.setHinge(Door.Hinge.LEFT);
         }
         this.hinge = door.getHinge();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Door) blockData).setHinge(hinge);
+        return blockData;
     }
 }

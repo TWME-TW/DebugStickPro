@@ -7,6 +7,7 @@ public class LeavesPersistentData implements SubBlockData{
     private String NAME = "Leaves Persistent";
     private BlockData blockData;
     private boolean persistent;
+    private boolean isUsing;
     public LeavesPersistentData(BlockData blockData){
         this.blockData = blockData;
         this.persistent = ((Leaves) blockData).isPersistent();
@@ -21,39 +22,40 @@ public class LeavesPersistentData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextPersistentProperty();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Persistent: " + persistent;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextPersistentProperty();
-        return "Persistent: " + persistent;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(persistent);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        return String.valueOf(persistent);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextPersistentProperty(){
+    public SubBlockData nextData(){
         ((Leaves) blockData).setPersistent(!persistent);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Leaves)blockData).setPersistent(persistent);
+        return blockData;
     }
 }

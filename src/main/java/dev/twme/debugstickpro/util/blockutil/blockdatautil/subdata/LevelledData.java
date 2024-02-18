@@ -6,6 +6,7 @@ import org.bukkit.block.data.Levelled;
 public class LevelledData implements SubBlockData{
     private String NAME = "Levelled";
     private BlockData blockData;
+    private boolean isUsing;
     private int level;
     public LevelledData(BlockData blockData){
         this.blockData = blockData;
@@ -21,40 +22,33 @@ public class LevelledData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextLevel();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Level: " + level;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextLevel();
-        return "Level: " + level;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(level);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextLevel();
-        return String.valueOf(level);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextLevel(){
+    public SubBlockData nextData(){
         Levelled levelled = ((Levelled) blockData);
         if (level == levelled.getMaximumLevel()){
             level = levelled.getMinimumLevel();
@@ -62,6 +56,13 @@ public class LevelledData implements SubBlockData{
             level++;
         }
         levelled.setLevel(level);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Levelled) blockData).setLevel(level);
+        return blockData;
     }
 
 }

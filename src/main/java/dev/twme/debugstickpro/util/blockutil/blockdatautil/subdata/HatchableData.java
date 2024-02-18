@@ -7,6 +7,7 @@ public class HatchableData implements SubBlockData{
     private String NAME = "Hatchable";
     private BlockData blockData;
     private int hatch;
+    private boolean isUsing =  false;
     public HatchableData(BlockData blockData){
         this.blockData = blockData;
         this.hatch = ((Hatchable) blockData).getHatch();
@@ -22,40 +23,34 @@ public class HatchableData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextHatchProperty();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Hatch: " + hatch;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextHatchProperty();
-        return "Hatch: " + hatch;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(hatch);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextHatchProperty();
-        return String.valueOf(hatch);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextHatchProperty(){
+    @Override
+    public SubBlockData nextData(){
         Hatchable hatchable = ((Hatchable) blockData);
         if (hatchable.getHatch() >= hatchable.getMaximumHatch()) {
             hatchable.setHatch(1);
@@ -63,5 +58,12 @@ public class HatchableData implements SubBlockData{
             hatchable.setHatch(hatchable.getHatch() + 1);
         }
         this.hatch = hatchable.getHatch();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Hatchable) blockData).setHatch(hatch);
+        return blockData;
     }
 }

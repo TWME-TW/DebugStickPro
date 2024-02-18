@@ -7,6 +7,7 @@ public class FarmlandData implements SubBlockData{
     private String NAME = "Farmland Moisture";
     private BlockData blockData;
     private int moisture;
+    private boolean isUsing = false;
     public FarmlandData(BlockData blockData) {
         this.blockData = blockData;
         this.moisture = ((Farmland) blockData).getMoisture();
@@ -22,39 +23,31 @@ public class FarmlandData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextMoisture();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Moisture: " + moisture;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextMoisture();
-        return "Moisture: " + moisture;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(moisture);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        return String.valueOf(moisture);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextMoisture() {
+    public SubBlockData nextData() {
         Farmland farmland = (Farmland) blockData;
         if (moisture >= farmland.getMaximumMoisture()) {
             moisture = 0;
@@ -62,5 +55,12 @@ public class FarmlandData implements SubBlockData{
             moisture++;
         }
         farmland.setMoisture(moisture);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        Farmland farmland = (Farmland) blockData;
+        return blockData;
     }
 }

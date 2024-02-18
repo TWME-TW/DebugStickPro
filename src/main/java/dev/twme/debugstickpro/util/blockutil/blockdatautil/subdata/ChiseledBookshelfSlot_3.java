@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
@@ -24,7 +25,7 @@ public class ChiseledBookshelfSlot_3 implements SubBlockData{
 
     @Override
     public String getAsString() {
-        return "Slot 3: " + slot_3;
+        return LangFile.ChiseledBookshelfSlot_3.replace("%data%",getDataAsString());
     }
 
 
@@ -57,6 +58,7 @@ public class ChiseledBookshelfSlot_3 implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        return null;
+        ((ChiseledBookshelf)blockData).setSlotOccupied(3,slot_3);
+        return blockData;
     }
 }

@@ -7,6 +7,7 @@ public class DispenserData implements SubBlockData{
     private String NAME = "Triggered";
     private BlockData blockData;
     private boolean triggered;
+    private boolean isUsing = false;
     public DispenserData(BlockData blockData){
         this.blockData = blockData;
         this.triggered = ((Dispenser) blockData).isTriggered();
@@ -21,20 +22,9 @@ public class DispenserData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextTriggeredProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Triggered: " + triggered;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextTriggeredProperty();
         return "Triggered: " + triggered;
     }
 
@@ -44,19 +34,27 @@ public class DispenserData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextTriggeredProperty();
-        return String.valueOf(triggered);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextTriggeredProperty(){
+    @Override
+    public SubBlockData nextData(){
         Dispenser dispenser = ((Dispenser) blockData);
         dispenser.setTriggered(!dispenser.isTriggered());
         this.triggered = dispenser.isTriggered();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Dispenser) blockData).setTriggered(triggered);
+        return blockData;
     }
 }

@@ -7,6 +7,7 @@ public class FaceAttachableData implements SubBlockData{
     private String NAME = "Face Attached";
     private BlockData blockData;
     private FaceAttachable.AttachedFace attachedFace;
+    private boolean isUsing = false;
     public FaceAttachableData(BlockData blockData) {
         this.blockData = blockData;
         this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
@@ -22,40 +23,32 @@ public class FaceAttachableData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextAttachedFace();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Face Attached: " + attachedFace.name();
     }
 
-    @Override
-    public String getNextAsString() {
-        nextAttachedFace();
-        return "Face Attached: " + attachedFace.name();
-    }
 
     @Override
     public String getDataAsString() {
         return attachedFace.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextAttachedFace();
-        return attachedFace.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextAttachedFace() {
+    @Override
+    public SubBlockData nextData() {
         FaceAttachable faceAttachable = ((FaceAttachable) blockData);
         if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.CEILING) {
             faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.FLOOR);
@@ -65,5 +58,12 @@ public class FaceAttachableData implements SubBlockData{
             faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.CEILING);
         }
         this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((FaceAttachable) blockData).setAttachedFace(attachedFace);
+        return blockData;
     }
 }

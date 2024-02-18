@@ -1,10 +1,10 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
 public class ChiseledBookshelfSlot_4 implements SubBlockData{
-    private String NAME = "Bookshelf Slot";
     private BlockData blockData;
     private boolean slot_4;
     private boolean isUsing = false;
@@ -14,7 +14,7 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData{
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData{
 
     @Override
     public String getAsString() {
-        return "Slot 4: " + slot_4;
+        return LangFile.ChiseledBookshelfSlot_4.replace("%data%",getDataAsString());
     }
 
 

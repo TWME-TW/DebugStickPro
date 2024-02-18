@@ -25,7 +25,7 @@ public class ChiseledBookshelfSlot_1 implements SubBlockData{
 
     @Override
     public String getAsString() {
-        return LangFile.ChiseledBookshelfSlot_1.replace("%data%",getDataAsString()));
+        return LangFile.ChiseledBookshelfSlot_1.replace("%data%",getDataAsString());
     }
 
 
@@ -36,8 +36,9 @@ public class ChiseledBookshelfSlot_1 implements SubBlockData{
 
 
     @Override
-    public void setIsUsing(boolean isUsing) {
+    public SubBlockData setIsUsing(boolean isUsing) {
         this.isUsing = isUsing;
+        return this;
     }
 
     @Override

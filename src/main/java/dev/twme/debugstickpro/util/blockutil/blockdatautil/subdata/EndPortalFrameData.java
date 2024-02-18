@@ -7,6 +7,7 @@ public class EndPortalFrameData implements SubBlockData{
     private String NAME = "EndPortalFrameData Eye";
     private BlockData blockData;
     private boolean eye;
+    private boolean isUsing = false;
     public EndPortalFrameData(BlockData blockData){
         this.blockData = blockData;
         this.eye = ((EndPortalFrame) blockData).hasEye();
@@ -21,42 +22,41 @@ public class EndPortalFrameData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextEyeProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Eye: " + eye;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextEyeProperty();
-        return "Eye: " + eye;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(eye);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextEyeProperty();
-        return String.valueOf(eye);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextEyeProperty(){
+    @Override
+    public SubBlockData nextData(){
         EndPortalFrame endPortalFrame = ((EndPortalFrame) blockData);
         endPortalFrame.setEye(!endPortalFrame.hasEye());
         this.eye = endPortalFrame.hasEye();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((EndPortalFrame) blockData).setEye(eye);
+        return blockData;
     }
 }

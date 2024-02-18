@@ -7,6 +7,7 @@ public class GateData implements SubBlockData{
     private final String NAME = "InWall";
     private BlockData blockData;
     private boolean inWall;
+    private boolean isUsing = false;
     public GateData(BlockData blockData){
         this.blockData = blockData;
         this.inWall = ((Gate) blockData).isInWall();
@@ -22,42 +23,44 @@ public class GateData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextInWallProperty();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "InWall: " + inWall;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextInWallProperty();
-        return "InWall: " + inWall;
-    }
+
 
     @Override
     public String getDataAsString() {
         return String.valueOf(inWall);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextInWallProperty();
-        return String.valueOf(inWall);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextInWallProperty(){
+    @Override
+    public SubBlockData nextData(){
         Gate gate = ((org.bukkit.block.data.type.Gate) blockData);
         gate.setInWall(!gate.isInWall());
         this.inWall = gate.isInWall();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Gate) blockData).setInWall(inWall);
+        return blockData;
     }
 }

@@ -31,6 +31,4 @@ public class PlayerData {
         this.debugStickMode = debugStickMode;
     }
 
-
-
 }

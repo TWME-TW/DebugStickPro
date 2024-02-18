@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 public class ChiseledBookshelfSlot_Beta implements SubBlockData{
     private String NAME = "Bookshelf Slot 5";
     private Block block;
+    private boolean isUsing = false;
     public ChiseledBookshelfSlot_Beta(Block block){
         this.block = block;
     }
@@ -23,20 +24,9 @@ public class ChiseledBookshelfSlot_Beta implements SubBlockData{
         return block.getBlockData();
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextSlot();
-        return block.getBlockData();
-    }
 
     @Override
     public String getAsString() {
-        return "Slot 5: " + ((org.bukkit.block.data.type.ChiseledBookshelf) block.getBlockData()).isSlotOccupied(5);
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextSlot();
         return "Slot 5: " + ((org.bukkit.block.data.type.ChiseledBookshelf) block.getBlockData()).isSlotOccupied(5);
     }
 
@@ -45,15 +35,25 @@ public class ChiseledBookshelfSlot_Beta implements SubBlockData{
         return String.valueOf(((org.bukkit.block.data.type.ChiseledBookshelf) block.getBlockData()).isSlotOccupied(5));
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextSlot();
-        return String.valueOf(((org.bukkit.block.data.type.ChiseledBookshelf) block.getBlockData()).isSlotOccupied(5));
+    public SubBlockData setIsUsing(boolean isUsing) {
+        return null;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
+    public boolean isUsing() {
+        return false;
+    }
 
+    @Override
+    public SubBlockData nextData() {
+        return null;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        return null;
     }
 
     private void nextSlot(){

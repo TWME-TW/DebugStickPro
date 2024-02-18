@@ -30,4 +30,9 @@ public class LangFile {
     public static String Chest = "Chest Type: %data%";
     public static String ChiseledBookshelfSlot_0 = "Slot 0: %data%";
     public static String ChiseledBookshelfSlot_1 = "Slot 1: %data%";
+    public static String ChiseledBookshelfSlot_2 = "Slot 2: %data%";
+    public static String ChiseledBookshelfSlot_3 = "Slot 3: %data%";
+    public static String ChiseledBookshelfSlot_4 = "Slot 4: %data%";
+    public static String ChiseledBookshelfSlot_5 = "Slot 5: %data%";
+    public static String CommandBlockData = "Conditional: %data%";
 }

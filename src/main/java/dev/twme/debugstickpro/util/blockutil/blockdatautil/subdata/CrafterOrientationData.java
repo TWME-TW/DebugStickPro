@@ -4,16 +4,16 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 
 public class CrafterOrientationData implements SubBlockData{
-    private String NAME = "Crafter Orientation";
     private BlockData blockData;
     private Crafter.Orientation orientation;
+    private boolean isUsing;
     public CrafterOrientationData(BlockData blockData){
         this.blockData = blockData;
         this.orientation = ((Crafter) blockData).getOrientation();
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -21,40 +21,32 @@ public class CrafterOrientationData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextOrientationProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Crafter Orientation: " + orientation.name();
     }
 
-    @Override
-    public String getNextAsString() {
-        nextOrientationProperty();
-        return "Crafter Orientation: " + orientation.name();
-    }
 
     @Override
     public String getDataAsString() {
         return orientation.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextOrientationProperty();
-        return orientation.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextOrientationProperty(){
+    @Override
+    public SubBlockData nextData(){
         Crafter crafter = ((Crafter) blockData);
         if (crafter.getOrientation() == Crafter.Orientation.DOWN_EAST){
             crafter.setOrientation(Crafter.Orientation.DOWN_NORTH);
@@ -82,5 +74,12 @@ public class CrafterOrientationData implements SubBlockData{
             crafter.setOrientation(Crafter.Orientation.DOWN_EAST);
         }
         this.orientation = crafter.getOrientation();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Crafter)blockData).setOrientation(orientation);
+        return blockData;
     }
 }

@@ -4,9 +4,9 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 
 public class CrafterCrafting implements SubBlockData{
-    private String NAME = "Crafting";
     private BlockData blockData;
     private boolean crafting;
+    private boolean isUsing = false;
 
     public CrafterCrafting(BlockData blockData){
         this.blockData = blockData;
@@ -14,7 +14,7 @@ public class CrafterCrafting implements SubBlockData{
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,43 +22,40 @@ public class CrafterCrafting implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextCraftingProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Crafting: " + crafting;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextCraftingProperty();
-        return "Crafting: " + crafting;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(crafting);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextCraftingProperty();
-        return String.valueOf(crafting);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return false;
     }
 
 
-    private void nextCraftingProperty(){
+    public SubBlockData nextData(){
         Crafter crafter = ((Crafter) blockData);
         crafter.setCrafting(!crafter.isCrafting());
         this.crafting = crafter.isCrafting();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        return null;
     }
 }

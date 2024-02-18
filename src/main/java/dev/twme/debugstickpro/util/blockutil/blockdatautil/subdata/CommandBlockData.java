@@ -1,12 +1,14 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CommandBlock;
+import org.bukkit.material.SmoothBrick;
 
 public class CommandBlockData implements SubBlockData{
-    private String NAME = "Command Block";
-    private BlockData blockData;
+        private BlockData blockData;
     private boolean conditional;
+    private boolean isUsing = false;
     public CommandBlockData(BlockData blockData){
         this.blockData = blockData;
         this.conditional = ((CommandBlock) blockData).isConditional();
@@ -14,7 +16,7 @@ public class CommandBlockData implements SubBlockData{
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -23,21 +25,10 @@ public class CommandBlockData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextConditionalProperty();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Conditional: " + conditional;
+        return LangFile.CommandBlockData.replace("%data%",getDataAsString());
     }
 
-    @Override
-    public String getNextAsString() {
-        nextConditionalProperty();
-        return "Conditional: " + conditional;
-    }
 
     @Override
     public String getDataAsString() {
@@ -45,19 +36,26 @@ public class CommandBlockData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextConditionalProperty();
-        return String.valueOf(conditional);
+    public SubBlockData setIsUsing(boolean isUsing){
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-
-    private void nextConditionalProperty(){
+    @Override
+    public SubBlockData nextData(){
         CommandBlock commandBlock = ((CommandBlock) blockData);
         commandBlock.setConditional(!commandBlock.isConditional());
         this.conditional = commandBlock.isConditional();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((CommandBlock)blockData).setConditional(conditional);
+        return blockData;
     }
 }

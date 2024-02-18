@@ -4,9 +4,10 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Comparator;
 
 public class ComparatorData implements SubBlockData{
-    private String NAME = "Comparator Mode";
+
     private BlockData blockData;
     private Comparator.Mode mode;
+    private boolean isUsing = false;
     public ComparatorData(BlockData blockData){
         this.blockData = blockData;
         this.mode = ((Comparator) blockData).getMode();
@@ -14,7 +15,7 @@ public class ComparatorData implements SubBlockData{
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -22,40 +23,32 @@ public class ComparatorData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextModeProperty();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Comparator Mode: " + mode;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextModeProperty();
-        return "Comparator Mode: " + mode;
-    }
 
     @Override
     public String getDataAsString() {
         return mode.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextModeProperty();
-        return mode.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextModeProperty(){
+    @Override
+    public SubBlockData nextData(){
         Comparator comparator = ((Comparator) blockData);
         if (comparator.getMode() == Comparator.Mode.COMPARE){
             comparator.setMode(Comparator.Mode.SUBTRACT);
@@ -63,5 +56,12 @@ public class ComparatorData implements SubBlockData{
             comparator.setMode(Comparator.Mode.COMPARE);
         }
         this.mode = comparator.getMode();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Comparator) blockData).setMode(mode);
+        return blockData;
     }
 }
