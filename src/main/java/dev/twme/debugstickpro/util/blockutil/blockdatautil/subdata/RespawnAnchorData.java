@@ -7,6 +7,7 @@ public class RespawnAnchorData implements SubBlockData{
     private String NAME = "RespawnAnchor";
     private BlockData blockData;
     private int charges;
+    private boolean isUsing = false;
     public RespawnAnchorData(BlockData blockData) {
         this.blockData = blockData;
         this.charges = ((RespawnAnchor) blockData).getCharges();
@@ -21,20 +22,9 @@ public class RespawnAnchorData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Charges: " + charges;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "Charges: " + charges;
     }
 
@@ -44,16 +34,17 @@ public class RespawnAnchorData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(charges);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    @Override
+    public SubBlockData nextData(){
         RespawnAnchor respawnAnchor = ((RespawnAnchor) blockData);
         if (charges >= respawnAnchor.getMaximumCharges()){
             charges = 0;
@@ -61,5 +52,12 @@ public class RespawnAnchorData implements SubBlockData{
             charges++;
         }
         respawnAnchor.setCharges(charges);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((RespawnAnchor)blockData).setCharges(charges);
+        return blockData;
     }
 }

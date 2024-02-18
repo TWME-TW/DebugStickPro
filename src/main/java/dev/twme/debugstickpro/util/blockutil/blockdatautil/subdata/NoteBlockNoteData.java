@@ -22,10 +22,7 @@ public class NoteBlockNoteData implements SubBlockData{
         return null;
     }
 
-    @Override
-    public BlockData getNextData() {
-        return null;
-    }
+
 
     @Override
     public String getAsString() {
@@ -54,7 +51,7 @@ public class NoteBlockNoteData implements SubBlockData{
 
     }
 
-    private void nextNote(){
+    public void nextNote(){
         NoteBlock noteblock = ((NoteBlock) blockData);
 
     }

@@ -3,14 +3,17 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
 
-public class StairsData implements SubBlockData{
+public class StairsData implements SubBlockData {
     private String NAME = "Stairs";
     private BlockData blockData;
     private Stairs.Shape shape;
-    public StairsData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public StairsData(BlockData blockData) {
         this.blockData = blockData;
         this.shape = ((Stairs) blockData).getShape();
     }
+
     @Override
     public String name() {
         return NAME;
@@ -21,50 +24,50 @@ public class StairsData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Shape: " + shape;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Shape: " + shape;
-    }
 
     @Override
     public String getDataAsString() {
         return shape.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        return shape.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData() {
         Stairs stairs = ((Stairs) blockData);
-        if (shape == Stairs.Shape.INNER_LEFT){
+        if (shape == Stairs.Shape.INNER_LEFT) {
             shape = Stairs.Shape.INNER_RIGHT;
-        } else if (shape == Stairs.Shape.INNER_RIGHT){
+        } else if (shape == Stairs.Shape.INNER_RIGHT) {
             shape = Stairs.Shape.STRAIGHT;
-        } else if (shape == Stairs.Shape.STRAIGHT){
+        } else if (shape == Stairs.Shape.STRAIGHT) {
             shape = Stairs.Shape.OUTER_LEFT;
-        } else if (shape == Stairs.Shape.OUTER_LEFT){
+        } else if (shape == Stairs.Shape.OUTER_LEFT) {
             shape = Stairs.Shape.OUTER_RIGHT;
-        } else if (shape == Stairs.Shape.OUTER_RIGHT){
+        } else if (shape == Stairs.Shape.OUTER_RIGHT) {
             shape = Stairs.Shape.INNER_LEFT;
         }
         stairs.setShape(shape);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Stairs) blockData).setShape(shape);
+        return blockData;
     }
 }

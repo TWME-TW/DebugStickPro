@@ -3,14 +3,17 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Piston;
 
-public class PistonData implements SubBlockData{
-    private String NAME = "Piston";
-    private BlockData blockData;
+public class PistonData implements SubBlockData {
+    private final String NAME = "Piston";
+    private final BlockData blockData;
     private boolean extended;
+    private boolean isUsing = false;
+
     public PistonData(BlockData blockData) {
         this.blockData = blockData;
         this.extended = ((Piston) blockData).isExtended();
     }
+
     @Override
     public String name() {
         return NAME;
@@ -22,19 +25,7 @@ public class PistonData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextExtended();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Extended: " + extended;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextExtended();
         return "Extended: " + extended;
     }
 
@@ -43,19 +34,29 @@ public class PistonData implements SubBlockData{
         return String.valueOf(extended);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextExtended();
-        return String.valueOf(extended);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextExtended(){
+
+    @Override
+    public SubBlockData nextData() {
         Piston piston = ((Piston) blockData);
         extended = !extended;
         piston.setExtended(extended);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Piston)blockData).setExtended(extended);
+        return blockData;
     }
 }

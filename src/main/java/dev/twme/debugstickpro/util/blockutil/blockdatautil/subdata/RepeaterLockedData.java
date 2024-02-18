@@ -7,6 +7,7 @@ public class RepeaterLockedData implements SubBlockData{
     private String NAME = "RepeaterLocked";
     private BlockData blockData;
     private boolean locked;
+    private boolean isUsing = false;
     public RepeaterLockedData(BlockData blockData) {
         this.blockData = blockData;
         this.locked = ((Repeater) blockData).isLocked();
@@ -21,20 +22,9 @@ public class RepeaterLockedData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
-        return "Locked: " + locked;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "Locked: " + locked;
     }
 
@@ -44,18 +34,26 @@ public class RepeaterLockedData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(locked);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         Repeater repeater = ((Repeater) blockData);
         locked = !locked;
         repeater.setLocked(locked);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Repeater)blockData).setLocked(locked);
+        return blockData;
     }
 }

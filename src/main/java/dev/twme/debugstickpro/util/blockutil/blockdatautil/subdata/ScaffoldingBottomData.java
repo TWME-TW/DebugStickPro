@@ -7,6 +7,7 @@ public class ScaffoldingBottomData implements SubBlockData{
     private String NAME = "ScaffoldingBottom";
     private BlockData blockData;
     private boolean bottom;
+    private boolean isUsing = false;
     public ScaffoldingBottomData(BlockData blockData){
         this.blockData = blockData;
         this.bottom = ((Scaffolding) blockData).isBottom();
@@ -21,42 +22,42 @@ public class ScaffoldingBottomData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Bottom: " + bottom;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Bottom: " + bottom;
-    }
+
 
     @Override
     public String getDataAsString() {
         return String.valueOf(bottom);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(bottom);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextData(){
+    public SubBlockData nextData(){
         Scaffolding scaffolding = ((Scaffolding) blockData);
         bottom = !bottom;
         scaffolding.setBottom(bottom);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Scaffolding)blockData).setBottom(bottom);
+        return blockData;
     }
 }

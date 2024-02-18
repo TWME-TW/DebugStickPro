@@ -7,6 +7,7 @@ public class SnowableData implements SubBlockData{
     private String NAME = "Snowable";
     private BlockData blockData;
     private boolean snowy;
+    private boolean isUsing = false;
     public SnowableData(BlockData blockData){
         this.blockData = blockData;
         this.snowy = ((Snowable) blockData).isSnowy();
@@ -22,22 +23,13 @@ public class SnowableData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Snowy: " + snowy;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Snowy: " + snowy;
-    }
 
     @Override
     public String getDataAsString() {
@@ -45,17 +37,26 @@ public class SnowableData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        return String.valueOf(snowy);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         Snowable snowable = ((Snowable) blockData);
         snowy = !snowy;
         snowable.setSnowy(snowy);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Snowable)blockData).setSnowy(snowy);
+        return blockData;
     }
 }

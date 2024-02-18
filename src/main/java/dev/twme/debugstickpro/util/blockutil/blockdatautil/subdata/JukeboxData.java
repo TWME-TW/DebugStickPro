@@ -10,6 +10,7 @@ public class JukeboxData implements SubBlockData{
     private BlockData blockData;
     private boolean hasRecord;
     private JukeboxInventory jukeboxInventory;
+    private boolean isUsing = false;
     public JukeboxData(Block block){
         jukeboxInventory = ((org.bukkit.block.Jukebox)block.getState()).getInventory();
         this.blockData = block.getBlockData();
@@ -26,30 +27,18 @@ public class JukeboxData implements SubBlockData{
         return null;
     }
 
-    @Override
-    public BlockData getNextData() {
-        return null;
-    }
 
     @Override
     public String getAsString() {
         return null;
     }
 
-    @Override
-    public String getNextAsString() {
-        return null;
-    }
 
     @Override
     public String getDataAsString() {
         return null;
     }
 
-    @Override
-    public String getNextDataAsString() {
-        return null;
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {

@@ -7,6 +7,8 @@ public class RepeaterDelayData implements SubBlockData{
     private String NAME = "RepeaterDelay";
     private BlockData blockData;
     private int delay;
+    private boolean isUsing = false;
+
     public RepeaterDelayData(BlockData blockData) {
         this.blockData = blockData;
         this.delay = ((Repeater) blockData).getDelay();
@@ -23,20 +25,10 @@ public class RepeaterDelayData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
-        return "Delay: " + delay + " ticks";
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "Delay: " + delay + " ticks";
     }
 
@@ -45,17 +37,19 @@ public class RepeaterDelayData implements SubBlockData{
         return String.valueOf(delay);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(delay);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         Repeater repeater = ((Repeater) blockData);
         delay = repeater.getDelay();
         if(delay >= repeater.getMaximumDelay()){
@@ -64,5 +58,12 @@ public class RepeaterDelayData implements SubBlockData{
             delay++;
         }
         repeater.setDelay(delay);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Repeater)blockData).setDelay(delay);
+        return blockData;
     }
 }

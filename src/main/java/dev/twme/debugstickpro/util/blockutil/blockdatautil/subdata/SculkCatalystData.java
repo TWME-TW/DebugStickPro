@@ -7,6 +7,7 @@ public class SculkCatalystData implements SubBlockData{
     private String NAME = "SculkCatalyst";
     private BlockData blockData;
     private boolean isBloom;
+    private boolean isUsing = false;
     public SculkCatalystData(BlockData blockData){
         this.blockData = blockData;
         this.isBloom = ((SculkCatalyst) blockData).isBloom();
@@ -21,41 +22,42 @@ public class SculkCatalystData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Bloom: " + isBloom;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Bloom: " + isBloom;
-    }
+
 
     @Override
     public String getDataAsString() {
         return String.valueOf(isBloom);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(isBloom);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    @Override
+    public SubBlockData nextData(){
         SculkCatalyst sculkCatalyst = ((SculkCatalyst) blockData);
         isBloom = !isBloom;
         sculkCatalyst.setBloom(isBloom);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((SculkCatalyst)blockData).setBloom(isBloom);
+        return blockData;
     }
 }

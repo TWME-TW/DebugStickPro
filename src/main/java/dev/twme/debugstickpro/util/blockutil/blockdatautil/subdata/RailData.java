@@ -9,6 +9,7 @@ public class RailData implements SubBlockData{
     private final String NAME = "Rail";
     private BlockData blockData;
     private Rail.Shape shape;
+    private boolean isUsing = false;
     public RailData(BlockData blockData) {
         this.blockData = blockData;
         this.shape = ((Rail) blockData).getShape();
@@ -23,36 +24,35 @@ public class RailData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        return null;
-    }
+
 
     @Override
     public String getAsString() {
-        return null;
+        return "Shape: " + shape.toString();
     }
 
-    @Override
-    public String getNextAsString() {
-        return null;
-    }
+
 
     @Override
     public String getDataAsString() {
-        return null;
+        return shape.toString();
+    }
+
+
+
+    @Override
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public String getNextDataAsString() {
-        return null;
+    public boolean isUsing() {
+        return isUsing;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
-    }
-    private void nextData(){
+    public SubBlockData nextData(){
         Rail rail = ((Rail) blockData);
         List<Rail.Shape> shapes = rail.getShapes().stream().toList();
         int index = shapes.indexOf(shape);
@@ -63,5 +63,12 @@ public class RailData implements SubBlockData{
         }
         shape = shapes.get(index);
         rail.setShape(shape);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Rail)blockData).setShape(shape);
+        return blockData;
     }
 }

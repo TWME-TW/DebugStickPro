@@ -7,6 +7,8 @@ public class SculkShriekerShriekingData implements SubBlockData{
     private String NAME = "SculkShriekerShrieking";
     private BlockData blockData;
     private boolean isShrieking;
+    private boolean isUsing = false;
+
     public SculkShriekerShriekingData(BlockData blockData){
         this.blockData = blockData;
         this.isShrieking = ((SculkShrieker) blockData).isShrieking();
@@ -22,40 +24,38 @@ public class SculkShriekerShriekingData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "Shrieking: " + isShrieking;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Shrieking: " + isShrieking;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(isShrieking);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(isShrieking);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         SculkShrieker sculkShrieker = ((SculkShrieker) blockData);
         isShrieking = !isShrieking;
         sculkShrieker.setShrieking(isShrieking);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((SculkShrieker)blockData).setShrieking(isShrieking);
+        return blockData;
     }
 }

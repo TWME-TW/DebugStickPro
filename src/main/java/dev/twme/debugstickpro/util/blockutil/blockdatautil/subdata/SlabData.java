@@ -7,6 +7,7 @@ public class SlabData implements SubBlockData{
     private String NAME = "SlabData";
     private BlockData blockData;
     private Slab.Type type;
+    private boolean isUsing = false;
     public SlabData(BlockData blockData){
         this.blockData = blockData;
         this.type = ((Slab)blockData).getType();
@@ -22,39 +23,31 @@ public class SlabData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Type: " + type;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Type: " + type;
-    }
 
     @Override
     public String getDataAsString() {
         return type.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return type.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    public void nextData(){
+
+    public SubBlockData nextData(){
         if (type == Slab.Type.BOTTOM){
             type = Slab.Type.DOUBLE;
         } else if (type == Slab.Type.DOUBLE){
@@ -63,5 +56,12 @@ public class SlabData implements SubBlockData{
             type = Slab.Type.BOTTOM;
         }
         ((Slab) blockData).setType(type);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Slab)blockData).setType(type);
+        return blockData;
     }
 }

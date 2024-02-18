@@ -7,6 +7,7 @@ public class SnowData implements SubBlockData{
     private String NAME = "Snow";
     private BlockData blockData;
     private int layers;
+    private boolean isUsing = false;
     public SnowData(BlockData blockData){
         this.blockData = blockData;
         this.layers = ((Snow) blockData).getLayers();
@@ -22,38 +23,31 @@ public class SnowData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "Layers: " + layers;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Layers: " + layers;
-    }
+
 
     @Override
     public String getDataAsString() {
         return String.valueOf(layers);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(layers);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         Snow snow = ((Snow) blockData);
         if (layers >= snow.getMaximumLayers()){
             layers = snow.getMinimumLayers();
@@ -61,5 +55,12 @@ public class SnowData implements SubBlockData{
             layers++;
         }
         snow.setLayers(layers);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Snow)blockData).setLayers(layers);
+        return blockData;
     }
 }

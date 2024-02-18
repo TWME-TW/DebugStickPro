@@ -10,6 +10,7 @@ public class RotatableData implements SubBlockData{
     private String NAME = "Rotatable";
     private BlockData blockData;
     private BlockFace blockFace;
+    private boolean isUsing = false;
     public RotatableData(BlockData blockData) {
         this.blockData = blockData;
         this.blockFace = ((Rotatable) blockData).getRotation();
@@ -25,38 +26,32 @@ public class RotatableData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "Rotation: " + blockFace;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Rotation: " + blockFace;
-    }
+
 
     @Override
     public String getDataAsString() {
         return blockFace.name();
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return blockFace.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData() {
+
+    @Override
+    public SubBlockData nextData() {
         Rotatable rotatable = ((Rotatable) blockData);
         List<BlockFace> blockFaces = List.of(BlockFace.values());
         int index = blockFaces.indexOf(blockFace);
@@ -67,5 +62,11 @@ public class RotatableData implements SubBlockData{
         }
         rotatable.setRotation(blockFaces.get(index));
         this.blockFace = blockFaces.get(index);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        return null;
     }
 }

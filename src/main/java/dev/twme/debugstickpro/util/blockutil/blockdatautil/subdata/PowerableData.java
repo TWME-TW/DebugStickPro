@@ -3,10 +3,13 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Powerable;
 
+import javax.sound.midi.VoiceStatus;
+
 public class PowerableData implements SubBlockData{
     private final String NAME = "Powerable";
     private BlockData blockData;
     private boolean powered;
+    private boolean isUsing = false;
     public PowerableData(BlockData blockData) {
         this.blockData = blockData;
         this.powered = ((Powerable) blockData).isPowered();
@@ -22,19 +25,7 @@ public class PowerableData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextPowered();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Powered: " + powered;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextPowered();
         return "Powered: " + powered;
     }
 
@@ -42,20 +33,28 @@ public class PowerableData implements SubBlockData{
     public String getDataAsString() {
         return String.valueOf(powered);
     }
-
     @Override
-    public String getNextDataAsString() {
-        nextPowered();
-        return String.valueOf(powered);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextPowered(){
+
+    @Override
+    public SubBlockData nextData(){
         Powerable powerable = ((Powerable) blockData);
         powered = !powered;
         powerable.setPowered(powered);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Powerable)blockData).setPowered(powered);
+        return blockData;
     }
 }

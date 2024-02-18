@@ -7,6 +7,7 @@ public class SculkShriekerCanSummonData implements SubBlockData{
     private String NAME = "SculkShriekerCanSummon";
     private BlockData blockData;
     private boolean isCanSummon;
+    private boolean isUsing = false;
     public SculkShriekerCanSummonData(BlockData blockData){
         this.blockData = blockData;
         this.isCanSummon = ((SculkShrieker) blockData).isCanSummon();
@@ -22,19 +23,7 @@ public class SculkShriekerCanSummonData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "CanSummon: " + isCanSummon;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "CanSummon: " + isCanSummon;
     }
 
@@ -43,18 +32,29 @@ public class SculkShriekerCanSummonData implements SubBlockData{
         return String.valueOf(isCanSummon);
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        return String.valueOf(isCanSummon);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         SculkShrieker sculkShrieker = ((SculkShrieker) blockData);
         isCanSummon = !isCanSummon;
         sculkShrieker.setCanSummon(isCanSummon);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((SculkShrieker)blockData).setCanSummon(isCanSummon);
+        return blockData;
     }
 }

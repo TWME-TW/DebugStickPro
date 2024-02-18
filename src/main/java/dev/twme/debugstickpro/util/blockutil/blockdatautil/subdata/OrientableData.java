@@ -10,6 +10,7 @@ public class OrientableData implements SubBlockData{
     private final String NAME = "Orientable";
     private BlockData blockData;
     private Axis axis;
+    private boolean isUsing = false;
 
     public OrientableData(BlockData blockData) {
         this.blockData = blockData;
@@ -26,19 +27,7 @@ public class OrientableData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextAxis();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Axis: " + axis;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextAxis();
         return "Axis: " + axis;
     }
 
@@ -47,17 +36,21 @@ public class OrientableData implements SubBlockData{
         return axis.name();
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        nextAxis();
-        return axis.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextAxis() {
+
+    @Override
+    public SubBlockData nextData() {
         Orientable orientable = (Orientable) blockData;
         List<Axis> axisList = orientable.getAxes().stream().toList();
         if (axisList.size() == 1) {
@@ -74,5 +67,12 @@ public class OrientableData implements SubBlockData{
             }
         }
         orientable.setAxis(axis);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Orientable)blockData).setAxis(axis);
+        return blockData;
     }
 }

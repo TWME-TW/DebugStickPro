@@ -7,6 +7,7 @@ public class ScaffoldingDistanceData implements SubBlockData{
     private String NAME = "ScaffoldingDistance";
     private BlockData blockData;
     private int distance;
+    private boolean isUsing = false;
     public ScaffoldingDistanceData(BlockData blockData){
         this.blockData = blockData;
         this.distance = ((Scaffolding) blockData).getDistance();
@@ -22,19 +23,7 @@ public class ScaffoldingDistanceData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Distance: " + distance;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "Distance: " + distance;
     }
 
@@ -43,17 +32,20 @@ public class ScaffoldingDistanceData implements SubBlockData{
         return String.valueOf(distance);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(distance);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    @Override
+    public SubBlockData nextData(){
         Scaffolding scaffolding = ((Scaffolding) blockData);
         if (distance >= scaffolding.getMaximumDistance()){
             distance = 0;
@@ -61,5 +53,11 @@ public class ScaffoldingDistanceData implements SubBlockData{
             distance++;
         }
         scaffolding.setDistance(distance);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        return null;
     }
 }

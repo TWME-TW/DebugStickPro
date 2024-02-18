@@ -11,6 +11,7 @@ public class NoteBlockInstrumentData implements SubBlockData{
     private String NAME = "Note Block";
     private BlockData blockData;
     private Instrument instrument;
+    private boolean isUsing = false;
     public NoteBlockInstrumentData(BlockData blockData){
         this.blockData = blockData;
         this.instrument = ((NoteBlock) blockData).getInstrument();
@@ -26,36 +27,31 @@ public class NoteBlockInstrumentData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        return null;
-    }
-
-    @Override
     public String getAsString() {
         return null;
     }
 
-    @Override
-    public String getNextAsString() {
-        return null;
-    }
 
     @Override
     public String getDataAsString() {
         return null;
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        return null;
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextInstrument(){
+    @Override
+    public SubBlockData nextData(){
         NoteBlock noteBlock = ((NoteBlock) blockData);
         List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
         if (instruments.indexOf(instrument) == instruments.size() - 1){
@@ -64,5 +60,12 @@ public class NoteBlockInstrumentData implements SubBlockData{
             instrument = instruments.get(instruments.indexOf(instrument) + 1);
         }
         noteBlock.setInstrument(instrument);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((NoteBlock)blockData).setInstrument(instrument);
+        return blockData;
     }
 }

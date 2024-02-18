@@ -7,6 +7,7 @@ public class LightableData implements SubBlockData {
     private String NAME = "Lightable";
     private BlockData blockData;
     private boolean lit;
+    private boolean isUsing = false;
 
     public LightableData(BlockData blockData) {
         this.blockData = blockData;
@@ -23,42 +24,43 @@ public class LightableData implements SubBlockData {
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextLit();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Lit: " + lit;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextLit();
-        return "Lit: " + lit;
-    }
+
 
     @Override
     public String getDataAsString() {
         return String.valueOf(lit);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextLit();
-        return String.valueOf(lit);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextLit() {
+    @Override
+    public SubBlockData nextData() {
         Lightable lightable = ((Lightable) blockData);
         lightable.setLit(!lit);
         this.lit = lightable.isLit();
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Lightable)blockData).setLit(lit);
+        return blockData;
     }
 }

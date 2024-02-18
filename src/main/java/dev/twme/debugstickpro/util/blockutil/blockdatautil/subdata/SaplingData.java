@@ -7,6 +7,7 @@ public class SaplingData implements SubBlockData{
     private String NAME = "Sapling";
     private BlockData blockData;
     private int stage;
+    private boolean isUsing = false;
     public SaplingData(BlockData blockData) {
         this.blockData = blockData;
         this.stage = ((Sapling) blockData).getStage();
@@ -21,39 +22,31 @@ public class SaplingData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Stage: " + stage;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Stage: " + stage;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(stage);
     }
 
-    @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(stage);
-    }
 
     @Override
     public void setIsUsing(boolean isUsing) {
-
+        this.isUsing = isUsing;
     }
-    private void nextData(){
+
+    @Override
+    public boolean isUsing() {
+        return isUsing;
+    }
+
+    @Override
+    public SaplingData nextData(){
         Sapling sapling = ((Sapling) blockData);
         if (stage >= sapling.getMaximumStage()){
             stage = 0;
@@ -61,5 +54,12 @@ public class SaplingData implements SubBlockData{
             stage++;
         }
         sapling.setStage(stage);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((Sapling)blockData).setStage(stage);
+        return blockData;
     }
 }

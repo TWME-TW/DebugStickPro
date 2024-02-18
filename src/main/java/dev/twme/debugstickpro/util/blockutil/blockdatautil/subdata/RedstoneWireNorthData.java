@@ -8,10 +8,10 @@ public class RedstoneWireNorthData implements SubBlockData{
     private String NAME = "RedstoneWire";
     private BlockData blockData;
     private RedstoneWire.Connection connection;
-    private BlockFace face;
+    final private BlockFace face = BlockFace.NORTH;
+    private boolean isUsing = false;
     public RedstoneWireNorthData(BlockData blockData) {
         this.blockData = blockData;
-        this.face = BlockFace.NORTH;
     }
     @Override
     public String name() {
@@ -24,36 +24,30 @@ public class RedstoneWireNorthData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "Connection: " + connection;
     }
 
-    @Override
-    public String getNextAsString() {
-        return "Connection: " + connection;
-    }
+
 
     @Override
     public String getDataAsString() {
         return connection.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        return connection.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         RedstoneWire redstoneWire = ((RedstoneWire) blockData);
         connection = redstoneWire.getFace(face);
         switch (connection){
@@ -68,5 +62,12 @@ public class RedstoneWireNorthData implements SubBlockData{
                 break;
         }
         connection = redstoneWire.getFace(face);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((RedstoneWire)blockData).setFace(face, connection);
+        return blockData;
     }
 }

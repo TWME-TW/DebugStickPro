@@ -6,6 +6,7 @@ import org.bukkit.block.data.type.StructureBlock;
 public class StructureBlockData implements SubBlockData{
     private BlockData blockData;
     private StructureBlock.Mode mode;
+    private boolean isUsing = false;
     public StructureBlockData(BlockData blockData){
         this.blockData = blockData;
         this.mode = ((StructureBlock) blockData).getMode();
@@ -22,21 +23,10 @@ public class StructureBlockData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
         return "Mode: " + mode.name();
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Mode: " + mode.name();
-    }
 
     @Override
     public String getDataAsString() {
@@ -44,16 +34,17 @@ public class StructureBlockData implements SubBlockData{
     }
 
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return mode.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         StructureBlock structureBlock = ((StructureBlock) blockData);
         if (mode == StructureBlock.Mode.DATA){
             mode = StructureBlock.Mode.SAVE;
@@ -65,5 +56,12 @@ public class StructureBlockData implements SubBlockData{
             mode = StructureBlock.Mode.DATA;
         }
         structureBlock.setMode(mode);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((StructureBlock)blockData).setMode(mode);
+        return blockData;
     }
 }

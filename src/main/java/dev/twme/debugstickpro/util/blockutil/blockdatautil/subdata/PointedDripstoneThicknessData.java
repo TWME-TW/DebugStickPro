@@ -7,6 +7,7 @@ public class PointedDripstoneThicknessData implements SubBlockData{
     private final String NAME = "PointedDripstoneThickness";
     private BlockData blockData;
     private PointedDripstone.Thickness thickness;
+    private boolean isUsing = false;
     public PointedDripstoneThicknessData(BlockData blockData) {
         this.blockData = blockData;
         this.thickness = ((PointedDripstone) blockData).getThickness();
@@ -21,41 +22,40 @@ public class PointedDripstoneThicknessData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextThickness();
-        return blockData;
-    }
 
     @Override
     public String getAsString() {
         return "Thickness: " + thickness;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextThickness();
-        return "Thickness: " + thickness;
-    }
+
 
     @Override
     public String getDataAsString() {
         return thickness.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextThickness();
-        return thickness.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextThickness(){
+
+    public SubBlockData nextData(){
         PointedDripstone pointedDripstone = ((PointedDripstone) blockData);
         thickness = PointedDripstone.Thickness.values()[(thickness.ordinal() + 1) % PointedDripstone.Thickness.values().length];
         pointedDripstone.setThickness(thickness);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        return null;
     }
 }

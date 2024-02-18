@@ -7,6 +7,7 @@ public class SculkSensorData implements SubBlockData{
     private String NAME = "SculkSensor";
     private BlockData blockData;
     private SculkSensor.Phase phase;
+    private boolean isUsing = false;
     public SculkSensorData(BlockData blockData){
         this.blockData = blockData;
         this.phase = ((SculkSensor) blockData).getPhase();
@@ -22,39 +23,32 @@ public class SculkSensorData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
+
 
     @Override
     public String getAsString() {
         return "Phase: " + phase;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextData();
-        return "Phase: " + phase;
-    }
 
     @Override
     public String getDataAsString() {
         return phase.name();
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return phase.name();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         SculkSensor sculkSensor = ((SculkSensor) blockData);
         if (phase == SculkSensor.Phase.ACTIVE) {
             phase = SculkSensor.Phase.COOLDOWN;
@@ -64,5 +58,12 @@ public class SculkSensorData implements SubBlockData{
             phase = SculkSensor.Phase.ACTIVE;
         }
         sculkSensor.setPhase(phase);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((SculkSensor)blockData).setPhase(phase);
+        return blockData;
     }
 }

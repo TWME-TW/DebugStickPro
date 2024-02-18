@@ -7,6 +7,7 @@ public class SeaPickleData implements SubBlockData{
     private String NAME = "SeaPickle";
     private BlockData blockData;
     private int pickles;
+    private boolean isUsing = false;
     public SeaPickleData(BlockData blockData){
         this.blockData = blockData;
         this.pickles = ((SeaPickle) blockData).getPickles();
@@ -22,19 +23,7 @@ public class SeaPickleData implements SubBlockData{
     }
 
     @Override
-    public BlockData getNextData() {
-        nextData();
-        return blockData;
-    }
-
-    @Override
     public String getAsString() {
-        return "Pickles: " + pickles;
-    }
-
-    @Override
-    public String getNextAsString() {
-        nextData();
         return "Pickles: " + pickles;
     }
 
@@ -43,17 +32,19 @@ public class SeaPickleData implements SubBlockData{
         return String.valueOf(pickles);
     }
 
+
     @Override
-    public String getNextDataAsString() {
-        nextData();
-        return String.valueOf(pickles);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
-    private void nextData(){
+
+    public SubBlockData nextData(){
         SeaPickle seaPickle = ((SeaPickle) blockData);
         if (pickles >= seaPickle.getMaximumPickles()){
             pickles = seaPickle.getMinimumPickles();
@@ -61,5 +52,12 @@ public class SeaPickleData implements SubBlockData{
             pickles++;
         }
         seaPickle.setPickles(pickles);
+        return this;
+    }
+
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((SeaPickle)blockData).setPickles(pickles);
+        return blockData;
     }
 }

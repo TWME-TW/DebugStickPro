@@ -25,6 +25,10 @@ public class ActionBarTask implements Runnable {
             if (player == null){
                 return;
             }
+            if (!player.hasPermission("debugstickpro.use")){
+                playerList.remove(uuid);
+                return;
+            }
             if (player.getTargetBlockExact(5) != null) {
                 Block block = player.getTargetBlockExact(5);
                 BlockData blockData = null;
