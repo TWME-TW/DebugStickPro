@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Wall;
 
-public class WallHeightSouthData implements SubBlockData{
+public class WallHeightSouthData implements SubBlockData {
     private BlockData blockData;
     private Wall.Height height;
     private boolean isUsing = false;
-    public WallHeightSouthData(BlockData blockData){
+
+    public WallHeightSouthData(BlockData blockData) {
         this.blockData = blockData;
-        this.height = ((Wall)blockData).getHeight(BlockFace.SOUTH);
+        this.height = ((Wall) blockData).getHeight(BlockFace.SOUTH);
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.WallHeightSouthDataName;
     }
 
     @Override
@@ -22,10 +30,6 @@ public class WallHeightSouthData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "north: " + height.name();
-    }
 
     @Override
     public String getDataAsString() {
@@ -46,11 +50,11 @@ public class WallHeightSouthData implements SubBlockData{
     @Override
     public SubBlockData nextData() {
         Wall wall = ((Wall) blockData);
-        if (height == Wall.Height.NONE){
+        if (height == Wall.Height.NONE) {
             height = Wall.Height.LOW;
-        } else if (height == Wall.Height.LOW){
+        } else if (height == Wall.Height.LOW) {
             height = Wall.Height.TALL;
-        } else if (height == Wall.Height.TALL){
+        } else if (height == Wall.Height.TALL) {
             height = Wall.Height.NONE;
         }
         wall.setHeight(BlockFace.SOUTH, height);
@@ -59,7 +63,7 @@ public class WallHeightSouthData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Wall)blockData).setHeight(BlockFace.SOUTH, height);
+        ((Wall) blockData).setHeight(BlockFace.SOUTH, height);
         return blockData;
     }
 }

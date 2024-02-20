@@ -1,22 +1,30 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Rail;
 
 import java.util.List;
 
-public class RailData implements SubBlockData{
+public class RailData implements SubBlockData {
     private final String NAME = "Rail";
     private BlockData blockData;
     private Rail.Shape shape;
     private boolean isUsing = false;
+
     public RailData(BlockData blockData) {
         this.blockData = blockData;
         this.shape = ((Rail) blockData).getShape();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.RailDataName;
     }
 
     @Override
@@ -25,19 +33,10 @@ public class RailData implements SubBlockData{
     }
 
 
-
-    @Override
-    public String getAsString() {
-        return "Shape: " + shape.toString();
-    }
-
-
-
     @Override
     public String getDataAsString() {
         return shape.toString();
     }
-
 
 
     @Override
@@ -52,7 +51,7 @@ public class RailData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Rail rail = ((Rail) blockData);
         List<Rail.Shape> shapes = rail.getShapes().stream().toList();
         int index = shapes.indexOf(shape);
@@ -68,7 +67,7 @@ public class RailData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Rail)blockData).setShape(shape);
+        ((Rail) blockData).setShape(shape);
         return blockData;
     }
 }

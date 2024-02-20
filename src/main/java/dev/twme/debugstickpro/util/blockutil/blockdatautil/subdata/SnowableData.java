@@ -1,14 +1,16 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Snowable;
 
-public class SnowableData implements SubBlockData{
+public class SnowableData implements SubBlockData {
     private String NAME = "Snowable";
     private BlockData blockData;
     private boolean snowy;
     private boolean isUsing = false;
-    public SnowableData(BlockData blockData){
+
+    public SnowableData(BlockData blockData) {
         this.blockData = blockData;
         this.snowy = ((Snowable) blockData).isSnowy();
     }
@@ -19,17 +21,14 @@ public class SnowableData implements SubBlockData{
     }
 
     @Override
+    public String dataName() {
+        return LangFile.SnowableDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
-
-
-
-    @Override
-    public String getAsString() {
-        return "Snowy: " + snowy;
-    }
-
 
     @Override
     public String getDataAsString() {
@@ -47,7 +46,7 @@ public class SnowableData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Snowable snowable = ((Snowable) blockData);
         snowy = !snowy;
         snowable.setSnowy(snowy);
@@ -56,7 +55,7 @@ public class SnowableData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Snowable)blockData).setSnowy(snowy);
+        ((Snowable) blockData).setSnowy(snowy);
         return blockData;
     }
 }

@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Lightable;
 
@@ -20,17 +21,14 @@ public class LightableData implements SubBlockData {
     }
 
     @Override
+    public String dataName() {
+        return LangFile.LightableDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
-
-
-
-    @Override
-    public String getAsString() {
-        return "Lit: " + lit;
-    }
-
 
 
     @Override
@@ -60,7 +58,7 @@ public class LightableData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Lightable)blockData).setLit(lit);
+        ((Lightable) blockData).setLit(lit);
         return blockData;
     }
 }

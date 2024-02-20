@@ -1,16 +1,18 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Lectern;
 
-public class LecternData implements SubBlockData{
+public class LecternData implements SubBlockData {
     private BlockData blockData;
     private boolean hasBook;
     private boolean isUsing = false;
+
     public LecternData(BlockData blockData) {
         this.blockData = blockData;
-        this.hasBook = ((Lectern)blockData).hasBook();
+        this.hasBook = ((Lectern) blockData).hasBook();
     }
 
     @Override
@@ -19,13 +21,13 @@ public class LecternData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.LectronDataName;
     }
 
     @Override
-    public String getAsString() {
-        return "Has Book: " + hasBook;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
     @Override

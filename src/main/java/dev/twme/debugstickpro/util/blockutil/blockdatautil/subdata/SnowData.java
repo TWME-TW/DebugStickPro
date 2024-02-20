@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Snow;
 
-public class SnowData implements SubBlockData{
+public class SnowData implements SubBlockData {
     private String NAME = "Snow";
     private BlockData blockData;
     private int layers;
     private boolean isUsing = false;
-    public SnowData(BlockData blockData){
+
+    public SnowData(BlockData blockData) {
         this.blockData = blockData;
         this.layers = ((Snow) blockData).getLayers();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.SnowDataName;
     }
 
     @Override
@@ -22,18 +30,11 @@ public class SnowData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "Layers: " + layers;
-    }
-
-
 
     @Override
     public String getDataAsString() {
         return String.valueOf(layers);
     }
-
 
 
     @Override
@@ -47,9 +48,9 @@ public class SnowData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Snow snow = ((Snow) blockData);
-        if (layers >= snow.getMaximumLayers()){
+        if (layers >= snow.getMaximumLayers()) {
             layers = snow.getMinimumLayers();
         } else {
             layers++;
@@ -60,7 +61,7 @@ public class SnowData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Snow)blockData).setLayers(layers);
+        ((Snow) blockData).setLayers(layers);
         return blockData;
     }
 }

@@ -103,12 +103,13 @@ public class LangFile {
     public static String SculkCatalystDataName = "Bloom";
     public static String SculkSensorDataName = "Phase";
     public static String SculkShriekerCanSummonDataName = "Can Summon";
-    public static String SculkShriekerShriekDataName = "Shrieking";
+    public static String SculkShriekerShriekingDataName = "Shrieking";
     public static String SeaPickleDataName = "Pickles";
     public static String SlabDataName = "Type";
     public static String SnowableDataName = "Snowy";
+    public static String SnowDataName = "Layers";
     public static String StairsDataName = "Shape";
-    public static String StructureBlockModeDataName = "Mode";
+    public static String StructureBlockDataName = "Mode";
     public static String TechnicalPistonDataName = "Type";
     public static String TNTDataName = "Unstable";
     public static String TrialSpawnerDataName = "State";

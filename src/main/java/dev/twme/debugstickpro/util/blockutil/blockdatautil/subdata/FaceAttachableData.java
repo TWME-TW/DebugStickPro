@@ -1,13 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.FaceAttachable;
 
-public class FaceAttachableData implements SubBlockData{
+public class FaceAttachableData implements SubBlockData {
     private String NAME = "Face Attached";
     private BlockData blockData;
     private FaceAttachable.AttachedFace attachedFace;
     private boolean isUsing = false;
+
     public FaceAttachableData(BlockData blockData) {
         this.blockData = blockData;
         this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
@@ -19,14 +21,13 @@ public class FaceAttachableData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.FaceAttachableDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Face Attached: " + attachedFace.name();
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

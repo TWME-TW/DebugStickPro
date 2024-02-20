@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PinkPetals;
 
-public class PinkPetalsData implements SubBlockData{
+public class PinkPetalsData implements SubBlockData {
     private String NAME = "PinkPetals";
     private BlockData blockData;
     private int flowerAmount;
-    private boolean isUsing= false;
-    public PinkPetalsData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public PinkPetalsData(BlockData blockData) {
         this.blockData = blockData;
         this.flowerAmount = ((PinkPetals) blockData).getFlowerAmount();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.PinkPetalsDataname;
     }
 
     @Override
@@ -24,16 +32,9 @@ public class PinkPetalsData implements SubBlockData{
 
 
     @Override
-    public String getAsString() {
-        return "FlowerAmount: " + flowerAmount;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(flowerAmount);
     }
-
 
 
     @Override
@@ -48,7 +49,7 @@ public class PinkPetalsData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         PinkPetals pinkPetals = ((PinkPetals) blockData);
         if (flowerAmount >= pinkPetals.getMaximumFlowerAmount()) {
             flowerAmount = 0;
@@ -61,7 +62,7 @@ public class PinkPetalsData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((PinkPetals)blockData).setFlowerAmount(flowerAmount);
+        ((PinkPetals) blockData).setFlowerAmount(flowerAmount);
         return blockData;
     }
 }

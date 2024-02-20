@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
-public class RepeaterLockedData implements SubBlockData{
+public class RepeaterLockedData implements SubBlockData {
     private String NAME = "RepeaterLocked";
     private BlockData blockData;
     private boolean locked;
     private boolean isUsing = false;
+
     public RepeaterLockedData(BlockData blockData) {
         this.blockData = blockData;
         this.locked = ((Repeater) blockData).isLocked();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.RepeaterLockedDataName;
     }
 
     @Override
@@ -22,11 +30,6 @@ public class RepeaterLockedData implements SubBlockData{
         return blockData;
     }
 
-
-    @Override
-    public String getAsString() {
-        return "Locked: " + locked;
-    }
 
     @Override
     public String getDataAsString() {
@@ -44,7 +47,7 @@ public class RepeaterLockedData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Repeater repeater = ((Repeater) blockData);
         locked = !locked;
         repeater.setLocked(locked);
@@ -53,7 +56,7 @@ public class RepeaterLockedData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Repeater)blockData).setLocked(locked);
+        ((Repeater) blockData).setLocked(locked);
         return blockData;
     }
 }

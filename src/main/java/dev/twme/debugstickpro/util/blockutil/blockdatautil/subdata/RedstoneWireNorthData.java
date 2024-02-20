@@ -1,34 +1,36 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RedstoneWire;
 
-public class RedstoneWireNorthData implements SubBlockData{
+public class RedstoneWireNorthData implements SubBlockData {
     private String NAME = "RedstoneWire";
     private BlockData blockData;
     private RedstoneWire.Connection connection;
     final private BlockFace face = BlockFace.NORTH;
     private boolean isUsing = false;
+
     public RedstoneWireNorthData(BlockData blockData) {
         this.blockData = blockData;
         this.connection = ((RedstoneWire) blockData).getFace(face);
     }
+
     @Override
     public String name() {
         return NAME;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.RedstoneWireNorthDataName;
     }
 
     @Override
-    public String getAsString() {
-        return "North Connection: " + connection;
+    public BlockData getBlockData() {
+        return blockData;
     }
-
 
 
     @Override
@@ -48,10 +50,10 @@ public class RedstoneWireNorthData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         RedstoneWire redstoneWire = ((RedstoneWire) blockData);
         connection = redstoneWire.getFace(face);
-        switch (connection){
+        switch (connection) {
             case NONE:
                 redstoneWire.setFace(face, RedstoneWire.Connection.SIDE);
                 break;
@@ -68,7 +70,7 @@ public class RedstoneWireNorthData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((RedstoneWire)blockData).setFace(face, connection);
+        ((RedstoneWire) blockData).setFace(face, connection);
         return blockData;
     }
 }

@@ -1,12 +1,13 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.Axis;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Orientable;
 
 import java.util.List;
 
-public class OrientableData implements SubBlockData{
+public class OrientableData implements SubBlockData {
     private final String NAME = "Orientable";
     private BlockData blockData;
     private Axis axis;
@@ -16,9 +17,15 @@ public class OrientableData implements SubBlockData{
         this.blockData = blockData;
         this.axis = ((org.bukkit.block.data.Orientable) blockData).getAxis();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.OrientableDataName;
     }
 
     @Override
@@ -26,16 +33,11 @@ public class OrientableData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "Axis: " + axis;
-    }
 
     @Override
     public String getDataAsString() {
         return axis.name();
     }
-
 
 
     @Override
@@ -72,7 +74,7 @@ public class OrientableData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Orientable)blockData).setAxis(axis);
+        ((Orientable) blockData).setAxis(axis);
         return blockData;
     }
 }

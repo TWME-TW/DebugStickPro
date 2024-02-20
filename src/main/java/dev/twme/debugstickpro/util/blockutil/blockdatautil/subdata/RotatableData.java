@@ -1,23 +1,31 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Rotatable;
 
 import java.util.List;
 
-public class RotatableData implements SubBlockData{
+public class RotatableData implements SubBlockData {
     private String NAME = "Rotatable";
     private BlockData blockData;
     private BlockFace blockFace;
     private boolean isUsing = false;
+
     public RotatableData(BlockData blockData) {
         this.blockData = blockData;
         this.blockFace = ((Rotatable) blockData).getRotation();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.RotatableDataName;
     }
 
     @Override
@@ -26,18 +34,9 @@ public class RotatableData implements SubBlockData{
     }
 
     @Override
-    public String getAsString() {
-        return "Rotation: " + blockFace;
-    }
-
-
-
-    @Override
     public String getDataAsString() {
         return blockFace.name();
     }
-
-
 
     @Override
     public SubBlockData setIsUsing(boolean isUsing) {

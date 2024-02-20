@@ -1,14 +1,16 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Hopper;
 
-public class HopperData implements SubBlockData{
+public class HopperData implements SubBlockData {
     private final String NAME = "Hopper Enabled";
     private BlockData blockData;
     private boolean enabled;
     private boolean isUsing = false;
-    public HopperData(BlockData blockData){
+
+    public HopperData(BlockData blockData) {
         this.blockData = blockData;
         this.enabled = ((Hopper) blockData).isEnabled();
     }
@@ -19,15 +21,13 @@ public class HopperData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.HopperDataName;
     }
 
-
-
     @Override
-    public String getAsString() {
-        return "Enabled: " + enabled;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -35,7 +35,6 @@ public class HopperData implements SubBlockData{
     public String getDataAsString() {
         return String.valueOf(enabled);
     }
-
 
 
     @Override
@@ -49,7 +48,7 @@ public class HopperData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Hopper hopper = ((Hopper) blockData);
         hopper.setEnabled(!hopper.isEnabled());
         this.enabled = hopper.isEnabled();
@@ -58,7 +57,7 @@ public class HopperData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Hopper)blockData).setEnabled(enabled);
+        ((Hopper) blockData).setEnabled(enabled);
         return blockData;
     }
 }

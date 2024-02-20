@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Door;
 
@@ -20,17 +21,14 @@ public class DoorData implements SubBlockData {
     }
 
     @Override
+    public String dataName() {
+        return LangFile.DoorDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
-
-
-
-    @Override
-    public String getAsString() {
-        return "Door Hinge: " + hinge;
-    }
-
 
 
     @Override

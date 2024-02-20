@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
 
@@ -20,14 +21,13 @@ public class StairsData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.StairsDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Shape: " + shape;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

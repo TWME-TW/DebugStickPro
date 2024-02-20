@@ -3,12 +3,13 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkSensor;
 
-public class SculkSensorData implements SubBlockData{
+public class SculkSensorData implements SubBlockData {
     private String NAME = "SculkSensor";
     private BlockData blockData;
     private SculkSensor.Phase phase;
     private boolean isUsing = false;
-    public SculkSensorData(BlockData blockData){
+
+    public SculkSensorData(BlockData blockData) {
         this.blockData = blockData;
         this.phase = ((SculkSensor) blockData).getPhase();
     }
@@ -19,15 +20,13 @@ public class SculkSensorData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return null;
     }
 
-
-
     @Override
-    public String getAsString() {
-        return "Phase: " + phase;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -48,7 +47,7 @@ public class SculkSensorData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         SculkSensor sculkSensor = ((SculkSensor) blockData);
         if (phase == SculkSensor.Phase.ACTIVE) {
             phase = SculkSensor.Phase.COOLDOWN;
@@ -63,7 +62,7 @@ public class SculkSensorData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((SculkSensor)blockData).setPhase(phase);
+        ((SculkSensor) blockData).setPhase(phase);
         return blockData;
     }
 }

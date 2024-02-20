@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Tripwire;
 
@@ -19,14 +20,15 @@ public class TripwireData implements SubBlockData {
     }
 
     @Override
+    public String dataName() {
+        return LangFile.TripwireDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "Disarmed: " + isDisarmed;
-    }
 
     @Override
     public String getDataAsString() {

@@ -1,29 +1,32 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.TrialSpawner;
 
-public class TrialSpawnerData implements SubBlockData{
+public class TrialSpawnerData implements SubBlockData {
     private BlockData blockData;
     private TrialSpawner.State state;
     private boolean isUsing = false;
-    public TrialSpawnerData(BlockData blockData){
+
+    public TrialSpawnerData(BlockData blockData) {
         this.blockData = blockData;
         this.state = ((TrialSpawner) blockData).getTrialSpawnerState();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.TrialSpawnerDataName;
     }
 
     @Override
-    public String getAsString() {
-        return "State: " + state.name();
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -43,7 +46,7 @@ public class TrialSpawnerData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         TrialSpawner trialSpawner = ((TrialSpawner) blockData);
         if (state == TrialSpawner.State.ACTIVE) {
             state = TrialSpawner.State.COOLDOWN;
@@ -64,7 +67,7 @@ public class TrialSpawnerData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((TrialSpawner)blockData).setTrialSpawnerState(state);
+        ((TrialSpawner) blockData).setTrialSpawnerState(state);
         return blockData;
     }
 }

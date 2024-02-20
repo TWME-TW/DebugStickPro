@@ -1,13 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Farmland;
 
-public class FarmlandData implements SubBlockData{
+public class FarmlandData implements SubBlockData {
     private String NAME = "Farmland Moisture";
     private BlockData blockData;
     private int moisture;
     private boolean isUsing = false;
+
     public FarmlandData(BlockData blockData) {
         this.blockData = blockData;
         this.moisture = ((Farmland) blockData).getMoisture();
@@ -19,14 +21,13 @@ public class FarmlandData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.FarmlandDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Moisture: " + moisture;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

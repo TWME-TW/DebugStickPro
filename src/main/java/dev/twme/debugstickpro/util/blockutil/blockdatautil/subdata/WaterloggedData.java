@@ -1,15 +1,17 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Waterlogged;
 
-public class WaterloggedData implements SubBlockData{
+public class WaterloggedData implements SubBlockData {
     private BlockData blockData;
     private boolean waterlogged;
     private boolean isUsing = false;
-    public WaterloggedData(BlockData blockData){
+
+    public WaterloggedData(BlockData blockData) {
         this.blockData = blockData;
-        this.waterlogged = ((Waterlogged)blockData).isWaterlogged();
+        this.waterlogged = ((Waterlogged) blockData).isWaterlogged();
     }
 
     @Override
@@ -18,14 +20,13 @@ public class WaterloggedData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.WaterloggedDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Waterlogged: " + waterlogged;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -46,7 +47,7 @@ public class WaterloggedData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Waterlogged waterlogged = ((Waterlogged) blockData);
         this.waterlogged = !waterlogged.isWaterlogged();
         waterlogged.setWaterlogged(this.waterlogged);
@@ -55,7 +56,7 @@ public class WaterloggedData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Waterlogged)blockData).setWaterlogged(waterlogged);
+        ((Waterlogged) blockData).setWaterlogged(waterlogged);
         return blockData;
     }
 }

@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.MultipleFacing;
@@ -21,15 +22,16 @@ public class MultipleFacingEastData implements SubBlockData {
     }
 
     @Override
+    public String dataName() {
+        return LangFile.MultipleFacingEastDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "Face: " + face + " Has: " + has;
-    }
-
+    
     @Override
     public String getDataAsString() {
         return String.valueOf(has);

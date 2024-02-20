@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.listeners;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
 import dev.twme.debugstickpro.util.actionbar.ActionbarUtil;
+import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +24,7 @@ public class PlayerItemHeldListener implements Listener {
         ItemStack newItem = inventory.getItem(event.getNewSlot());
         ItemStack oldItem = inventory.getItem(event.getPreviousSlot());
         if (DebugStickItemCheck.isDebugStickItem(newItem)) {
-            TargetBlockTask.playerList.add(player.getUniqueId());
+            PlayerDataManager.addPlayerEnableDisplay(player.getUniqueId());
         } else if (DebugStickItemCheck.isDebugStickItem(oldItem)) {
             ActionbarUtil.removeActionBar(player.getUniqueId());
         } else if (newItem == null || oldItem == null) {

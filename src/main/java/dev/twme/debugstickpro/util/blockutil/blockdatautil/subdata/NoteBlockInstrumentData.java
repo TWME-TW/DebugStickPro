@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.Instrument;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.NoteBlock;
@@ -7,18 +8,25 @@ import org.bukkit.block.data.type.NoteBlock;
 import java.util.Arrays;
 import java.util.List;
 
-public class NoteBlockInstrumentData implements SubBlockData{
+public class NoteBlockInstrumentData implements SubBlockData {
     private String NAME = "Note Block";
     private BlockData blockData;
     private Instrument instrument;
     private boolean isUsing = false;
-    public NoteBlockInstrumentData(BlockData blockData){
+
+    public NoteBlockInstrumentData(BlockData blockData) {
         this.blockData = blockData;
         this.instrument = ((NoteBlock) blockData).getInstrument();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.NoteBlockInstrumentDataName;
     }
 
     @Override
@@ -27,16 +35,9 @@ public class NoteBlockInstrumentData implements SubBlockData{
     }
 
     @Override
-    public String getAsString() {
-        return "Instrument: " + instrument.toString();
-    }
-
-
-    @Override
     public String getDataAsString() {
         return instrument.toString();
     }
-
 
 
     @Override
@@ -51,10 +52,10 @@ public class NoteBlockInstrumentData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         NoteBlock noteBlock = ((NoteBlock) blockData);
         List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
-        if (instruments.indexOf(instrument) == instruments.size() - 1){
+        if (instruments.indexOf(instrument) == instruments.size() - 1) {
             instrument = instruments.get(0);
         } else {
             instrument = instruments.get(instruments.indexOf(instrument) + 1);
@@ -65,7 +66,7 @@ public class NoteBlockInstrumentData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((NoteBlock)blockData).setInstrument(instrument);
+        ((NoteBlock) blockData).setInstrument(instrument);
         return blockData;
     }
 }

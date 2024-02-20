@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Leaves;
 
-public class LeavesPersistentData implements SubBlockData{
+public class LeavesPersistentData implements SubBlockData {
     private String NAME = "Leaves Persistent";
     private BlockData blockData;
     private boolean persistent;
     private boolean isUsing;
-    public LeavesPersistentData(BlockData blockData){
+
+    public LeavesPersistentData(BlockData blockData) {
         this.blockData = blockData;
         this.persistent = ((Leaves) blockData).isPersistent();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.LeavesPersistentDataName;
     }
 
     @Override
@@ -23,18 +31,10 @@ public class LeavesPersistentData implements SubBlockData{
     }
 
 
-
-    @Override
-    public String getAsString() {
-        return "Persistent: " + persistent;
-    }
-
-
     @Override
     public String getDataAsString() {
         return String.valueOf(persistent);
     }
-
 
 
     @Override
@@ -48,14 +48,14 @@ public class LeavesPersistentData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         ((Leaves) blockData).setPersistent(!persistent);
         return this;
     }
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Leaves)blockData).setPersistent(persistent);
+        ((Leaves) blockData).setPersistent(persistent);
         return blockData;
     }
 }

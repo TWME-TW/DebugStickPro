@@ -1,31 +1,33 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RespawnAnchor;
 
-public class RespawnAnchorData implements SubBlockData{
+public class RespawnAnchorData implements SubBlockData {
     private String NAME = "RespawnAnchor";
     private BlockData blockData;
     private int charges;
     private boolean isUsing = false;
+
     public RespawnAnchorData(BlockData blockData) {
         this.blockData = blockData;
         this.charges = ((RespawnAnchor) blockData).getCharges();
     }
+
     @Override
     public String name() {
         return NAME;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.RespawnAnchorDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Charges: " + charges;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
     @Override
@@ -44,9 +46,9 @@ public class RespawnAnchorData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         RespawnAnchor respawnAnchor = ((RespawnAnchor) blockData);
-        if (charges >= respawnAnchor.getMaximumCharges()){
+        if (charges >= respawnAnchor.getMaximumCharges()) {
             charges = 0;
         } else {
             charges++;
@@ -57,7 +59,7 @@ public class RespawnAnchorData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((RespawnAnchor)blockData).setCharges(charges);
+        ((RespawnAnchor) blockData).setCharges(charges);
         return blockData;
     }
 }

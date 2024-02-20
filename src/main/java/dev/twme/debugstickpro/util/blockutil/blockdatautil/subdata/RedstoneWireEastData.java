@@ -1,22 +1,30 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RedstoneWire;
 
-public class RedstoneWireEastData implements SubBlockData{
+public class RedstoneWireEastData implements SubBlockData {
     private String NAME = "RedstoneWire";
     private BlockData blockData;
     private RedstoneWire.Connection connection;
     final private BlockFace face = BlockFace.EAST;
     private boolean isUsing = false;
+
     public RedstoneWireEastData(BlockData blockData) {
         this.blockData = blockData;
         this.connection = ((RedstoneWire) blockData).getFace(face);
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.RedstoneWireEastDataName;
     }
 
     @Override
@@ -24,17 +32,11 @@ public class RedstoneWireEastData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "East Connection: " + connection;
-    }
-
 
     @Override
     public String getDataAsString() {
         return connection.name();
     }
-
 
 
     @Override
@@ -48,10 +50,10 @@ public class RedstoneWireEastData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         RedstoneWire redstoneWire = ((RedstoneWire) blockData);
         connection = redstoneWire.getFace(face);
-        switch (connection){
+        switch (connection) {
             case NONE:
                 redstoneWire.setFace(face, RedstoneWire.Connection.SIDE);
                 break;
@@ -68,7 +70,7 @@ public class RedstoneWireEastData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((RedstoneWire)blockData).setFace(face, connection);
+        ((RedstoneWire) blockData).setFace(face, connection);
         return blockData;
     }
 }

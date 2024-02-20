@@ -4,15 +4,17 @@ import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Dispenser;
 
-public class DispenserData implements SubBlockData{
+public class DispenserData implements SubBlockData {
     private String NAME = "Triggered";
     private BlockData blockData;
     private boolean triggered;
     private boolean isUsing = false;
-    public DispenserData(BlockData blockData){
+
+    public DispenserData(BlockData blockData) {
         this.blockData = blockData;
         this.triggered = ((Dispenser) blockData).isTriggered();
     }
+
     @Override
     public String name() {
         return NAME;
@@ -28,11 +30,6 @@ public class DispenserData implements SubBlockData{
         return blockData;
     }
 
-
-    @Override
-    public String getAsString() {
-        return "Triggered: " + triggered;
-    }
 
     @Override
     public String getDataAsString() {
@@ -51,7 +48,7 @@ public class DispenserData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Dispenser dispenser = ((Dispenser) blockData);
         dispenser.setTriggered(!dispenser.isTriggered());
         this.triggered = dispenser.isTriggered();

@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Levelled;
 
-public class LevelledData implements SubBlockData{
+public class LevelledData implements SubBlockData {
     private String NAME = "Levelled";
     private BlockData blockData;
     private boolean isUsing;
     private int level;
-    public LevelledData(BlockData blockData){
+
+    public LevelledData(BlockData blockData) {
         this.blockData = blockData;
         this.level = ((Levelled) blockData).getLevel();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.LevelledDataName;
     }
 
     @Override
@@ -23,18 +31,10 @@ public class LevelledData implements SubBlockData{
     }
 
 
-
-    @Override
-    public String getAsString() {
-        return "Level: " + level;
-    }
-
-
     @Override
     public String getDataAsString() {
         return String.valueOf(level);
     }
-
 
 
     @Override
@@ -48,9 +48,9 @@ public class LevelledData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Levelled levelled = ((Levelled) blockData);
-        if (level == levelled.getMaximumLevel()){
+        if (level == levelled.getMaximumLevel()) {
             level = levelled.getMinimumLevel();
         } else {
             level++;

@@ -1,9 +1,10 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
-public class RepeaterDelayData implements SubBlockData{
+public class RepeaterDelayData implements SubBlockData {
     private String NAME = "RepeaterDelay";
     private BlockData blockData;
     private int delay;
@@ -21,16 +22,15 @@ public class RepeaterDelayData implements SubBlockData{
     }
 
     @Override
+    public String dataName() {
+        return LangFile.RepeaterDelayDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
 
-
-
-    @Override
-    public String getAsString() {
-        return "Delay: " + delay + " ticks";
-    }
 
     @Override
     public String getDataAsString() {
@@ -49,12 +49,12 @@ public class RepeaterDelayData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Repeater repeater = ((Repeater) blockData);
         delay = repeater.getDelay();
-        if(delay >= repeater.getMaximumDelay()){
+        if (delay >= repeater.getMaximumDelay()) {
             delay = repeater.getMinimumDelay();
-        }else{
+        } else {
             delay++;
         }
         repeater.setDelay(delay);
@@ -63,7 +63,7 @@ public class RepeaterDelayData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Repeater)blockData).setDelay(delay);
+        ((Repeater) blockData).setDelay(delay);
         return blockData;
     }
 }

@@ -1,30 +1,32 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Wall;
 
-public class WallUpData implements SubBlockData{
+public class WallUpData implements SubBlockData {
     private BlockData blockData;
     private boolean up;
     private boolean isUsing = false;
-    public WallUpData(BlockData blockData){
+
+    public WallUpData(BlockData blockData) {
         this.blockData = blockData;
-        this.up = ((Wall)blockData).isUp();
+        this.up = ((Wall) blockData).isUp();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.WallUpDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Up: " + up;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -37,7 +39,7 @@ public class WallUpData implements SubBlockData{
     @Override
     public SubBlockData setIsUsing(boolean isUsing) {
         this.isUsing = isUsing;
-        return  this;
+        return this;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class WallUpData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Wall wall = ((Wall) blockData);
         up = !up;
         wall.setUp(up);
@@ -54,7 +56,7 @@ public class WallUpData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Wall)blockData).setUp(up);
+        ((Wall) blockData).setUp(up);
         return blockData;
     }
 }

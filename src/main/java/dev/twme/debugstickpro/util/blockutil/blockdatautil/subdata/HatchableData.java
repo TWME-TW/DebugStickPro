@@ -1,14 +1,16 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Hatchable;
 
-public class HatchableData implements SubBlockData{
+public class HatchableData implements SubBlockData {
     private String NAME = "Hatchable";
     private BlockData blockData;
     private int hatch;
-    private boolean isUsing =  false;
-    public HatchableData(BlockData blockData){
+    private boolean isUsing = false;
+
+    public HatchableData(BlockData blockData) {
         this.blockData = blockData;
         this.hatch = ((Hatchable) blockData).getHatch();
     }
@@ -19,15 +21,13 @@ public class HatchableData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.HatchableDataName;
     }
 
-
-
     @Override
-    public String getAsString() {
-        return "Hatch: " + hatch;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -35,7 +35,6 @@ public class HatchableData implements SubBlockData{
     public String getDataAsString() {
         return String.valueOf(hatch);
     }
-
 
 
     @Override
@@ -50,7 +49,7 @@ public class HatchableData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Hatchable hatchable = ((Hatchable) blockData);
         if (hatchable.getHatch() >= hatchable.getMaximumHatch()) {
             hatchable.setHatch(1);

@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Piston;
 
@@ -20,14 +21,15 @@ public class PistonData implements SubBlockData {
     }
 
     @Override
+    public String dataName() {
+        return LangFile.PistonDataName;
+    }
+
+    @Override
     public BlockData getBlockData() {
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "Extended: " + extended;
-    }
 
     @Override
     public String getDataAsString() {
@@ -56,7 +58,7 @@ public class PistonData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Piston)blockData).setExtended(extended);
+        ((Piston) blockData).setExtended(extended);
         return blockData;
     }
 }

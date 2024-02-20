@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
+import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +20,7 @@ public class PlayerJoinListener implements Listener {
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if (DebugStickItemCheck.isDebugStickItem(item)) {
-            TargetBlockTask.playerList.add(player.getUniqueId());
+            PlayerDataManager.addPlayerEnableDisplay(player.getUniqueId());
         }
     }
 }

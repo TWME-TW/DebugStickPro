@@ -15,6 +15,6 @@ public class PlayerQuitListener implements Listener {
         PlayerDataManager.removePlayerData(uuid);
         // ActionBarTask.playerList.remove(event.getPlayer().getUniqueId());
         // 暫時替換為
-        TargetBlockTask.removePlayer(uuid);
+        PlayerDataManager.removePlayerEnableDisplay(uuid);
     }
 }

@@ -1,12 +1,9 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
-import org.bukkit.block.Block;
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Jigsaw;
 import org.bukkit.block.data.type.Jukebox;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.JukeboxInventory;
 
 
 public class JukeboxData implements SubBlockData {
@@ -25,14 +22,13 @@ public class JukeboxData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.JukeboxDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Has Record: " + hasRecord;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

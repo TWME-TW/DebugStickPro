@@ -1,13 +1,15 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.StructureBlock;
 
-public class StructureBlockData implements SubBlockData{
+public class StructureBlockData implements SubBlockData {
     private BlockData blockData;
     private StructureBlock.Mode mode;
     private boolean isUsing = false;
-    public StructureBlockData(BlockData blockData){
+
+    public StructureBlockData(BlockData blockData) {
         this.blockData = blockData;
         this.mode = ((StructureBlock) blockData).getMode();
     }
@@ -18,13 +20,13 @@ public class StructureBlockData implements SubBlockData{
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.StructureBlockDataName;
     }
 
     @Override
-    public String getAsString() {
-        return "Mode: " + mode.name();
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -44,15 +46,15 @@ public class StructureBlockData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         StructureBlock structureBlock = ((StructureBlock) blockData);
-        if (mode == StructureBlock.Mode.DATA){
+        if (mode == StructureBlock.Mode.DATA) {
             mode = StructureBlock.Mode.SAVE;
-        } else if (mode == StructureBlock.Mode.SAVE){
+        } else if (mode == StructureBlock.Mode.SAVE) {
             mode = StructureBlock.Mode.LOAD;
-        } else if (mode == StructureBlock.Mode.LOAD){
+        } else if (mode == StructureBlock.Mode.LOAD) {
             mode = StructureBlock.Mode.CORNER;
-        } else if (mode == StructureBlock.Mode.CORNER){
+        } else if (mode == StructureBlock.Mode.CORNER) {
             mode = StructureBlock.Mode.DATA;
         }
         structureBlock.setMode(mode);
@@ -61,7 +63,7 @@ public class StructureBlockData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((StructureBlock)blockData).setMode(mode);
+        ((StructureBlock) blockData).setMode(mode);
         return blockData;
     }
 }

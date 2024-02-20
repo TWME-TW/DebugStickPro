@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SeaPickle;
 
-public class SeaPickleData implements SubBlockData{
+public class SeaPickleData implements SubBlockData {
     private String NAME = "SeaPickle";
     private BlockData blockData;
     private int pickles;
     private boolean isUsing = false;
-    public SeaPickleData(BlockData blockData){
+
+    public SeaPickleData(BlockData blockData) {
         this.blockData = blockData;
         this.pickles = ((SeaPickle) blockData).getPickles();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.SeaPickleDataName;
     }
 
     @Override
@@ -22,10 +30,6 @@ public class SeaPickleData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "Pickles: " + pickles;
-    }
 
     @Override
     public String getDataAsString() {
@@ -44,9 +48,9 @@ public class SeaPickleData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         SeaPickle seaPickle = ((SeaPickle) blockData);
-        if (pickles >= seaPickle.getMaximumPickles()){
+        if (pickles >= seaPickle.getMaximumPickles()) {
             pickles = seaPickle.getMinimumPickles();
         } else {
             pickles++;
@@ -57,7 +61,7 @@ public class SeaPickleData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((SeaPickle)blockData).setPickles(pickles);
+        ((SeaPickle) blockData).setPickles(pickles);
         return blockData;
     }
 }

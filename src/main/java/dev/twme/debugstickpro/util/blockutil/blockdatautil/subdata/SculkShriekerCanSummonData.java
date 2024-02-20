@@ -1,20 +1,28 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkShrieker;
 
-public class SculkShriekerCanSummonData implements SubBlockData{
+public class SculkShriekerCanSummonData implements SubBlockData {
     private String NAME = "SculkShriekerCanSummon";
     private BlockData blockData;
     private boolean isCanSummon;
     private boolean isUsing = false;
-    public SculkShriekerCanSummonData(BlockData blockData){
+
+    public SculkShriekerCanSummonData(BlockData blockData) {
         this.blockData = blockData;
         this.isCanSummon = ((SculkShrieker) blockData).isCanSummon();
     }
+
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public String dataName() {
+        return LangFile.SculkShriekerCanSummonDataName;
     }
 
     @Override
@@ -22,16 +30,11 @@ public class SculkShriekerCanSummonData implements SubBlockData{
         return blockData;
     }
 
-    @Override
-    public String getAsString() {
-        return "CanSummon: " + isCanSummon;
-    }
 
     @Override
     public String getDataAsString() {
         return String.valueOf(isCanSummon);
     }
-
 
 
     @Override
@@ -45,7 +48,7 @@ public class SculkShriekerCanSummonData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         SculkShrieker sculkShrieker = ((SculkShrieker) blockData);
         isCanSummon = !isCanSummon;
         sculkShrieker.setCanSummon(isCanSummon);
@@ -54,7 +57,7 @@ public class SculkShriekerCanSummonData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((SculkShrieker)blockData).setCanSummon(isCanSummon);
+        ((SculkShrieker) blockData).setCanSummon(isCanSummon);
         return blockData;
     }
 }

@@ -1,31 +1,33 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Sapling;
 
-public class SaplingData implements SubBlockData{
+public class SaplingData implements SubBlockData {
     private String NAME = "Sapling";
     private BlockData blockData;
     private int stage;
     private boolean isUsing = false;
+
     public SaplingData(BlockData blockData) {
         this.blockData = blockData;
         this.stage = ((Sapling) blockData).getStage();
     }
+
     @Override
     public String name() {
         return NAME;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.SaplingDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Stage: " + stage;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -47,9 +49,9 @@ public class SaplingData implements SubBlockData{
     }
 
     @Override
-    public SaplingData nextData(){
+    public SaplingData nextData() {
         Sapling sapling = ((Sapling) blockData);
-        if (stage >= sapling.getMaximumStage()){
+        if (stage >= sapling.getMaximumStage()) {
             stage = 0;
         } else {
             stage++;
@@ -60,7 +62,7 @@ public class SaplingData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Sapling)blockData).setStage(stage);
+        ((Sapling) blockData).setStage(stage);
         return blockData;
     }
 }

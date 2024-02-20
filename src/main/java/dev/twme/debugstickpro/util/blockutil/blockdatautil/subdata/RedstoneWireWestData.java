@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RedstoneWire;
@@ -22,13 +23,13 @@ public class RedstoneWireWestData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.RedstoneWireWestDataName;
     }
 
     @Override
-    public String getAsString() {
-        return "West Connection: " + connection;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

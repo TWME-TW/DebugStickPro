@@ -29,7 +29,7 @@ public class BlockDatas {
     public String getAsString() {
         StringBuilder str = new StringBuilder();
         for (SubBlockData subBlockData : blockDatas) {
-            str.append(subBlockData.getAsString()).append(" ");
+            str.append(subBlockData.dataName() + ": " + subBlockData.getDataAsString()).append(" ");
         }
         return str.toString();
     }
