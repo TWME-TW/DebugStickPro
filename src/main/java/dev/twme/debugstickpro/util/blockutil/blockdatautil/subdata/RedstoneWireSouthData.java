@@ -12,6 +12,7 @@ public class RedstoneWireSouthData implements SubBlockData{
     private boolean isUsing = false;
     public RedstoneWireSouthData(BlockData blockData) {
         this.blockData = blockData;
+        this.connection = ((RedstoneWire) blockData).getFace(face);
     }
     @Override
     public String name() {
@@ -19,13 +20,13 @@ public class RedstoneWireSouthData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Connection: " + connection;
+        return "South Connection: " + connection;
     }
 
 

@@ -19,18 +19,15 @@ public class AnaloguePowerableData implements SubBlockData {
         return this.getClass().getSimpleName();
     }
 
+    @Override
+    public String dataName() {
+        return LangFile.AnaloguePowerableDataName;
+    }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
-
-
-    @Override
-    public String getAsString() {
-        return LangFile.AnaloguePowerable.replace("%data%", String.valueOf(power));
-    }
-
 
     @Override
     public String getDataAsString() {

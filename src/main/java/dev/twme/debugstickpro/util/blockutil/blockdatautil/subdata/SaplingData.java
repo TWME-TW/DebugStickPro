@@ -18,7 +18,7 @@ public class SaplingData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
 
@@ -36,8 +36,9 @@ public class SaplingData implements SubBlockData{
 
 
     @Override
-    public void setIsUsing(boolean isUsing) {
+    public SubBlockData setIsUsing(boolean isUsing) {
         this.isUsing = isUsing;
+        return this;
     }
 
     @Override

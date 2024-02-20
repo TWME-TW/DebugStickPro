@@ -21,14 +21,13 @@ public class BedData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BedDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Bed.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

@@ -3,13 +3,13 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CommandBlock;
-import org.bukkit.material.SmoothBrick;
 
-public class CommandBlockData implements SubBlockData{
-        private BlockData blockData;
+public class CommandBlockData implements SubBlockData {
+    private BlockData blockData;
     private boolean conditional;
     private boolean isUsing = false;
-    public CommandBlockData(BlockData blockData){
+
+    public CommandBlockData(BlockData blockData) {
         this.blockData = blockData;
         this.conditional = ((CommandBlock) blockData).isConditional();
     }
@@ -20,13 +20,13 @@ public class CommandBlockData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.CommandBlockDataName;
     }
 
     @Override
-    public String getAsString() {
-        return LangFile.CommandBlockData.replace("%data%",getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -36,7 +36,7 @@ public class CommandBlockData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData setIsUsing(boolean isUsing){
+    public SubBlockData setIsUsing(boolean isUsing) {
         this.isUsing = isUsing;
         return this;
     }
@@ -45,8 +45,9 @@ public class CommandBlockData implements SubBlockData{
     public boolean isUsing() {
         return isUsing;
     }
+
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         CommandBlock commandBlock = ((CommandBlock) blockData);
         commandBlock.setConditional(!commandBlock.isConditional());
         this.conditional = commandBlock.isConditional();
@@ -55,7 +56,7 @@ public class CommandBlockData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((CommandBlock)blockData).setConditional(conditional);
+        ((CommandBlock) blockData).setConditional(conditional);
         return blockData;
     }
 }

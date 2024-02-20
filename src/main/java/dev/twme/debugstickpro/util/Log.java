@@ -6,4 +6,7 @@ public class Log {
     public static void info(String message) {
         Bukkit.getLogger().info(message);
     }
+    public static void warning(String message) {
+        Bukkit.getLogger().warning(message);
+    }
 }

@@ -4,7 +4,7 @@ import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Beehive;
 
-public class BeehiveData implements SubBlockData{
+public class BeehiveData implements SubBlockData {
     private BlockData blockData;
     private int honeyLevel;
     private boolean isUsing = false;
@@ -13,20 +13,20 @@ public class BeehiveData implements SubBlockData{
         this.blockData = blockData;
         this.honeyLevel = ((Beehive) blockData).getHoneyLevel();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BeehiveDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Beehive.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

@@ -4,28 +4,29 @@ import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bell;
 
-public class BellData implements SubBlockData{
+public class BellData implements SubBlockData {
     private BlockData blockData;
     private Bell.Attachment attachment;
     private boolean isUsing = false;
-    public BellData(BlockData blockData){
+
+    public BellData(BlockData blockData) {
         this.blockData = blockData;
-        this.attachment = ((Bell)blockData).getAttachment();
+        this.attachment = ((Bell) blockData).getAttachment();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BellDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Bell.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -47,13 +48,13 @@ public class BellData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Bell bell = (Bell) blockData;
-        if (attachment == Bell.Attachment.CEILING){
+        if (attachment == Bell.Attachment.CEILING) {
             bell.setAttachment(Bell.Attachment.DOUBLE_WALL);
         } else if (attachment == Bell.Attachment.DOUBLE_WALL) {
             bell.setAttachment(Bell.Attachment.FLOOR);
-        } else if (attachment == Bell.Attachment.FLOOR){
+        } else if (attachment == Bell.Attachment.FLOOR) {
             bell.setAttachment(Bell.Attachment.SINGLE_WALL);
         } else {
             bell.setAttachment(Bell.Attachment.CEILING);
@@ -64,7 +65,7 @@ public class BellData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Bell)blockData).setAttachment(attachment);
+        ((Bell) blockData).setAttachment(attachment);
         return blockData;
     }
 }

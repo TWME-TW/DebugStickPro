@@ -1,5 +1,7 @@
 package dev.twme.debugstickpro.commmands;
 
+import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
 import dev.twme.debugstickpro.util.actionbar.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKey;
 import org.bukkit.Material;
@@ -42,6 +44,9 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         if (strings[0].equalsIgnoreCase("give")){
             player.getInventory().addItem(getDebugStickItem());
             player.sendMessage("Give command");
+            if (DebugStickItemCheck.checkPlayer(player)) {
+                TargetBlockTask.playerList.add(player.getUniqueId());
+            }
             return true;
         }
 
@@ -66,16 +71,25 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         }
         ArrayList<String> list = new ArrayList<>();
         Player player = (Player) commandSender;
-        if (player.hasPermission("debugstickpro.help")){
-            list.add("help");
+        if (strings.length == 1){
+            if (player.hasPermission("debugstickpro.help")){
+                list.add("help");
+            }
+            if (player.hasPermission("debugstickpro.reload")){
+                list.add("reload");
+            }
+            if (player.hasPermission("debugstickpro.give")){
+                list.add("give");
+            }
+            return list;
         }
-        if (player.hasPermission("debugstickpro.reload")){
-            list.add("reload");
+
+        if (strings.length == 2){
+            if (strings[0].equalsIgnoreCase("give")){
+                return null;
+            }
         }
-        if (player.hasPermission("debugstickpro.give")){
-            list.add("give");
-        }
-        return null;
+        return list;
     }
 
     private static ItemStack getDebugStickItem(){

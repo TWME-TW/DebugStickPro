@@ -1,17 +1,21 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil;
 
-import dev.twme.debugstickpro.util.Log;
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.*;
 import org.bukkit.block.data.type.*;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 
 public class BlockDataSeparater {
     public static ArrayList<SubBlockData> Separate(Block block) {
-        BlockData blockData = block.getBlockData();
+        return Separate(block.getBlockData());
+    }
+
+    public static ArrayList<SubBlockData> Separate(BlockData blockData) {
 
         ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
 
@@ -85,8 +89,8 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof BubbleColumn) {
-            SubBlockData bubbleColumn = new BrushableData(blockData);
-            blockDataList.add(bubbleColumn);
+            SubBlockData BubbleColumnData    = new BubbleColumnData(blockData);
+            blockDataList.add(BubbleColumnData);
         }
 
         if (blockData instanceof Cake) {
@@ -169,7 +173,7 @@ public class BlockDataSeparater {
         if (blockData instanceof Crafter) {
             SubBlockData crafterOrientation = new CrafterOrientationData(blockData);
             blockDataList.add(crafterOrientation);
-            SubBlockData crafterCrafting = new CrafterCrafting(blockData);
+            SubBlockData crafterCrafting = new CrafterCraftingData(blockData);
             blockDataList.add(crafterCrafting);
             SubBlockData crafterTriggered = new CrafterTriggerData(blockData);
             blockDataList.add(crafterTriggered);
@@ -280,12 +284,12 @@ public class BlockDataSeparater {
             SubBlockData jigsaw = new JigsawData(blockData);
             blockDataList.add(jigsaw);
         }
-        /*TODO: ReDesign JigsawOrientation
+
         if (blockData instanceof Jukebox) {
             SubBlockData jukebox = new JukeboxData(blockData);
             blockDataList.add(jukebox);
         }
-        */
+
         /* NOTE: Not Used
         if (blockData instanceof Ladder) {
 
@@ -302,11 +306,11 @@ public class BlockDataSeparater {
             SubBlockData leavesPersistent = new LeavesPersistentData(blockData);
             blockDataList.add(leavesPersistent);
         }
-        /* TODO: ReDesign Lever
         if (blockData instanceof Lectern) {
-
+            SubBlockData lecternHasBook = new LecternData(blockData);
+            blockDataList.add(lecternHasBook);
         }
-        */
+
         if (blockData instanceof Levelled) {
             SubBlockData levelled = new LevelledData(blockData);
             blockDataList.add(levelled);
@@ -331,16 +335,94 @@ public class BlockDataSeparater {
         }
         */
         //TODO: ReDesign MultipleFacing(not work)
-        /*
+
         if (blockData instanceof MultipleFacing) {
-            SubBlockData multipleFacing = new MultipleFacingData(blockData);
-            blockDataList.add(multipleFacing);
+            Set<BlockFace> blockFaces = ((MultipleFacing) blockData).getAllowedFaces();
+            if (blockFaces.contains(BlockFace.DOWN)) {
+                SubBlockData multipleFacingDown = new MultipleFacingDownData(blockData);
+                blockDataList.add(multipleFacingDown);
+            }
+            if (blockFaces.contains(BlockFace.EAST)) {
+                SubBlockData multipleFacingEast = new MultipleFacingEastData(blockData);
+                blockDataList.add(multipleFacingEast);
+            }
+            if (blockFaces.contains(BlockFace.EAST_NORTH_EAST)) {
+                SubBlockData multipleFacingEastNorthEast = new MultipleFacingEastNorthEastData(blockData);
+                blockDataList.add(multipleFacingEastNorthEast);
+            }
+            if (blockFaces.contains(BlockFace.EAST_SOUTH_EAST)) {
+                SubBlockData multipleFacingEastSouthEast = new MultipleFacingEastSouthEastData(blockData);
+                blockDataList.add(multipleFacingEastSouthEast);
+            }
+            if (blockFaces.contains(BlockFace.NORTH)) {
+                SubBlockData multipleFacingNorth = new MultipleFacingNorthData(blockData);
+                blockDataList.add(multipleFacingNorth);
+            }
+            if (blockFaces.contains(BlockFace.NORTH_EAST)) {
+                SubBlockData multipleFacingNorthEast = new MultipleFacingNorthEastData(blockData);
+                blockDataList.add(multipleFacingNorthEast);
+            }
+            if (blockFaces.contains(BlockFace.NORTH_NORTH_EAST)) {
+                SubBlockData multipleFacingNorthNorthEast = new MultipleFacingNorthNorthEastData(blockData);
+                blockDataList.add(multipleFacingNorthNorthEast);
+            }
+            if (blockFaces.contains(BlockFace.NORTH_NORTH_WEST)) {
+                SubBlockData multipleFacingNorthNorthWest = new MultipleFacingNorthNorthWestData(blockData);
+                blockDataList.add(multipleFacingNorthNorthWest);
+            }
+            if (blockFaces.contains(BlockFace.NORTH_WEST)) {
+                SubBlockData multipleFacingNorthWest = new MultipleFacingNorthWestData(blockData);
+                blockDataList.add(multipleFacingNorthWest);
+            }
+            if (blockFaces.contains(BlockFace.SELF)) {
+                SubBlockData multipleFacingSelf = new MultipleFacingSelfData(blockData);
+                blockDataList.add(multipleFacingSelf);
+            }
+            if (blockFaces.contains(BlockFace.SOUTH)) {
+                SubBlockData multipleFacingSouth = new MultipleFacingSouthData(blockData);
+                blockDataList.add(multipleFacingSouth);
+            }
+            if (blockFaces.contains(BlockFace.SOUTH_EAST)) {
+                SubBlockData multipleFacingSouthEast = new MultipleFacingSouthEastData(blockData);
+                blockDataList.add(multipleFacingSouthEast);
+            }
+            if (blockFaces.contains(BlockFace.SOUTH_SOUTH_EAST)) {
+                SubBlockData multipleFacingSouthSouthEast = new MultipleFacingSouthSouthEastData(blockData);
+                blockDataList.add(multipleFacingSouthSouthEast);
+            }
+            if (blockFaces.contains(BlockFace.SOUTH_SOUTH_WEST)) {
+                SubBlockData multipleFacingSouthSouthWest = new MultipleFacingSouthSouthWestData(blockData);
+                blockDataList.add(multipleFacingSouthSouthWest);
+            }
+            if (blockFaces.contains(BlockFace.SOUTH_WEST)) {
+                SubBlockData multipleFacingSouthWest = new MultipleFacingSouthWestData(blockData);
+                blockDataList.add(multipleFacingSouthWest);
+            }
+            if (blockFaces.contains(BlockFace.UP)) {
+                SubBlockData multipleFacingUp = new MultipleFacingUpData(blockData);
+                blockDataList.add(multipleFacingUp);
+            }
+            if (blockFaces.contains(BlockFace.WEST)) {
+                SubBlockData multipleFacingWest = new MultipleFacingWestData(blockData);
+                blockDataList.add(multipleFacingWest);
+            }
+            if (blockFaces.contains(BlockFace.WEST_NORTH_WEST)) {
+                SubBlockData multipleFacingWestNorthWest = new MultipleFacingWestNorthWestData(blockData);
+                blockDataList.add(multipleFacingWestNorthWest);
+            }
+            if (blockFaces.contains(BlockFace.WEST_SOUTH_WEST)) {
+                SubBlockData multipleFacingWestSouthWest = new MultipleFacingWestSouthWestData(blockData);
+                blockDataList.add(multipleFacingWestSouthWest);
+            }
         }
-        */
+
 
         //TODO: ReDesign NoteBlock
         if (blockData instanceof NoteBlock) {
-
+            SubBlockData noteBlockInstrument = new NoteBlockInstrumentData(blockData);
+            blockDataList.add(noteBlockInstrument);
+            SubBlockData noteBlockNote = new NoteBlockNoteData(blockData);
+            blockDataList.add(noteBlockNote);
         }
         /* NOTE: Not Used
         if (blockData instanceof Observer) {
@@ -398,7 +480,7 @@ public class BlockDataSeparater {
         }
         */
         //TODO: ReDesign This (Not Work)
-        /*
+
         if (blockData instanceof RedstoneWire) {
             SubBlockData redstoneWireNorth = new RedstoneWireNorthData(blockData);
             blockDataList.add(redstoneWireNorth);
@@ -409,7 +491,7 @@ public class BlockDataSeparater {
             SubBlockData redstoneWireWest = new RedstoneWireWestData(blockData);
             blockDataList.add(redstoneWireWest);
         }
-        */
+
         if (blockData instanceof Repeater) {
             SubBlockData repeaterDelayData = new RepeaterDelayData(blockData);
             blockDataList.add(repeaterDelayData);
@@ -531,31 +613,37 @@ public class BlockDataSeparater {
 
         }
         */
-
         if (blockData instanceof TurtleEgg) {
             SubBlockData turtleEggHatch = new TurtleEggData(blockData);
             blockDataList.add(turtleEggHatch);
         }
-        /*
-        if (blockData instanceof Wall) {
 
+        if (blockData instanceof Wall) {
+            SubBlockData wallHeightEast = new WallHeightEastData(blockData);
+            blockDataList.add(wallHeightEast);
+            SubBlockData wallHeightNorth = new WallHeightNorthData(blockData);
+            blockDataList.add(wallHeightNorth);
+            SubBlockData wallHeightSouth = new WallHeightSouthData(blockData);
+            blockDataList.add(wallHeightSouth);
+            SubBlockData wallHeightWest = new WallHeightWestData(blockData);
+            blockDataList.add(wallHeightWest);
+            SubBlockData wallUp = new WallUpData(blockData);
+            blockDataList.add(wallUp);
         }
-        */
+
         /* NOTE: Not Used
         if (blockData instanceof WallHangingSign) {
 
         }
-
 
         if (blockData instanceof WallSign) {
 
         }
         */
         if (blockData instanceof Waterlogged) {
-
+            SubBlockData waterlogged = new WaterloggedData(blockData);
+            blockDataList.add(waterlogged);
         }
-
-
         return blockDataList;
     }
 }

@@ -22,19 +22,19 @@ public class NoteBlockInstrumentData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
-        return null;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
     @Override
     public String getAsString() {
-        return null;
+        return "Instrument: " + instrument.toString();
     }
 
 
     @Override
     public String getDataAsString() {
-        return null;
+        return instrument.toString();
     }
 
 

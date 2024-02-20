@@ -5,16 +5,11 @@ import org.bukkit.block.data.BlockData;
 public interface SubBlockData {
 
     public String name();
-
-    public abstract BlockData getData();
-
-    public abstract String getAsString();
-
+    public String dataName();
+    public abstract BlockData getBlockData();
     public abstract String getDataAsString();
-
     public abstract SubBlockData setIsUsing(boolean isUsing);
     public abstract boolean isUsing();
-
     public abstract SubBlockData nextData();
     public abstract BlockData copyTo(BlockData blockData);
 }

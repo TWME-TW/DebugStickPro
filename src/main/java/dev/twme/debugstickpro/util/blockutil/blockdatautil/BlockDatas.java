@@ -14,6 +14,10 @@ public class BlockDatas {
         blockData = block.getBlockData();
         blockDatas.addAll(BlockDataSeparater.Separate(block));
     }
+    public BlockDatas(BlockData blockData) {
+        this.blockData = blockData;
+        blockDatas.addAll(BlockDataSeparater.Separate(blockData));
+    }
     public BlockData getBlockData() {
         return blockData;
     }

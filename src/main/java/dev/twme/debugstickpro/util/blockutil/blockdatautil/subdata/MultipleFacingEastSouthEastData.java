@@ -1,43 +1,44 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Wall;
+import org.bukkit.block.data.MultipleFacing;
 
-public class WallUPData implements SubBlockData{
+public class MultipleFacingEastSouthEastData implements SubBlockData {
     private BlockData blockData;
-    private boolean up;
     private boolean isUsing = false;
-    public WallUPData(BlockData blockData){
+    private boolean has;
+    final BlockFace face = BlockFace.EAST_SOUTH_EAST;
+
+    public MultipleFacingEastSouthEastData(BlockData blockData) {
         this.blockData = blockData;
-        this.up = ((Wall)blockData).isUp();
+        this.has = ((MultipleFacing) blockData).hasFace(face);
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
 
-
     @Override
     public String getAsString() {
-        return "Up: " + up;
+        return "Face: " + face + " Has: " + has;
     }
-
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(up);
+        return String.valueOf(has);
     }
-
 
     @Override
     public SubBlockData setIsUsing(boolean isUsing) {
         this.isUsing = isUsing;
-        return  this;
+        return this;
     }
 
     @Override
@@ -45,16 +46,17 @@ public class WallUPData implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
-        Wall wall = ((Wall) blockData);
-        up = !up;
-        wall.setUp(up);
+    @Override
+    public SubBlockData nextData() {
+        MultipleFacing blockData = ((MultipleFacing) this.blockData);
+        blockData.setFace(face, !has);
+        has = !has;
         return this;
     }
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Wall)blockData).setUp(up);
+        ((MultipleFacing) blockData).setFace(face, has);
         return blockData;
     }
 }

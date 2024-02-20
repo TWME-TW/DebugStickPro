@@ -1,9 +1,12 @@
 package dev.twme.debugstickpro.listeners;
 
+import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.util.Log;
 import dev.twme.debugstickpro.util.PersistentKey;
-import dev.twme.debugstickpro.util.blockutil.BlockUtil;
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.BlockDataSeparater;
+import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.util.player.playerdata.util.PlayerData;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.ChiseledBookshelf;
@@ -37,37 +40,20 @@ public class RightClickListener implements Listener {
         if (!player.hasPermission("debugstickpro.use")) {
             return;
         }
-        if (player.getInventory().getItemInMainHand().getType() != Material.BLAZE_ROD) {
+
+        if (!DebugStickItemCheck.checkPlayer(player)) {
             return;
         }
-        PersistentDataContainer playerHandItemData = player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer();
-        if (!playerHandItemData.has(PersistentKey.DEBUG_STICK_ITEM)){
-            return;
-        }
+
         event.setCancelled(true);
 
         block = event.getClickedBlock();
 
-        player.sendMessage("BlockData: " + block.getBlockData().toString());
-        Jukebox jukebox = (Jukebox) block.getBlockData();
-        if (!((Jukebox)block.getBlockData()).hasRecord()){
-            ((org.bukkit.block.Jukebox)block.getState()).getInventory().setRecord(null);
-            block.getState().update();
-        } //else if (((org.bukkit.block.Jukebox)block.getState()).getInventory().getRecord().getType() == Material.MUSIC_DISC_CAT){
-        //    ((org.bukkit.block.Jukebox)block.getState()).getInventory().setRecord(new ItemStack(Material.AIR));
-        //} else {
-        //    ((org.bukkit.block.Jukebox)block.getState()).getInventory().setRecord(null);
-        //}
+        player.sendMessage("1: " + block.getBlockData().getAsString());
+        player.sendMessage("2: true  " + block.getBlockData().getAsString(true));
+        player.sendMessage("3: false " + block.getBlockData().getAsString(false));
 
+        PlayerData playerData = new PlayerData(player.getUniqueId());
 
-
-        //if ((((org.bukkit.block.Jukebox) block.getState()).isPlaying())){
-        //    ((org.bukkit.block.Jukebox) block.getState()).setPlaying(Material.AIR);
-        //} else {
-        //    ((org.bukkit.block.Jukebox) block.getState()).stopPlaying();
-        //}
-        player.sendMessage("JukeboxInventory: " + ((org.bukkit.block.Jukebox)block.getState()).getInventory().getRecord());
-
-        BlockUtil.add(player.getUniqueId(), block);
     }
 }

@@ -4,28 +4,29 @@ import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CaveVinesPlant;
 
-public class CaveVinesPlantData implements SubBlockData{
+public class CaveVinesPlantData implements SubBlockData {
     private BlockData blockData;
     private boolean isBerries;
     private boolean isUsing = false;
-    public CaveVinesPlantData(BlockData blockData){
+
+    public CaveVinesPlantData(BlockData blockData) {
         this.blockData = blockData;
         this.isBerries = ((CaveVinesPlant) blockData).isBerries();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.CaveVinesPlantDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.CaveVinesPlant.replace("%data%",getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -47,7 +48,7 @@ public class CaveVinesPlantData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         CaveVinesPlant caveVinesPlant = ((CaveVinesPlant) blockData);
         caveVinesPlant.setBerries(!caveVinesPlant.isBerries());
         this.isBerries = caveVinesPlant.isBerries();
@@ -56,7 +57,7 @@ public class CaveVinesPlantData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((CaveVinesPlant)blockData).setBerries(isBerries);
+        ((CaveVinesPlant) blockData).setBerries(isBerries);
         return blockData;
     }
 }

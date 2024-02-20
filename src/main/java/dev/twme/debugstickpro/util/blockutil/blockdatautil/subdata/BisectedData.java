@@ -21,14 +21,13 @@ public class BisectedData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BisectedDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Bisected.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

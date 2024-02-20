@@ -18,7 +18,7 @@ public class LeavesPersistentData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
 

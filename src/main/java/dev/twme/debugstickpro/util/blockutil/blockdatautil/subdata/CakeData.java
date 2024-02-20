@@ -3,31 +3,30 @@ package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cake;
-import org.checkerframework.framework.qual.PreconditionAnnotation;
 
-public class CakeData implements SubBlockData{
+public class CakeData implements SubBlockData {
     private BlockData blockData;
     private int bites;
     private boolean isUsing = false;
 
-    public CakeData(BlockData blockData){
+    public CakeData(BlockData blockData) {
         this.blockData = blockData;
-        this.bites = ((Cake)blockData).getBites();
+        this.bites = ((Cake) blockData).getBites();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.CakeDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Cake.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -49,9 +48,9 @@ public class CakeData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Cake cake = ((Cake) blockData);
-        if (cake.getBites() >= (cake.getMaximumBites() - 1)){
+        if (cake.getBites() >= (cake.getMaximumBites() - 1)) {
             cake.setBites(0);
         } else {
             cake.setBites(cake.getBites() + 1);

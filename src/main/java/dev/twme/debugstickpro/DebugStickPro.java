@@ -2,7 +2,8 @@ package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.commmands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
-import dev.twme.debugstickpro.util.actionbar.ActionBarTask;
+import dev.twme.debugstickpro.util.actionbar.ActionDisplayTask;
+import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -18,8 +19,8 @@ public final class DebugStickPro extends JavaPlugin {
         registerListeners();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new ActionBarTask(), 0L, 5L);
-
+        scheduler.scheduleSyncRepeatingTask(this, new TargetBlockTask(), 0L, 5L);
+        scheduler.scheduleSyncRepeatingTask(this, new ActionDisplayTask(), 0L, 5L);
     }
 
     @Override

@@ -1,31 +1,32 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 
-public class CrafterCrafting implements SubBlockData{
+public class CrafterCraftingData implements SubBlockData {
     private BlockData blockData;
     private boolean crafting;
     private boolean isUsing = false;
 
-    public CrafterCrafting(BlockData blockData){
+    public CrafterCraftingData(BlockData blockData) {
         this.blockData = blockData;
         this.crafting = ((Crafter) blockData).isCrafting();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.CrafterCraftingDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Crafting: " + crafting;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -47,7 +48,7 @@ public class CrafterCrafting implements SubBlockData{
     }
 
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Crafter crafter = ((Crafter) blockData);
         crafter.setCrafting(!crafter.isCrafting());
         this.crafting = crafter.isCrafting();

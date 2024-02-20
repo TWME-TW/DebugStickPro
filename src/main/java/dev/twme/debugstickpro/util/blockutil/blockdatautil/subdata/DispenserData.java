@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Dispenser;
 
@@ -18,7 +19,12 @@ public class DispenserData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
+    public String dataName() {
+        return LangFile.DispenserDataName;
+    }
+
+    @Override
+    public BlockData getBlockData() {
         return blockData;
     }
 

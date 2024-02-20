@@ -20,14 +20,13 @@ public class CampfireData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.CampfireDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Campfire.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

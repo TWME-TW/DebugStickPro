@@ -19,7 +19,7 @@ public class FaceAttachableData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
 

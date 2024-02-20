@@ -20,14 +20,13 @@ public class AgeableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.AgeableDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Ageable.replace("%data%", String.valueOf(age));
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

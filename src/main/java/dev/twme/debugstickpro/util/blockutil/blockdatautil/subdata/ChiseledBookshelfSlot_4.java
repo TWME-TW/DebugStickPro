@@ -4,28 +4,29 @@ import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
-public class ChiseledBookshelfSlot_4 implements SubBlockData{
+public class ChiseledBookshelfSlot_4 implements SubBlockData {
     private BlockData blockData;
     private boolean slot_4;
     private boolean isUsing = false;
-    public ChiseledBookshelfSlot_4(BlockData blockData){
+
+    public ChiseledBookshelfSlot_4(BlockData blockData) {
         this.blockData = blockData;
         this.slot_4 = ((ChiseledBookshelf) blockData).isSlotOccupied(4);
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.ChiseledBookshelfSlot_4DataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.ChiseledBookshelfSlot_4.replace("%data%",getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -46,9 +47,9 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData{
         return isUsing;
     }
 
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         ChiseledBookshelf chiseledBookshelf = ((ChiseledBookshelf) blockData);
-        if (chiseledBookshelf.isSlotOccupied(4)){
+        if (chiseledBookshelf.isSlotOccupied(4)) {
             chiseledBookshelf.setSlotOccupied(4, false);
         } else {
             chiseledBookshelf.setSlotOccupied(4, true);
@@ -59,7 +60,7 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((ChiseledBookshelf) blockData) .setSlotOccupied(4,slot_4);
+        ((ChiseledBookshelf) blockData).setSlotOccupied(4, slot_4);
         return blockData;
     }
 }

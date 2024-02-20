@@ -20,14 +20,13 @@ public class BrewingStandBottle_1 implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BrewingStandBottle_1DataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.BrewingStandBottle_1.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

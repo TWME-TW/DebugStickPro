@@ -17,7 +17,7 @@ public class TrialSpawnerData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
+    public BlockData getBlockData() {
         return blockData;
     }
 

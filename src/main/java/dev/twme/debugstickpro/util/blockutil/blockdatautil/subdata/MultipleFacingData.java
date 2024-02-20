@@ -8,64 +8,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultipleFacingData implements SubBlockData{
-    private String NAME = "Multiple Facing";
     private BlockData blockData;
-    private BlockFace face;
-    public MultipleFacingData(BlockData blockData){
+    final private BlockFace face;
+    private boolean isUsing = false;
+    private boolean has;
+    public MultipleFacingData(BlockData blockData,BlockFace blockFace){
         this.blockData = blockData;
-        this.face = ((MultipleFacing) blockData).getFaces().stream().toList().get(0);
+        this.face = blockFace;
+        this.has = ((MultipleFacing)blockData).hasFace(face);
     }
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName() + face;
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
-    }
-
-    @Override
-    public BlockData getNextData() {
-        nextFace();
+    public BlockData getBlockData() {
         return blockData;
     }
 
     @Override
     public String getAsString() {
-        return "Face: " + face;
+        return "Face(" + face + "): " + has;
     }
 
-    @Override
-    public String getNextAsString() {
-        nextFace();
-        return "Face: " + face;
-    }
 
     @Override
     public String getDataAsString() {
         return face.toString();
     }
 
+
+
     @Override
-    public String getNextDataAsString() {
-        return face.toString();
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
     }
 
     @Override
-    public void setIsUsing(boolean isUsing) {
-
+    public boolean isUsing() {
+        return isUsing;
     }
 
-    private void nextFace(){
+    public SubBlockData nextData(){
         MultipleFacing blockData = ((MultipleFacing) this.blockData);
-        List<BlockFace> bf = new ArrayList<>(blockData.getAllowedFaces());
+        blockData.setFace(face,!has);
+        has = !has;
+        return this;
+    }
 
-        if (bf.indexOf(face) >= (bf.size() - 1)){
-            face = bf.get(0);
-        } else {
-            face = bf.get(bf.indexOf(face) + 1);
-        }
-        blockData.setFace(face, true);
+    @Override
+    public BlockData copyTo(BlockData blockData) {
+        ((MultipleFacing)blockData).setFace(face, has);
+        return blockData;
     }
 }

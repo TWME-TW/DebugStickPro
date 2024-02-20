@@ -20,14 +20,13 @@ public class BambooData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BambooDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Bamboo.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

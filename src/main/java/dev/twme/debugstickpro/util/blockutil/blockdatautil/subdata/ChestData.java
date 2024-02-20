@@ -20,14 +20,13 @@ public class ChestData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.ChestDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Chest.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

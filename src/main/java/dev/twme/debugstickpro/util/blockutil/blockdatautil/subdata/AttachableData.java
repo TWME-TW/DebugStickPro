@@ -22,15 +22,15 @@ public class AttachableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
+    public String dataName() {
+        return LangFile.AttachableDataName;
+    }
+
+    @Override
+    public BlockData getBlockData() {
         return blockData;
     }
 
-
-    @Override
-    public String getAsString() {
-        return LangFile.Attachable.replace("%data%", getDataAsString());
-    }
 
 
     @Override

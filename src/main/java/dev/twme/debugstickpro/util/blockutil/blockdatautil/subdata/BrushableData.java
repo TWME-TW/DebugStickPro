@@ -20,14 +20,13 @@ public class BrushableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BrushableDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.Brushable.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

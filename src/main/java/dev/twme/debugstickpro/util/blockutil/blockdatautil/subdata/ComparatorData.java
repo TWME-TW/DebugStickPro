@@ -1,14 +1,16 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Comparator;
 
-public class ComparatorData implements SubBlockData{
+public class ComparatorData implements SubBlockData {
 
     private BlockData blockData;
     private Comparator.Mode mode;
     private boolean isUsing = false;
-    public ComparatorData(BlockData blockData){
+
+    public ComparatorData(BlockData blockData) {
         this.blockData = blockData;
         this.mode = ((Comparator) blockData).getMode();
     }
@@ -19,14 +21,13 @@ public class ComparatorData implements SubBlockData{
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.ComparatorDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return "Comparator Mode: " + mode;
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -48,9 +49,9 @@ public class ComparatorData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Comparator comparator = ((Comparator) blockData);
-        if (comparator.getMode() == Comparator.Mode.COMPARE){
+        if (comparator.getMode() == Comparator.Mode.COMPARE) {
             comparator.setMode(Comparator.Mode.SUBTRACT);
         } else {
             comparator.setMode(Comparator.Mode.COMPARE);

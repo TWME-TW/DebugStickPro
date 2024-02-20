@@ -4,27 +4,29 @@ import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Candle;
 
-public class CandleData implements SubBlockData{
+public class CandleData implements SubBlockData {
     private BlockData blockData;
     private boolean isUsing = false;
     private int candleCount;
-    public CandleData(BlockData blockData){
+
+    public CandleData(BlockData blockData) {
         this.blockData = blockData;
-        this.candleCount = ((Candle)blockData).getCandles();
+        this.candleCount = ((Candle) blockData).getCandles();
     }
+
     @Override
     public String name() {
         return this.getClass().getSimpleName();
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.CandleDataName;
     }
 
     @Override
-    public String getAsString() {
-        return LangFile.Candle.replace("%data%",getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
@@ -46,9 +48,9 @@ public class CandleData implements SubBlockData{
     }
 
     @Override
-    public SubBlockData nextData(){
+    public SubBlockData nextData() {
         Candle candle = ((Candle) blockData);
-        if (candle.getCandles() >= candle.getMaximumCandles()){
+        if (candle.getCandles() >= candle.getMaximumCandles()) {
             candle.setCandles(1);
         } else {
             candle.setCandles(candle.getCandles() + 1);
@@ -59,7 +61,7 @@ public class CandleData implements SubBlockData{
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Candle)blockData).setCandles(candleCount);
+        ((Candle) blockData).setCandles(candleCount);
         return blockData;
     }
 }

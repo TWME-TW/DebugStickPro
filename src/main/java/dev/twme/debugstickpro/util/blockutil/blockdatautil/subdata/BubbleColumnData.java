@@ -21,14 +21,13 @@ public class BubbleColumnData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BubbleColumnDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.BubbleColumn.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 

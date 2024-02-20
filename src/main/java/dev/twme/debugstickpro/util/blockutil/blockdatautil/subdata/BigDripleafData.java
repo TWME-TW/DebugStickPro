@@ -20,14 +20,13 @@ public class BigDripleafData implements SubBlockData {
     }
 
     @Override
-    public BlockData getData() {
-        return blockData;
+    public String dataName() {
+        return LangFile.BigDripleafDataName;
     }
 
-
     @Override
-    public String getAsString() {
-        return LangFile.BigDripleaf.replace("%data%", getDataAsString());
+    public BlockData getBlockData() {
+        return blockData;
     }
 
 
