@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.player.playerdata;
 
+import dev.twme.debugstickpro.events.DebugStickChangeBlockEvent;
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.SubBlockData;
 import org.bukkit.block.Block;
@@ -53,6 +54,7 @@ public class PlayerData {
         ModeSelection = modeSelection;
         return this;
     }
+
     public boolean getModeSelection() {
         return ModeSelection;
     }
@@ -62,53 +64,43 @@ public class PlayerData {
             return modeChangeDisplay();
         }
 
-
         if (debugStickMode == DebugStickMode.Classic) {
             return classicDisplay();
 
         } else if (debugStickMode == DebugStickMode.Copy) {
             return copyDisplay();
 
-
-        } else if (debugStickMode == DebugStickMode.Freeze) {
-
-
+        } else {
+            return freezeDisplay();
         }
-        return displaySubBlockData.toString();
     }
 
     public void changeSelected() {
+        if (ModeSelection){
+            changeMode();
+            return;
+        }
         if (debugStickMode == DebugStickMode.Classic) {
-            for (int i = 0; i < displaySubBlockData.size(); i++) {
-                SubBlockData subBlockData = displaySubBlockData.get(i);
-                if (subBlockData.isUsing()) {
-                    subBlockData.setIsUsing(false);
-                    if (i == displaySubBlockData.size() - 1) {
-                        displaySubBlockData.get(0).setIsUsing(true);
-                        this.selectedSubBlockData = displaySubBlockData.get(0);
-                    } else {
-                        displaySubBlockData.get(i + 1).setIsUsing(true);
-                        this.selectedSubBlockData = displaySubBlockData.get(i + 1);
-                    }
-                    break;
-                }
-            }
+            changeSelectedClassic();
+            return;
+        } else if (debugStickMode == DebugStickMode.Copy) {
+            this.storedSubBlockData = BlockDataSeparater.Separate(blockData);
+            return;
+        }  else {
+            // TODO: Something
         }
     }
 
     public void changeValue() {
+        if (ModeSelection){
+            changeValueMode();
+            return;
+        }
         if (debugStickMode == DebugStickMode.Classic) {
-            for (SubBlockData subBlockData : displaySubBlockData) {
-                if (subBlockData.isUsing()) {
-                    subBlockData.nextData();
-                    subBlockData.getBlockData();
-                    this.block.setBlockData(subBlockData.getBlockData(), false);
-                    this.block.getState().update();
-                    break;
-                }
-            }
-
+            changeValueClassic();
         } else if (debugStickMode == DebugStickMode.Copy) {
+            changeValueCopy();
+        } else {
 
         }
     }
@@ -152,29 +144,112 @@ public class PlayerData {
         return stringBuilder.toString();
     }
 
-    private String copyDisplay(){
+    private String copyDisplay() {
         StringBuilder stringBuilder = new StringBuilder();
+        if (storedSubBlockData == null) {
+            return "<dark_gray>You need to select a block first</dark_gray>";
+        }
         for (SubBlockData subBlockData : storedSubBlockData) {
             stringBuilder.append("<b><red>").append(subBlockData.dataName()).append(": ").append("</red></b>").append(subBlockData.getDataAsString().toLowerCase()).append(" ");
         }
         return stringBuilder.toString();
     }
 
-    private String freezeDisplay(){
-
-        return null;
+    private String freezeDisplay() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (SubBlockData subBlockData : displaySubBlockData) {
+            stringBuilder.append("<b><color:#1fbfff>").append(subBlockData.dataName()).append("</color></b>").append(": ").append(subBlockData.getDataAsString().toLowerCase()).append(" ");
+        }
+        return stringBuilder.toString();
     }
 
     private String modeChangeDisplay() {
         StringBuilder stringBuilder1 = new StringBuilder();
-        for (DebugStickMode debugStickMode : DebugStickMode.values()) {
-            if (debugStickMode.equals(this.debugStickMode)) {
-                stringBuilder1.append("<b><red>").append(debugStickMode.name()).append("</red></b>").append(" ");
-            } else {
-                stringBuilder1.append(debugStickMode.name()).append(" ");
+        if (debugStickMode == DebugStickMode.Classic) {
+            stringBuilder1.append("<b><red>").append(debugStickMode.name()).append("</red></b>").append(" ");
+        } else {
+            stringBuilder1.append(DebugStickMode.Classic.name()).append(" ");
+        }
+
+        if (debugStickMode == DebugStickMode.Copy) {
+            stringBuilder1.append("<b><red>").append(debugStickMode.name()).append("</red></b>").append(" ");
+        } else {
+            stringBuilder1.append(DebugStickMode.Copy.name()).append(" ");
+        }
+
+        if (debugStickMode == DebugStickMode.Freeze) {
+            stringBuilder1.append("<b><red>").append(debugStickMode.name()).append("</red></b>").append(" ");
+        } else {
+            stringBuilder1.append(DebugStickMode.Freeze.name()).append(" ");
+        }
+
+        return stringBuilder1.toString();
+    }
+
+    private void changeMode() {
+        if (debugStickMode == DebugStickMode.Classic) {
+            debugStickMode = DebugStickMode.Copy;
+        } else if (debugStickMode == DebugStickMode.Copy) {
+            debugStickMode = DebugStickMode.Freeze;
+        } else {
+            debugStickMode = DebugStickMode.Classic;
+        }
+    }
+
+    private void changeSelectedClassic() {
+        for (int i = 0; i < displaySubBlockData.size(); i++) {
+            SubBlockData subBlockData = displaySubBlockData.get(i);
+            if (subBlockData.isUsing()) {
+                subBlockData.setIsUsing(false);
+                if (i == displaySubBlockData.size() - 1) {
+                    displaySubBlockData.get(0).setIsUsing(true);
+                    this.selectedSubBlockData = displaySubBlockData.get(0);
+                } else {
+                    displaySubBlockData.get(i + 1).setIsUsing(true);
+                    this.selectedSubBlockData = displaySubBlockData.get(i + 1);
+                }
+                break;
             }
         }
-        return stringBuilder1.toString();
+    }
+
+    private void changeValueMode() {
+
+        ModeSelection = false;
+    }
+    private void changeValueCopy() {
+        ArrayList<SubBlockData> subBlockDatas = BlockDataSeparater.Separate(block);
+        for (SubBlockData subBlockData : subBlockDatas) {
+            for (SubBlockData storedSubBlockData : storedSubBlockData) {
+                if (subBlockData.dataName().equals(storedSubBlockData.dataName())) {
+
+                    DebugStickChangeBlockEvent event = new DebugStickChangeBlockEvent(playerUUID, block, subBlockData);
+                    if (event.isCancelled()){
+                        return;
+                    }
+                    this.block.setBlockData(storedSubBlockData.copyTo(subBlockData.getBlockData()), false);
+                    this.block.getState().update();
+                    break;
+                }
+            }
+        }
+
+    }
+
+    private void changeValueClassic() {
+        for (SubBlockData subBlockData : displaySubBlockData) {
+            if (subBlockData.isUsing()) {
+                subBlockData.nextData();
+                subBlockData.getBlockData();
+                DebugStickChangeBlockEvent event = new DebugStickChangeBlockEvent(playerUUID, block, subBlockData);
+                if (event.isCancelled()){
+                    return;
+                }
+                this.block.setBlockData(subBlockData.getBlockData(), false);
+                this.block.getState().update();
+                break;
+            }
+        }
     }
 
 }
