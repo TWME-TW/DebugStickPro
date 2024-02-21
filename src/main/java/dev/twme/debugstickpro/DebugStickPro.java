@@ -17,10 +17,7 @@ public final class DebugStickPro extends JavaPlugin {
         instance = this;
         registerCommands();
         registerListeners();
-
-        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new TargetBlockTask(), 0L, 4L);
-        scheduler.scheduleSyncRepeatingTask(this, new ActionDisplayTask(), 0L, 4L);
+        registerTasks();
     }
 
     @Override
@@ -42,7 +39,14 @@ public final class DebugStickPro extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerSwapHandItemsEventListener(), this);
     }
 
+    private void registerTasks() {
+        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        scheduler.scheduleSyncRepeatingTask(this, new TargetBlockTask(), 0L, 4L);
+        scheduler.scheduleSyncRepeatingTask(this, new ActionDisplayTask(), 0L, 4L);
+    }
+
     public static DebugStickPro getInstance() {
         return instance;
     }
+
 }
