@@ -50,11 +50,11 @@ public class LecternData implements SubBlockData {
     public SubBlockData nextData() {
         String blockDataString = this.blockData.getAsString();
         if (hasBook) {
-            blockDataString.replace("has_book=true", "has_book=false");
+            blockDataString = blockDataString.replace("has_book=true", "has_book=false");
         } else {
-            blockDataString.replace("has_book=false", "has_book=true");
+            blockDataString = blockDataString.replace("has_book=false", "has_book=true");
         }
-        blockData = DebugStickPro.getInstance().getServer().createBlockData(blockDataString);
+        this.blockData = DebugStickPro.getInstance().getServer().createBlockData(blockDataString);
         hasBook = !hasBook;
         return this;
     }
