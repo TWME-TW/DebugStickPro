@@ -77,7 +77,7 @@ public class PlayerData {
 
     public void changeSelected() {
         if (ModeSelection){
-            changeMode();
+            changeModeSelected();
             return;
         }
         if (debugStickMode == DebugStickMode.Classic) {
@@ -96,6 +96,11 @@ public class PlayerData {
             changeValueMode();
             return;
         }
+
+        if (this.displaySubBlockData == null){
+            return;
+        }
+
         if (debugStickMode == DebugStickMode.Classic) {
             changeValueClassic();
         } else if (debugStickMode == DebugStickMode.Copy) {
@@ -156,11 +161,8 @@ public class PlayerData {
     }
 
     private String freezeDisplay() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (SubBlockData subBlockData : displaySubBlockData) {
-            stringBuilder.append("<b><color:#1fbfff>").append(subBlockData.dataName()).append("</color></b>").append(": ").append(subBlockData.getDataAsString().toLowerCase()).append(" ");
-        }
-        return stringBuilder.toString();
+
+        return "<dark_gray>Freeze mode, right click f</dark_gray>";
     }
 
     private String modeChangeDisplay() {
@@ -186,8 +188,9 @@ public class PlayerData {
         return stringBuilder1.toString();
     }
 
-    private void changeMode() {
+    private void changeModeSelected() {
         if (debugStickMode == DebugStickMode.Classic) {
+            this.storedSubBlockData = null;
             debugStickMode = DebugStickMode.Copy;
         } else if (debugStickMode == DebugStickMode.Copy) {
             debugStickMode = DebugStickMode.Freeze;

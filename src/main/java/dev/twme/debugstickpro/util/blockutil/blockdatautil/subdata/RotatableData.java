@@ -5,6 +5,9 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Rotatable;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RotatableData implements SubBlockData {
@@ -51,7 +54,12 @@ public class RotatableData implements SubBlockData {
     @Override
     public SubBlockData nextData() {
         Rotatable rotatable = ((Rotatable) blockData);
-        List<BlockFace> blockFaces = List.of(BlockFace.values());
+        ArrayList<BlockFace> blockFaces = new ArrayList<>(Arrays.asList(BlockFace.values()));
+
+        blockFaces.remove(BlockFace.SELF); // Remove SELF (the default value of BlockFace
+        blockFaces.remove(BlockFace.UP); // Remove UP (the default value of BlockFace
+        blockFaces.remove(BlockFace.DOWN); // Remove DOWN (the default value of BlockFace
+
         int index = blockFaces.indexOf(blockFace);
         if (index >= blockFaces.size() - 1) {
             index = 0;
