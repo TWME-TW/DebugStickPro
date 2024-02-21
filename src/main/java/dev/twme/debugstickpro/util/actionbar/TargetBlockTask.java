@@ -29,7 +29,6 @@ public class TargetBlockTask implements Runnable {
             } else {
                 playerData.removeDisplaySubBlockData();
                 ActionbarUtil.removeActionBar(uuid);
-
             }
         }
     }

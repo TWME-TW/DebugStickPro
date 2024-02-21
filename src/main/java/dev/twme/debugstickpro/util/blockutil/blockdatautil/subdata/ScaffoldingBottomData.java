@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Scaffolding;
 
 public class ScaffoldingBottomData implements SubBlockData {
-    private String NAME = "ScaffoldingBottom";
     private BlockData blockData;
     private boolean bottom;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class ScaffoldingBottomData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

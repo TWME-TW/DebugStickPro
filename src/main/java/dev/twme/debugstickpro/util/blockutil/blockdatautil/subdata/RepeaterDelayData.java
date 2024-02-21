@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
 public class RepeaterDelayData implements SubBlockData {
-    private String NAME = "RepeaterDelay";
     private BlockData blockData;
     private int delay;
     private boolean isUsing = false;
@@ -18,7 +17,7 @@ public class RepeaterDelayData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

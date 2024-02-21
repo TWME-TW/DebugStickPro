@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkSensor;
 
 public class SculkSensorData implements SubBlockData {
-    private String NAME = "SculkSensor";
     private BlockData blockData;
     private SculkSensor.Phase phase;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class SculkSensorData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

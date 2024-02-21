@@ -48,14 +48,14 @@ public class StructureBlockData implements SubBlockData {
 
     public SubBlockData nextData() {
         StructureBlock structureBlock = ((StructureBlock) blockData);
-        if (mode == StructureBlock.Mode.DATA) {
+        if (mode == StructureBlock.Mode.LOAD) {
             mode = StructureBlock.Mode.SAVE;
         } else if (mode == StructureBlock.Mode.SAVE) {
-            mode = StructureBlock.Mode.LOAD;
-        } else if (mode == StructureBlock.Mode.LOAD) {
+            mode = StructureBlock.Mode.DATA;
+        } else if (mode == StructureBlock.Mode.DATA) {
             mode = StructureBlock.Mode.CORNER;
         } else if (mode == StructureBlock.Mode.CORNER) {
-            mode = StructureBlock.Mode.DATA;
+            mode = StructureBlock.Mode.LOAD;
         }
         structureBlock.setMode(mode);
         return this;

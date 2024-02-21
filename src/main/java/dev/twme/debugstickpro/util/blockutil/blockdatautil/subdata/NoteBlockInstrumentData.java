@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NoteBlockInstrumentData implements SubBlockData {
-    private String NAME = "Note Block";
     private BlockData blockData;
     private Instrument instrument;
     private boolean isUsing = false;
@@ -21,7 +20,7 @@ public class NoteBlockInstrumentData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

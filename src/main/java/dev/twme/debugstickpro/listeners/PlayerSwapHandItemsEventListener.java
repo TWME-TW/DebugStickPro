@@ -22,11 +22,6 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         }
         event.setCancelled(true);
         PlayerData playerData = PlayerDataManager.getPlayerData(event.getPlayer().getUniqueId());
-        if (playerData.getPlayerMode() != DebugStickMode.ModeChange) {
-            playerData.setPlayerMode(DebugStickMode.ModeChange);
-        } else {
-            playerData.setPlayerMode(playerData.getOldPlayerMode());
-        }
+        playerData.setModeSelection(!playerData.getModeSelection());
     }
-
 }

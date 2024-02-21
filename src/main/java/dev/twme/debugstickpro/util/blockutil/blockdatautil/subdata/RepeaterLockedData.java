@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
 public class RepeaterLockedData implements SubBlockData {
-    private String NAME = "RepeaterLocked";
     private BlockData blockData;
     private boolean locked;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class RepeaterLockedData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

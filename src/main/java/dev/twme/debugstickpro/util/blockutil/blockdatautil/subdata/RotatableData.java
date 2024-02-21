@@ -8,7 +8,6 @@ import org.bukkit.block.data.Rotatable;
 import java.util.List;
 
 public class RotatableData implements SubBlockData {
-    private String NAME = "Rotatable";
     private BlockData blockData;
     private BlockFace blockFace;
     private boolean isUsing = false;
@@ -20,7 +19,7 @@ public class RotatableData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.DaylightDetector;
 
 public class DaylightDetectorData implements SubBlockData {
-    private String NAME = "Inverted";
     private BlockData blockData;
     private boolean inverted;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class DaylightDetectorData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

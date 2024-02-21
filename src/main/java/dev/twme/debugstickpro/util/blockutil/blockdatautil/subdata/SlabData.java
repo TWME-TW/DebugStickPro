@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Slab;
 
 public class SlabData implements SubBlockData {
-    private String NAME = "SlabData";
     private BlockData blockData;
     private Slab.Type type;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class SlabData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

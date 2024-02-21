@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Lightable;
 
 public class LightableData implements SubBlockData {
-    private String NAME = "Lightable";
     private BlockData blockData;
     private boolean lit;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class LightableData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

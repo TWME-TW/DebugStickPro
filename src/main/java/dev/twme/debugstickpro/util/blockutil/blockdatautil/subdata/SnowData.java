@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Snow;
 
 public class SnowData implements SubBlockData {
-    private String NAME = "Snow";
     private BlockData blockData;
     private int layers;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class SnowData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

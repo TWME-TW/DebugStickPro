@@ -5,7 +5,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Farmland;
 
 public class FarmlandData implements SubBlockData {
-    private String NAME = "Farmland Moisture";
+
     private BlockData blockData;
     private int moisture;
     private boolean isUsing = false;
@@ -17,7 +17,7 @@ public class FarmlandData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

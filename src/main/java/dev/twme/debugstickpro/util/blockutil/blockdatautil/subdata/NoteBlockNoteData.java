@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NoteBlockNoteData implements SubBlockData {
-    private String NAME = "Note";
     private BlockData blockData;
     private Note note;
     private boolean isUsing = false;
@@ -22,7 +21,7 @@ public class NoteBlockNoteData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

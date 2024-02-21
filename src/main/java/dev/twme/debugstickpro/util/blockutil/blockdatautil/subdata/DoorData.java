@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Door;
 
 public class DoorData implements SubBlockData {
-    private String NAME = "Door Hinge";
     private BlockData blockData;
     private Door.Hinge hinge;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class DoorData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

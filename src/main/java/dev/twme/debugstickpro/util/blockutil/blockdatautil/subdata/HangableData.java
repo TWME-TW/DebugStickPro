@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Hangable;
 
 public class HangableData implements SubBlockData {
-    private String NAME = "Hangable";
     private BlockData blockData;
     private boolean hangable;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class HangableData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

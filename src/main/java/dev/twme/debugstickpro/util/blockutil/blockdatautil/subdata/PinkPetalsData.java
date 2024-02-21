@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PinkPetals;
 
 public class PinkPetalsData implements SubBlockData {
-    private String NAME = "PinkPetals";
     private BlockData blockData;
     private int flowerAmount;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class PinkPetalsData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Jigsaw;
 
 public class JigsawData implements SubBlockData {
-    private String NAME = "Jigsaw";
     private BlockData blockData;
     private Jigsaw.Orientation orientation;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class JigsawData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

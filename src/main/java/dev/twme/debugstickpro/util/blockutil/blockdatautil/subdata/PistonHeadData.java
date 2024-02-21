@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PistonHead;
 
 public class PistonHeadData implements SubBlockData {
-    private String NAME = "PistonHead";
     private BlockData blockData;
     private boolean shortArm;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class PistonHeadData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

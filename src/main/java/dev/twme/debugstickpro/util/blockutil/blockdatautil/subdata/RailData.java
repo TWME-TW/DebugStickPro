@@ -7,7 +7,6 @@ import org.bukkit.block.data.Rail;
 import java.util.List;
 
 public class RailData implements SubBlockData {
-    private final String NAME = "Rail";
     private BlockData blockData;
     private Rail.Shape shape;
     private boolean isUsing = false;
@@ -19,7 +18,7 @@ public class RailData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

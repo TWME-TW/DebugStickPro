@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Sapling;
 
 public class SaplingData implements SubBlockData {
-    private String NAME = "Sapling";
     private BlockData blockData;
     private int stage;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class SaplingData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

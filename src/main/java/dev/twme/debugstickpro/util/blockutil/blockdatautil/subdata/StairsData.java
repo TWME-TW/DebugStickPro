@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
 
 public class StairsData implements SubBlockData {
-    private String NAME = "Stairs";
     private BlockData blockData;
     private Stairs.Shape shape;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class StairsData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

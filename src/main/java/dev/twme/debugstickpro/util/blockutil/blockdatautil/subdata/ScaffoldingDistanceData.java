@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Scaffolding;
 
 public class ScaffoldingDistanceData implements SubBlockData {
-    private String NAME = "ScaffoldingDistance";
     private BlockData blockData;
     private int distance;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class ScaffoldingDistanceData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

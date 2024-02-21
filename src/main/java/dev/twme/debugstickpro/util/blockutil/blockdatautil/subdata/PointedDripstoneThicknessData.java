@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PointedDripstone;
 
 public class PointedDripstoneThicknessData implements SubBlockData {
-    private final String NAME = "PointedDripstoneThickness";
     private BlockData blockData;
     private PointedDripstone.Thickness thickness;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class PointedDripstoneThicknessData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

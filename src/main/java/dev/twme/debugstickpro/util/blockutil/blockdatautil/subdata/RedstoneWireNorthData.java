@@ -6,7 +6,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RedstoneWire;
 
 public class RedstoneWireNorthData implements SubBlockData {
-    private String NAME = "RedstoneWire";
     private BlockData blockData;
     private RedstoneWire.Connection connection;
     final private BlockFace face = BlockFace.NORTH;
@@ -19,7 +18,7 @@ public class RedstoneWireNorthData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

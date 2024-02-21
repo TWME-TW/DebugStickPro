@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 
 public class CrafterTriggerData implements SubBlockData {
-    private String NAME = "Triggered";
     private BlockData blockData;
     private boolean triggered;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class CrafterTriggerData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Hatchable;
 
 public class HatchableData implements SubBlockData {
-    private String NAME = "Hatchable";
     private BlockData blockData;
     private int hatch;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class HatchableData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RespawnAnchor;
 
 public class RespawnAnchorData implements SubBlockData {
-    private String NAME = "RespawnAnchor";
     private BlockData blockData;
     private int charges;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class RespawnAnchorData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

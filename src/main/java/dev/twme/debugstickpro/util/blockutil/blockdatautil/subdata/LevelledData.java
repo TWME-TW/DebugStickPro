@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Levelled;
 
 public class LevelledData implements SubBlockData {
-    private String NAME = "Levelled";
     private BlockData blockData;
     private boolean isUsing;
     private int level;
@@ -17,7 +16,7 @@ public class LevelledData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

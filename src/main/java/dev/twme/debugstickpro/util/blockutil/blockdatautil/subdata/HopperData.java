@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Hopper;
 
 public class HopperData implements SubBlockData {
-    private final String NAME = "Hopper Enabled";
     private BlockData blockData;
     private boolean enabled;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class HopperData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkShrieker;
 
 public class SculkShriekerShriekingData implements SubBlockData {
-    private String NAME = "SculkShriekerShrieking";
     private BlockData blockData;
     private boolean isShrieking;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class SculkShriekerShriekingData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

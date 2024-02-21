@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Leaves;
 
 public class LeavesPersistentData implements SubBlockData {
-    private String NAME = "Leaves Persistent";
     private BlockData blockData;
     private boolean persistent;
     private boolean isUsing;
@@ -17,7 +16,7 @@ public class LeavesPersistentData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

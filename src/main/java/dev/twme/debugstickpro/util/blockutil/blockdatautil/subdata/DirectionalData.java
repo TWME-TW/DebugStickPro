@@ -8,7 +8,6 @@ import org.bukkit.block.data.Directional;
 import java.util.List;
 
 public class DirectionalData implements SubBlockData {
-    private String NAME = "Direction";
     private org.bukkit.block.data.BlockData blockData;
     private BlockFace direction;
     private boolean isUsing = false;
@@ -20,7 +19,7 @@ public class DirectionalData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

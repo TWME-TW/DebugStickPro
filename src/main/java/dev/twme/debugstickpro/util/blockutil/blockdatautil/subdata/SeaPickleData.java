@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SeaPickle;
 
 public class SeaPickleData implements SubBlockData {
-    private String NAME = "SeaPickle";
     private BlockData blockData;
     private int pickles;
     private boolean isUsing = false;
@@ -17,7 +16,7 @@ public class SeaPickleData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override

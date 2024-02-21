@@ -5,7 +5,6 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Leaves;
 
 public class LeavesDistanceData implements SubBlockData {
-    private String NAME = "Leaves Distance";
     private BlockData blockData;
     private int distance;
     private boolean isUsing;
@@ -17,7 +16,7 @@ public class LeavesDistanceData implements SubBlockData {
 
     @Override
     public String name() {
-        return NAME;
+        return this.getClass().getSimpleName();
     }
 
     @Override
