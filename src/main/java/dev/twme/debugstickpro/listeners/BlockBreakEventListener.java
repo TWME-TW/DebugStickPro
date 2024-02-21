@@ -11,10 +11,10 @@ public class BlockBreakEventListener implements Listener {
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (CheckPlayerCanUseUtil.check(player)) {
+        if (!CheckPlayerCanUseUtil.check(player)) {
             return;
         }
-        if (DebugStickItemCheck.checkPlayer(player)) {
+        if (!DebugStickItemCheck.checkPlayer(player)) {
             return;
         }
         event.setCancelled(true);

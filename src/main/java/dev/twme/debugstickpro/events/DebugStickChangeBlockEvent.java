@@ -8,13 +8,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class ChangeBlockEvent extends Event implements Cancellable {
+public class DebugStickChangeBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private Player player;
     private Location location;
     private boolean isCancelled;
 
-    public ChangeBlockEvent(Player player, Location location, SubBlockData subBlockData) {
+    public DebugStickChangeBlockEvent(Player player, Location location, SubBlockData subBlockData) {
 
     }
     public static HandlerList getHandlerList() {

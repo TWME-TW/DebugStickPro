@@ -6,6 +6,10 @@ import org.bukkit.entity.Player;
 
 public class CheckPlayerCanUseUtil {
     public static boolean check(Player player) {
+        return check(player,true);
+    }
+
+    public static boolean check(Player player,boolean checkItem) {
         if (player == null){
             return false;
         }
@@ -15,8 +19,10 @@ public class CheckPlayerCanUseUtil {
         if (!player.hasPermission("debugstickpro.use")) {
             return returnFalse(player);
         }
-        if (!DebugStickItemCheck.checkPlayer(player)){
-            return returnFalse(player);
+        if (checkItem) {
+            if (!DebugStickItemCheck.checkPlayer(player)){
+                return returnFalse(player);
+            }
         }
         return true;
     }

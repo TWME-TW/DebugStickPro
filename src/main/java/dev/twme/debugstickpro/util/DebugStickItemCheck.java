@@ -6,13 +6,19 @@ import org.bukkit.inventory.ItemStack;
 
 public class DebugStickItemCheck {
     public static boolean isDebugStickItem(ItemStack item) {
-        if (item == null || item.getType() != Material.BLAZE_ROD) {
+        if (item == null ) {
+            return false;
+        }
+        if (item.getType() != Material.BLAZE_ROD) {
             return false;
         }
         if (item.getItemMeta() == null) {
             return false;
         }
-        return item.getItemMeta().getPersistentDataContainer().has(PersistentKey.DEBUG_STICK_ITEM);
+        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKey.DEBUG_STICK_ITEM)){
+            return false;
+        }
+        return true;
     }
     public static boolean checkPlayer(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();

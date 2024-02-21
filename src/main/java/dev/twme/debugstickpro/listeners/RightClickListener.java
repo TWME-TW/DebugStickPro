@@ -6,14 +6,16 @@ import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class RightClickListener implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onRightClick(PlayerInteractEvent event) {
+
         if (event.getHand() != EquipmentSlot.HAND) {
             return;
         }
@@ -37,6 +39,6 @@ public class RightClickListener implements Listener {
         block = event.getClickedBlock();
 
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
-        playerData.changeSubBlockDataValue();
+        playerData.changeValue();
     }
 }

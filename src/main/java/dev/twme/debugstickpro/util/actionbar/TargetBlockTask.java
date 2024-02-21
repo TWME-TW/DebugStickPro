@@ -19,18 +19,17 @@ public class TargetBlockTask implements Runnable {
                 return;
             }
 
-
+            PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
             Block block = player.getTargetBlockExact(5);
             if (CheckBlockCanUseUtil.check(block)) {
 
-                BlockData blockData = block.getBlockData();
-                PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
                 playerData.setDisplaySubBlockData(block);
-
 
                 return;
             } else {
+                playerData.removeDisplaySubBlockData();
                 ActionbarUtil.removeActionBar(uuid);
+
             }
         }
     }

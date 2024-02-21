@@ -1,8 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
-import dev.twme.debugstickpro.util.actionbar.ActionbarUtil;
 import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerItemHeldListener implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerItemHeloEvent(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
 

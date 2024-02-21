@@ -39,6 +39,7 @@ public final class DebugStickPro extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerItemHeldListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BlockBreakEventListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerSwapHandItemsEventListener(), this);
     }
 
     public static DebugStickPro getInstance() {

@@ -9,8 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LeftClickListener implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onLeftClickEvent(PlayerInteractEvent event) {
+
         if (!event.getAction().isLeftClick()) {
             return;
         }
@@ -19,8 +20,9 @@ public class LeftClickListener implements Listener {
         if (!DebugStickItemCheck.checkPlayer(player)) {
             return;
         }
+
         event.setCancelled(true);
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
-        playerData.changeSubBlockDataSelected();
+        playerData.changeSelected();
     }
 }
