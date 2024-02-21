@@ -36,8 +36,6 @@ public class RightClickListener implements Listener {
 
         block = event.getClickedBlock();
 
-        player.sendMessage("1: " + block.getBlockData().getAsString());
-
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
         playerData.changeSubBlockDataValue();
     }
