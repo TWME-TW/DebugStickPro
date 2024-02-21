@@ -31,7 +31,7 @@ public class MultipleFacingEastData implements SubBlockData {
         return blockData;
     }
 
-    
+
     @Override
     public String getDataAsString() {
         return String.valueOf(has);

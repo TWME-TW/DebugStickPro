@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,10 +24,12 @@ import java.util.List;
 public class MainCommands implements CommandExecutor , TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+
         if (!(commandSender instanceof Player)){
             commandSender.sendMessage("You need to be a player to use this command!");
             return true;
         }
+
         Player player = (Player) commandSender;
 
         if (strings.length == 0){
@@ -56,7 +59,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         } else {
             player.sendMessage("You do not have permission to use this command!");
         }
-
+        // TODO: remove debug messages
         if (strings[0].equalsIgnoreCase("a")){
             ActionbarUtil.sendActionBar(player, "Text: " + strings[1]);
             return true;
@@ -97,6 +100,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
 
         ItemMeta itemMeta = itemStack.getItemMeta();
+
         itemMeta.setDisplayName("Debug Stick Pro");
         itemMeta.getPersistentDataContainer().set(PersistentKey.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
 

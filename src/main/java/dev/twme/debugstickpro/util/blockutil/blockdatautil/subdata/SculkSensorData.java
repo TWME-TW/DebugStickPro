@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata;
 
+import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkSensor;
 
@@ -21,7 +22,7 @@ public class SculkSensorData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return null;
+        return LangFile.SculkSensorDataName;
     }
 
     @Override

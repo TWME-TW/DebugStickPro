@@ -23,14 +23,20 @@ public class PlayerItemHeldListener implements Listener {
         Inventory inventory = player.getInventory();
         ItemStack newItem = inventory.getItem(event.getNewSlot());
         ItemStack oldItem = inventory.getItem(event.getPreviousSlot());
+
         if (DebugStickItemCheck.isDebugStickItem(newItem)) {
+
             PlayerDataManager.addPlayerEnableDisplay(player.getUniqueId());
+
         } else if (DebugStickItemCheck.isDebugStickItem(oldItem)) {
-            ActionbarUtil.removeActionBar(player.getUniqueId());
+
+            PlayerDataManager.removePlayerEnableDisplay(player.getUniqueId());
+
         } else if (newItem == null || oldItem == null) {
-            ActionbarUtil.removeActionBar(player.getUniqueId());
+
+            PlayerDataManager.removePlayerEnableDisplay(player.getUniqueId());
         } else {
-            ActionbarUtil.removeActionBar(player.getUniqueId());
+            PlayerDataManager.removePlayerEnableDisplay(player.getUniqueId());
         }
     }
 }

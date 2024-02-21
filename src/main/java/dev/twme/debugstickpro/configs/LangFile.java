@@ -88,10 +88,10 @@ public class LangFile {
     public static String PointedDripstoneVerticalDirectionDataName = "Vertical Direction";
     public static String PowerableDataName = "Powered";
     public static String RailDataName = "Shape";
-    public static String RedstoneWireEastDataName = "East Connection";
-    public static String RedstoneWireNorthDataName = "North Connection";
-    public static String RedstoneWireSouthDataName = "South Connection";
-    public static String RedstoneWireWestDataName = "West Connection";
+    public static String RedstoneWireEastDataName = "East";
+    public static String RedstoneWireNorthDataName = "North";
+    public static String RedstoneWireSouthDataName = "South";
+    public static String RedstoneWireWestDataName = "West";
 
     public static String RepeaterDelayDataName = "Delay";
     public static String RepeaterLockedDataName = "Locked";
