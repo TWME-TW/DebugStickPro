@@ -50,7 +50,7 @@ public class BeehiveData implements SubBlockData {
     @Override
     public SubBlockData nextData() {
         Beehive beehive = (Beehive) blockData;
-        if (honeyLevel >= beehive.getHoneyLevel()) {
+        if (honeyLevel >= beehive.getMaximumHoneyLevel()) {
             honeyLevel = 0;
         } else {
             honeyLevel++;
