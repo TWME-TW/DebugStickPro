@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.playerdata;
 
+import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
 import dev.twme.debugstickpro.events.DebugStickChangeBlockEvent;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
@@ -83,18 +84,22 @@ public class PlayerData {
             return;
         }
 
-        if (this.displaySubBlockData == null){
-            return;
-        }
 
         if (debugStickMode == DebugStickMode.Classic) {
+            if (this.displaySubBlockData == null){
+                return;
+            }
             changeSelectedClassic();
             return;
         } else if (debugStickMode == DebugStickMode.Copy) {
+            if (this.displaySubBlockData == null){
+                return;
+            }
             this.storedSubBlockData = BlockDataSeparater.Separate(blockData);
             return;
-        }  else {
+        }  else { // Freeze mode
             // TODO: Something
+            changeSelectedFreeze();
         }
     }
 
@@ -104,16 +109,20 @@ public class PlayerData {
             return;
         }
 
-        if (this.displaySubBlockData == null){
-            return;
-        }
 
         if (debugStickMode == DebugStickMode.Classic) {
+            if (this.displaySubBlockData == null){
+                return;
+            }
             changeValueClassic();
         } else if (debugStickMode == DebugStickMode.Copy) {
+            if (this.displaySubBlockData == null){
+                return;
+            }
             changeValueCopy();
-        } else {
+        } else { // Freeze mode
 
+            changeValueFreeze();
         }
     }
 
@@ -222,6 +231,9 @@ public class PlayerData {
             }
         }
     }
+    private void changeSelectedFreeze() {
+        FreezeBlockManager.removeAllBlock(playerUUID);
+    }
 
     private void changeValueMode() {
         ModeSelection = false;
@@ -258,6 +270,14 @@ public class PlayerData {
                 this.block.getState().update();
                 break;
             }
+        }
+    }
+
+    private void changeValueFreeze() {
+        if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
+            FreezeBlockManager.removeBlock(playerUUID, block);
+        } else {
+            FreezeBlockManager.addBlock(playerUUID, block);
         }
     }
 
