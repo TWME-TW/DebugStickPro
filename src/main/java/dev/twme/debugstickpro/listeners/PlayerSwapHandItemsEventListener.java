@@ -19,6 +19,7 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         }
         event.setCancelled(true);
         PlayerData playerData = PlayerDataManager.getPlayerData(event.getPlayer().getUniqueId());
-        playerData.setModeSelection(!playerData.getModeSelection());
+        // TODO: 暫時更改 playerData.setModeSelection(!playerData.getModeSelection());
+        playerData.changeModeSelected();
     }
 }

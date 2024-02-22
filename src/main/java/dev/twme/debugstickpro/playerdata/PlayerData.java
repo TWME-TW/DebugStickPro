@@ -204,8 +204,8 @@ public class PlayerData {
 
         return stringBuilder1.toString();
     }
-
-    private void changeModeSelected() {
+    //TODO: 將以下暫時設為 public
+    public void changeModeSelected() {
         this.storedSubBlockData = null;
         if (debugStickMode == DebugStickMode.Classic) {
             debugStickMode = DebugStickMode.Copy;
