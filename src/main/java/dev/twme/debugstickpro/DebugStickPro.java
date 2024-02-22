@@ -2,8 +2,8 @@ package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.commmands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
-import dev.twme.debugstickpro.util.actionbar.ActionDisplayTask;
-import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
+import dev.twme.debugstickpro.actionbar.ActionDisplayTask;
+import dev.twme.debugstickpro.actionbar.TargetBlockTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;

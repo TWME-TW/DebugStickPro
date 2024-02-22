@@ -1,9 +1,7 @@
 package dev.twme.debugstickpro.events;
 
-import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.SubBlockData;
-import org.bukkit.Location;
+import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

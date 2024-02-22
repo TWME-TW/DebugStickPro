@@ -1,12 +1,11 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.util.player.playerdata.PlayerData;
-import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -44,6 +43,6 @@ public class RightClickListener implements Listener {
 
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
         playerData.changeValue();
-        
+
     }
 }

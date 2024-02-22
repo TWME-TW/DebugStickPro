@@ -1,7 +1,5 @@
 package dev.twme.debugstickpro.configs;
 
-import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.RotatableData;
-
 public class LangFile {
     public class ActionBar {
         public static String SelectedDataFormat = "<b><u>%data%</u></b>";

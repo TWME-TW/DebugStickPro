@@ -5,4 +5,5 @@ import org.bukkit.NamespacedKey;
 
 public class PersistentKey {
     public static final NamespacedKey DEBUG_STICK_ITEM = new NamespacedKey(DebugStickPro.getInstance(), "DebugStick");
+    public static final NamespacedKey FREEZE_BLOCK_DISPLAY = new NamespacedKey(DebugStickPro.getInstance(), "FreezeBlock");
 }

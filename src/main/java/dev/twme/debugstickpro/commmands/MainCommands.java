@@ -1,16 +1,14 @@
 package dev.twme.debugstickpro.commmands;
 
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.util.actionbar.TargetBlockTask;
-import dev.twme.debugstickpro.util.actionbar.ActionbarUtil;
+import dev.twme.debugstickpro.actionbar.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKey;
-import dev.twme.debugstickpro.util.player.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
