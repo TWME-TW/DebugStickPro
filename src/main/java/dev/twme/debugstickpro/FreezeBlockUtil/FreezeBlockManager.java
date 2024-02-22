@@ -54,6 +54,10 @@ public class FreezeBlockManager {
         ArrayList<FreezeBlockData> freezeBlocks = freezeBlockData.get(playerUUID);
 
         for (FreezeBlockData f : freezeBlocks) {
+            if (f.getBlock().getType() != Material.BARRIER) {
+                freezeBlockLocations.remove(f.getBlock().getLocation());
+                continue;
+            }
             if (f.getBlock().getLocation().equals(block.getLocation())) {
                 block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 f.getEntity().remove();
@@ -77,6 +81,8 @@ public class FreezeBlockManager {
                 f.getEntity().remove();
                 f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 f.getBlock().getState().update();
+                freezeBlockLocations.remove(f.getBlock().getLocation());
+            } else {
                 freezeBlockLocations.remove(f.getBlock().getLocation());
             }
         }
