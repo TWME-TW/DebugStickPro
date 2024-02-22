@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
+import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,5 +16,6 @@ public class PlayerQuitListener implements Listener {
         // ActionBarTask.playerList.remove(event.getPlayer().getUniqueId());
         // 暫時替換為
         PlayerDataManager.removePlayerEnableDisplay(uuid);
+        FreezeBlockManager.removeAllBlock(uuid);
     }
 }

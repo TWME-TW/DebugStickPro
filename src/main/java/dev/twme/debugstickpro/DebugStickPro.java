@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro;
 
+import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
 import dev.twme.debugstickpro.commmands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
 import dev.twme.debugstickpro.actionbar.ActionDisplayTask;
@@ -23,6 +24,7 @@ public final class DebugStickPro extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        FreezeBlockManager.removeOnServerClose();
     }
 
     private void registerCommands() {
@@ -30,6 +32,8 @@ public final class DebugStickPro extends JavaPlugin {
     }
 
     private void registerListeners() {
+        Bukkit.getServer().getPluginManager().registerEvents(new ChunkLoadEventListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChunkUnloadEventListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new RightClickListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new LeftClickListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
@@ -37,6 +41,7 @@ public final class DebugStickPro extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BlockBreakEventListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerSwapHandItemsEventListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new WorldUnloadEventListener(), this);
     }
 
     private void registerTasks() {

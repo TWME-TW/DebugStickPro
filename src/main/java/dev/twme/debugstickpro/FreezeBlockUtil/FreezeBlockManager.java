@@ -1,5 +1,7 @@
 package dev.twme.debugstickpro.FreezeBlockUtil;
 
+import dev.twme.debugstickpro.util.Log;
+import dev.twme.debugstickpro.util.PersistentKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -8,6 +10,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +34,7 @@ public class FreezeBlockManager {
         itemDisplay.setItemStack(itemStack);
 
         entity.setGlowing(true);
+        entity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
         if (!freezeBlockData.containsKey(playerUUID)) {
             freezeBlockData.put(playerUUID, new ArrayList<>());
         }
@@ -68,7 +73,6 @@ public class FreezeBlockManager {
         }
 
         block.getState().update();
-
     }
 
     public static void removeAllBlock(UUID playerUUID) {
@@ -91,5 +95,45 @@ public class FreezeBlockManager {
 
     public static boolean isFreezeBlock(Location location) {
         return freezeBlockLocations.contains(location);
+    }
+    public static void removeOnChunkLoadOrUnload(Entity entity){
+        Log.info("removeOnChunkLoadOrUnload 0");
+        PersistentDataContainer container = entity.getPersistentDataContainer();
+        if (!container.has(PersistentKeys.FREEZE_BLOCK_DISPLAY , PersistentDataType.STRING)) {
+            return;
+        }
+        Log.info("removeOnChunkLoadOrUnload 1");
+        UUID playerUUID = UUID.fromString(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING));
+
+        if (!freezeBlockData.containsKey(playerUUID)) {
+            removeNullPlayerEntityAndBlock(entity);
+            return;
+        }
+        removeBlock(playerUUID, entity.getLocation().getBlock());
+        Log.info("removeOnChunkLoadOrUnload 2");
+    }
+
+    private static void removeNullPlayerEntityAndBlock(Entity entity){
+        Log.info("removeNullPlayerEntityAndBlock");
+        if (entity.getType() != EntityType.ITEM_DISPLAY) {
+            return;
+        }
+        Location location = entity.getLocation();
+        if (location.getBlock().getType() != Material.BARRIER) {
+            entity.remove();
+            return;
+        }
+        entity.remove();
+        location.getBlock().setType(Material.AIR, false);
+        freezeBlockLocations.remove(location);
+    }
+
+    public static void removeOnServerClose(){
+        for (UUID playerUUID : freezeBlockData.keySet()) {
+            removeAllBlock(playerUUID);
+        }
+        for (Location location : freezeBlockLocations) {
+            location.getBlock().setType(Material.AIR, false);
+        }
     }
 }
