@@ -1,7 +1,6 @@
 package dev.twme.debugstickpro.blockdatautil;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.*;
-import dev.twme.debugstickpro.util.blockutil.blockdatautil.subdata.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.*;
@@ -132,7 +131,7 @@ public class BlockDataSeparater {
             SubBlockData chest = new ChestData(blockData);
             blockDataList.add(chest);
         }
-        //TODO: ReDesign ChiseledBookshelf
+
         if (blockData instanceof ChiseledBookshelf) {
             SubBlockData chiseledBookshelfSlot_0 = new ChiseledBookshelfSlot_0(blockData);
             SubBlockData chiseledBookshelfSlot_1 = new ChiseledBookshelfSlot_1(blockData);
@@ -335,7 +334,6 @@ public class BlockDataSeparater {
 
         }
         */
-        //TODO: ReDesign MultipleFacing(not work)
 
         if (blockData instanceof MultipleFacing) {
             Set<BlockFace> blockFaces = ((MultipleFacing) blockData).getAllowedFaces();
@@ -480,7 +478,6 @@ public class BlockDataSeparater {
 
         }
         */
-        //TODO: ReDesign This (Not Work)
 
         if (blockData instanceof RedstoneWire) {
             SubBlockData redstoneWireNorth = new RedstoneWireNorthData(blockData);
@@ -580,7 +577,7 @@ public class BlockDataSeparater {
             SubBlockData structureBlockMode = new StructureBlockData(blockData);
             blockDataList.add(structureBlockMode);
         }
-        //TODO: Maybe ReDesign Switch ????
+
         /* NOTE: Not Used
         if (blockData instanceof Switch) {
 
