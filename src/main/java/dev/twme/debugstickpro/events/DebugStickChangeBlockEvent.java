@@ -1,7 +1,9 @@
 package dev.twme.debugstickpro.events;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -14,7 +16,7 @@ public class DebugStickChangeBlockEvent extends Event implements Cancellable {
     private UUID playerUUID;
     private Block block;
     private SubBlockData subBlockData;
-    private boolean isCancelled;
+    private boolean isCancelled = false;
 
     public DebugStickChangeBlockEvent(UUID playerUUID, Block block, SubBlockData subBlockData) {
         this.playerUUID = playerUUID;
@@ -29,8 +31,8 @@ public class DebugStickChangeBlockEvent extends Event implements Cancellable {
         return HANDLERS;
     }
 
-    public UUID getPlayerUUID() {
-        return playerUUID;
+    public Player getPlayer() {
+        return Bukkit.getPlayer(playerUUID);
     }
     public Block getBlock() {
         return block;
