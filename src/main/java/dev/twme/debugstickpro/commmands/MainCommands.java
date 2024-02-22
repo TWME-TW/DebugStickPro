@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.commmands;
 
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.actionbar.ActionbarUtil;
-import dev.twme.debugstickpro.util.PersistentKey;
+import dev.twme.debugstickpro.util.PersistentKeys;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -100,7 +100,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         itemMeta.setDisplayName("Debug Stick Pro");
-        itemMeta.getPersistentDataContainer().set(PersistentKey.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
+        itemMeta.getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;

@@ -15,7 +15,7 @@ public class DebugStickItemCheck {
         if (item.getItemMeta() == null) {
             return false;
         }
-        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKey.DEBUG_STICK_ITEM)){
+        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)){
             return false;
         }
         return true;
