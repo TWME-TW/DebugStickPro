@@ -4,6 +4,7 @@ import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
 import dev.twme.debugstickpro.events.DebugStickChangeBlockEvent;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.util.Log;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 
@@ -275,8 +276,10 @@ public class PlayerData {
 
     private void changeValueFreeze() {
         if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
+            
             FreezeBlockManager.removeBlock(playerUUID, block);
         } else {
+
             FreezeBlockManager.addBlock(playerUUID, block);
         }
     }
