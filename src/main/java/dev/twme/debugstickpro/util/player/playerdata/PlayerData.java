@@ -80,6 +80,11 @@ public class PlayerData {
             changeModeSelected();
             return;
         }
+
+        if (this.displaySubBlockData == null){
+            return;
+        }
+
         if (debugStickMode == DebugStickMode.Classic) {
             changeSelectedClassic();
             return;
@@ -151,7 +156,7 @@ public class PlayerData {
 
     private String copyDisplay() {
         StringBuilder stringBuilder = new StringBuilder();
-        if (storedSubBlockData == null) {
+        if (storedSubBlockData == null || storedSubBlockData.isEmpty()) {
             return "<dark_gray>You need to select a block first</dark_gray>";
         }
         for (SubBlockData subBlockData : storedSubBlockData) {
@@ -189,8 +194,8 @@ public class PlayerData {
     }
 
     private void changeModeSelected() {
+        this.storedSubBlockData = null;
         if (debugStickMode == DebugStickMode.Classic) {
-            this.storedSubBlockData = null;
             debugStickMode = DebugStickMode.Copy;
         } else if (debugStickMode == DebugStickMode.Copy) {
             debugStickMode = DebugStickMode.Freeze;
@@ -217,7 +222,6 @@ public class PlayerData {
     }
 
     private void changeValueMode() {
-
         ModeSelection = false;
     }
     private void changeValueCopy() {

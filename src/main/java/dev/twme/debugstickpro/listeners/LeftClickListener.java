@@ -10,7 +10,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LeftClickListener implements Listener {
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onLeftClickEvent(PlayerInteractEvent event) {
 
         if (event.getAction() != Action.LEFT_CLICK_AIR && event.getAction() != Action.LEFT_CLICK_BLOCK) {
@@ -26,5 +26,6 @@ public class LeftClickListener implements Listener {
 
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
         playerData.changeSelected();
+
     }
 }

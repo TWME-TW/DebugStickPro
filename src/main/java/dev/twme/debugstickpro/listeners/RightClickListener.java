@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class RightClickListener implements Listener {
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
 
         if (event.getHand() != EquipmentSlot.HAND) {
@@ -26,6 +26,9 @@ public class RightClickListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) {
             return;
         }
+
+
+
         if (!player.hasPermission("debugstickpro.use")) {
             return;
         }
@@ -34,11 +37,13 @@ public class RightClickListener implements Listener {
             return;
         }
 
+
         event.setCancelled(true);
 
         block = event.getClickedBlock();
 
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
         playerData.changeValue();
+        
     }
 }
