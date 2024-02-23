@@ -71,7 +71,6 @@ public class FreezeBlockManager {
                 break;
             }
         }
-
         block.getState().update();
     }
 
@@ -110,7 +109,10 @@ public class FreezeBlockManager {
             return;
         }
         removeBlock(playerUUID, entity.getLocation().getBlock());
+
         Log.info("removeOnChunkLoadOrUnload 2");
+        Log.info(playerUUID.toString() + " " + entity.getLocation().getBlock().getLocation().toString() + " " + entity.getLocation().getBlock().getType().toString());
+        Log.info(Bukkit.getPlayer(playerUUID).getName());
     }
 
     private static void removeNullPlayerEntityAndBlock(Entity entity){
