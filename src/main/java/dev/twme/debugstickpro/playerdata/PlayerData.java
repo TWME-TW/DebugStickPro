@@ -127,6 +127,9 @@ public class PlayerData {
             if (this.displaySubBlockData == null){
                 return;
             }
+            if (this.storedSubBlockData == null || this.storedSubBlockData.isEmpty()){
+                return;
+            }
             changeValueCopy();
         } else { // Freeze mode
 
