@@ -96,12 +96,10 @@ public class FreezeBlockManager {
         return freezeBlockLocations.contains(location);
     }
     public static void removeOnChunkLoadOrUnload(Entity entity){
-        Log.info("removeOnChunkLoadOrUnload 0");
         PersistentDataContainer container = entity.getPersistentDataContainer();
         if (!container.has(PersistentKeys.FREEZE_BLOCK_DISPLAY , PersistentDataType.STRING)) {
             return;
         }
-        Log.info("removeOnChunkLoadOrUnload 1");
         UUID playerUUID = UUID.fromString(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING));
 
         if (!freezeBlockData.containsKey(playerUUID)) {
@@ -110,13 +108,9 @@ public class FreezeBlockManager {
         }
         removeBlock(playerUUID, entity.getLocation().getBlock());
 
-        Log.info("removeOnChunkLoadOrUnload 2");
-        Log.info(playerUUID.toString() + " " + entity.getLocation().getBlock().getLocation().toString() + " " + entity.getLocation().getBlock().getType().toString());
-        Log.info(Bukkit.getPlayer(playerUUID).getName());
     }
 
     private static void removeNullPlayerEntityAndBlock(Entity entity){
-        Log.info("removeNullPlayerEntityAndBlock");
         if (entity.getType() != EntityType.ITEM_DISPLAY) {
             return;
         }

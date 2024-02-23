@@ -17,7 +17,6 @@ public class ChunkUnloadEventListener implements Listener {
         for (Entity entity : entities) {
             if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY)){
                 FreezeBlockManager.removeOnChunkLoadOrUnload(entity);
-                Log.info("ChunkUnloadEventListener: onChunkUnload: removed freeze block on chunk unload");
             }
         }
     }
