@@ -5,18 +5,23 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
 public class FreezeBlockData {
-    private Entity entity;
+    private Entity itemDisplay;
+    private Entity blockDisplay;
     private Block block;
     private String blockString;
 
-    public FreezeBlockData(Entity entity, Block block) {
-        this.entity = entity;
+    public FreezeBlockData(Entity itemDisplay, Entity blockDisplay, Block block) {
+        this.itemDisplay = itemDisplay;
+        this.blockDisplay = blockDisplay;
         this.block = block;
         this.blockString = block.getBlockData().getAsString();
     }
 
-    public Entity getEntity() {
-        return entity;
+    public Entity getItemDisplay() {
+        return itemDisplay;
+    }
+    public Entity getBlockDisplay() {
+        return blockDisplay;
     }
 
     public String getBlockString() {
@@ -32,7 +37,7 @@ public class FreezeBlockData {
         if (!(o instanceof FreezeBlockData)) return false;
 
         FreezeBlockData thisData = (FreezeBlockData) o;
-        if (!thisData.getEntity().equals(this.getEntity())) {
+        if (!thisData.getItemDisplay().equals(this.getItemDisplay())) {
             return false;
         }
 
@@ -45,7 +50,7 @@ public class FreezeBlockData {
 
     @Override
     public int hashCode() {
-        int result = entity.hashCode();
+        int result = itemDisplay.hashCode();
         result = 31 * result + block.hashCode();
         return result;
     }
