@@ -1,12 +1,15 @@
 package dev.twme.debugstickpro.playerdata;
 
 import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
+import dev.twme.debugstickpro.events.CopyBlockDataEvent;
 import dev.twme.debugstickpro.events.DebugStickChangeBlockEvent;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.events.PasteBlockDataEvent;
 import dev.twme.debugstickpro.util.Log;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.event.Event;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -96,6 +99,10 @@ public class PlayerData {
             if (this.displaySubBlockData == null){
                 return;
             }
+            CopyBlockDataEvent copyEvent = new CopyBlockDataEvent(playerUUID, block);
+            if (copyEvent.isCancelled()){
+                return;
+            }
             this.storedSubBlockData = BlockDataSeparater.Separate(blockData);
             return;
         }  else { // Freeze mode
@@ -179,7 +186,7 @@ public class PlayerData {
 
     private String freezeDisplay() {
 
-        return "<dark_gray>Freeze mode, right click f</dark_gray>";
+        return "<b><red>Freeze Mode</red></b>";
     }
 
     private String modeChangeDisplay() {
@@ -240,6 +247,12 @@ public class PlayerData {
         ModeSelection = false;
     }
     private void changeValueCopy() {
+
+        PasteBlockDataEvent pasteEvent = new PasteBlockDataEvent(playerUUID, block);
+        if (pasteEvent.isCancelled()){
+            return;
+        }
+
         ArrayList<SubBlockData> subBlockDatas = BlockDataSeparater.Separate(block);
         for (SubBlockData subBlockData : subBlockDatas) {
             for (SubBlockData storedSubBlockData : storedSubBlockData) {

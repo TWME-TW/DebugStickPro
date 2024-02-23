@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.events;
 
+import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -8,23 +9,22 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.UUID;
 
-public class FreezeBlockEvent extends Event implements Cancellable {
-    private UUID playerUUID;
-    private Block block;
+public class CopyBlockDataEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private boolean isCancelled = false;
-    public FreezeBlockEvent(UUID playerUUID, Block block) {
+    private final UUID playerUUID;
+    private final Block block;
+
+
+    public CopyBlockDataEvent(UUID playerUUID, Block block) {
         this.playerUUID = playerUUID;
         this.block = block;
     }
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
     @Override
     public boolean isCancelled() {
         return isCancelled;
@@ -34,13 +34,22 @@ public class FreezeBlockEvent extends Event implements Cancellable {
     public void setCancelled(boolean b) {
         this.isCancelled = b;
     }
-    public Player getPlayer() {
+
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
+    public @Nullable Player getPlayer() {
         return Bukkit.getPlayer(playerUUID);
+    }
+
+    public UUID getPlayerUUID() {
+        return playerUUID;
     }
     public Block getBlock() {
         return block;
     }
-    public static Location getLocation(Block block) {
+    public Location getLocation() {
         return block.getLocation();
     }
 }

@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.FreezeBlockUtil;
 
+import dev.twme.debugstickpro.events.FreezeBlockEvent;
 import dev.twme.debugstickpro.util.Log;
 import dev.twme.debugstickpro.util.PersistentKeys;
 import org.bukkit.Bukkit;
@@ -25,6 +26,10 @@ public class FreezeBlockManager {
     public static void addBlock(UUID playerUUID, Block block) {
         Location location = block.getLocation();
         if (freezeBlockLocations.contains(location)) {
+            return;
+        }
+        FreezeBlockEvent event = new FreezeBlockEvent(playerUUID, block);
+        if (event.isCancelled()){
             return;
         }
         Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
