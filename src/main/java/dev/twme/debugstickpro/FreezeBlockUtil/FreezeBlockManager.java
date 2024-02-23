@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -136,13 +137,31 @@ public class FreezeBlockManager {
         if (entity.getType() != EntityType.ITEM_DISPLAY || entity.getType() != EntityType.BLOCK_DISPLAY) {
             return;
         }
+
+        Material material = entity.getLocation().getBlock().getType();
         Location location = entity.getLocation();
-        if (location.getBlock().getType() != Material.BARRIER) {
-            entity.remove();
-            return;
+        boolean notBarrierOrAir = material != Material.BARRIER && material != Material.AIR && material != Material.CAVE_AIR && material != Material.VOID_AIR;
+        if (entity.getType() == EntityType.ITEM_DISPLAY) {
+            if (notBarrierOrAir) {
+                entity.remove();
+            }
         }
-        entity.remove();
-        location.getBlock().setType(Material.AIR, false);
+
+        if (entity.getType() == EntityType.BLOCK_DISPLAY) {
+            if (notBarrierOrAir) {
+                entity.remove();
+
+            } else {
+                BlockDisplay blockDisplay = (BlockDisplay) entity;
+                BlockData blockData = blockDisplay.getBlock();
+                location.getBlock().setBlockData(blockData, false);
+            }
+        }
+
+        if (location.getBlock().getType() == Material.BARRIER) {
+            location.getBlock().setType(Material.AIR, false);
+        }
+
         freezeBlockLocations.remove(location);
     }
 
