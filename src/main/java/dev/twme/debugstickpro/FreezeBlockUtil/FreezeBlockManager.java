@@ -19,12 +19,13 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class FreezeBlockManager {
-    private static HashSet<Location> freezeBlockLocations = new HashSet<>();
+    private static HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
     private static HashMap<UUID, ArrayList<FreezeBlockData>> freezeBlockData = new HashMap<>();
 
     public static void addBlock(UUID playerUUID, Block block) {
         Location location = block.getLocation();
-        if (freezeBlockLocations.contains(location)) {
+        FreezeLocation freezeLocation = new FreezeLocation(location);
+        if (freezeBlockLocations.contains(freezeLocation)) {
             return;
         }
         FreezeBlockEvent event = new FreezeBlockEvent(playerUUID, block);
@@ -32,6 +33,7 @@ public class FreezeBlockManager {
             return;
         }
         Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
+
 
         // spawn item display
 
@@ -47,7 +49,21 @@ public class FreezeBlockManager {
         entity.setGlowing(true);
         entity.setInvulnerable(true);
 
-        Entity blockEntity = location.getWorld().spawnEntity(location, EntityType.BLOCK_DISPLAY);
+        // Entity entity = location.getWorld().spawnEntity(entityLocation,EntityType.SHULKER);
+        // entity.setGlowing(true);
+        // entity.setInvulnerable(true);
+        // LivingEntity livingEntity = (LivingEntity) entity;
+        // livingEntity.setInvisible(true);
+        // livingEntity.setAI(false);
+        // livingEntity.setSilent(true);
+        // livingEntity.setCollidable(false);
+        // livingEntity.setGravity(false);
+
+
+        // spawn block display
+        Location location1 = SpecialBlockFilter.filter(block.getType(), location);
+
+        Entity blockEntity = location.getWorld().spawnEntity(location1, EntityType.BLOCK_DISPLAY);
         BlockDisplay blockDisplay = (BlockDisplay) blockEntity;
         blockDisplay.setBlock(block.getBlockData());
         blockEntity.setInvulnerable(true);
@@ -65,7 +81,7 @@ public class FreezeBlockManager {
         block.setType(Material.BARRIER, false);
         block.getState().update();
         freezeBlockData.put(playerUUID, freezeBlockList);
-        freezeBlockLocations.add(block.getLocation());
+        freezeBlockLocations.add(freezeLocation);
     }
 
     public static void removeBlock(UUID playerUUID, Block block) {
@@ -73,7 +89,8 @@ public class FreezeBlockManager {
             return;
         }
 
-        if (!freezeBlockLocations.contains(block.getLocation())) {
+        FreezeLocation freezeLocation = new FreezeLocation(block.getLocation());
+        if (!freezeBlockLocations.contains(freezeLocation)) {
             return;
         }
 
@@ -81,7 +98,7 @@ public class FreezeBlockManager {
 
         for (FreezeBlockData f : freezeBlocks) {
             if (f.getBlock().getType() != Material.BARRIER) {
-                freezeBlockLocations.remove(f.getBlock().getLocation());
+                freezeBlockLocations.remove(freezeLocation);
                 continue;
             }
             if (f.getBlock().getLocation().equals(block.getLocation())) {
@@ -89,7 +106,7 @@ public class FreezeBlockManager {
                 f.getItemDisplay().remove();
                 f.getBlockDisplay().remove();
                 freezeBlocks.remove(f);
-                freezeBlockLocations.remove(block.getLocation());
+                freezeBlockLocations.remove(freezeLocation);
                 break;
             }
         }
@@ -102,21 +119,26 @@ public class FreezeBlockManager {
         }
         ArrayList<FreezeBlockData> freezeBlocks = freezeBlockData.get(playerUUID);
         for (FreezeBlockData f : freezeBlocks) {
+
+            FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
+
             if (f.getBlock().getLocation().getBlock().getType() == Material.BARRIER) {
                 f.getItemDisplay().remove();
                 f.getBlockDisplay().remove();
                 f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 f.getBlock().getState().update();
-                freezeBlockLocations.remove(f.getBlock().getLocation());
+
+                freezeBlockLocations.remove(freezeLocation);
             } else {
-                freezeBlockLocations.remove(f.getBlock().getLocation());
+                freezeBlockLocations.remove(freezeLocation);
             }
         }
         freezeBlockData.remove(playerUUID);
     }
 
     public static boolean isFreezeBlock(Location location) {
-        return freezeBlockLocations.contains(location);
+        FreezeLocation freezeLocation = new FreezeLocation(location);
+        return freezeBlockLocations.contains(freezeLocation);
     }
     public static void removeOnChunkLoadOrUnload(Entity entity){
         PersistentDataContainer container = entity.getPersistentDataContainer();
@@ -162,15 +184,16 @@ public class FreezeBlockManager {
             location.getBlock().setType(Material.AIR, false);
         }
 
-        freezeBlockLocations.remove(location);
+        FreezeLocation freezeLocation = new FreezeLocation(location);
+        freezeBlockLocations.remove(freezeLocation);
     }
 
     public static void removeOnServerClose(){
         for (UUID playerUUID : freezeBlockData.keySet()) {
             removeAllBlock(playerUUID);
         }
-        for (Location location : freezeBlockLocations) {
-            location.getBlock().setType(Material.AIR, false);
+        for (FreezeLocation freezeLocation : freezeBlockLocations) {
+            freezeLocation.getLocation().getBlock().setType(Material.AIR, false);
         }
     }
 }

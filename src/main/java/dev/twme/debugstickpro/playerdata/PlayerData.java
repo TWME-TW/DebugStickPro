@@ -292,11 +292,11 @@ public class PlayerData {
 
     private void changeValueFreeze() {
         if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
-
             FreezeBlockManager.removeBlock(playerUUID, block);
-        } else {
 
+        } else {
             FreezeBlockManager.addBlock(playerUUID, block);
+
         }
     }
 
