@@ -9,4 +9,7 @@ public class Log {
     public static void warning(String message) {
         Bukkit.getLogger().warning(message);
     }
+    public static void anouncement(String message) {
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> player.sendMessage(message));
+    }
 }

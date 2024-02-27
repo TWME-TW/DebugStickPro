@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.FreezeBlockUtil;
 
+import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -63,7 +64,7 @@ public class SpecialBlockFilter {
 
     public static Location clientRelation(Location location) {
         RANDOM.setSeed(hashCode((int) location.getX(), (int) location.getY(), (int) location.getZ()));
-        int i = RANDOM.nextInt(4);
+        int i = Math.abs((int) RANDOM.nextLong()) % 4;
         return transformBlockDisplayLocationARoundCenter(location, (float) i * 90.0F + 90F);
     }
 
