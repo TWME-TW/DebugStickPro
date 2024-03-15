@@ -13,12 +13,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class ClassicActionBarDisplay {
-    public static String getDisplay(UUID playerUUID, Block block) {
-
-        if (block == null) {
-            return " ";
-        }
-
+    public static String getDisplay(UUID playerUUID, BlockData blockData) {
 
         // 用於確認是否有任何 SubBlockData 類型被使用的變數
         boolean hasIsUsingType = false;
@@ -27,7 +22,7 @@ public class ClassicActionBarDisplay {
         NewPlayerData playerData = NewPlayerDataManager.getPlayerData(playerUUID);
 
         // 獲取方塊拆分後的資料
-        ArrayList<SubBlockData> displayList = BlockDataSeparater.Separate(block.getBlockData());
+        ArrayList<SubBlockData> displayList = BlockDataSeparater.Separate(blockData);
 
         // TODO: 需檢查這邊的返回是否是冗於
         if (displayList.isEmpty()) {

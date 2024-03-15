@@ -28,7 +28,10 @@ public class ActionBarDisplayTask implements Runnable{
 
             switch (playerData.getDebugStickMode()) {
                 case Classic:
-                    ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block));
+                    if (block == null) {
+                        return;
+                    }
+                    ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block.getBlockData()));
                     return;
                 case Copy:
                     ActionbarUtil.sendActionBar(player, CopyActionBarDisplay.getDisplay(uuid));

@@ -1,9 +1,9 @@
 package dev.twme.debugstickpro.commmands;
 
+import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.actionbar.ActionbarUtil;
+import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKeys;
-import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,7 +47,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             player.getInventory().addItem(getDebugStickItem());
             player.sendMessage("Give command");
             if (DebugStickItemCheck.checkPlayer(player)) {
-                PlayerDataManager.addPlayerEnableDisplay(player.getUniqueId());
+                NewPlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
             }
             return true;
         }

@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.actionbar.CheckPlayerCanUseUtil;
 import org.bukkit.Location;

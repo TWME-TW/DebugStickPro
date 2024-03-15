@@ -1,20 +1,22 @@
 package dev.twme.debugstickpro.listeners;
 
+import dev.twme.debugstickpro.playerdata.NewPlayerData;
+import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.playerdata.PlayerData;
-import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.UUID;
+
 public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
         Player player = event.getPlayer();
-        PlayerData playerData = new PlayerData(player.getUniqueId());
-        PlayerDataManager.setPlayerData(player.getUniqueId(), playerData);
+        UUID playerUUID = event.getPlayer().getUniqueId();
+        NewPlayerDataManager.setPlayerData(playerUUID, new NewPlayerData());
 
         if (!player.hasPermission("debugstickpro.use")) {
             return;
@@ -22,7 +24,7 @@ public class PlayerJoinListener implements Listener {
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if (DebugStickItemCheck.isDebugStickItem(item)) {
-            PlayerDataManager.addPlayerEnableDisplay(player.getUniqueId());
+            NewPlayerDataManager.addPlayerToDisplayList(playerUUID);
         }
     }
 }

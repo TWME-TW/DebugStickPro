@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class ClassicUtil {
+public class ClassicLeftClick {
 
     // 更改選擇的 SubBlockData 類型
     public static void changeSelectedSubBlockType(UUID playerUUID, NewPlayerData playerData) {
@@ -44,6 +44,5 @@ public class ClassicUtil {
                 return;
             }
         }
-
     }
 }

@@ -2,9 +2,6 @@ package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.playerdata.PlayerData;
-import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,16 +17,9 @@ public class RightClickListener implements Listener {
             return;
         }
 
-        Block block;
         Player player = event.getPlayer();
 
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) {
-            return;
-        }
-
-
-
-        if (!player.hasPermission("debugstickpro.use")) {
             return;
         }
 
@@ -37,13 +27,12 @@ public class RightClickListener implements Listener {
             return;
         }
 
+        if (!player.hasPermission("debugstickpro.use")) {
+            return;
+        }
 
         event.setCancelled(true);
 
-        block = event.getClickedBlock();
-
-        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
-        playerData.changeValue();
-
+        NewPlayerDataManager.playerRightClick(player.getUniqueId());
     }
 }

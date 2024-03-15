@@ -1,7 +1,12 @@
 package dev.twme.debugstickpro.playerdata;
 
 import dev.twme.debugstickpro.display.ActionbarUtil;
-import dev.twme.debugstickpro.mode.classic.ClassicUtil;
+import dev.twme.debugstickpro.mode.classic.ClassicLeftClick;
+import dev.twme.debugstickpro.mode.classic.ClassicRightClick;
+import dev.twme.debugstickpro.mode.copy.CopyLeftClick;
+import dev.twme.debugstickpro.mode.copy.CopyRightClick;
+import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.FreezeRightClick;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -38,10 +43,6 @@ public class NewPlayerDataManager {
         ActionbarUtil.removeActionBar(uuid);
     }
 
-    public boolean isPlayerInDisplayList(UUID uuid){
-        return playerEnableDisplaySet.contains(uuid);
-    }
-
     public static HashSet<UUID> getDisplaySet(){
         return playerEnableDisplaySet;
     }
@@ -71,21 +72,34 @@ public class NewPlayerDataManager {
     public static void playerLeftClick(UUID uuid){
 
         NewPlayerData playerData = getPlayerData(uuid);
-        Player player = Bukkit.getPlayer(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case Classic:
-                ClassicUtil.changeSelectedSubBlockType(uuid, playerData);
+                ClassicLeftClick.changeSelectedSubBlockType(uuid, playerData);
                 break;
             case Copy:
-
+                CopyLeftClick.onLeftClick(uuid, playerData);
                 break;
             case Freeze:
-
+                FreezeBlockManager.removeAllBlock(uuid);
                 break;
         }
     }
 
+    public static void playerRightClick(UUID uuid){
 
+        NewPlayerData playerData = getPlayerData(uuid);
 
+        switch (playerData.getDebugStickMode()) {
+            case Classic:
+                ClassicRightClick.changeSelectedSubBlockDataValue(uuid, playerData);
+                break;
+            case Copy:
+                CopyRightClick.onRightClick(uuid, playerData);
+                break;
+            case Freeze:
+                FreezeRightClick.onRightClick(uuid);
+                break;
+        }
+    }
 }
