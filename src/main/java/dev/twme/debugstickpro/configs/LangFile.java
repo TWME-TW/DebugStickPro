@@ -1,13 +1,18 @@
 package dev.twme.debugstickpro.configs;
 
 public class LangFile {
-    public class ActionBar {
+    public static class ActionBar {
         public static String SelectedDataFormat = "<b><u>%data%</u></b>";
         public static String formatSelectedData(String data,boolean isUsing){
             if(isUsing)
                 return data;
             return SelectedDataFormat.replace("%data%", data);
         }
+    }
+
+    public static class Tips {
+        public static String copyModeIntroduction = "Copy Mode: <b><u>Left Click</u></b> to copy the block, <b><u>Right Click</u></b> to paste the block data.";
+        public static String freezeModeIntroduction = "Freeze Mode: <b><u>Right Click</u></b> to freeze the block or entity.";
     }
     public static String AgeableDataName = "Age";
     public static String AnaloguePowerableDataName = "Power";

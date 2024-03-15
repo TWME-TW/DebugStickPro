@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.FreezeBlockUtil;
+package dev.twme.debugstickpro.mode.freeze;
 
 import org.bukkit.block.Block;
 
@@ -34,18 +34,13 @@ public class FreezeBlockData {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FreezeBlockData)) return false;
+        if (!(o instanceof FreezeBlockData thisData)) return false;
 
-        FreezeBlockData thisData = (FreezeBlockData) o;
         if (!thisData.getItemDisplay().equals(this.getItemDisplay())) {
             return false;
         }
 
-        if (! thisData.getBlock().getLocation().equals(this.getBlock().getLocation())) {
-            return false;
-        }
-
-        return true;
+        return thisData.getBlock().getLocation().equals(this.getBlock().getLocation());
     }
 
     @Override

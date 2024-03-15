@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.FreezeBlockUtil.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.util.PersistentKeys;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

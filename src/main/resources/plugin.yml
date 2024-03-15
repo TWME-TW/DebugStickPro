@@ -31,3 +31,9 @@ permissions:
   debugstickpro.give.other:
     description: Allows use of the DebugStickPro
     default: op
+  debugstickpro.mode.copy:
+    description: Allows use of the DebugStickPro
+    default: op
+  debugstickpro.mode.freeze:
+    description: Allows use of the DebugStickPro
+    default: op
