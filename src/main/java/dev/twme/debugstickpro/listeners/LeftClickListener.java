@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +24,7 @@ public class LeftClickListener implements Listener {
         event.setCancelled(true);
 
         // TODO: 未來改成這個版本
-        NewPlayerDataManager.playerLeftClick(player.getUniqueId());
+        PlayerDataManager.playerLeftClick(player.getUniqueId());
 
     }
 }

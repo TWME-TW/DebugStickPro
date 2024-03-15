@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +33,6 @@ public class RightClickListener implements Listener {
 
         event.setCancelled(true);
 
-        NewPlayerDataManager.playerRightClick(player.getUniqueId());
+        PlayerDataManager.playerRightClick(player.getUniqueId());
     }
 }

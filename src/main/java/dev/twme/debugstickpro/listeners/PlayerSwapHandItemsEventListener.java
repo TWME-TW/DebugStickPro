@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
 import org.bukkit.event.EventHandler;
@@ -19,6 +19,6 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         event.setCancelled(true);
 
         // TODO: 未來只保留這個新的切換方式
-        NewPlayerDataManager.nextDebugStickMode(event.getPlayer().getUniqueId());
+        PlayerDataManager.nextDebugStickMode(event.getPlayer().getUniqueId());
     }
 }

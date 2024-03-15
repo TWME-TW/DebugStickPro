@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.mode.classic;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
-import dev.twme.debugstickpro.playerdata.NewPlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class ClassicLeftClick {
 
     // 更改選擇的 SubBlockData 類型
-    public static void changeSelectedSubBlockType(UUID playerUUID, NewPlayerData playerData) {
+    public static void changeSelectedSubBlockType(UUID playerUUID, PlayerData playerData) {
 
         Player player = Bukkit.getPlayer(playerUUID);
 

@@ -3,10 +3,8 @@ package dev.twme.debugstickpro.mode.classic;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
 import dev.twme.debugstickpro.configs.ConfigFile;
-import dev.twme.debugstickpro.display.ActionbarUtil;
-import dev.twme.debugstickpro.playerdata.NewPlayerData;
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
-import org.bukkit.block.Block;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.block.data.BlockData;
 
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class ClassicActionBarDisplay {
         boolean hasIsUsingType = false;
 
         // 獲取玩家資料
-        NewPlayerData playerData = NewPlayerDataManager.getPlayerData(playerUUID);
+        PlayerData playerData = PlayerDataManager.getPlayerData(playerUUID);
 
         // 獲取方塊拆分後的資料
         ArrayList<SubBlockData> displayList = BlockDataSeparater.Separate(blockData);

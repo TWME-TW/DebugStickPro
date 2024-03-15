@@ -1,7 +1,6 @@
 package dev.twme.debugstickpro.util;
 
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
-import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 
 public class CheckPlayerCanUseUtil {
@@ -28,7 +27,7 @@ public class CheckPlayerCanUseUtil {
     }
 
     private static boolean returnFalse(Player player) {
-        NewPlayerDataManager.removePlayerFromDisplayList(player.getUniqueId());
+        PlayerDataManager.removePlayerFromDisplayList(player.getUniqueId());
         return false;
     }
 }

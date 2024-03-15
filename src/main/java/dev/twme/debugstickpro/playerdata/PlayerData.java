@@ -4,7 +4,7 @@ import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
 
 import java.util.ArrayList;
 
-public class NewPlayerData {
+public class PlayerData {
 
     /* 儲存的 SubBlockData 類別 */
     private String selectedSubBlockDataType = null;
@@ -19,21 +19,21 @@ public class NewPlayerData {
      * 設置被選到的 SubBlockData 類型
      *
      * @param selectedSubBlockDataType 被選到的 SubBlockData 類型
-     * @return NewPlayerData 本身
+     * @return PlayerData 本身
      */
-    public NewPlayerData setSelectedSubBlockDayaType(String selectedSubBlockDataType) {
+    public PlayerData setSelectedSubBlockDayaType(String selectedSubBlockDataType) {
         this.selectedSubBlockDataType = selectedSubBlockDataType;
         return this;
     }
 
     // 設置該玩家在複製模式下複製的方塊資料
-    public NewPlayerData setCopiedSubBlockData(ArrayList<SubBlockData> copiedSubBlockData) {
+    public PlayerData setCopiedSubBlockData(ArrayList<SubBlockData> copiedSubBlockData) {
         this.copiedSubBlockData = copiedSubBlockData;
         return this;
     }
 
     // 設置玩家的除錯棒模式
-    public NewPlayerData setDebugStickMode(DebugStickMode debugStickMode) {
+    public PlayerData setDebugStickMode(DebugStickMode debugStickMode) {
         this.debugStickMode = debugStickMode;
         return this;
     }

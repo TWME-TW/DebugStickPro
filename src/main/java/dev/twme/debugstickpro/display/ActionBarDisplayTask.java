@@ -3,8 +3,8 @@ package dev.twme.debugstickpro.display;
 import dev.twme.debugstickpro.mode.classic.ClassicActionBarDisplay;
 import dev.twme.debugstickpro.mode.copy.CopyActionBarDisplay;
 import dev.twme.debugstickpro.mode.freeze.FreezeActionBarDisplay;
-import dev.twme.debugstickpro.playerdata.NewPlayerData;
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class ActionBarDisplayTask implements Runnable{
     @Override
     public void run() {
-        for (UUID uuid : NewPlayerDataManager.getDisplaySet()) {
+        for (UUID uuid : PlayerDataManager.getDisplaySet()) {
             Player player = Bukkit.getPlayer(uuid);
 
             Block block;
@@ -24,7 +24,7 @@ public class ActionBarDisplayTask implements Runnable{
             block = player.getTargetBlockExact(5);
 
 
-            NewPlayerData playerData = NewPlayerDataManager.getPlayerData(uuid);
+            PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
 
             switch (playerData.getDebugStickMode()) {
                 case Classic:

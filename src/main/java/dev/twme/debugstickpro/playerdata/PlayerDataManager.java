@@ -14,19 +14,19 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class NewPlayerDataManager {
+public class PlayerDataManager {
 
     // 儲存玩家的資訊
-    private static final HashMap<UUID, NewPlayerData> playerDataMap = new HashMap<>();
+    private static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<>();
 
     // 該玩家是否加入顯示列表
     private static final HashSet<UUID> playerEnableDisplaySet = new HashSet<>();
 
-    public static void setPlayerData(UUID uuid, NewPlayerData playerData){
+    public static void setPlayerData(UUID uuid, PlayerData playerData){
         playerDataMap.put(uuid, playerData);
     }
 
-    public static NewPlayerData getPlayerData(UUID uuid){
+    public static PlayerData getPlayerData(UUID uuid){
         return playerDataMap.get(uuid);
     }
 
@@ -48,7 +48,7 @@ public class NewPlayerDataManager {
     }
 
     public static void nextDebugStickMode(UUID uuid){
-        NewPlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getPlayerData(uuid);
         Player player = Bukkit.getPlayer(uuid);
         switch (playerData.getDebugStickMode()) {
             case Classic:
@@ -71,7 +71,7 @@ public class NewPlayerDataManager {
 
     public static void playerLeftClick(UUID uuid){
 
-        NewPlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getPlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case Classic:
@@ -88,7 +88,7 @@ public class NewPlayerDataManager {
 
     public static void playerRightClick(UUID uuid){
 
-        NewPlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getPlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case Classic:

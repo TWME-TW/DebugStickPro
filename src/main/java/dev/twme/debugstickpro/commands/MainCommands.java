@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.commands;
 
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKeys;
@@ -47,7 +47,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             player.getInventory().addItem(getDebugStickItem());
             player.sendMessage("Give command");
             if (DebugStickItemCheck.checkPlayer(player)) {
-                NewPlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
+                PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
             }
             return true;
         }

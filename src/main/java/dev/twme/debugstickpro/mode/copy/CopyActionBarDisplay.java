@@ -2,8 +2,8 @@ package dev.twme.debugstickpro.mode.copy;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
 import dev.twme.debugstickpro.configs.LangFile;
-import dev.twme.debugstickpro.playerdata.NewPlayerData;
-import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CopyActionBarDisplay {
     public static String getDisplay(UUID playerUUID) {
 
-        NewPlayerData playerData = NewPlayerDataManager.getPlayerData(playerUUID);
+        PlayerData playerData = PlayerDataManager.getPlayerData(playerUUID);
         ArrayList<SubBlockData> copiedSubBlockData = playerData.getCopiedSubBlockData();
 
         if (copiedSubBlockData.isEmpty()) {
