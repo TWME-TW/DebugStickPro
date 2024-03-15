@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
+import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
@@ -26,6 +27,9 @@ public class LeftClickListener implements Listener {
 
         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
         playerData.changeSelected();
+
+        // TODO: 未來改成這個版本
+        NewPlayerDataManager.playerLeftClick(player.getUniqueId());
 
     }
 }

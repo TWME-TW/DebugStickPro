@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.FreezeBlockUtil;
+package dev.twme.debugstickpro.mode.freeze;
 
 import org.bukkit.Location;
 

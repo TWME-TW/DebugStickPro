@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.actionbar;
 
+import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.Bukkit;

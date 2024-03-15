@@ -1,9 +1,7 @@
-package dev.twme.debugstickpro.FreezeBlockUtil;
+package dev.twme.debugstickpro.mode.freeze;
 
-import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Tag;
 
 import java.util.Random;
 
@@ -12,41 +10,25 @@ public class SpecialBlockFilter {
 
     public static Location filter(Material material, Location location) {
 
-        if (material == Material.BAMBOO) {
-            return caculateLocation(location,0.25f);
-        }
-
-        if (material == Material.BAMBOO_SAPLING) {
-            return caculateLocation(location,0.25f);
-        }
-
-        if (material == Material.MANGROVE_PROPAGULE) {
-            return caculateLocation(location,0.25f);
-        }
-
-        if ((Tag.FLOWERS.isTagged(material))) {
-            return caculateLocation(location,0.25f);
-        }
-
-        if (material == Material.POINTED_DRIPSTONE) {
-            return caculateLocation(location,0.125f);
-        }
-
-        if (material == Material.LILY_PAD || material == Material.SEA_PICKLE) {
-            return clientRelation(location);
-        }
-
-        return location;
+        return switch (material) {
+            case BAMBOO -> caculateLocation(location, 0.25f);
+            case BAMBOO_SAPLING -> caculateLocation(location, 0.25f);
+            case MANGROVE_PROPAGULE -> caculateLocation(location, 0.25f);
+            case POINTED_DRIPSTONE -> caculateLocation(location, 0.125f);
+            case LILY_PAD -> clientRelation(location);
+            case SEA_PICKLE -> clientRelation(location);
+            default -> location;
+        };
     }
 
-    public static Location caculateLocation(Location location,float offsetNum) {
+    public static Location caculateLocation(Location location, float offsetNum) {
 
         long l = hashCode((int) location.getX(), 0, (int) location.getZ());
 
-        double d = clamp(((double)((float)(l & 0xFL) / 15.0f) - 0.5) * 0.5, (-offsetNum), offsetNum);
-        double e = clamp(((double)((float)(l >> 8 & 0xFL) / 15.0f) - 0.5) * 0.5, (-offsetNum), offsetNum);
+        double d = clamp(((double) ((float) (l & 0xFL) / 15.0f) - 0.5) * 0.5, (-offsetNum), offsetNum);
+        double e = clamp(((double) ((float) (l >> 8 & 0xFL) / 15.0f) - 0.5) * 0.5, (-offsetNum), offsetNum);
 
-        return new Location(location.getWorld(),location.getX() + d,(int)location.getY(),location.getZ() + e);
+        return new Location(location.getWorld(), location.getX() + d, (int) location.getY(), location.getZ() + e);
     }
 
 
@@ -55,6 +37,7 @@ public class SpecialBlockFilter {
         l = l * l * 42317861L + l * 11L;
         return l >> 16;
     }
+
     public static double clamp(double value, double min, double max) {
         if (value < min) {
             return min;

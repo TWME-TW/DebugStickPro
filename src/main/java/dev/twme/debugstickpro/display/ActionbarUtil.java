@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.actionbar;
+package dev.twme.debugstickpro.display;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

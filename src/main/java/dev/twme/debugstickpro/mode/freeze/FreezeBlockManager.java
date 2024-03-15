@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.FreezeBlockUtil;
+package dev.twme.debugstickpro.mode.freeze;
 
 import dev.twme.debugstickpro.events.FreezeBlockEvent;
 import dev.twme.debugstickpro.util.PersistentKeys;
