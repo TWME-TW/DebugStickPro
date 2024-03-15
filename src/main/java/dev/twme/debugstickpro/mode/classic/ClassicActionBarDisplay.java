@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.mode.classic;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
-import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;

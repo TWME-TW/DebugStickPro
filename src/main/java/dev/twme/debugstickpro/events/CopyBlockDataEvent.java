@@ -1,6 +1,5 @@
 package dev.twme.debugstickpro.events;
 
-import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -11,7 +10,6 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Locale;
 import java.util.UUID;
 
 public class CopyBlockDataEvent extends Event implements Cancellable {

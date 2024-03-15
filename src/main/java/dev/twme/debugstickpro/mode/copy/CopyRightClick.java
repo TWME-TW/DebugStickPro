@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.mode.copy;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
-import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;

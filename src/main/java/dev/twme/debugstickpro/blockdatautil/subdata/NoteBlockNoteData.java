@@ -1,6 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.configs.LangFile;
 import org.bukkit.Note;
 import org.bukkit.block.data.BlockData;
@@ -62,7 +63,7 @@ public class NoteBlockNoteData implements SubBlockData {
 
             byte b = Byte.parseByte(m.group(0));
             b++;
-            blockNoteData.replace(m.group(), String.valueOf(b));
+            blockNoteData = blockNoteData.replace(m.group(), String.valueOf(b));
         }
         this.blockData = DebugStickPro.getInstance().getServer().createBlockData(blockNoteData);
         this.note = ((NoteBlock) blockData).getNote();
@@ -74,7 +75,7 @@ public class NoteBlockNoteData implements SubBlockData {
         String blockNoteData = blockData.getAsString();
         Pattern r = Pattern.compile("([0-9]+)");
         Matcher m = r.matcher(blockNoteData);
-        blockNoteData.replace(m.group(0), String.valueOf(m));
+        blockNoteData = blockNoteData.replace(m.group(0), String.valueOf(m));
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockNoteData);
         return blockData;
     }

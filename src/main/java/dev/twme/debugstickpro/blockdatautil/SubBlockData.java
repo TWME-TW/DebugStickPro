@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.blockdatautil.subdata;
+package dev.twme.debugstickpro.blockdatautil;
 
 import org.bukkit.block.data.BlockData;
 

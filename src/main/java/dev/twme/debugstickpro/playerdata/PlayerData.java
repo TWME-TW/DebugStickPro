@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.playerdata;
 
-import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 
 import java.util.ArrayList;
 

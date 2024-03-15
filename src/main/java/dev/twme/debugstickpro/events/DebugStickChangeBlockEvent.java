@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.events;
 
-import dev.twme.debugstickpro.blockdatautil.subdata.SubBlockData;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
