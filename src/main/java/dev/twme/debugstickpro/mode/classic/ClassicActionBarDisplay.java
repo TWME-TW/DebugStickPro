@@ -18,7 +18,7 @@ public class ClassicActionBarDisplay {
         if (block == null) {
             return " ";
         }
-        
+
 
         // 用於確認是否有任何 SubBlockData 類型被使用的變數
         boolean hasIsUsingType = false;
@@ -27,7 +27,7 @@ public class ClassicActionBarDisplay {
         NewPlayerData playerData = NewPlayerDataManager.getPlayerData(playerUUID);
 
         // 獲取方塊拆分後的資料
-        ArrayList<SubBlockData> displayList = BlockDataSeparater.Separate(blockData);
+        ArrayList<SubBlockData> displayList = BlockDataSeparater.Separate(block.getBlockData());
 
         // TODO: 需檢查這邊的返回是否是冗於
         if (displayList.isEmpty()) {
