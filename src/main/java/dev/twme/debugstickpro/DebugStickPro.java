@@ -2,7 +2,7 @@ package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
-import dev.twme.debugstickpro.commmands.MainCommands;
+import dev.twme.debugstickpro.commands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

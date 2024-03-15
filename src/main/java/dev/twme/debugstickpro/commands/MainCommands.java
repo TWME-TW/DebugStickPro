@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.commmands;
+package dev.twme.debugstickpro.commands;
 
 import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
