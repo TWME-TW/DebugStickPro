@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.actionbar.CheckPlayerCanUseUtil;
+import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

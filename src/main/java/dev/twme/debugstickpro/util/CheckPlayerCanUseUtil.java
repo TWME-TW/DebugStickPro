@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.actionbar;
+package dev.twme.debugstickpro.util;
 
 import dev.twme.debugstickpro.playerdata.NewPlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
