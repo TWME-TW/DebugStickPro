@@ -94,8 +94,8 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             if (player.hasPermission("debugstickpro.help")){
                 list.add("help");
             }
-            if (player.hasPermission("debugstickpro.onReload")){
-                list.add("onReload");
+            if (player.hasPermission("debugstickpro.reload")){
+                list.add("reload");
             }
             if (player.hasPermission("debugstickpro.give")){
                 list.add("give");
