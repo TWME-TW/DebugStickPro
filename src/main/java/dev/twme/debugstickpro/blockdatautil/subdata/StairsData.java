@@ -66,6 +66,26 @@ public class StairsData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Stairs stairs = ((Stairs) blockData);
+        if (shape == Stairs.Shape.STRAIGHT) {
+            shape = Stairs.Shape.OUTER_RIGHT;
+        } else if (shape == Stairs.Shape.OUTER_RIGHT) {
+            shape = Stairs.Shape.OUTER_LEFT;
+        } else if (shape == Stairs.Shape.OUTER_LEFT) {
+            shape = Stairs.Shape.INNER_RIGHT;
+        } else if (shape == Stairs.Shape.INNER_RIGHT) {
+            shape = Stairs.Shape.INNER_LEFT;
+        } else if (shape == Stairs.Shape.INNER_LEFT) {
+            shape = Stairs.Shape.STRAIGHT;
+        }
+
+        stairs.setShape(shape);
+        return this;
+    }
+
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Stairs) blockData).setShape(shape);
         return blockData;

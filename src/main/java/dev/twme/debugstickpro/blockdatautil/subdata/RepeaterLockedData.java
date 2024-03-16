@@ -55,6 +55,11 @@ public class RepeaterLockedData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Repeater) blockData).setLocked(locked);
         return blockData;

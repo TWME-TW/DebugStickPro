@@ -57,6 +57,11 @@ public class CaveVinesPlantData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((CaveVinesPlant) blockData).setBerries(isBerries);
         return blockData;

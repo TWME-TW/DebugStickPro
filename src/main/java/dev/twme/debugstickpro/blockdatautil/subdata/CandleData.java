@@ -61,6 +61,18 @@ public class CandleData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Candle candle = ((Candle) blockData);
+        if (candle.getCandles() <= 1) {
+            candle.setCandles(candle.getMaximumCandles());
+        } else {
+            candle.setCandles(candle.getCandles() - 1);
+        }
+        candleCount = candle.getCandles();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Candle) blockData).setCandles(candleCount);
         return blockData;

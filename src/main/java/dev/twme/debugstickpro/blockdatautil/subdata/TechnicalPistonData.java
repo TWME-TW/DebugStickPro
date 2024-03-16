@@ -60,6 +60,11 @@ public class TechnicalPistonData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((TechnicalPiston) blockData).setType(type);
         return blockData;

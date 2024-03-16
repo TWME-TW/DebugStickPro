@@ -61,6 +61,18 @@ public class FarmlandData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Farmland farmland = (Farmland) blockData;
+        if (moisture <= 0) {
+            moisture = farmland.getMaximumMoisture();
+        } else {
+            moisture--;
+        }
+        farmland.setMoisture(moisture);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         Farmland farmland = (Farmland) blockData;
         return blockData;

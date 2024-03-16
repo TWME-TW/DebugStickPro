@@ -65,6 +65,22 @@ public class BellData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Bell bell = (Bell) blockData;
+        if (attachment == Bell.Attachment.CEILING) {
+            bell.setAttachment(Bell.Attachment.SINGLE_WALL);
+        } else if (attachment == Bell.Attachment.SINGLE_WALL) {
+            bell.setAttachment(Bell.Attachment.FLOOR);
+        } else if (attachment == Bell.Attachment.FLOOR) {
+            bell.setAttachment(Bell.Attachment.DOUBLE_WALL);
+        } else {
+            bell.setAttachment(Bell.Attachment.CEILING);
+        }
+        attachment = bell.getAttachment();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Bell) blockData).setAttachment(attachment);
         return blockData;

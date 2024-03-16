@@ -59,6 +59,11 @@ public class AttachableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Attachable) blockData).setAttached(isAttached);
         return blockData;

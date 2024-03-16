@@ -71,6 +71,26 @@ public class RotatableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Rotatable rotatable = ((Rotatable) blockData);
+        ArrayList<BlockFace> blockFaces = new ArrayList<>(Arrays.asList(BlockFace.values()));
+
+        blockFaces.remove(BlockFace.SELF); // Remove SELF (the default value of BlockFace
+        blockFaces.remove(BlockFace.UP); // Remove UP (the default value of BlockFace
+        blockFaces.remove(BlockFace.DOWN); // Remove DOWN (the default value of BlockFace
+
+        int index = blockFaces.indexOf(blockFace);
+        if (index <= 0) {
+            index = blockFaces.size() - 1;
+        } else {
+            index--;
+        }
+        rotatable.setRotation(blockFaces.get(index));
+        this.blockFace = blockFaces.get(index);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Rotatable) blockData).setRotation(blockFace);
         return blockData;

@@ -64,4 +64,16 @@ public class AnaloguePowerableData implements SubBlockData {
         this.power = analoguePowerable.getPower();
         return this;
     }
+
+    @Override
+    public SubBlockData previousData() {
+        AnaloguePowerable analoguePowerable = (AnaloguePowerable) blockData;
+        if (analoguePowerable.getPower() <= 0) {
+            analoguePowerable.setPower(analoguePowerable.getMaximumPower());
+        } else {
+            analoguePowerable.setPower(analoguePowerable.getPower() - 1);
+        }
+        this.power = analoguePowerable.getPower();
+        return this;
+    }
 }

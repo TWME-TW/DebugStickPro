@@ -57,6 +57,11 @@ public class BubbleColumnData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((BubbleColumn) blockData).setDrag(hasBubbleColumn);
         return blockData;

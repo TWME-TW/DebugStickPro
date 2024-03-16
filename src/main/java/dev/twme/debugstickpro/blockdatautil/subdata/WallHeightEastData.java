@@ -63,6 +63,21 @@ public class WallHeightEastData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Wall wall = ((Wall) blockData);
+
+        if (height == Wall.Height.TALL) {
+            height = Wall.Height.NONE;
+        } else if (height == Wall.Height.NONE) {
+            height = Wall.Height.LOW;
+        } else if (height == Wall.Height.LOW) {
+            height = Wall.Height.TALL;
+        }
+        wall.setHeight(BlockFace.EAST, height);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Wall) blockData).setHeight(BlockFace.EAST, height);
         return blockData;

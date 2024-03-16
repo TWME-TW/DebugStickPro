@@ -56,6 +56,11 @@ public class HopperData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Hopper) blockData).setEnabled(enabled);
         return blockData;

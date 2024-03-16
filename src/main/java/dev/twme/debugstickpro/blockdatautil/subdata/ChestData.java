@@ -62,6 +62,20 @@ public class ChestData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Chest chest = (Chest) blockData;
+        if (chest.getType() == Chest.Type.SINGLE) {
+            chest.setType(Chest.Type.RIGHT);
+        } else if (chest.getType() == Chest.Type.RIGHT) {
+            chest.setType(Chest.Type.LEFT);
+        } else {
+            chest.setType(Chest.Type.SINGLE);
+        }
+        this.type = chest.getType();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Chest) blockData).setType(type);
         return blockData;

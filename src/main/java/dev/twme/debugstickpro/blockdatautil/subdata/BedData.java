@@ -62,6 +62,18 @@ public class BedData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Bed bed = (Bed) blockData;
+        if (bed.getPart() == Bed.Part.FOOT) {
+            bed.setPart(Bed.Part.HEAD);
+        } else {
+            bed.setPart(Bed.Part.FOOT);
+        }
+        this.part = ((Bed) blockData).getPart();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Bed) blockData).setPart(part);
         return blockData;

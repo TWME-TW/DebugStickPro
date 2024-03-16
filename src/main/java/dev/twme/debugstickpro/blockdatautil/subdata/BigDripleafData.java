@@ -65,6 +65,23 @@ public class BigDripleafData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        BigDripleaf bigDripleaf = ((BigDripleaf) blockData);
+
+        if (bigDripleaf.getTilt() == BigDripleaf.Tilt.UNSTABLE) {
+            bigDripleaf.setTilt(BigDripleaf.Tilt.PARTIAL);
+        } else if (bigDripleaf.getTilt() == BigDripleaf.Tilt.PARTIAL) {
+            bigDripleaf.setTilt(BigDripleaf.Tilt.NONE);
+        } else if (bigDripleaf.getTilt() == BigDripleaf.Tilt.NONE) {
+            bigDripleaf.setTilt(BigDripleaf.Tilt.FULL);
+        } else {
+            bigDripleaf.setTilt(BigDripleaf.Tilt.FULL);
+        }
+        this.tilt = bigDripleaf.getTilt();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((BigDripleaf) blockData).setTilt(tilt);
         return blockData;

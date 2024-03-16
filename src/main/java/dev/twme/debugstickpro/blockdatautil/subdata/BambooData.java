@@ -63,6 +63,20 @@ public class BambooData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Bamboo bamboo = (Bamboo) blockData;
+        if (bamboo.getLeaves() == Bamboo.Leaves.NONE) {
+            bamboo.setLeaves(Bamboo.Leaves.LARGE);
+        } else if (bamboo.getLeaves() == Bamboo.Leaves.LARGE) {
+            bamboo.setLeaves(Bamboo.Leaves.SMALL);
+        } else if (bamboo.getLeaves() == Bamboo.Leaves.SMALL) {
+            bamboo.setLeaves(Bamboo.Leaves.NONE);
+        }
+        this.leaves = bamboo.getLeaves();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Bamboo) blockData).setLeaves(leaves);
         return blockData;

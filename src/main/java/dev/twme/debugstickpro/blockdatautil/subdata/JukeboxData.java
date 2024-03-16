@@ -63,6 +63,11 @@ public class JukeboxData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         String blockDataString = blockData.getAsString();
         if (hasRecord) {

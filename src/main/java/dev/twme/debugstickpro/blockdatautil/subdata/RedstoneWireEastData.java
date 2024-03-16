@@ -69,6 +69,19 @@ public class RedstoneWireEastData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        RedstoneWire redstoneWire = ((RedstoneWire) blockData);
+        connection = redstoneWire.getFace(face);
+        switch (connection) {
+            case SIDE -> redstoneWire.setFace(face, RedstoneWire.Connection.NONE);
+            case NONE -> redstoneWire.setFace(face, RedstoneWire.Connection.UP);
+            case UP -> redstoneWire.setFace(face, RedstoneWire.Connection.SIDE);
+        }
+        connection = redstoneWire.getFace(face);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((RedstoneWire) blockData).setFace(face, connection);
         return blockData;

@@ -60,6 +60,18 @@ public class SnowData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Snow snow = ((Snow) blockData);
+        if (layers <= snow.getMinimumLayers()) {
+            layers = snow.getMaximumLayers();
+        } else {
+            layers--;
+        }
+        snow.setLayers(layers);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Snow) blockData).setLayers(layers);
         return blockData;

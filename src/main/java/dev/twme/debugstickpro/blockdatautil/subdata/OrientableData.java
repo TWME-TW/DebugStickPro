@@ -73,6 +73,27 @@ public class OrientableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Orientable orientable = (Orientable) blockData;
+        List<Axis> axisList = orientable.getAxes().stream().toList();
+        if (axisList.size() == 1) {
+            orientable.setAxis(axisList.get(0));
+            this.axis = axisList.get(0);
+        } else {
+            int index = axisList.indexOf(axis);
+            if (index == 0) {
+                orientable.setAxis(axisList.get(axisList.size() - 1));
+                this.axis = axisList.get(axisList.size() - 1);
+            } else {
+                orientable.setAxis(axisList.get(index - 1));
+                this.axis = axisList.get(index - 1);
+            }
+        }
+        orientable.setAxis(axis);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Orientable) blockData).setAxis(axis);
         return blockData;

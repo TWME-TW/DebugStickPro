@@ -62,6 +62,11 @@ public class BisectedData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Bisected) blockData).setHalf(half);
         return blockData;

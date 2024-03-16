@@ -50,7 +50,13 @@ public class LeavesPersistentData implements SubBlockData {
 
     public SubBlockData nextData() {
         ((Leaves) blockData).setPersistent(!persistent);
+        persistent = ((Leaves) blockData).isPersistent();
         return this;
+    }
+
+    @Override
+    public SubBlockData previousData() {
+        return nextData();
     }
 
     @Override

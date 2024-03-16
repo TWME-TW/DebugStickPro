@@ -61,6 +61,18 @@ public class CakeData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Cake cake = ((Cake) blockData);
+        if (cake.getBites() <= 0) {
+            cake.setBites(cake.getMaximumBites());
+        } else {
+            cake.setBites(cake.getBites() - 1);
+        }
+        this.bites = cake.getBites();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Cake) blockData).setBites(bites);
         return blockData;

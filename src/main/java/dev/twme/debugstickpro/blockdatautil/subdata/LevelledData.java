@@ -60,6 +60,18 @@ public class LevelledData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Levelled levelled = ((Levelled) blockData);
+        if (level == levelled.getMinimumLevel()) {
+            level = levelled.getMaximumLevel();
+        } else {
+            level--;
+        }
+        levelled.setLevel(level);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Levelled) blockData).setLevel(level);
         return blockData;

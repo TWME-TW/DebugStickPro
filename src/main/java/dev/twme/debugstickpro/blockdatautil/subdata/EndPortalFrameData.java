@@ -57,6 +57,11 @@ public class EndPortalFrameData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((EndPortalFrame) blockData).setEye(eye);
         return blockData;

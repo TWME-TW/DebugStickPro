@@ -79,6 +79,40 @@ public class JigsawData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Jigsaw jigsaw = ((Jigsaw) blockData);
+
+        if (orientation == Jigsaw.Orientation.WEST_UP) {
+            orientation = Jigsaw.Orientation.UP_WEST;
+        } else if (orientation == Jigsaw.Orientation.UP_WEST) {
+            orientation = Jigsaw.Orientation.UP_SOUTH;
+        } else if (orientation == Jigsaw.Orientation.UP_SOUTH) {
+            orientation = Jigsaw.Orientation.UP_NORTH;
+        } else if (orientation == Jigsaw.Orientation.UP_NORTH) {
+            orientation = Jigsaw.Orientation.UP_EAST;
+        } else if (orientation == Jigsaw.Orientation.UP_EAST) {
+            orientation = Jigsaw.Orientation.SOUTH_UP;
+        } else if (orientation == Jigsaw.Orientation.SOUTH_UP) {
+            orientation = Jigsaw.Orientation.NORTH_UP;
+        } else if (orientation == Jigsaw.Orientation.NORTH_UP) {
+            orientation = Jigsaw.Orientation.EAST_UP;
+        } else if (orientation == Jigsaw.Orientation.EAST_UP) {
+            orientation = Jigsaw.Orientation.DOWN_WEST;
+        } else if (orientation == Jigsaw.Orientation.DOWN_WEST) {
+            orientation = Jigsaw.Orientation.DOWN_SOUTH;
+        } else if (orientation == Jigsaw.Orientation.DOWN_SOUTH) {
+            orientation = Jigsaw.Orientation.DOWN_NORTH;
+        } else if (orientation == Jigsaw.Orientation.DOWN_NORTH) {
+            orientation = Jigsaw.Orientation.DOWN_EAST;
+        } else {
+            orientation = Jigsaw.Orientation.WEST_UP;
+        }
+
+        jigsaw.setOrientation(orientation);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Jigsaw) blockData).setOrientation(orientation);
         return blockData;

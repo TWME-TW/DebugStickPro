@@ -56,6 +56,11 @@ public class CommandBlockData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((CommandBlock) blockData).setConditional(conditional);
         return blockData;

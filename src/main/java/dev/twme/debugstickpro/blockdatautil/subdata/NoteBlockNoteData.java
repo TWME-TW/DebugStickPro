@@ -74,6 +74,26 @@ public class NoteBlockNoteData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        String blockNoteData = blockData.getAsString();
+
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(blockNoteData);
+        matcher.find();
+        String number = matcher.group(0);
+        int num = Integer.parseInt(number);
+        if (num == 0) {
+            num = 24;
+        } else {
+            num--;
+        }
+        blockNoteData = blockNoteData.replace(number, String.valueOf(num));
+        this.blockData = DebugStickPro.getInstance().getServer().createBlockData(blockNoteData);
+        this.note = ((NoteBlock) blockData).getNote();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         // 將該 BlockData 文字化
         String blockNoteData = blockData.getAsString();

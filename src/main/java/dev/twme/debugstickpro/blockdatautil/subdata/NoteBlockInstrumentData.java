@@ -65,6 +65,19 @@ public class NoteBlockInstrumentData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        NoteBlock noteBlock = ((NoteBlock) blockData);
+        List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
+        if (instruments.indexOf(instrument) == 0) {
+            instrument = instruments.get(instruments.size() - 1);
+        } else {
+            instrument = instruments.get(instruments.indexOf(instrument) - 1);
+        }
+        noteBlock.setInstrument(instrument);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((NoteBlock) blockData).setInstrument(instrument);
         return blockData;

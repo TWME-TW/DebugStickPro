@@ -45,7 +45,7 @@ public class CrafterCraftingData implements SubBlockData {
 
     @Override
     public boolean isUsing() {
-        return false;
+        return isUsing;
     }
 
 
@@ -54,6 +54,11 @@ public class CrafterCraftingData implements SubBlockData {
         crafter.setCrafting(!crafter.isCrafting());
         this.crafting = crafter.isCrafting();
         return this;
+    }
+
+    @Override
+    public SubBlockData previousData() {
+        return nextData();
     }
 
     @Override

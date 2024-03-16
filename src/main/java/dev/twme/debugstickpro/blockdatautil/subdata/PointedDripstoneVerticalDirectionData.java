@@ -60,6 +60,15 @@ public class PointedDripstoneVerticalDirectionData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        PointedDripstone pointedDripstone = ((PointedDripstone) blockData);
+        List<BlockFace> blockFaces = pointedDripstone.getVerticalDirections().stream().toList();
+        verticalDirection = blockFaces.get((blockFaces.indexOf(verticalDirection) - 1 + blockFaces.size()) % blockFaces.size());
+        pointedDripstone.setVerticalDirection(verticalDirection);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((PointedDripstone) blockData).setVerticalDirection(verticalDirection);
         return blockData;

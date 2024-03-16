@@ -61,6 +61,19 @@ public class SlabData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        if (type == Slab.Type.TOP) {
+            type = Slab.Type.DOUBLE;
+        } else if (type == Slab.Type.DOUBLE) {
+            type = Slab.Type.BOTTOM;
+        } else {
+            type = Slab.Type.TOP;
+        }
+        ((Slab) blockData).setType(type);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Slab) blockData).setType(type);
         return blockData;

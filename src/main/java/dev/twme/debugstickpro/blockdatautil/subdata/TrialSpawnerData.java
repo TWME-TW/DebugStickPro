@@ -67,6 +67,27 @@ public class TrialSpawnerData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        TrialSpawner trialSpawner = ((TrialSpawner) blockData);
+
+        if (state == TrialSpawner.State.WAITING_FOR_REWARD_EJECTION) {
+            state = TrialSpawner.State.WAITING_FOR_PLAYERS;
+        } else if (state == TrialSpawner.State.WAITING_FOR_PLAYERS) {
+            state = TrialSpawner.State.INACTIVE;
+        } else if (state == TrialSpawner.State.INACTIVE) {
+            state = TrialSpawner.State.EJECTING_REWARD;
+        } else if (state == TrialSpawner.State.EJECTING_REWARD) {
+            state = TrialSpawner.State.COOLDOWN;
+        } else if (state == TrialSpawner.State.COOLDOWN) {
+            state = TrialSpawner.State.ACTIVE;
+        } else {
+            state = TrialSpawner.State.WAITING_FOR_REWARD_EJECTION;
+        }
+        trialSpawner.setTrialSpawnerState(state);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((TrialSpawner) blockData).setTrialSpawnerState(state);
         return blockData;

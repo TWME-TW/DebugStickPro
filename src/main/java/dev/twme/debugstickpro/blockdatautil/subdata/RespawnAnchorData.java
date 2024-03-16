@@ -58,6 +58,18 @@ public class RespawnAnchorData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        RespawnAnchor respawnAnchor = ((RespawnAnchor) blockData);
+        if (charges <= 0) {
+            charges = respawnAnchor.getMaximumCharges();
+        } else {
+            charges--;
+        }
+        respawnAnchor.setCharges(charges);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((RespawnAnchor) blockData).setCharges(charges);
         return blockData;

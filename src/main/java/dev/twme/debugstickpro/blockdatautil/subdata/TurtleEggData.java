@@ -60,6 +60,18 @@ public class TurtleEggData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        TurtleEgg turtleEgg = ((TurtleEgg) blockData);
+        if (eggs <= turtleEgg.getMinimumEggs()) {
+            eggs = turtleEgg.getMaximumEggs();
+        } else {
+            eggs--;
+        }
+        turtleEgg.setEggs(eggs);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((TurtleEgg) blockData).setEggs(eggs);
         return blockData;

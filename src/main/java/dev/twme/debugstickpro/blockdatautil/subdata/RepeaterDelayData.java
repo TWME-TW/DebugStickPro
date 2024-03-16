@@ -62,6 +62,19 @@ public class RepeaterDelayData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Repeater repeater = ((Repeater) blockData);
+        delay = repeater.getDelay();
+        if (delay <= repeater.getMinimumDelay()) {
+            delay = repeater.getMaximumDelay();
+        } else {
+            delay--;
+        }
+        repeater.setDelay(delay);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Repeater) blockData).setDelay(delay);
         return blockData;

@@ -81,6 +81,39 @@ public class CrafterOrientationData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Crafter crafter = ((Crafter) blockData);
+        Crafter.Orientation orientation = crafter.getOrientation();
+        if (orientation == Crafter.Orientation.WEST_UP) {
+            crafter.setOrientation(Crafter.Orientation.UP_WEST);
+        } else if (orientation == Crafter.Orientation.UP_WEST) {
+            crafter.setOrientation(Crafter.Orientation.UP_SOUTH);
+        } else if (orientation == Crafter.Orientation.UP_SOUTH) {
+            crafter.setOrientation(Crafter.Orientation.UP_NORTH);
+        } else if (orientation == Crafter.Orientation.UP_NORTH) {
+            crafter.setOrientation(Crafter.Orientation.UP_EAST);
+        } else if (orientation == Crafter.Orientation.UP_EAST) {
+            crafter.setOrientation(Crafter.Orientation.SOUTH_UP);
+        } else if (orientation == Crafter.Orientation.SOUTH_UP) {
+            crafter.setOrientation(Crafter.Orientation.NORTH_UP);
+        } else if (orientation == Crafter.Orientation.NORTH_UP) {
+            crafter.setOrientation(Crafter.Orientation.EAST_UP);
+        } else if (orientation == Crafter.Orientation.EAST_UP) {
+            crafter.setOrientation(Crafter.Orientation.DOWN_WEST);
+        } else if (orientation == Crafter.Orientation.DOWN_WEST) {
+            crafter.setOrientation(Crafter.Orientation.DOWN_SOUTH);
+        } else if (orientation == Crafter.Orientation.DOWN_SOUTH) {
+            crafter.setOrientation(Crafter.Orientation.DOWN_NORTH);
+        } else if (orientation == Crafter.Orientation.DOWN_NORTH) {
+            crafter.setOrientation(Crafter.Orientation.DOWN_EAST);
+        } else if (orientation == Crafter.Orientation.DOWN_EAST) {
+            crafter.setOrientation(Crafter.Orientation.WEST_UP);
+        }
+        this.orientation = crafter.getOrientation();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Crafter) blockData).setOrientation(orientation);
         return blockData;

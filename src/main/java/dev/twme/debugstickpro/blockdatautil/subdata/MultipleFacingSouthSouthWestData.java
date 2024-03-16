@@ -58,6 +58,11 @@ public class MultipleFacingSouthSouthWestData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((MultipleFacing) blockData).setFace(face, has);
         return blockData;

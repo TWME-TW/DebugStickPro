@@ -63,6 +63,21 @@ public class FaceAttachableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        FaceAttachable faceAttachable = ((FaceAttachable) blockData);
+
+        if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.WALL) {
+            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.FLOOR);
+        } else if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.FLOOR) {
+            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.CEILING);
+        } else {
+            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.WALL);
+        }
+        this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((FaceAttachable) blockData).setAttachedFace(attachedFace);
         return blockData;

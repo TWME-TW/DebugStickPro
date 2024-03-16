@@ -56,6 +56,11 @@ public class TNTData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((TNT) blockData).setUnstable(unstable);
         return blockData;

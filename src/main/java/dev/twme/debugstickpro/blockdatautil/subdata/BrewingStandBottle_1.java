@@ -58,6 +58,11 @@ public class BrewingStandBottle_1 implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((BrewingStand) blockData).setBottle(1, bottle);
         return blockData;

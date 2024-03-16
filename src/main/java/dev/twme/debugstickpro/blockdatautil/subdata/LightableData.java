@@ -57,6 +57,11 @@ public class LightableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Lightable) blockData).setLit(lit);
         return blockData;

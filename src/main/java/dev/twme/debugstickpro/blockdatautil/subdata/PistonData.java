@@ -57,6 +57,11 @@ public class PistonData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Piston) blockData).setExtended(extended);
         return blockData;

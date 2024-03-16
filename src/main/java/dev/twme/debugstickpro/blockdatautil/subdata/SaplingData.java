@@ -61,6 +61,18 @@ public class SaplingData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Sapling sapling = ((Sapling) blockData);
+        if (stage <= 0) {
+            stage = sapling.getMaximumStage();
+        } else {
+            stage--;
+        }
+        sapling.setStage(stage);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Sapling) blockData).setStage(stage);
         return blockData;

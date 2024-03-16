@@ -65,6 +65,19 @@ public class DirectionalData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        List<BlockFace> blockFaces = ((Directional) blockData).getFaces().stream().toList();
+        int index = blockFaces.indexOf(direction);
+        if (index <= 0) {
+            ((Directional) blockData).setFacing(blockFaces.get(blockFaces.size() - 1));
+        } else {
+            ((Directional) blockData).setFacing(blockFaces.get(index - 1));
+        }
+        this.direction = ((Directional) blockData).getFacing();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Directional) blockData).setFacing(direction);
         return blockData;

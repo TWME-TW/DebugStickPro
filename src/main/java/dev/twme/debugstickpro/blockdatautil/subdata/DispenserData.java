@@ -56,6 +56,11 @@ public class DispenserData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Dispenser) blockData).setTriggered(triggered);
         return blockData;

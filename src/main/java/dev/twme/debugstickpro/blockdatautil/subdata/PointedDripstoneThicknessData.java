@@ -56,6 +56,14 @@ public class PointedDripstoneThicknessData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        PointedDripstone pointedDripstone = ((PointedDripstone) blockData);
+        thickness = PointedDripstone.Thickness.values()[(thickness.ordinal() - 1 + PointedDripstone.Thickness.values().length) % PointedDripstone.Thickness.values().length];
+        pointedDripstone.setThickness(thickness);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((PointedDripstone) blockData).setThickness(thickness);
         return blockData;

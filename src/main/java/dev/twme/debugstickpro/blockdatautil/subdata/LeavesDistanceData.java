@@ -60,6 +60,18 @@ public class LeavesDistanceData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Leaves leaves = (Leaves) blockData;
+        if (distance <= leaves.getMinimumDistance()) {
+            distance = leaves.getMaximumDistance();
+        } else {
+            distance--;
+        }
+        leaves.setDistance(distance);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Leaves) blockData).setDistance(distance);
         return blockData;

@@ -57,6 +57,11 @@ public class HangableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Hangable) blockData).setHanging(hangable);
         return blockData;

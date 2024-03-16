@@ -61,6 +61,18 @@ public class AgeableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Ageable age = (Ageable) blockData;
+        if (age.getAge() <= 0) {
+            age.setAge(age.getMaximumAge());
+        } else {
+            age.setAge(age.getAge() - 1);
+        }
+        this.age = age.getAge();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Ageable) blockData).setAge(this.age);
         return blockData;

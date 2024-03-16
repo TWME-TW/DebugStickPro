@@ -60,6 +60,18 @@ public class SeaPickleData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        SeaPickle seaPickle = ((SeaPickle) blockData);
+        if (pickles <= seaPickle.getMinimumPickles()) {
+            pickles = seaPickle.getMaximumPickles();
+        } else {
+            pickles--;
+        }
+        seaPickle.setPickles(pickles);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((SeaPickle) blockData).setPickles(pickles);
         return blockData;

@@ -53,7 +53,11 @@ public class ClassicRightClick {
 
         for (SubBlockData subBlockData : subBlockDataList) {
             if (subBlockData.isUsing()) {
-                block.setBlockData(subBlockData.nextData().getBlockData(), false);
+                if (player.isSneaking()) {
+                    block.setBlockData(subBlockData.previousData().getBlockData(), false);
+                } else {
+                    block.setBlockData(subBlockData.nextData().getBlockData(), false);
+                }
                 block.getState().update();
                 break;
             }

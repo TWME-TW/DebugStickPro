@@ -62,6 +62,20 @@ public class SculkSensorData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        SculkSensor sculkSensor = ((SculkSensor) blockData);
+        if (phase == SculkSensor.Phase.ACTIVE) {
+            phase = SculkSensor.Phase.INACTIVE;
+        } else if (phase == SculkSensor.Phase.COOLDOWN) {
+            phase = SculkSensor.Phase.ACTIVE;
+        } else {
+            phase = SculkSensor.Phase.COOLDOWN;
+        }
+        sculkSensor.setPhase(phase);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((SculkSensor) blockData).setPhase(phase);
         return blockData;

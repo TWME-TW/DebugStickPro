@@ -58,6 +58,11 @@ public class GateData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Gate) blockData).setInWall(inWall);
         return blockData;

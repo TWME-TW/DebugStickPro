@@ -60,6 +60,11 @@ public class ChiseledBookshelfSlot_1 implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((ChiseledBookshelf) blockData).setSlotOccupied(1, slot_1);
         return blockData;

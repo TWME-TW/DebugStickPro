@@ -66,6 +66,21 @@ public class RailData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Rail rail = ((Rail) blockData);
+        List<Rail.Shape> shapes = rail.getShapes().stream().toList();
+        int index = shapes.indexOf(shape);
+        if (index <= 0) {
+            index = shapes.size() - 1;
+        } else {
+            index--;
+        }
+        shape = shapes.get(index);
+        rail.setShape(shape);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Rail) blockData).setShape(shape);
         return blockData;

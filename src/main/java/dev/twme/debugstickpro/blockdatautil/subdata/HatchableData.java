@@ -61,6 +61,18 @@ public class HatchableData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Hatchable hatchable = ((Hatchable) blockData);
+        if (hatchable.getHatch() <= 0) {
+            hatchable.setHatch(hatchable.getMaximumHatch());
+        } else {
+            hatchable.setHatch(hatchable.getHatch() - 1);
+        }
+        this.hatch = hatchable.getHatch();
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Hatchable) blockData).setHatch(hatch);
         return blockData;

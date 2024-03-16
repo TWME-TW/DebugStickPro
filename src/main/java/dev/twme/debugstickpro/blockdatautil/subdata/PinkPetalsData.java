@@ -61,6 +61,18 @@ public class PinkPetalsData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        PinkPetals pinkPetals = ((PinkPetals) blockData);
+        if (flowerAmount <= 0) {
+            flowerAmount = pinkPetals.getMaximumFlowerAmount();
+        } else {
+            flowerAmount--;
+        }
+        pinkPetals.setFlowerAmount(flowerAmount);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((PinkPetals) blockData).setFlowerAmount(flowerAmount);
         return blockData;

@@ -63,6 +63,22 @@ public class StructureBlockData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        StructureBlock structureBlock = ((StructureBlock) blockData);
+        if (mode == StructureBlock.Mode.SAVE) {
+            mode = StructureBlock.Mode.LOAD;
+        } else if (mode == StructureBlock.Mode.LOAD) {
+            mode = StructureBlock.Mode.DATA;
+        } else if (mode == StructureBlock.Mode.DATA) {
+            mode = StructureBlock.Mode.CORNER;
+        } else if (mode == StructureBlock.Mode.CORNER) {
+            mode = StructureBlock.Mode.SAVE;
+        }
+        structureBlock.setMode(mode);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((StructureBlock) blockData).setMode(mode);
         return blockData;

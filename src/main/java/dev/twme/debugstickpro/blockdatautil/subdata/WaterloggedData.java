@@ -56,6 +56,11 @@ public class WaterloggedData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Waterlogged) blockData).setWaterlogged(waterlogged);
         return blockData;

@@ -61,6 +61,18 @@ public class ScaffoldingDistanceData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        Scaffolding scaffolding = ((Scaffolding) blockData);
+        if (distance <= 0) {
+            distance = scaffolding.getMaximumDistance();
+        } else {
+            distance--;
+        }
+        scaffolding.setDistance(distance);
+        return this;
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Scaffolding) blockData).setDistance(distance);
         return blockData;

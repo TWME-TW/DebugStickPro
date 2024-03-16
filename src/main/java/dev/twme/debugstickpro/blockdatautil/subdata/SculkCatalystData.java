@@ -57,6 +57,11 @@ public class SculkCatalystData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((SculkCatalyst) blockData).setBloom(isBloom);
         return blockData;

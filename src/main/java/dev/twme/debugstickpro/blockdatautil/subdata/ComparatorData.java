@@ -62,6 +62,11 @@ public class ComparatorData implements SubBlockData {
     }
 
     @Override
+    public SubBlockData previousData() {
+        return nextData();
+    }
+
+    @Override
     public BlockData copyTo(BlockData blockData) {
         ((Comparator) blockData).setMode(mode);
         return blockData;
