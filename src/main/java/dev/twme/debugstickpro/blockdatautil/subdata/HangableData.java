@@ -22,7 +22,7 @@ public class HangableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.HangableDataName;
+        return LangFile.DataKeyName.HangableDataName;
     }
 
     @Override

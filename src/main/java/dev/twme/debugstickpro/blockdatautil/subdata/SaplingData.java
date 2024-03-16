@@ -22,7 +22,7 @@ public class SaplingData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SaplingDataName;
+        return LangFile.DataKeyName.SaplingDataName;
     }
 
     @Override

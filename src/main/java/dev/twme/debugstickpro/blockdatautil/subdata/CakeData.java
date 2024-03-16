@@ -22,7 +22,7 @@ public class CakeData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CakeDataName;
+        return LangFile.DataKeyName.CakeDataName;
     }
 
     @Override

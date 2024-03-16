@@ -22,7 +22,7 @@ public class BrushableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BrushableDataName;
+        return LangFile.DataKeyName.BrushableDataName;
     }
 
     @Override

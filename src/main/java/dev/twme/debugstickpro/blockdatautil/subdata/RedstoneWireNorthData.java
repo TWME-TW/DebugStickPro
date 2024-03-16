@@ -24,7 +24,7 @@ public class RedstoneWireNorthData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.RedstoneWireNorthDataName;
+        return LangFile.DataKeyName.RedstoneWireNorthDataName;
     }
 
     @Override

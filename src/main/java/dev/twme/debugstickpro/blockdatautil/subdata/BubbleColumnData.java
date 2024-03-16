@@ -23,7 +23,7 @@ public class BubbleColumnData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BubbleColumnDataName;
+        return LangFile.DataKeyName.BubbleColumnDataName;
     }
 
     @Override

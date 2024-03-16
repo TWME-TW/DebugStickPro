@@ -22,7 +22,7 @@ public class DispenserData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DispenserDataName;
+        return LangFile.DataKeyName.DispenserDataName;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class BellData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BellDataName;
+        return LangFile.DataKeyName.BellDataName;
     }
 
     @Override

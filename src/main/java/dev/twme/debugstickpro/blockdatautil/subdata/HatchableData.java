@@ -22,7 +22,7 @@ public class HatchableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.HatchableDataName;
+        return LangFile.DataKeyName.HatchableDataName;
     }
 
     @Override

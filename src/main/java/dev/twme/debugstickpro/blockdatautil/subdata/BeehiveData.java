@@ -22,7 +22,7 @@ public class BeehiveData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BeehiveDataName;
+        return LangFile.DataKeyName.BeehiveDataName;
     }
 
     @Override

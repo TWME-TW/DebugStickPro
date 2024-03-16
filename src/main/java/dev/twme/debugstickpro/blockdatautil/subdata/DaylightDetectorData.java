@@ -22,7 +22,7 @@ public class DaylightDetectorData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DaylightDetectorDataName;
+        return LangFile.DataKeyName.DaylightDetectorDataName;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class FaceAttachableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.FaceAttachableDataName;
+        return LangFile.DataKeyName.FaceAttachableDataName;
     }
 
     @Override

@@ -23,7 +23,7 @@ public class LecternData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.LectronDataName;
+        return LangFile.DataKeyName.LectronDataName;
     }
 
     @Override

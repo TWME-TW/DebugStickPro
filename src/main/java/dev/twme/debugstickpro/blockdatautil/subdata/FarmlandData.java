@@ -23,7 +23,7 @@ public class FarmlandData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.FarmlandDataName;
+        return LangFile.DataKeyName.FarmlandDataName;
     }
 
     @Override

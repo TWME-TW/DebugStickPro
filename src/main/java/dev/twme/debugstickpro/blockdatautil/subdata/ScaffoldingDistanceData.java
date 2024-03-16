@@ -22,7 +22,7 @@ public class ScaffoldingDistanceData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.ScaffoldingDistanceDataName;
+        return LangFile.DataKeyName.ScaffoldingDistanceDataName;
     }
 
     @Override

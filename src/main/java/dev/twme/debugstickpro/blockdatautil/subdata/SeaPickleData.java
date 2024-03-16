@@ -22,7 +22,7 @@ public class SeaPickleData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SeaPickleDataName;
+        return LangFile.DataKeyName.SeaPickleDataName;
     }
 
     @Override

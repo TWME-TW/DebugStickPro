@@ -22,7 +22,7 @@ public class PointedDripstoneThicknessData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.PointedDripstoneThicknessDataName;
+        return LangFile.DataKeyName.PointedDripstoneThicknessDataName;
     }
 
     @Override

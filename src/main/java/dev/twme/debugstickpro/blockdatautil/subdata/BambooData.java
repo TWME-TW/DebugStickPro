@@ -22,7 +22,7 @@ public class BambooData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BambooDataName;
+        return LangFile.DataKeyName.BambooDataName;
     }
 
     @Override

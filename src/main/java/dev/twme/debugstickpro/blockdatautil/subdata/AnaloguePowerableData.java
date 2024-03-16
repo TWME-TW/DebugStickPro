@@ -22,7 +22,7 @@ public class AnaloguePowerableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.AnaloguePowerableDataName;
+        return LangFile.DataKeyName.AnaloguePowerableDataName;
     }
 
     @Override

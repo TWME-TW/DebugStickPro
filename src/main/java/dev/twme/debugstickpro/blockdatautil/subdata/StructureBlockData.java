@@ -22,7 +22,7 @@ public class StructureBlockData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.StructureBlockDataName;
+        return LangFile.DataKeyName.StructureBlockDataName;
     }
 
     @Override

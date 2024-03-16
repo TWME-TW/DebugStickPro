@@ -22,7 +22,7 @@ public class TurtleEggData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.TurtleEggDataName;
+        return LangFile.DataKeyName.TurtleEggDataName;
     }
 
     @Override

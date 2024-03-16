@@ -23,7 +23,7 @@ public class ComparatorData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.ComparatorDataName;
+        return LangFile.DataKeyName.ComparatorDataName;
     }
 
     @Override

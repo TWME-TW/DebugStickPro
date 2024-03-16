@@ -22,7 +22,7 @@ public class SculkCatalystData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SculkCatalystDataName;
+        return LangFile.DataKeyName.SculkCatalystDataName;
     }
 
     @Override

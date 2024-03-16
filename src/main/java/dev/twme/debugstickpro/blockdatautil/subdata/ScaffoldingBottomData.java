@@ -22,7 +22,7 @@ public class ScaffoldingBottomData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.ScaffoldingBottomDataName;
+        return LangFile.DataKeyName.ScaffoldingBottomDataName;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class TNTData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.TNTDataName;
+        return LangFile.DataKeyName.TNTDataName;
     }
 
     @Override

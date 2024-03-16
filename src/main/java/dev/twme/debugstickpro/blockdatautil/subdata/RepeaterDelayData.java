@@ -23,7 +23,7 @@ public class RepeaterDelayData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.RepeaterDelayDataName;
+        return LangFile.DataKeyName.RepeaterDelayDataName;
     }
 
     @Override

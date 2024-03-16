@@ -24,7 +24,7 @@ public class AttachableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.AttachableDataName;
+        return LangFile.DataKeyName.AttachableDataName;
     }
 
     @Override

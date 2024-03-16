@@ -24,7 +24,7 @@ public class MultipleFacingNorthData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.MultipleFacingNorthDataName;
+        return LangFile.DataKeyName.MultipleFacingNorthDataName;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class TripwireData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.TripwireDataName;
+        return LangFile.DataKeyName.TripwireDataName;
     }
 
     @Override

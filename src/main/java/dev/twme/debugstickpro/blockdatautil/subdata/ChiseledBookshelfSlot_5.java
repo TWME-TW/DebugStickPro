@@ -22,7 +22,7 @@ public class ChiseledBookshelfSlot_5 implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.ChiseledBookshelfSlot_5DataName;
+        return LangFile.DataKeyName.ChiseledBookshelfSlot_5DataName;
     }
 
     @Override

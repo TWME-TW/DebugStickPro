@@ -22,7 +22,7 @@ public class PowerableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.PowerableDataName;
+        return LangFile.DataKeyName.PowerableDataName;
     }
 
     @Override

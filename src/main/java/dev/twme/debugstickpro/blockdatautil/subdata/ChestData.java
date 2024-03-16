@@ -22,7 +22,7 @@ public class ChestData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.ChestDataName;
+        return LangFile.DataKeyName.ChestDataName;
     }
 
     @Override

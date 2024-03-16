@@ -22,7 +22,7 @@ public class CampfireData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CampfireDataName;
+        return LangFile.DataKeyName.CampfireDataName;
     }
 
     @Override

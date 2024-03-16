@@ -22,7 +22,7 @@ public class SlabData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SlabDataName;
+        return LangFile.DataKeyName.SlabDataName;
     }
 
     @Override

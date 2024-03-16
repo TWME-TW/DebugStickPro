@@ -22,7 +22,7 @@ public class AgeableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.AgeableDataName;
+        return LangFile.DataKeyName.AgeableDataName;
     }
 
     @Override

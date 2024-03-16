@@ -22,7 +22,7 @@ public class SnowableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SnowableDataName;
+        return LangFile.DataKeyName.SnowableDataName;
     }
 
     @Override

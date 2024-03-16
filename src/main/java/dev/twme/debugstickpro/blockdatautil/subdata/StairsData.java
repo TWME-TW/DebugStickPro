@@ -22,7 +22,7 @@ public class StairsData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.StairsDataName;
+        return LangFile.DataKeyName.StairsDataName;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class JukeboxData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.JukeboxDataName;
+        return LangFile.DataKeyName.JukeboxDataName;
     }
 
     @Override

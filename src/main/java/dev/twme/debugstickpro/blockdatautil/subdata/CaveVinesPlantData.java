@@ -22,7 +22,7 @@ public class CaveVinesPlantData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CaveVinesPlantDataName;
+        return LangFile.DataKeyName.CaveVinesPlantDataName;
     }
 
     @Override

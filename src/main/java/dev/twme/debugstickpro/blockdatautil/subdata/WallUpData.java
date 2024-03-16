@@ -22,7 +22,7 @@ public class WallUpData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.WallUpDataName;
+        return LangFile.DataKeyName.WallUpDataName;
     }
 
     @Override

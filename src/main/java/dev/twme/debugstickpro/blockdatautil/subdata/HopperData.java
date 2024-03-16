@@ -22,7 +22,7 @@ public class HopperData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.HopperDataName;
+        return LangFile.DataKeyName.HopperDataName;
     }
 
     @Override

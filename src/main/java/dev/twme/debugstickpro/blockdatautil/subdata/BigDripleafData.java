@@ -22,7 +22,7 @@ public class BigDripleafData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BigDripleafDataName;
+        return LangFile.DataKeyName.BigDripleafDataName;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class CrafterTriggerData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CrafterTriggerDataName;
+        return LangFile.DataKeyName.CrafterTriggerDataName;
     }
 
     @Override

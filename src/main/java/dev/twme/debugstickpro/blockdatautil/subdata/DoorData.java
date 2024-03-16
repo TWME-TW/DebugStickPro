@@ -22,7 +22,7 @@ public class DoorData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DoorDataName;
+        return LangFile.DataKeyName.DoorDataName;
     }
 
     @Override

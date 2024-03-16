@@ -22,7 +22,7 @@ public class EndPortalFrameData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.EndPortalFrameDataName;
+        return LangFile.DataKeyName.EndPortalFrameDataName;
     }
 
     @Override

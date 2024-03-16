@@ -22,7 +22,7 @@ public class PinkPetalsData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.PinkPetalsDataname;
+        return LangFile.DataKeyName.PinkPetalsDataname;
     }
 
     @Override

@@ -25,7 +25,7 @@ public class DirectionalData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DirectionalDataName;
+        return LangFile.DataKeyName.DirectionalDataName;
     }
 
     @Override

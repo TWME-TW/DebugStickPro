@@ -26,7 +26,7 @@ public class NoteBlockInstrumentData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.NoteBlockInstrumentDataName;
+        return LangFile.DataKeyName.NoteBlockInstrumentDataName;
     }
 
     @Override

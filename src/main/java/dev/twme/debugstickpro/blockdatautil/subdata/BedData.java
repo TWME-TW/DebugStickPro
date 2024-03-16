@@ -23,7 +23,7 @@ public class BedData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BedDataName;
+        return LangFile.DataKeyName.BedDataName;
     }
 
     @Override

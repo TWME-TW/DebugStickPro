@@ -22,7 +22,7 @@ public class CandleData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CandleDataName;
+        return LangFile.DataKeyName.CandleDataName;
     }
 
     @Override

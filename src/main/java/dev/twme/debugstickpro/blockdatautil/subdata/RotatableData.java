@@ -26,7 +26,7 @@ public class RotatableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.RotatableDataName;
+        return LangFile.DataKeyName.RotatableDataName;
     }
 
     @Override

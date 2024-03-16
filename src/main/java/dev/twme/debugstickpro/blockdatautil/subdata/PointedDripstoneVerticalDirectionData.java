@@ -25,7 +25,7 @@ public class PointedDripstoneVerticalDirectionData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.PointedDripstoneVerticalDirectionDataName;
+        return LangFile.DataKeyName.PointedDripstoneVerticalDirectionDataName;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class RespawnAnchorData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.RespawnAnchorDataName;
+        return LangFile.DataKeyName.RespawnAnchorDataName;
     }
 
     @Override

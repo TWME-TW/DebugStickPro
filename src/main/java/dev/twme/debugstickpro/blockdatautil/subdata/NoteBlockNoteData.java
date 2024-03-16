@@ -28,7 +28,7 @@ public class NoteBlockNoteData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.NoteBlockNoteDataName;
+        return LangFile.DataKeyName.NoteBlockNoteDataName;
     }
 
     @Override

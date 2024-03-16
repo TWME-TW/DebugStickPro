@@ -22,7 +22,7 @@ public class SculkSensorData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SculkSensorDataName;
+        return LangFile.DataKeyName.SculkSensorDataName;
     }
 
     @Override

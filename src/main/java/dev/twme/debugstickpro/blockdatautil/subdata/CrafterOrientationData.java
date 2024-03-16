@@ -22,7 +22,7 @@ public class CrafterOrientationData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CrafterOrientationDataName;
+        return LangFile.DataKeyName.CrafterOrientationDataName;
     }
 
     @Override

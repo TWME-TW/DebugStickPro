@@ -24,7 +24,7 @@ public class RailData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.RailDataName;
+        return LangFile.DataKeyName.RailDataName;
     }
 
     @Override

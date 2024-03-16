@@ -22,7 +22,7 @@ public class CommandBlockData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.CommandBlockDataName;
+        return LangFile.DataKeyName.CommandBlockDataName;
     }
 
     @Override

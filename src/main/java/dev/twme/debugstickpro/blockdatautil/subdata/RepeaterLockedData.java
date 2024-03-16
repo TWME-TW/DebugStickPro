@@ -22,7 +22,7 @@ public class RepeaterLockedData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.RepeaterLockedDataName;
+        return LangFile.DataKeyName.RepeaterLockedDataName;
     }
 
     @Override

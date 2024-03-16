@@ -22,7 +22,7 @@ public class JigsawData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.JigsawDataName;
+        return LangFile.DataKeyName.JigsawDataName;
     }
 
     @Override

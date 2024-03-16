@@ -22,7 +22,7 @@ public class LeavesDistanceData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.LeavesDistanceDataName;
+        return LangFile.DataKeyName.LeavesDistanceDataName;
     }
 
     @Override

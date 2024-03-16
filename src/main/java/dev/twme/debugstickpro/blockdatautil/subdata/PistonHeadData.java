@@ -22,7 +22,7 @@ public class PistonHeadData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.PistonHeadDataName;
+        return LangFile.DataKeyName.PistonHeadDataName;
     }
 
     @Override

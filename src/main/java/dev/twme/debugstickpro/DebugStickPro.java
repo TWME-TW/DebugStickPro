@@ -2,6 +2,7 @@ package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
+import dev.twme.debugstickpro.configs.LangLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.commands.MainCommands;
@@ -19,6 +20,7 @@ public final class DebugStickPro extends JavaPlugin {
         instance = this;
 
         ConfigLoader.getInstance().load();
+        LangLoader.getInstance().load();
 
         registerCommands();
         registerListeners();

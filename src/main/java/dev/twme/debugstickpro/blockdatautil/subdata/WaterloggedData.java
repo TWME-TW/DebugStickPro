@@ -22,7 +22,7 @@ public class WaterloggedData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.WaterloggedDataName;
+        return LangFile.DataKeyName.WaterloggedDataName;
     }
 
     @Override

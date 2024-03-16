@@ -22,7 +22,7 @@ public class LeavesPersistentData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.LeavesPersistentDataName;
+        return LangFile.DataKeyName.LeavesPersistentDataName;
     }
 
     @Override

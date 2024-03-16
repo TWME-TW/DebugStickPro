@@ -22,7 +22,7 @@ public class LevelledData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.LevelledDataName;
+        return LangFile.DataKeyName.LevelledDataName;
     }
 
     @Override

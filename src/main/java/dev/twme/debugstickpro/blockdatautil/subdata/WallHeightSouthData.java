@@ -23,7 +23,7 @@ public class WallHeightSouthData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.WallHeightSouthDataName;
+        return LangFile.DataKeyName.WallHeightSouthDataName;
     }
 
     @Override

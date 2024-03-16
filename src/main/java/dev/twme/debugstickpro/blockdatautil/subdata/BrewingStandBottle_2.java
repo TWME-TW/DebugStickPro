@@ -22,7 +22,7 @@ public class BrewingStandBottle_2 implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BrewingStandBottle_2DataName;
+        return LangFile.DataKeyName.BrewingStandBottle_2DataName;
     }
 
     @Override

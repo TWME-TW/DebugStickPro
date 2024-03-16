@@ -25,7 +25,7 @@ public class OrientableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.OrientableDataName;
+        return LangFile.DataKeyName.OrientableDataName;
     }
 
     @Override

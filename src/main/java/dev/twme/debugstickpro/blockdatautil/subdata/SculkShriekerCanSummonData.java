@@ -22,7 +22,7 @@ public class SculkShriekerCanSummonData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SculkShriekerCanSummonDataName;
+        return LangFile.DataKeyName.SculkShriekerCanSummonDataName;
     }
 
     @Override

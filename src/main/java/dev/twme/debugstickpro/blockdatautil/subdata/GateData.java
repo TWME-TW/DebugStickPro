@@ -23,7 +23,7 @@ public class GateData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.GateDataName;
+        return LangFile.DataKeyName.GateDataName;
     }
 
     @Override

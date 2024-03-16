@@ -24,7 +24,7 @@ public class MultipleFacingSouthSouthEastData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.MultipleFacingSouthSouthEastDataName;
+        return LangFile.DataKeyName.MultipleFacingSouthSouthEastDataName;
     }
 
     @Override

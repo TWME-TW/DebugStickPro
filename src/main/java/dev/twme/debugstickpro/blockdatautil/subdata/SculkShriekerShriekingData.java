@@ -22,7 +22,7 @@ public class SculkShriekerShriekingData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.SculkShriekerShriekingDataName;
+        return LangFile.DataKeyName.SculkShriekerShriekingDataName;
     }
 
     @Override

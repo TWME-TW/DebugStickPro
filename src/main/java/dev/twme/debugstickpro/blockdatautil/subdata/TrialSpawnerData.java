@@ -22,7 +22,7 @@ public class TrialSpawnerData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.TrialSpawnerDataName;
+        return LangFile.DataKeyName.TrialSpawnerDataName;
     }
 
     @Override

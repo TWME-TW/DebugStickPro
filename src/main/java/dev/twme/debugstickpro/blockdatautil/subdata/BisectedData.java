@@ -23,7 +23,7 @@ public class BisectedData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.BisectedDataName;
+        return LangFile.DataKeyName.BisectedDataName;
     }
 
     @Override
