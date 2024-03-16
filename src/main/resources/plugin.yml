@@ -20,20 +20,23 @@ permissions:
     description: Allows access to the help command
     default: true
   debugstickpro.reload:
-    description: Allows access to the onReload command
+    description: Allows access to the reload command
     default: op
   debugstickpro.use:
     description: Allows use of the DebugStickPro
     default: op
   debugstickpro.give:
-    description: Allows use of the DebugStickPro
+    description: Allows access to the give command
     default: op
   debugstickpro.give.other:
-    description: Allows use of the DebugStickPro
+    description: Allows access to the give command
     default: op
   debugstickpro.mode.copy:
-    description: Allows use of the DebugStickPro
+    description: Allows use copy mode
     default: op
   debugstickpro.mode.freeze:
-    description: Allows use of the DebugStickPro
+    description: Allows use freeze mode
+    default: op
+  debugstickpro.bypassregion:
+    description: Allows bypass region protection
     default: op

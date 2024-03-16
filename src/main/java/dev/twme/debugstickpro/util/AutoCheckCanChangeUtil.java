@@ -38,6 +38,9 @@ public class AutoCheckCanChangeUtil {
                 }
             }
         }
+        if (player.hasPermission("debugstickpro.bypassregion")) {
+            canChange = true;
+        }
 
         return canChange;
     }

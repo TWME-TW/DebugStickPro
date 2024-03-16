@@ -16,9 +16,13 @@
 ### Auto Region Protection Support:
  - Support for region protection plugins, such as WorldGuard, GriefPrevention, etc.
 
+## Permissions:
+ - `debugstickpro.use`: Allow the player to use the debug stick.
+ - `debugstickpro.bypass`: Allow the player to bypass the region protection.
 
 
-
+--- 
+### Usage:
 #### Classic Mode:
 Same as regular debugging stick operation: 
  - Left-click to select the desired data type to modify.
