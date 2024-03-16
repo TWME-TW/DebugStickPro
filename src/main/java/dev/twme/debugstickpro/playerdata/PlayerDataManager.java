@@ -48,8 +48,15 @@ public class PlayerDataManager {
     }
 
     public static void nextDebugStickMode(UUID uuid){
-        PlayerData playerData = getPlayerData(uuid);
+
         Player player = Bukkit.getPlayer(uuid);
+
+        if (player.isSneaking()) {
+            previousDebugStickMode(uuid);
+            return;
+        }
+
+        PlayerData playerData = getPlayerData(uuid);
 
         ActionbarUtil.removeActionBar(uuid);
         switch (playerData.getDebugStickMode()) {
@@ -64,6 +71,29 @@ public class PlayerDataManager {
                     break;
                 }
             case Freeze:
+            default:
+                playerData.setDebugStickMode(DebugStickMode.Classic);
+                break;
+        }
+    }
+
+    public static void previousDebugStickMode(UUID uuid){
+        Player player = Bukkit.getPlayer(uuid);
+        PlayerData playerData = getPlayerData(uuid);
+
+        ActionbarUtil.removeActionBar(uuid);
+        switch (playerData.getDebugStickMode()) {
+            case Classic:
+                if (player.hasPermission("debugstickpro.mode.freeze")) {
+                    playerData.setDebugStickMode(DebugStickMode.Freeze);
+                    break;
+                }
+            case Freeze:
+                if (player.hasPermission("debugstickpro.mode.copy")) {
+                    playerData.setDebugStickMode(DebugStickMode.Copy);
+                    break;
+                }
+            case Copy:
             default:
                 playerData.setDebugStickMode(DebugStickMode.Classic);
                 break;
