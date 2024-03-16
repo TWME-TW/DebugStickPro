@@ -58,7 +58,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             if (strings.length == 1) {
                 player.getInventory().addItem(getDebugStickItem());
 
-                Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success);
+                Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success.replace("%player%", player.getName()));
                 player.sendMessage(parsed);
                 if (DebugStickItemCheck.checkPlayer(player)) {
                     PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
@@ -72,7 +72,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                     return true;
                 } else {
                     onlinePlayer.getInventory().addItem(getDebugStickItem());
-                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success);
+                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success.replace("%player%", player.getName()));
                     player.sendMessage(parsed);
                     if (DebugStickItemCheck.checkPlayer(onlinePlayer)) {
                         PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());

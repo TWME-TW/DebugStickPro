@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
+import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
@@ -18,7 +19,7 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         }
         event.setCancelled(true);
 
-        // TODO: 未來只保留這個新的切換方式
+        ActionbarUtil.removeActionBar(event.getPlayer().getUniqueId());
         PlayerDataManager.nextDebugStickMode(event.getPlayer().getUniqueId());
     }
 }
