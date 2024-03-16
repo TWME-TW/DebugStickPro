@@ -72,6 +72,7 @@ public class RotatableData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        return null;
+        ((Rotatable) blockData).setRotation(blockFace);
+        return blockData;
     }
 }

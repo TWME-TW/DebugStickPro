@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.commands;
 
+import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.display.ActionbarUtil;
@@ -102,6 +103,9 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         itemMeta.setDisplayName("Debug Stick Pro");
         itemMeta.getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
 
+        if (ConfigFile.CustomModelData.Enabled) {
+            itemMeta.setCustomModelData(ConfigFile.CustomModelData.CustomModelData);
+        }
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

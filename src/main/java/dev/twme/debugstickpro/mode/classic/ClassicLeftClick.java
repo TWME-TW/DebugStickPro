@@ -29,9 +29,19 @@ public class ClassicLeftClick {
             return;
         }
 
-        if (playerData.getSelectedSubBlockDataType() == null) {
+        boolean hasType = false;
+
+        for (SubBlockData subBlockData : subBlockDataList) {
+            if (subBlockData.name().equals(playerData.getSelectedSubBlockDataType())) {
+                hasType = true;
+                break;
+            }
+        }
+
+        if (playerData.getSelectedSubBlockDataType() == null || !hasType) {
             playerData.setSelectedSubBlockDayaType(subBlockDataList.get(0).name());
-            return;
+            // TODO: 檢查查是否需要 return
+            // return;
         }
 
         for (int i = 0; i < subBlockDataList.size(); i++) {

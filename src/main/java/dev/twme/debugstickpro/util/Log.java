@@ -10,6 +10,7 @@ public class Log {
         Bukkit.getLogger().warning(message);
     }
     public static void announcement(String message) {
+        info(message);
         Bukkit.getServer().getOnlinePlayers().forEach(player -> player.sendMessage(message));
     }
 }

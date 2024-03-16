@@ -61,6 +61,7 @@ public class TechnicalPistonData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        return null;
+        ((TechnicalPiston) blockData).setType(type);
+        return blockData;
     }
 }

@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Note;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.NoteBlock;
@@ -55,16 +56,18 @@ public class NoteBlockNoteData implements SubBlockData {
     @Override
     public SubBlockData nextData() {
         String blockNoteData = blockData.getAsString();
-        Pattern r = Pattern.compile("([0-9]+)");
-        Matcher m = r.matcher(blockNoteData);
-        if (blockNoteData.contains("24")) {
-            blockNoteData.replace("24", "0");
-        } else {
 
-            byte b = Byte.parseByte(m.group(0));
-            b++;
-            blockNoteData = blockNoteData.replace(m.group(), String.valueOf(b));
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(blockNoteData);
+        matcher.find();
+        String number = matcher.group(0);
+        int num = Integer.parseInt(number);
+        if (num == 24) {
+            num = 0;
+        } else {
+            num++;
         }
+        blockNoteData = blockNoteData.replace(number, String.valueOf(num));
         this.blockData = DebugStickPro.getInstance().getServer().createBlockData(blockNoteData);
         this.note = ((NoteBlock) blockData).getNote();
         return this;
@@ -72,10 +75,23 @@ public class NoteBlockNoteData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
+        // 將該 BlockData 文字化
         String blockNoteData = blockData.getAsString();
-        Pattern r = Pattern.compile("([0-9]+)");
-        Matcher m = r.matcher(blockNoteData);
-        blockNoteData = blockNoteData.replace(m.group(0), String.valueOf(m));
+
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(blockNoteData);
+        matcher.find();
+        String number = matcher.group(0);
+
+        Pattern p = Pattern.compile("\\d+");
+        Matcher m = p.matcher(this.blockData.getAsString());
+        m.find();
+        String num = m.group(0);
+
+        // 將該 BlockData 的音符數值替換成目前的音符數值
+        blockNoteData = blockNoteData.replace(number, num);
+
+        // 將文字化的 BlockData 轉換成 BlockData 物件
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockNoteData);
         return blockData;
     }

@@ -58,6 +58,7 @@ public class CrafterCraftingData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        return null;
+        ((Crafter) blockData).setCrafting(crafting);
+        return blockData;
     }
 }

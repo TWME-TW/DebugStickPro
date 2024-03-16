@@ -62,6 +62,7 @@ public class ScaffoldingDistanceData implements SubBlockData {
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        return null;
+        ((Scaffolding) blockData).setDistance(distance);
+        return blockData;
     }
 }
