@@ -2,7 +2,7 @@ name: DebugStickPro
 version: '${project.version}'
 main: dev.twme.debugstickpro.DebugStickPro
 api-version: '1.20'
-prefix: DSP
+prefix: DebugStickPro
 authors: [TWME]
 commands:
   debugstickpro:
