@@ -12,18 +12,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BlockBreakEventListener implements Listener {
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event) {
-        Player player = event.getPlayer();
         Location location = event.getBlock().getLocation();
         if (FreezeBlockManager.isFreezeBlock(location)) {
             event.setCancelled(true);
             return;
         }
-        if (!CheckPlayerCanUseUtil.check(player)) {
-            return;
-        }
-        if (!DebugStickItem.checkPlayer(player)) {
-            return;
-        }
-        event.setCancelled(true);
     }
 }
