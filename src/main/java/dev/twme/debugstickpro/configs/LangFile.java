@@ -41,6 +41,7 @@ public class LangFile {
     }
 
     public static class Tips {
+        public static String classicModeIntroduction;
         public static String copyModeIntroduction;
         public static String freezeModeIntroduction;
     }

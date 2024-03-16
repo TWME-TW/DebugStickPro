@@ -10,10 +10,13 @@ import dev.twme.debugstickpro.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 public final class DebugStickPro extends JavaPlugin {
 
     private static DebugStickPro instance;
+
+    private int taskID;
 
     @Override
     public void onEnable() {
@@ -24,6 +27,14 @@ public final class DebugStickPro extends JavaPlugin {
 
         registerCommands();
         registerListeners();
+        registerTasks();
+    }
+
+    public void reload() {
+        FreezeBlockManager.removeOnServerClose();
+        unregisterTasks();
+        ConfigLoader.getInstance().load();
+        LangLoader.getInstance().load();
         registerTasks();
     }
 
@@ -53,7 +64,11 @@ public final class DebugStickPro extends JavaPlugin {
 
     private void registerTasks() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
+        taskID = scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
+    }
+
+    private void unregisterTasks() {
+        Bukkit.getScheduler().cancelTask(taskID);
     }
 
     public static DebugStickPro getInstance() {

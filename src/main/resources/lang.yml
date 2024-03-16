@@ -17,7 +17,9 @@ ActionBar:
   SelectedDataFormat: "<b><u><gold>%key%</gold></u></b>: %value%"
   NotSelectedDataFormat: "<b><aqua>%key%</aqua></b>: %value%"
   CopiedBlockDataFormat: "<b><red>%key%</red></b>: %value%"
+
 Tips:
+  classicModeIntroduction: "Classic Mode: <b><u>Left Click</u></b> to change the block data type, <b><u>Right Click</u></b> to change the block value."
   copyModeIntroduction: "Copy Mode: <b><u>Left Click</u></b> to copy the block, <b><u>Right Click</u></b> to paste the block data."
   freezeModeIntroduction: "Freeze Mode: <b><u>Right Click</u></b> to freeze/unfreeze the block, <b><u>Left Click</u></b> to unfreeze all the block."
 

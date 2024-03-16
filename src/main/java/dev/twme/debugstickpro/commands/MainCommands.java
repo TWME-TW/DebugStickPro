@@ -1,10 +1,14 @@
 package dev.twme.debugstickpro.commands;
 
+import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.configs.LangFile;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKeys;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -25,29 +29,37 @@ public class MainCommands implements CommandExecutor , TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
 
+        MiniMessage mm = MiniMessage.miniMessage();
+
         if (!(commandSender instanceof Player)){
-            commandSender.sendMessage("You need to be a player to use this command!");
+            Component parsed = mm.deserialize(LangFile.CommandsMessages.YouAreNotPlayer);
+            commandSender.sendMessage(parsed);
             return true;
         }
 
         Player player = (Player) commandSender;
 
-        if (strings.length == 0){
-            player.sendMessage("You need to specify a subcommand!");
-            return  true;
-        }
-
-        if (strings[0].equalsIgnoreCase("help")){
-            player.sendMessage("Help command");
+        if (strings.length == 0 || strings[0].equalsIgnoreCase("help")){
+            Component parsed = mm.deserialize(LangFile.CommandsMessages.Help.Title);
+            player.sendMessage(parsed);
+            Component component = mm.deserialize(LangFile.CommandsMessages.Help.Usage);
+            player.sendMessage(component);
+            Component component1 = mm.deserialize(LangFile.CommandsMessages.Help.Description);
+            player.sendMessage(component1);
             return true;
         }
         if (strings[0].equalsIgnoreCase("reload")){
-            player.sendMessage("Reload command");
+            DebugStickPro.getInstance().reload();
+            Component parsed = mm.deserialize(LangFile.CommandsMessages.Reload.Success);
+            player.sendMessage(parsed);
             return true;
         }
         if (strings[0].equalsIgnoreCase("give")){
             if (strings.length == 1) {
                 player.getInventory().addItem(getDebugStickItem());
+
+                Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success);
+                player.sendMessage(parsed);
                 if (DebugStickItemCheck.checkPlayer(player)) {
                     PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
                 }
@@ -55,10 +67,13 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             } else {
                 Player onlinePlayer = Bukkit.getPlayerExact(strings[1]);
                 if (onlinePlayer == null){
-                    player.sendMessage("Player not found!");
+                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.NoPlayer);
+                    player.sendMessage(parsed);
                     return true;
                 } else {
                     onlinePlayer.getInventory().addItem(getDebugStickItem());
+                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success);
+                    player.sendMessage(parsed);
                     if (DebugStickItemCheck.checkPlayer(onlinePlayer)) {
                         PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());
                     }
@@ -66,13 +81,6 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                 }
             }
         }
-
-        // TODO: remove debug messages
-        if (strings[0].equalsIgnoreCase("a")){
-            ActionbarUtil.sendActionBar(player, "Text: " + strings[1]);
-            return true;
-        }
-
         return false;
     }
 
