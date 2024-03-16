@@ -10,7 +10,7 @@ DebugStickItem:
   Material: "BLAZE_ROD"
   DisplayName: "<b><gold>除錯棒</gold></b>"
   Lore:
-    - "<dark_gray>使用 </dark_gray><b><u><green><key:key.swapOffhand></green></u></b> 切換模式"
+    - "<dark_gray>使用 </dark_gray><b><u><green><key:key.swapOffhand></green></u></b> <dark_gray>切換模式</dark_gray>"
     - "<b><gold>經典模式</gold></b>: "
     - "與普通除錯棒操作相同："
     - "<b><green><key:key.attack></green></b> 選擇要修改的數據類型，"

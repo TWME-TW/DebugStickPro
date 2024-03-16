@@ -19,6 +19,13 @@ public class LangFile {
             public static String NoPlayer;
             public static String Success;
         }
+
+        public static class Mode {
+            public static String Usage;
+            public static String SuccessSetToClassic;
+            public static String SuccessSetToCopy;
+            public static String SuccessSetToFreeze;
+        }
         public static String NoPermission;
         public static String YouAreNotPlayer;
     }

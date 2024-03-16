@@ -11,6 +11,11 @@ CommandsMessages:
     Give:
         NoPlayer: "Player not found."
         Success: "Given Debug Stick to %player%."
+    Mode:
+        Usage: "Usage: <b><u>/dsp mode [classic|copy|freeze]</u></b>"
+        SuccessSetToClassic: "Mode set to <b><u>Classic</u></b>."
+        SuccessSetToCopy: "Mode set to <b><u>Copy</u></b>."
+        SuccessSetToFreeze: "Mode set to <b><u>Freeze</u></b>."
     NoPermission: "You don't have permission to use this command."
     YouAreNotPlayer: "You are not a player."
 ActionBar:

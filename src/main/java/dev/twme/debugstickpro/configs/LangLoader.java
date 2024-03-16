@@ -62,6 +62,11 @@ public class LangLoader {
         LangFile.CommandsMessages.Give.NoPlayer = langFile.getString("CommandsMessages.Give.NoPlayer");
         LangFile.CommandsMessages.Give.Success = langFile.getString("CommandsMessages.Give.Success");
 
+        LangFile.CommandsMessages.Mode.Usage = langFile.getString("CommandsMessages.Mode.Usage");
+        LangFile.CommandsMessages.Mode.SuccessSetToClassic = langFile.getString("CommandsMessages.Mode.SuccessSetToClassic");
+        LangFile.CommandsMessages.Mode.SuccessSetToCopy = langFile.getString("CommandsMessages.Mode.SuccessSetToCopy");
+        LangFile.CommandsMessages.Mode.SuccessSetToFreeze = langFile.getString("CommandsMessages.Mode.SuccessSetToFreeze");
+
         LangFile.CommandsMessages.NoPermission = langFile.getString("CommandsMessages.NoPermission");
 
         LangFile.CommandsMessages.YouAreNotPlayer = langFile.getString("CommandsMessages.YouAreNotPlayer");

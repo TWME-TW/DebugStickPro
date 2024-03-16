@@ -11,6 +11,11 @@ CommandsMessages:
   Give:
     NoPlayer: "找不到玩家。"
     Success: "已將除錯棒給予 %player%。"
+  Mode:
+    Usage: "用法: <b><u>/dsp mode [classic|copy|freeze]</u></b>"
+    SuccessSetToClassic: "模式已設置為 <b><u>經典</u></b>。"
+    SuccessSetToCopy: "模式已設置為 <b><u>複製</u></b>。"
+    SuccessSetToFreeze: "模式已設置為 <b><u>凍結</u></b>。"
   NoPermission: "您沒有權限使用此指令。"
   YouAreNotPlayer: "您不是一名玩家。"
 

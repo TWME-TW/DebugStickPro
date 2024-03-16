@@ -39,6 +39,9 @@ permissions:
     default: op
     children:
       - debugstickpro.give
+  debugstickpro.mode:
+    description: Allows access to the mode command
+    default: op
   debugstickpro.mode.copy:
     description: Allows use copy mode
     default: op

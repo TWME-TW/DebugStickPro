@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.commands;
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.playerdata.DebugStickMode;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItem;
 import dev.twme.debugstickpro.util.PersistentKeys;
@@ -80,6 +81,50 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                 }
             }
         }
+
+        if (strings[0].equalsIgnoreCase("mode")) {
+            if (!player.hasPermission("debugstickpro.mode")) {
+                Component parsed = mm.deserialize(LangFile.CommandsMessages.NoPermission);
+                player.sendMessage(parsed);
+                return true;
+            }
+            if (strings.length == 1) {
+                Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.Usage);
+                player.sendMessage(parsed);
+                return true;
+            } else {
+                if (strings[1].equalsIgnoreCase("classic")) {
+                    PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Classic));
+                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToClassic);
+                    player.sendMessage(parsed);
+                    return true;
+                }
+                if (strings[1].equalsIgnoreCase("copy")) {
+                    if (player.hasPermission("debugstickpro.mode.copy")) {
+                        PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Copy));
+                        Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToCopy);
+                        player.sendMessage(parsed);
+                        return true;
+                    } else {
+                        Component parsed = mm.deserialize(LangFile.CommandsMessages.NoPermission);
+                        player.sendMessage(parsed);
+                        return true;
+                    }
+                }
+                if (strings[1].equalsIgnoreCase("freeze")) {
+                    if (player.hasPermission("debugstickpro.mode.freeze")) {
+                        PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Freeze));
+                        Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToFreeze);
+                        player.sendMessage(parsed);
+                        return true;
+                    } else {
+                        Component parsed = mm.deserialize(LangFile.CommandsMessages.NoPermission);
+                        player.sendMessage(parsed);
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -100,12 +145,28 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             if (player.hasPermission("debugstickpro.give")){
                 list.add("give");
             }
+            if (player.hasPermission("debugstickpro.mode")){
+                list.add("mode");
+            }
             return list;
         }
 
         if (strings.length == 2){
             if (strings[0].equalsIgnoreCase("give")){
                 return null;
+            }
+
+            if (strings[0].equalsIgnoreCase("mode")){
+                if (player.hasPermission("debugstickpro.mode")){
+                    list.add("classic");
+                }
+                if (player.hasPermission("debugstickpro.mode.copy")){
+                    list.add("copy");
+                }
+                if (player.hasPermission("debugstickpro.mode.freeze")){
+                    list.add("freeze");
+                }
+                return list;
             }
         }
         return list;
