@@ -43,15 +43,27 @@ public class ClassicLeftClick {
             // TODO: 檢查查是否需要 return
             // return;
         }
-
-        for (int i = 0; i < subBlockDataList.size(); i++) {
-            if (subBlockDataList.get(i).name().equals(playerData.getSelectedSubBlockDataType())) {
-                if (i + 1 < subBlockDataList.size()) {
-                    playerData.setSelectedSubBlockDayaType(subBlockDataList.get(i + 1).name());
-                } else {
-                    playerData.setSelectedSubBlockDayaType(subBlockDataList.get(0).name());
+        if (player.isSneaking()) {
+            for (int i = 0; i < subBlockDataList.size(); i++) {
+                if (subBlockDataList.get(i).name().equals(playerData.getSelectedSubBlockDataType())) {
+                    if (i - 1 >= 0) {
+                        playerData.setSelectedSubBlockDayaType(subBlockDataList.get(i - 1).name());
+                    } else {
+                        playerData.setSelectedSubBlockDayaType(subBlockDataList.get(subBlockDataList.size() - 1).name());
+                    }
+                    return;
                 }
-                return;
+            } 
+        } else {
+            for (int i = 0; i < subBlockDataList.size(); i++) {
+                if (subBlockDataList.get(i).name().equals(playerData.getSelectedSubBlockDataType())) {
+                    if (i + 1 < subBlockDataList.size()) {
+                        playerData.setSelectedSubBlockDayaType(subBlockDataList.get(i + 1).name());
+                    } else {
+                        playerData.setSelectedSubBlockDayaType(subBlockDataList.get(0).name());
+                    }
+                    return;
+                }
             }
         }
     }
