@@ -5,6 +5,7 @@ import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
 import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKeys;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -45,19 +46,27 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             return true;
         }
         if (strings[0].equalsIgnoreCase("give")){
-            player.getInventory().addItem(getDebugStickItem());
-            player.sendMessage("Give command");
-            if (DebugStickItemCheck.checkPlayer(player)) {
-                PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
+            if (strings.length == 1) {
+                player.getInventory().addItem(getDebugStickItem());
+                if (DebugStickItemCheck.checkPlayer(player)) {
+                    PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
+                }
+                return true;
+            } else {
+                Player onlinePlayer = Bukkit.getPlayerExact(strings[1]);
+                if (onlinePlayer == null){
+                    player.sendMessage("Player not found!");
+                    return true;
+                } else {
+                    onlinePlayer.getInventory().addItem(getDebugStickItem());
+                    if (DebugStickItemCheck.checkPlayer(onlinePlayer)) {
+                        PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());
+                    }
+                    return true;
+                }
             }
-            return true;
         }
 
-        if (player.hasPermission("debugstickpro.use")){
-            player.sendMessage("You have permission to use this command!");
-        } else {
-            player.sendMessage("You do not have permission to use this command!");
-        }
         // TODO: remove debug messages
         if (strings[0].equalsIgnoreCase("a")){
             ActionbarUtil.sendActionBar(player, "Text: " + strings[1]);
