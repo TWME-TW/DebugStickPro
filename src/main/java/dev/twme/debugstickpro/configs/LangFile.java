@@ -3,12 +3,40 @@ package dev.twme.debugstickpro.configs;
 public class LangFile {
 
     public static int LangFileVersion;
+
+    public static class CommandsMessages {
+        public static class Help {
+            public static String Title;
+            public static String Description;
+            public static String Usage;
+        }
+
+        public static class Reload {
+            public static String Success;
+        }
+
+        public static class Give {
+            public static String NoPlayer;
+            public static String Success;
+        }
+        public static String NoPermission;
+        public static String YouAreNotPlayer;
+    }
+
     public static class ActionBar {
-        public static String SelectedDataFormat = "<b><u>%data%</u></b>";
-        public static String formatSelectedData(String data,boolean isUsing){
-            if(isUsing)
-                return data;
-            return SelectedDataFormat.replace("%data%", data);
+        public static String SelectedDataFormat;
+        public static String formatSelectedData(String key, String value){
+            return SelectedDataFormat.replace("%key%", key).replace("%value%", value);
+        }
+
+        public static String NotSelectedDataFormat;
+        public static String formatNotSelectedData(String key, String value){
+            return NotSelectedDataFormat.replace("%key%", key).replace("%value%", value);
+        }
+
+        public static String CopiedBlockDataFormat;
+        public static String formatCopiedBlockData(String key, String value){
+            return CopiedBlockDataFormat.replace("%key%", key).replace("%value%", value);
         }
     }
 

@@ -21,7 +21,7 @@ public class CopyActionBarDisplay {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (SubBlockData subBlockData : copiedSubBlockData) {
-            stringBuilder.append("<b><red>").append(subBlockData.dataName()).append(": ").append("</red></b>").append(subBlockData.getDataAsString().toLowerCase()).append(" ");
+            stringBuilder.append(LangFile.ActionBar.formatCopiedBlockData(subBlockData.dataName(), subBlockData.getDataAsString().toLowerCase())).append(" ");
         }
         return stringBuilder.toString();
     }

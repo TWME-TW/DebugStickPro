@@ -53,6 +53,23 @@ public class LangLoader {
     private void loadValues() {
         LangFile.LangFileVersion = langFile.getInt("LangFileVersion");
 
+        LangFile.CommandsMessages.Help.Title = langFile.getString("CommandsMessages.Help.Title");
+        LangFile.CommandsMessages.Help.Description = langFile.getString("CommandsMessages.Help.Description");
+        LangFile.CommandsMessages.Help.Usage = langFile.getString("CommandsMessages.Help.Usage");
+
+        LangFile.CommandsMessages.Reload.Success = langFile.getString("CommandsMessages.Reload.Success");
+
+        LangFile.CommandsMessages.Give.NoPlayer = langFile.getString("CommandsMessages.Give.NoPlayer");
+        LangFile.CommandsMessages.Give.Success = langFile.getString("CommandsMessages.Give.Success");
+
+        LangFile.CommandsMessages.NoPermission = langFile.getString("CommandsMessages.NoPermission");
+
+        LangFile.CommandsMessages.YouAreNotPlayer = langFile.getString("CommandsMessages.YouAreNotPlayer");
+
+        LangFile.ActionBar.SelectedDataFormat = langFile.getString("ActionBar.SelectedDataFormat");
+        LangFile.ActionBar.NotSelectedDataFormat = langFile.getString("ActionBar.NotSelectedDataFormat");
+        LangFile.ActionBar.CopiedBlockDataFormat = langFile.getString("ActionBar.CopiedBlockDataFormat");
+
         LangFile.Tips.copyModeIntroduction = langFile.getString("Tips.copyModeIntroduction");
         LangFile.Tips.freezeModeIntroduction = langFile.getString("Tips.freezeModeIntroduction");
 

@@ -11,5 +11,6 @@ public interface SubBlockData {
     public abstract SubBlockData setIsUsing(boolean isUsing);
     public abstract boolean isUsing();
     public abstract SubBlockData nextData();
+    public abstract SubBlockData previousData();
     public abstract BlockData copyTo(BlockData blockData);
 }
