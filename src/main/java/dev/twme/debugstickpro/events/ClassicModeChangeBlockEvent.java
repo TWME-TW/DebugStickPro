@@ -11,21 +11,23 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class DebugStickChangeBlockEvent extends Event implements Cancellable {
+public class ClassicModeChangeBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private UUID playerUUID;
     private Block block;
     private SubBlockData subBlockData;
     private boolean isCancelled = false;
 
-    public DebugStickChangeBlockEvent(UUID playerUUID, Block block, SubBlockData subBlockData) {
+    public ClassicModeChangeBlockEvent(UUID playerUUID, Block block, SubBlockData subBlockData) {
         this.playerUUID = playerUUID;
         this.block = block;
         this.subBlockData = subBlockData;
     }
+
     public static HandlerList getHandlerList() {
         return HANDLERS;
     }
+
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
@@ -34,9 +36,11 @@ public class DebugStickChangeBlockEvent extends Event implements Cancellable {
     public Player getPlayer() {
         return Bukkit.getPlayer(playerUUID);
     }
+
     public Block getBlock() {
         return block;
     }
+
     public SubBlockData getSubBlockData() {
         return subBlockData;
     }

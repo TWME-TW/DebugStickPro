@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.mode.classic;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,6 +19,10 @@ public class ClassicRightClick {
         Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
+            return;
+        }
+
+        if (!AutoCheckCanChangeUtil.canChange(playerUUID, block)) {
             return;
         }
 
@@ -48,7 +53,7 @@ public class ClassicRightClick {
 
         for (SubBlockData subBlockData : subBlockDataList) {
             if (subBlockData.isUsing()) {
-                block.setBlockData(subBlockData.nextData().getBlockData(),false);
+                block.setBlockData(subBlockData.nextData().getBlockData(), false);
                 block.getState().update();
                 break;
             }
