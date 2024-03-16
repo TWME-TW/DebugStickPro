@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
-import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.util.DebugStickItem;
 import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ public class BlockBreakEventListener implements Listener {
         if (!CheckPlayerCanUseUtil.check(player)) {
             return;
         }
-        if (!DebugStickItemCheck.checkPlayer(player)) {
+        if (!DebugStickItem.checkPlayer(player)) {
             return;
         }
         event.setCancelled(true);

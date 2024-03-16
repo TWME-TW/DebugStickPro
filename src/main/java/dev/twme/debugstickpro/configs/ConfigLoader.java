@@ -2,9 +2,13 @@ package dev.twme.debugstickpro.configs;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.util.Log;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ConfigLoader {
@@ -41,8 +45,17 @@ public class ConfigLoader {
         ConfigFile.ActionBarDisplay.AutoToCenter = config.getBoolean("ActionBarDisplay.AutoToCenter");
         ConfigFile.ActionBarDisplay.UpdateInterval = config.getLong("ActionBarDisplay.UpdateInterval");
 
-        ConfigFile.CustomModelData.Enabled = config.getBoolean("CustomModelData.Enabled");
-        ConfigFile.CustomModelData.CustomModelData = config.getInt("CustomModelData.CustomModelData");
+        ConfigFile.DebugStickItem.Material = Material.valueOf(config.getString("DebugStickItem.Material"));
+        ConfigFile.DebugStickItem.DisplayName = config.getString("DebugStickItem.DisplayName");
+
+        MiniMessage mm = MiniMessage.miniMessage();
+        ArrayList<Component> lore = new ArrayList<>();
+        for (String loreString : config.getStringList("DebugStickItem.Lore")) {
+            lore.add(mm.deserialize(loreString));
+        }
+        ConfigFile.DebugStickItem.Lore = lore;
+        ConfigFile.DebugStickItem.CustomModelData.Enabled = config.getBoolean("CustomModelData.DebugStickItem.Enabled");
+        ConfigFile.DebugStickItem.CustomModelData.CustomModelData = config.getInt("CustomModelData.DebugStickItem.CustomModelData");
 
         ConfigFile.WhitelistWorlds.Enabled = config.getBoolean("WhitelistWorlds.Enabled");
         ConfigFile.WhitelistWorlds.Worlds = new HashSet<>(config.getStringList("WhitelistWorlds.Worlds"));

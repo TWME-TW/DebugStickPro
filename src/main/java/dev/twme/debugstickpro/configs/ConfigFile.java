@@ -1,5 +1,10 @@
 package dev.twme.debugstickpro.configs;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Material;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ConfigFile {
@@ -11,11 +16,16 @@ public class ConfigFile {
         public static long UpdateInterval;
     }
 
-    public static class CustomModelData{
-        public static boolean Enabled;
-        public static int CustomModelData;
-    }
+    public static class DebugStickItem {
+        public static Material Material;
+        public static String DisplayName;
+        public static ArrayList<Component> Lore;
 
+        public static class CustomModelData {
+            public static boolean Enabled;
+            public static int CustomModelData;
+        }
+    }
     public static class WhitelistWorlds{
         public static boolean Enabled;
         public static HashSet<String> Worlds;

@@ -4,7 +4,7 @@ import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.LangFile;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.util.DebugStickItem;
 import dev.twme.debugstickpro.util.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -55,11 +55,11 @@ public class MainCommands implements CommandExecutor , TabCompleter {
         }
         if (strings[0].equalsIgnoreCase("give")){
             if (strings.length == 1) {
-                player.getInventory().addItem(getDebugStickItem());
+                player.getInventory().addItem(DebugStickItem.getDebugStickItem());
 
                 Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success.replace("%player%", player.getName()));
                 player.sendMessage(parsed);
-                if (DebugStickItemCheck.checkPlayer(player)) {
+                if (DebugStickItem.checkPlayer(player)) {
                     PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
                 }
                 return true;
@@ -70,10 +70,10 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                     player.sendMessage(parsed);
                     return true;
                 } else {
-                    onlinePlayer.getInventory().addItem(getDebugStickItem());
+                    onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
                     Component parsed = mm.deserialize(LangFile.CommandsMessages.Give.Success.replace("%player%", player.getName()));
                     player.sendMessage(parsed);
-                    if (DebugStickItemCheck.checkPlayer(onlinePlayer)) {
+                    if (DebugStickItem.checkPlayer(onlinePlayer)) {
                         PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());
                     }
                     return true;
@@ -109,20 +109,5 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             }
         }
         return list;
-    }
-
-    private static ItemStack getDebugStickItem(){
-        ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
-
-        ItemMeta itemMeta = itemStack.getItemMeta();
-
-        itemMeta.setDisplayName("Debug Stick Pro");
-        itemMeta.getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
-
-        if (ConfigFile.CustomModelData.Enabled) {
-            itemMeta.setCustomModelData(ConfigFile.CustomModelData.CustomModelData);
-        }
-        itemStack.setItemMeta(itemMeta);
-        return itemStack;
     }
 }

@@ -1,8 +1,7 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.util.DebugStickItem;
 import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +13,7 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         if (!CheckPlayerCanUseUtil.check(event.getPlayer(), false)) {
             return;
         }
-        if (!DebugStickItemCheck.isDebugStickItem(event.getOffHandItem())){
+        if (!DebugStickItem.isDebugStickItem(event.getOffHandItem())){
             return;
         }
         event.setCancelled(true);

@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.util.DebugStickItem;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +23,7 @@ public class RightClickListener implements Listener {
             return;
         }
 
-        if (!DebugStickItemCheck.checkPlayer(player)) {
+        if (!DebugStickItem.checkPlayer(player)) {
             return;
         }
 

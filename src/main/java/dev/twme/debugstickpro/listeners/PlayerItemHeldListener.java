@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.DebugStickItemCheck;
+import dev.twme.debugstickpro.util.DebugStickItem;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,9 +25,9 @@ public class PlayerItemHeldListener implements Listener {
         ItemStack oldItem = inventory.getItem(event.getPreviousSlot());
         UUID playerUUID = player.getUniqueId();
 
-        if (DebugStickItemCheck.isDebugStickItem(newItem)) {
+        if (DebugStickItem.isDebugStickItem(newItem)) {
             PlayerDataManager.addPlayerToDisplayList(playerUUID);
-        } else if (DebugStickItemCheck.isDebugStickItem(oldItem)) {
+        } else if (DebugStickItem.isDebugStickItem(oldItem)) {
             PlayerDataManager.removePlayerFromDisplayList(playerUUID);
         } else {
             PlayerDataManager.removePlayerFromDisplayList(playerUUID);

@@ -19,7 +19,7 @@ public class CheckPlayerCanUseUtil {
             return returnFalse(player);
         }
         if (checkItem) {
-            if (!DebugStickItemCheck.checkPlayer(player)){
+            if (!DebugStickItem.checkPlayer(player)){
                 return returnFalse(player);
             }
         }
