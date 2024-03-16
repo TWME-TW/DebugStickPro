@@ -31,7 +31,7 @@ public class AutoCheckCanChangeUtil {
             }
         }
 
-        if (ConfigFile.AutoRegionProtectionEnabled.Enabled) {
+        if (ConfigFile.AutoRegionProtection.Enabled) {
             if (canChange) {
                 if (!BlockPlaceEventListenerCanBuildChecker.canBuild(block, playerUUID)) {
                     canChange = false;

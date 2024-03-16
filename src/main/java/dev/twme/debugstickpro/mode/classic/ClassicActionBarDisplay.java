@@ -45,7 +45,7 @@ public class ClassicActionBarDisplay {
         }
 
         int sort = 0;
-        if (ConfigFile.AutoToCenterEnabled) {
+        if (ConfigFile.ActionBarDisplay.AutoToCenter) {
             sort = selectedIndex - displayList.size()/2 + 1 + displayList.size() - (displayList.size() % 2);
         }
 

@@ -1,5 +1,7 @@
 package dev.twme.debugstickpro;
 
+import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.commands.MainCommands;
@@ -15,6 +17,9 @@ public final class DebugStickPro extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        ConfigLoader.getInstance().load();
+
         registerCommands();
         registerListeners();
         registerTasks();
@@ -46,7 +51,7 @@ public final class DebugStickPro extends JavaPlugin {
 
     private void registerTasks() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, 1L);
+        scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
     }
 
     public static DebugStickPro getInstance() {

@@ -1,0 +1,29 @@
+# Don't touch this value
+ConfigVersion: 1
+
+ActionBarDisplay:
+  # If enabled, the selected BlockData option will automatically be displayed in the center.
+  AutoToCenter: true
+  # ActionBar update interval (tick)
+  UpdateInterval: 2
+
+CustomModelData:
+  Enabled: false
+  CustomModelData: 0
+
+WhitelistWorlds:
+  # If enabled, the debug stick will only be available in whitelisted worlds.
+  Enabled: false
+  Worlds:
+    - "*"
+
+BlacklistWorlds:
+  # If enabled, the debug stick will be disabled in blacklisted worlds.
+  # This option takes precedence over the whitelist.
+  Enabled: false
+  Worlds:
+    - "lobby"
+
+AutoRegionProtection:
+  # If enabled, an attempt will be made to automatically support the region protection system.
+  Enabled: true
