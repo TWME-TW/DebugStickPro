@@ -46,7 +46,7 @@ Same as regular debugging stick operation:
 
 #### Freeze Mode:
  >  The status of frozen blocks will not be updated.
- - Right-click to freeze/unfreeze a block, left-click to unfreeze all frozen blocks.
+ - Right-click to freeze/unfreeze a block.
  - Left-click to unfreeze all frozen blocks.
 ### How to change mode:
  - Press the `F` key to switch mode.
