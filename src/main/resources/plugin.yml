@@ -11,7 +11,7 @@ commands:
     aliases:
       - dsp
       - debugstickpro
-    usage: /<command> [help|onReload|give] (player)
+    usage: /<command> [help|reload|give] (player)
     permission-message: You don't have permission to use this command.
     default: op
 
@@ -25,12 +25,18 @@ permissions:
   debugstickpro.use:
     description: Allows use of the DebugStickPro
     default: op
+    children:
+      - debugstickpro.mode.copy
+      - debugstickpro.mode.freeze
+      - debugstickpro.give
   debugstickpro.give:
     description: Allows access to the give command
     default: op
   debugstickpro.give.other:
     description: Allows access to the give command
     default: op
+    children:
+      - debugstickpro.give
   debugstickpro.mode.copy:
     description: Allows use copy mode
     default: op
