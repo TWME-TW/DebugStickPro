@@ -38,7 +38,7 @@
  - `/dsp give [player]` Give a debug stick to a player.
  - `/dsp mode [mode]` Change the mode.
  - `/dsp reload` Reload the configuration file.
- - ``
+
 #### Classic Mode:
 Same as regular debugging stick operation: 
  - Left-click to select the desired data type to modify.
