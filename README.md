@@ -49,7 +49,7 @@ Same as regular debugging stick operation:
  - Right-click to freeze/unfreeze a block.
  - Left-click to unfreeze all frozen blocks.
 ### How to change mode:
- - Press the `F` key to switch mode.
+ - Press the `Swap Hand` key to switch mode.
 
 ## How to install:
 1. Download the latest version of the plugin from the [release page](https://github.com/TWME-TW/DebugStickPro/releases).
