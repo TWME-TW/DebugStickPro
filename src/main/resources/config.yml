@@ -5,7 +5,7 @@ ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.
   AutoToCenter: true
   # ActionBar update interval (tick)
-  UpdateInterval: 2
+  UpdateInterval: 4
 DebugStickItem:
   Material: "BLAZE_ROD"
   DisplayName: "<b><gold>Debug Stick</gold></b>"

@@ -71,7 +71,7 @@ public class RotatableData implements SubBlockData {
     public SubBlockData previousData() {
         Rotatable rotatable = ((Rotatable) blockData);
         LinkedList<BlockFace> blockFaces = getSortedBlockFaces();
-        
+
         int index = blockFaces.indexOf(blockFace);
         if (index <= 0) {
             index = blockFaces.size() - 1;

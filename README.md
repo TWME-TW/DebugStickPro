@@ -44,4 +44,12 @@ Same as regular debugging stick operation:
 ### How to change mode:
  - Press the `F` key to switch mode.
 
+## How to install:
+1. Download the latest version of the plugin from the [release page](https://github.com/TWME-TW/DebugStickPro/releases).
+2. Put the plugin into the `plugins` folder of your server.
+3. Restart your server.
+4. Enjoy!
+
+### Known Issues:
+ - You have to sneak in order to change the Lit value of the candle.
 

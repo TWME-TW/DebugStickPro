@@ -2,26 +2,27 @@
 LangFileVersion: 1
 
 CommandsMessages:
-    Help:
-        Title: "DebugStickPro Help"
-        Description: "Use <b><u>/dsp help</u></b> to show this help message."
-        Usage: "Usage: <b><u>/dsp [help|onReload|give] (player)</u></b>"
-    Reload:
-        Success: "Reloaded successfully."
-    Give:
-        NoPlayer: "Player not found."
-        Success: "Given Debug Stick to %player%."
-    NoPermission: "You don't have permission to use this command."
-    YouAreNotPlayer: "You are not a player."
+  Help:
+    Title: "DebugStickPro 說明"
+    Description: "使用 <b><u>/dsp help</u></b> 顯示此說明訊息。"
+    Usage: "用法: <b><u>/dsp [help|onReload|give] (玩家)</u></b>"
+  Reload:
+    Success: "重新載入成功。"
+  Give:
+    NoPlayer: "找不到玩家。"
+    Success: "已將除錯棒給予 %player%。"
+  NoPermission: "您沒有權限使用此指令。"
+  YouAreNotPlayer: "您不是一名玩家。"
+
 ActionBar:
   SelectedDataFormat: "<b><u><gold>%key%</gold></u></b>: %value%"
   NotSelectedDataFormat: "<b><aqua>%key%</aqua></b>: %value%"
   CopiedBlockDataFormat: "<b><red>%key%</red></b>: %value%"
 
 Tips:
-  classicModeIntroduction: "<b><gold>Classic mode</gold></b>: <b><green><key:key.attack></green></b> to select the desired data type to modify, <b><light_purple><key:key.use></light_purple></b> to change the value of that data."
-  copyModeIntroduction: "<b><red>Copy mode</red></b>: <green><key:key.attack></green> to copy, <light_purple><key:key.use></light_purple> to paste."
-  freezeModeIntroduction: "<b><blue>Freeze mode</blue></b>: <green><key:key.attack></green> to unfreeze all blocks, <light_purple><key:key.use></light_purple> to freeze/unfreeze individual blocks."
+  classicModeIntroduction: "<b><gold>經典模式</gold></b>: <b><green><key:key.attack></green></b> 選擇要修改的數據類型，<b><light_purple><key:key.use></light_purple></b> 更改該數據的值。"
+  copyModeIntroduction: "<b><red>複製模式</red></b>: <green><key:key.attack></green> 進行複製，<light_purple><key:key.use></light_purple> 進行粘貼。"
+  freezeModeIntroduction: "<b><blue>凍結模式</blue></b>: <green><key:key.attack></green> 解凍所有方塊，<light_purple><key:key.use></light_purple> 凍結/解凍單個方塊。"
 
 DataKeyName:
   AgeableDataName: "Age"
