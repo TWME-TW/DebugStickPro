@@ -4,6 +4,8 @@ main: dev.twme.debugstickpro.DebugStickPro
 api-version: '1.20'
 prefix: DebugStickPro
 authors: [TWME]
+softdepend:
+  - CoreProtect
 commands:
   debugstickpro:
     description: DebugStickPro command
