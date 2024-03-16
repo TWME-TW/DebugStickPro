@@ -19,13 +19,13 @@ public class ActionBarDisplayTask implements Runnable{
 
             Block block;
             if (player == null) {
-                return;
+                continue;
             }
             block = player.getTargetBlockExact(5);
 
             if (!player.hasPermission("debugstickpro.use")) {
                 PlayerDataManager.removePlayerFromDisplayList(uuid);
-                return;
+                continue;
             }
 
             PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
@@ -34,16 +34,16 @@ public class ActionBarDisplayTask implements Runnable{
                 case Classic:
                     if (block == null) {
                         ActionbarUtil.removeActionBar(uuid);
-                        return;
+                        continue;
                     }
                     ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block.getBlockData()));
-                    return;
+                    continue;
                 case Copy:
                     ActionbarUtil.sendActionBar(player, CopyActionBarDisplay.getDisplay(uuid));
-                    return;
+                    continue;
                 case Freeze:
                     ActionbarUtil.sendActionBar(player, FreezeActionBarDisplay.getDisplay());
-                    return;
+                    continue;
             }
         }
     }
