@@ -47,7 +47,7 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             player.sendMessage(component1);
             return true;
         }
-        if (strings[0].equalsIgnoreCase("onReload")){
+        if (strings[0].equalsIgnoreCase("reload")){
             DebugStickPro.getInstance().onReload();
             Component parsed = mm.deserialize(LangFile.CommandsMessages.Reload.Success);
             player.sendMessage(parsed);
