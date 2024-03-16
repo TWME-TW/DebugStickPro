@@ -28,6 +28,7 @@ permissions:
     description: Allows use of the DebugStickPro
     default: op
     children:
+      - debugstickpro.mode
       - debugstickpro.mode.copy
       - debugstickpro.mode.freeze
       - debugstickpro.give
