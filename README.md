@@ -1,7 +1,7 @@
 # DebugStickPro
 > ### A powerful debugstick plugin
 ---
-> warning: This plugin is still in development and may have bugs. Please report any bugs you find to the [issue page](https://github.com/TWME-TW/DebugStickPro/issues)
+> **Warning**: This plugin is still in development and may have bugs. Please report any bugs you find to the [issue page](https://github.com/TWME-TW/DebugStickPro/issues)
 
 > Support for Paper 1.20.4
 ---
