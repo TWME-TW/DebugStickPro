@@ -23,6 +23,10 @@ public class ActionBarDisplayTask implements Runnable{
             }
             block = player.getTargetBlockExact(5);
 
+            if (!player.hasPermission("debugstickpro.use")) {
+                PlayerDataManager.removePlayerFromDisplayList(uuid);
+                return;
+            }
 
             PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
 
