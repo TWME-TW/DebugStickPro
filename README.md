@@ -1,5 +1,5 @@
 # DebugStickPro
-> A powerful debugstick plugin
+> ### A powerful debugstick plugin
 
 ## Features:
 ### Three Modes:
@@ -10,15 +10,19 @@
 ### Custom Item Support:
  - You can customize the item used as the debug stick in the config file.
 
-### CoreProtect Support:
+### CoreProtect Log Support:
  - Support for CoreProtect, which can record the operation of the debug stick.
 
 ### Auto Region Protection Support:
  - Support for region protection plugins, such as WorldGuard, GriefPrevention, etc.
+## Configuration:
+### Configuration File:
+[config.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/config.yml)
 
-## Permissions:
- - `debugstickpro.use`: Allow the player to use the debug stick.
- - `debugstickpro.bypass`: Allow the player to bypass the region protection.
+### Language File:
+[lang.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/lang.yml)
+### Permissions:
+[plugin.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/plugin.yml)
 
 
 --- 
