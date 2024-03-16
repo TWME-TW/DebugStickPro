@@ -50,18 +50,18 @@ public class PlayerDataManager {
     public static void nextDebugStickMode(UUID uuid){
         PlayerData playerData = getPlayerData(uuid);
         Player player = Bukkit.getPlayer(uuid);
+
         switch (playerData.getDebugStickMode()) {
             case Classic:
                 if (player.hasPermission("debugstickpro.mode.copy")) {
                     playerData.setDebugStickMode(DebugStickMode.Copy);
+                    break;
                 }
-                break;
             case Copy:
                 if (player.hasPermission("debugstickpro.mode.freeze")) {
                     playerData.setDebugStickMode(DebugStickMode.Freeze);
+                    break;
                 }
-                playerData.setDebugStickMode(DebugStickMode.Freeze);
-                break;
             case Freeze:
             default:
                 playerData.setDebugStickMode(DebugStickMode.Classic);
