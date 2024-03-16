@@ -51,6 +51,7 @@ public class PlayerDataManager {
         PlayerData playerData = getPlayerData(uuid);
         Player player = Bukkit.getPlayer(uuid);
 
+        ActionbarUtil.removeActionBar(uuid);
         switch (playerData.getDebugStickMode()) {
             case Classic:
                 if (player.hasPermission("debugstickpro.mode.copy")) {

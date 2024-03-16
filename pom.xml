@@ -58,6 +58,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>coreprotect</id>
+            <url>https://maven.playpro.com/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -65,6 +69,12 @@
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.20.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.coreprotect</groupId>
+            <artifactId>coreprotect</artifactId>
+            <version>22.3</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

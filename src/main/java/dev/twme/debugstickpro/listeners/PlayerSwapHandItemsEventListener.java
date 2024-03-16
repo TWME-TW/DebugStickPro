@@ -19,7 +19,6 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         }
         event.setCancelled(true);
 
-        ActionbarUtil.removeActionBar(event.getPlayer().getUniqueId());
         PlayerDataManager.nextDebugStickMode(event.getPlayer().getUniqueId());
     }
 }
