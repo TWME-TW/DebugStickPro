@@ -189,11 +189,15 @@ public class FreezeBlockManager {
     }
 
     public static void removeOnServerClose(){
-        for (UUID playerUUID : freezeBlockData.keySet()) {
-            removeAllBlock(playerUUID);
+        if (!freezeBlockData.isEmpty()) {
+            for (UUID playerUUID : freezeBlockData.keySet()) {
+                removeAllBlock(playerUUID);
+            }
         }
-        for (FreezeLocation freezeLocation : freezeBlockLocations) {
-            freezeLocation.getLocation().getBlock().setType(Material.AIR, false);
+        if (!freezeBlockLocations.isEmpty()) {
+            for (FreezeLocation freezeLocation : freezeBlockLocations) {
+                freezeLocation.getLocation().getBlock().setType(Material.AIR, false);
+            }
         }
     }
 }
