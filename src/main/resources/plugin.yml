@@ -29,8 +29,6 @@ permissions:
     default: op
     children:
       - debugstickpro.mode
-      - debugstickpro.mode.copy
-      - debugstickpro.mode.freeze
       - debugstickpro.give
   debugstickpro.give:
     description: Allows access to the give command
