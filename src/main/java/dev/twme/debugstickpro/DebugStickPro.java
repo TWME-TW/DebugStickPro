@@ -4,13 +4,14 @@ import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.configs.LangLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
+import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.commands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 
 public final class DebugStickPro extends JavaPlugin {
 
@@ -22,6 +23,11 @@ public final class DebugStickPro extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        boolean isCoreProtectLoaded = CoreProtectUtil.initCoreProtect();
+        if (!isCoreProtectLoaded) {
+            Log.warning("CoreProtect is not loaded or is not compatible with this version of the plugin.");
+        }
+
         ConfigLoader.getInstance().load();
         LangLoader.getInstance().load();
 
@@ -30,7 +36,7 @@ public final class DebugStickPro extends JavaPlugin {
         registerTasks();
     }
 
-    public void reload() {
+    public void onReload() {
         FreezeBlockManager.removeOnServerClose();
         unregisterTasks();
         ConfigLoader.getInstance().load();

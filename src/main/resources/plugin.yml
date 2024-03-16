@@ -11,7 +11,7 @@ commands:
     aliases:
       - dsp
       - debugstickpro
-    usage: /<command> [help|reload|give] (player)
+    usage: /<command> [help|onReload|give] (player)
     permission-message: You don't have permission to use this command.
     default: op
 
@@ -20,7 +20,7 @@ permissions:
     description: Allows access to the help command
     default: true
   debugstickpro.reload:
-    description: Allows access to the reload command
+    description: Allows access to the onReload command
     default: op
   debugstickpro.use:
     description: Allows use of the DebugStickPro

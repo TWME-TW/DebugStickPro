@@ -5,7 +5,7 @@ CommandsMessages:
     Help:
         Title: "DebugStickPro Help"
         Description: "Use <b><u>/dsp help</u></b> to show this help message."
-        Usage: "Usage: <b><u>/dsp [help|reload|give] (player)</u></b>"
+        Usage: "Usage: <b><u>/dsp [help|onReload|give] (player)</u></b>"
     Reload:
         Success: "Reloaded successfully."
     Give:

@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.mode.copy;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.events.CopyBlockDataEvent;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
@@ -18,6 +19,12 @@ public class CopyLeftClick {
         Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
+            return;
+        }
+
+        CopyBlockDataEvent event = new CopyBlockDataEvent(playerUUID, block);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
             return;
         }
 

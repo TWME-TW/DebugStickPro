@@ -2,6 +2,8 @@ package dev.twme.debugstickpro.mode.classic;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.events.ClassicModeChangeBlockEvent;
+import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
@@ -22,6 +24,13 @@ public class ClassicRightClick {
             return;
         }
 
+        ClassicModeChangeBlockEvent event = new ClassicModeChangeBlockEvent(playerUUID, block);
+        Bukkit.getPluginManager().callEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         if (!AutoCheckCanChangeUtil.canChange(playerUUID, block)) {
             return;
         }
@@ -31,6 +40,11 @@ public class ClassicRightClick {
         if (subBlockDataList.isEmpty()) {
             return;
         }
+
+        // 正式開始進入
+
+        // 紀錄玩家操作
+        CoreProtectUtil.logBlockBreak(player.getName(), block.getLocation(), block.getBlockData());
 
         if (playerData.getSelectedSubBlockDataType() == null) {
             playerData.setSelectedSubBlockDayaType(subBlockDataList.get(0).name());
@@ -62,5 +76,7 @@ public class ClassicRightClick {
                 break;
             }
         }
+
+        CoreProtectUtil.logBlockPlace(player.getName(), block.getLocation(), block.getBlockData());
     }
 }

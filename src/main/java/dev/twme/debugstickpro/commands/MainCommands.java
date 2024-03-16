@@ -5,7 +5,6 @@ import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.LangFile;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItemCheck;
-import dev.twme.debugstickpro.display.ActionbarUtil;
 import dev.twme.debugstickpro.util.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -48,8 +47,8 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             player.sendMessage(component1);
             return true;
         }
-        if (strings[0].equalsIgnoreCase("reload")){
-            DebugStickPro.getInstance().reload();
+        if (strings[0].equalsIgnoreCase("onReload")){
+            DebugStickPro.getInstance().onReload();
             Component parsed = mm.deserialize(LangFile.CommandsMessages.Reload.Success);
             player.sendMessage(parsed);
             return true;
@@ -95,8 +94,8 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             if (player.hasPermission("debugstickpro.help")){
                 list.add("help");
             }
-            if (player.hasPermission("debugstickpro.reload")){
-                list.add("reload");
+            if (player.hasPermission("debugstickpro.onReload")){
+                list.add("onReload");
             }
             if (player.hasPermission("debugstickpro.give")){
                 list.add("give");

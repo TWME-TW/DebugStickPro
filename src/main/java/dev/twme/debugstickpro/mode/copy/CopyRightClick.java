@@ -2,6 +2,8 @@ package dev.twme.debugstickpro.mode.copy;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.events.PasteBlockDataEvent;
+import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
@@ -20,9 +22,21 @@ public class CopyRightClick {
             return;
         }
 
+        PasteBlockDataEvent event = new PasteBlockDataEvent(playerUUID, block);
+        Bukkit.getPluginManager().callEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         if (!AutoCheckCanChangeUtil.canChange(playerUUID, block)) {
             return;
         }
+
+        // 正式開始進入
+
+        // 紀錄玩家操作
+        CoreProtectUtil.logBlockBreak(player.getName(), block.getLocation(), block.getBlockData());
 
         ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.Separate(block);
 
@@ -35,5 +49,7 @@ public class CopyRightClick {
                 }
             }
         }
+
+        CoreProtectUtil.logBlockPlace(player.getName(), block.getLocation(), block.getBlockData());
     }
 }

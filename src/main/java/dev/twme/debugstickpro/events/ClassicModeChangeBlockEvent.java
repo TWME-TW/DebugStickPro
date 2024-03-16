@@ -15,13 +15,12 @@ public class ClassicModeChangeBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private UUID playerUUID;
     private Block block;
-    private SubBlockData subBlockData;
+
     private boolean isCancelled = false;
 
-    public ClassicModeChangeBlockEvent(UUID playerUUID, Block block, SubBlockData subBlockData) {
+    public ClassicModeChangeBlockEvent(UUID playerUUID, Block block) {
         this.playerUUID = playerUUID;
         this.block = block;
-        this.subBlockData = subBlockData;
     }
 
     public static HandlerList getHandlerList() {
@@ -39,10 +38,6 @@ public class ClassicModeChangeBlockEvent extends Event implements Cancellable {
 
     public Block getBlock() {
         return block;
-    }
-
-    public SubBlockData getSubBlockData() {
-        return subBlockData;
     }
 
     @Override
