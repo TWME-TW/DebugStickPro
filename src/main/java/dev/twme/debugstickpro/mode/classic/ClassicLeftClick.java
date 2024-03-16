@@ -53,7 +53,7 @@ public class ClassicLeftClick {
                     }
                     return;
                 }
-            } 
+            }
         } else {
             for (int i = 0; i < subBlockDataList.size(); i++) {
                 if (subBlockDataList.get(i).name().equals(playerData.getSelectedSubBlockDataType())) {

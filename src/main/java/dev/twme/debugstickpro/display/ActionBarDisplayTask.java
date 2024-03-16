@@ -33,6 +33,7 @@ public class ActionBarDisplayTask implements Runnable{
             switch (playerData.getDebugStickMode()) {
                 case Classic:
                     if (block == null) {
+                        ActionbarUtil.removeActionBar(uuid);
                         return;
                     }
                     ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block.getBlockData()));
