@@ -8,6 +8,7 @@ import org.bukkit.block.data.Rotatable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class RotatableData implements SubBlockData {
     private BlockData blockData;
@@ -53,11 +54,7 @@ public class RotatableData implements SubBlockData {
     @Override
     public SubBlockData nextData() {
         Rotatable rotatable = ((Rotatable) blockData);
-        ArrayList<BlockFace> blockFaces = new ArrayList<>(Arrays.asList(BlockFace.values()));
-
-        blockFaces.remove(BlockFace.SELF); // Remove SELF (the default value of BlockFace
-        blockFaces.remove(BlockFace.UP); // Remove UP (the default value of BlockFace
-        blockFaces.remove(BlockFace.DOWN); // Remove DOWN (the default value of BlockFace
+        LinkedList<BlockFace> blockFaces = getSortedBlockFaces();
 
         int index = blockFaces.indexOf(blockFace);
         if (index >= blockFaces.size() - 1) {
@@ -73,12 +70,8 @@ public class RotatableData implements SubBlockData {
     @Override
     public SubBlockData previousData() {
         Rotatable rotatable = ((Rotatable) blockData);
-        ArrayList<BlockFace> blockFaces = new ArrayList<>(Arrays.asList(BlockFace.values()));
-
-        blockFaces.remove(BlockFace.SELF); // Remove SELF (the default value of BlockFace
-        blockFaces.remove(BlockFace.UP); // Remove UP (the default value of BlockFace
-        blockFaces.remove(BlockFace.DOWN); // Remove DOWN (the default value of BlockFace
-
+        LinkedList<BlockFace> blockFaces = getSortedBlockFaces();
+        
         int index = blockFaces.indexOf(blockFace);
         if (index <= 0) {
             index = blockFaces.size() - 1;
@@ -94,5 +87,28 @@ public class RotatableData implements SubBlockData {
     public BlockData copyTo(BlockData blockData) {
         ((Rotatable) blockData).setRotation(blockFace);
         return blockData;
+    }
+
+    public static LinkedList<BlockFace> getSortedBlockFaces() {
+        LinkedList<BlockFace> blockFaces = new LinkedList<>();
+
+        blockFaces.add(BlockFace.NORTH);
+        blockFaces.add(BlockFace.NORTH_NORTH_EAST);
+        blockFaces.add(BlockFace.NORTH_EAST);
+        blockFaces.add(BlockFace.EAST_NORTH_EAST);
+        blockFaces.add(BlockFace.EAST);
+        blockFaces.add(BlockFace.EAST_SOUTH_EAST);
+        blockFaces.add(BlockFace.SOUTH_EAST);
+        blockFaces.add(BlockFace.SOUTH_SOUTH_EAST);
+        blockFaces.add(BlockFace.SOUTH);
+        blockFaces.add(BlockFace.SOUTH_SOUTH_WEST);
+        blockFaces.add(BlockFace.SOUTH_WEST);
+        blockFaces.add(BlockFace.WEST_SOUTH_WEST);
+        blockFaces.add(BlockFace.WEST);
+        blockFaces.add(BlockFace.WEST_NORTH_WEST);
+        blockFaces.add(BlockFace.NORTH_WEST);
+        blockFaces.add(BlockFace.NORTH_NORTH_WEST);
+
+        return blockFaces;
     }
 }
