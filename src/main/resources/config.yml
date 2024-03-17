@@ -46,15 +46,17 @@ AutoRegionProtection:
   Enabled: true
 
 BlockDataFilter:
+  # Options to fill in: https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/java/dev/twme/debugstickpro/blockdatautil/subdata
   Whitelist:
     # If enabled, only the specified block data will be displayed.
     Enabled: false
     Whitelist:
-      - "WaterloggedData"
+      - "*"
 
   Blacklist:
     # If enabled, the specified block data will not be displayed.
     # This option takes precedence over the whitelist.
     Enabled: false
     Blacklist:
+      - "AgeableData"
       - "WaterloggedData"
