@@ -6,6 +6,14 @@
 > Support for Paper 1.20.4
 ---
 ## Features:
+### Display block data directly.
+    - Display the data of the block you are looking at in the action bar.
+#### Classic Mode
+
+#### Copy Mode
+
+#### Freeze Mode
+
 ### Three Modes:
  - Classic Mode: The same as the original debug stick.
  - Copy Mode: Copy the data of a block and paste it onto other blocks.
