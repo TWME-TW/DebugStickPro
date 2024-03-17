@@ -19,6 +19,7 @@ public class AutoCheckCanChangeUtil {
         if (ConfigFile.WhitelistWorlds.Enabled) {
             if (!ConfigFile.WhitelistWorlds.Worlds.contains(world.getName())) {
                 canChange = false;
+
             }
             if (ConfigFile.WhitelistWorlds.Worlds.contains("*")) {
                 canChange = true;

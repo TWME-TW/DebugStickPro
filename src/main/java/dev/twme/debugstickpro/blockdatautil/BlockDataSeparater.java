@@ -1,6 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.*;
+import dev.twme.debugstickpro.configs.ConfigFile;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -39,6 +40,19 @@ public class BlockDataSeparater {
                 return false;
             }
         }
+    }
+
+    private static ArrayList<SubBlockData> filterSubBlockData(ArrayList<SubBlockData> blockDataList) {
+
+        if (ConfigFile.BlockDataFilter.Whitelist.Enabled && !ConfigFile.BlockDataFilter.Whitelist.Whitelist.contains("*")) {
+            blockDataList.removeIf(subBlockData -> !ConfigFile.BlockDataFilter.Whitelist.Whitelist.contains(subBlockData.name()));
+        }
+
+        if (ConfigFile.BlockDataFilter.Blacklist.Enabled || ConfigFile.BlockDataFilter.Blacklist.Blacklist.contains("*")) {
+            blockDataList.removeIf(subBlockData -> ConfigFile.BlockDataFilter.Blacklist.Blacklist.contains(subBlockData.name()));
+        }
+
+        return blockDataList;
     }
 
     // 分解 BlockData 成 SubBlockData
@@ -685,6 +699,7 @@ public class BlockDataSeparater {
             blockDataList.add(waterlogged);
         }
 
+        blockDataList = filterSubBlockData(blockDataList);
         cache.put(blockData.getMaterial(), blockDataList);
 
         return blockDataList;

@@ -40,4 +40,15 @@ public class ConfigFile {
         public static boolean Enabled;
     }
 
+    public static class BlockDataFilter {
+        public static class Whitelist {
+            public static boolean Enabled;
+            public static HashSet<String> Whitelist;
+        }
+
+        public static class Blacklist {
+            public static boolean Enabled;
+            public static HashSet<String> Blacklist;
+        }
+    }
 }

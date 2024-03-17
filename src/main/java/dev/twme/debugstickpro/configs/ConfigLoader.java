@@ -89,6 +89,12 @@ public class ConfigLoader {
         ConfigFile.BlacklistWorlds.Worlds = new HashSet<>(config.getStringList("BlacklistWorlds.Worlds"));
 
         ConfigFile.AutoRegionProtection.Enabled = config.getBoolean("AutoRegionProtection.Enabled");
+
+        ConfigFile.BlockDataFilter.Whitelist.Enabled = config.getBoolean("BlockDataFilter.Whitelist.Enabled");
+        ConfigFile.BlockDataFilter.Whitelist.Whitelist = new HashSet<>(config.getStringList("BlockDataFilter.Whitelist.Whitelist"));
+        ConfigFile.BlockDataFilter.Blacklist.Enabled = config.getBoolean("BlockDataFilter.Blacklist.Enabled");
+        ConfigFile.BlockDataFilter.Blacklist.Blacklist = new HashSet<>(config.getStringList("BlockDataFilter.Blacklist.Blacklist"));
+
     }
 
     public void save() {

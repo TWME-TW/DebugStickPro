@@ -1,5 +1,5 @@
 # Don't touch this value
-ConfigVersion: 1
+ConfigVersion: 2
 
 ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.
@@ -44,3 +44,17 @@ BlacklistWorlds:
 AutoRegionProtection:
   # If enabled, an attempt will be made to automatically support the region protection system.
   Enabled: true
+
+BlockDataFilter:
+  Whitelist:
+    # If enabled, only the specified block data will be displayed.
+    Enabled: false
+    Whitelist:
+      - "WaterloggedData"
+
+  Blacklist:
+    # If enabled, the specified block data will not be displayed.
+    # This option takes precedence over the whitelist.
+    Enabled: false
+    Blacklist:
+      - "WaterloggedData"
