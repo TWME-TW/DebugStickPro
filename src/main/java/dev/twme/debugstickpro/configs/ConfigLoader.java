@@ -8,7 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
 public class ConfigLoader {
@@ -35,12 +37,35 @@ public class ConfigLoader {
             Log.warning(e.getMessage());
         }
 
-        // TODO: 將所有 config.yml 的值在這邊設置。
+        ConfigFile.ConfigVersion = config.getInt("ConfigVersion");
+
+        if (!checkConfigVersion()) {
+            load();
+            return;
+        }
+
         loadValues();
     }
 
+    private boolean checkConfigVersion() {
+        if (ConfigFile.ConfigVersion != DebugStickPro.ConfigVersion) {
+            Log.warning("Config file version is not compatible with this version of the plugin.");
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            String strDate = formatter.format(date);
+            String backupFileName = file.getAbsolutePath().replace("config", "config-" + strDate);
+            File newFile = new File(backupFileName);
+            if (file.renameTo(newFile)) {
+                Log.warning("Old config file has been backed up to " + newFile.getName());
+            } else {
+                Log.warning("Failed to backup old config file");
+            }
+            return false;
+        }
+        return true;
+    }
+
     private void loadValues() {
-        ConfigFile.ConfigVersion = config.getInt("ConfigVersion");
 
         ConfigFile.ActionBarDisplay.AutoToCenter = config.getBoolean("ActionBarDisplay.AutoToCenter");
         ConfigFile.ActionBarDisplay.UpdateInterval = config.getLong("ActionBarDisplay.UpdateInterval");

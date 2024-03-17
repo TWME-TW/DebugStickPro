@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro;
 
+import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.configs.LangLoader;
@@ -14,10 +15,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public final class DebugStickPro extends JavaPlugin {
-
     private static DebugStickPro instance;
-
     private int taskID;
+
+    // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
+    public static final int ConfigVersion = 1;
+
+    // TODO: 如果更改此值，請確保在 lang.yml 中也更改了相應的值
+    public static final int LangVersion = 1;
 
     @Override
     public void onEnable() {
@@ -42,6 +47,7 @@ public final class DebugStickPro extends JavaPlugin {
         ConfigLoader.getInstance().load();
         LangLoader.getInstance().load();
         registerTasks();
+        BlockDataSeparater.clearCache();
     }
 
     @Override

@@ -5,6 +5,8 @@ import dev.twme.debugstickpro.util.Log;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LangLoader {
     private final static LangLoader instance = new LangLoader();
@@ -29,7 +31,33 @@ public class LangLoader {
             Log.warning(e.getMessage());
         }
 
+        LangFile.LangFileVersion = langFile.getInt("LangFileVersion");
+        Log.info("Lang file version: " + LangFile.LangFileVersion);
+
+        if(!checkLangFileVersion()){
+            load();
+            return;
+        }
         loadValues();
+    }
+
+    public boolean checkLangFileVersion(){
+        if(LangFile.LangFileVersion != DebugStickPro.LangVersion){
+            Log.warning("Lang file version is not compatible with this version of the plugin.");
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            String strDate = formatter.format(date);
+            String backupFileName = file.getAbsolutePath().replace("lang","lang-" + strDate);
+
+            File newFile = new File(backupFileName);
+            if (file.renameTo(newFile)) {
+                Log.warning("Old lang file has been backed up to " + newFile.getName());
+            } else {
+                Log.warning("Failed to backed up old lang file to " + newFile.getName());
+            }
+            return false;
+        }
+        return true;
     }
 
     public void save() {
@@ -51,7 +79,6 @@ public class LangLoader {
     }
 
     private void loadValues() {
-        LangFile.LangFileVersion = langFile.getInt("LangFileVersion");
 
         LangFile.CommandsMessages.Help.Title = langFile.getString("CommandsMessages.Help.Title");
         LangFile.CommandsMessages.Help.Description = langFile.getString("CommandsMessages.Help.Description");
