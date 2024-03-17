@@ -9,7 +9,7 @@
 ---
 ## Features:
 ### Display block data directly.
-    - Display the data of the block you are looking at in the action bar.
+ - Display the data of the block you are looking at in the action bar.
 #### Classic Mode
 <img width="960" alt="image" src="https://github.com/TWME-TW/DebugStickPro/assets/65117253/1410849c-3648-435c-85ad-cabafa16153a">
 
