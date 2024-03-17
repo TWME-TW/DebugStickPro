@@ -1,3 +1,5 @@
+![DSP](https://github.com/TWME-TW/DebugStickPro/assets/65117253/ac4be41a-f527-4c9b-b43e-e79180d33168)
+
 # DebugStickPro
 > ### A powerful debugstick plugin
 ---
