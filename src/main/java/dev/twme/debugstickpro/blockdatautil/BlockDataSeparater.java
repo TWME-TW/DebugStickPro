@@ -14,15 +14,20 @@ import java.util.Set;
 
 public class BlockDataSeparater {
 
+    // 快取
     private static HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
 
+    // 分解 BlockData 成 SubBlockData
     public static ArrayList<SubBlockData> separate(Block block) {
         return separate(block.getBlockData());
     }
 
+    // 清除快取
     public static void clearCache() {
         cache.clear();
     }
+
+    // 確認該材料是否有效
     private static boolean isValidMaterial(String material) {
         if (material == null) {
             return false;
@@ -36,6 +41,7 @@ public class BlockDataSeparater {
         }
     }
 
+    // 分解 BlockData 成 SubBlockData
     public static ArrayList<SubBlockData> separate(BlockData blockData) {
 
 
