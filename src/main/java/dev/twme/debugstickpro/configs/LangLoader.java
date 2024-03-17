@@ -32,7 +32,6 @@ public class LangLoader {
         }
 
         LangFile.LangFileVersion = langFile.getInt("LangFileVersion");
-        Log.info("Lang file version: " + LangFile.LangFileVersion);
 
         if(!checkLangFileVersion()){
             load();

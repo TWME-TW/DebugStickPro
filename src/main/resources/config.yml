@@ -7,6 +7,7 @@ ActionBarDisplay:
   # ActionBar update interval (tick)
   UpdateInterval: 4
 DebugStickItem:
+  # Options to fill: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
   Material: "BLAZE_ROD"
   DisplayName: "<b><gold>Debug Stick</gold></b>"
   Lore:
