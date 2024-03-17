@@ -12,25 +12,31 @@ public class CoreProtectUtil {
     private static CoreProtectAPI coreProtectAPI;
     private static boolean isCoreProtectLoaded = true;
     public static boolean initCoreProtect() {
-        Plugin plugin = getServer().getPluginManager().getPlugin("CoreProtect");
+        try {
 
-        // Check that CoreProtect is loaded
-        if (!(plugin instanceof CoreProtect)) {
-            isCoreProtectLoaded = false;
-        }
+            Plugin plugin = getServer().getPluginManager().getPlugin("CoreProtect");
 
-        // Check that the API is enabled
-        CoreProtectAPI CoreProtect = ((CoreProtect) plugin).getAPI();
-        if (!CoreProtect.isEnabled()) {
-            isCoreProtectLoaded = false;
-        }
+            // Check that CoreProtect is loaded
+            if (!(plugin instanceof CoreProtect)) {
+                isCoreProtectLoaded = false;
+            }
 
-        // Check that a compatible version of the API is loaded
-        if (CoreProtect.APIVersion() < 9) {
+            // Check that the API is enabled
+            CoreProtectAPI CoreProtect = ((CoreProtect) plugin).getAPI();
+            if (!CoreProtect.isEnabled()) {
+                isCoreProtectLoaded = false;
+            }
+
+            // Check that a compatible version of the API is loaded
+            if (CoreProtect.APIVersion() < 9) {
+                isCoreProtectLoaded = false;
+            }
+            coreProtectAPI = CoreProtect;
+            return isCoreProtectLoaded;
+        } catch (NoClassDefFoundError e) {
             isCoreProtectLoaded = false;
+            return false;
         }
-        coreProtectAPI = CoreProtect;
-        return isCoreProtectLoaded;
     }
 
     public static CoreProtectAPI getCoreProtectAPI() {
