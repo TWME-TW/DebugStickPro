@@ -78,4 +78,9 @@ public class SlabData implements SubBlockData {
         ((Slab) blockData).setType(type);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SlabData(blockData);
+    }
 }

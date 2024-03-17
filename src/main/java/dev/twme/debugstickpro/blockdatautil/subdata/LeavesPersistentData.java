@@ -64,4 +64,9 @@ public class LeavesPersistentData implements SubBlockData {
         ((Leaves) blockData).setPersistent(persistent);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new LeavesPersistentData(blockData);
+    }
 }

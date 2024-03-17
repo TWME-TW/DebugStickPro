@@ -66,4 +66,9 @@ public class LightableData implements SubBlockData {
         ((Lightable) blockData).setLit(lit);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new LightableData(blockData);
+    }
 }

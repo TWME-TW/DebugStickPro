@@ -73,4 +73,9 @@ public class PointedDripstoneVerticalDirectionData implements SubBlockData {
         ((PointedDripstone) blockData).setVerticalDirection(verticalDirection);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new PointedDripstoneVerticalDirectionData(blockData);
+    }
 }

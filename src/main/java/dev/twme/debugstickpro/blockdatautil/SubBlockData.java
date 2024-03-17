@@ -4,13 +4,14 @@ import org.bukkit.block.data.BlockData;
 
 public interface SubBlockData {
 
-    public String name();
-    public String dataName();
-    public abstract BlockData getBlockData();
-    public abstract String getDataAsString();
-    public abstract SubBlockData setIsUsing(boolean isUsing);
-    public abstract boolean isUsing();
-    public abstract SubBlockData nextData();
-    public abstract SubBlockData previousData();
-    public abstract BlockData copyTo(BlockData blockData);
+    String name();
+    String dataName();
+    BlockData getBlockData();
+    String getDataAsString();
+    SubBlockData setIsUsing(boolean isUsing);
+    boolean isUsing();
+    SubBlockData nextData();
+    SubBlockData previousData();
+    BlockData copyTo(BlockData blockData);
+    SubBlockData getDataFac(BlockData blockData);
 }

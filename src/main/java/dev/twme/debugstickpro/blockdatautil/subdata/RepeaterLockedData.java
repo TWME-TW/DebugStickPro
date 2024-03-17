@@ -64,4 +64,9 @@ public class RepeaterLockedData implements SubBlockData {
         ((Repeater) blockData).setLocked(locked);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new RepeaterLockedData(blockData);
+    }
 }

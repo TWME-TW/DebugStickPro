@@ -66,4 +66,9 @@ public class CaveVinesPlantData implements SubBlockData {
         ((CaveVinesPlant) blockData).setBerries(isBerries);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CaveVinesPlantData(blockData);
+    }
 }

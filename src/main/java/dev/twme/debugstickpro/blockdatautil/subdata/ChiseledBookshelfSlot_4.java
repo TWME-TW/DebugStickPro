@@ -69,4 +69,9 @@ public class ChiseledBookshelfSlot_4 implements SubBlockData {
         ((ChiseledBookshelf) blockData).setSlotOccupied(4, slot_4);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new ChiseledBookshelfSlot_4(blockData);
+    }
 }

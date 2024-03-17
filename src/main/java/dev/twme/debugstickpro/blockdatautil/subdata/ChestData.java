@@ -80,4 +80,9 @@ public class ChestData implements SubBlockData {
         ((Chest) blockData).setType(type);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new ChestData(blockData);
+    }
 }

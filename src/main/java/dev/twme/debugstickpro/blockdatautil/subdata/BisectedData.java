@@ -71,4 +71,9 @@ public class BisectedData implements SubBlockData {
         ((Bisected) blockData).setHalf(half);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BisectedData(blockData);
+    }
 }

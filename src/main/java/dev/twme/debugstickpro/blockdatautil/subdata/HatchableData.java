@@ -77,4 +77,9 @@ public class HatchableData implements SubBlockData {
         ((Hatchable) blockData).setHatch(hatch);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new HatchableData(blockData);
+    }
 }

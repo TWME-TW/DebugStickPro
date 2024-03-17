@@ -82,4 +82,9 @@ public class FaceAttachableData implements SubBlockData {
         ((FaceAttachable) blockData).setAttachedFace(attachedFace);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new FaceAttachableData(blockData);
+    }
 }

@@ -1,16 +1,20 @@
 package dev.twme.debugstickpro.blockdatautil;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.*;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.*;
 import org.bukkit.block.data.type.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 
 public class BlockDataSeparater {
+
+    public static HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
 
     public static ArrayList<SubBlockData> Separate(Block block) {
         return Separate(block.getBlockData());
@@ -18,7 +22,19 @@ public class BlockDataSeparater {
 
     public static ArrayList<SubBlockData> Separate(BlockData blockData) {
 
+
         ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
+
+        if (cache.containsKey(blockData.getMaterial())) {
+            for (SubBlockData subBlockData : cache.get(blockData.getMaterial())) {
+                blockDataList.add(subBlockData.getDataFac(blockData));
+            }
+            return blockDataList;
+        }
+
+        if (blockData == null) {
+            return blockDataList;
+        }
 
         if (blockData instanceof Ageable) {
             SubBlockData ageableUtil = new AgeableData(blockData);
@@ -90,7 +106,7 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof BubbleColumn) {
-            SubBlockData BubbleColumnData    = new BubbleColumnData(blockData);
+            SubBlockData BubbleColumnData = new BubbleColumnData(blockData);
             blockDataList.add(BubbleColumnData);
         }
 
@@ -416,8 +432,6 @@ public class BlockDataSeparater {
             }
         }
 
-
-        //TODO: ReDesign NoteBlock
         if (blockData instanceof NoteBlock) {
             SubBlockData noteBlockInstrument = new NoteBlockInstrumentData(blockData);
             blockDataList.add(noteBlockInstrument);
@@ -643,6 +657,9 @@ public class BlockDataSeparater {
             SubBlockData waterlogged = new WaterloggedData(blockData);
             blockDataList.add(waterlogged);
         }
+
+        cache.put(blockData.getMaterial(), blockDataList);
+
         return blockDataList;
     }
 }

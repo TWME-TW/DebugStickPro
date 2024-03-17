@@ -77,4 +77,9 @@ public class CakeData implements SubBlockData {
         ((Cake) blockData).setBites(bites);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CakeData(blockData);
+    }
 }

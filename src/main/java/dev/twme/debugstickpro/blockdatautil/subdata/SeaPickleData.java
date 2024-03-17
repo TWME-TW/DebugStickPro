@@ -76,4 +76,9 @@ public class SeaPickleData implements SubBlockData {
         ((SeaPickle) blockData).setPickles(pickles);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SeaPickleData(blockData);
+    }
 }

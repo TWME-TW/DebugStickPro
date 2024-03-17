@@ -79,4 +79,9 @@ public class RepeaterDelayData implements SubBlockData {
         ((Repeater) blockData).setDelay(delay);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new RepeaterDelayData(blockData);
+    }
 }

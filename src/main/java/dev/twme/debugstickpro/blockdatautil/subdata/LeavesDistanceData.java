@@ -76,4 +76,9 @@ public class LeavesDistanceData implements SubBlockData {
         ((Leaves) blockData).setDistance(distance);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new LeavesDistanceData(blockData);
+    }
 }

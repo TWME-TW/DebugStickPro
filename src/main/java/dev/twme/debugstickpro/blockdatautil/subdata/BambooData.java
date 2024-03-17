@@ -81,4 +81,9 @@ public class BambooData implements SubBlockData {
         ((Bamboo) blockData).setLeaves(leaves);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BambooData(blockData);
+    }
 }

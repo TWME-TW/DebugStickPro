@@ -76,4 +76,9 @@ public class SnowData implements SubBlockData {
         ((Snow) blockData).setLayers(layers);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SnowData(blockData);
+    }
 }

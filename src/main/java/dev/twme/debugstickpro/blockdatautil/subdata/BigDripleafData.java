@@ -86,4 +86,9 @@ public class BigDripleafData implements SubBlockData {
         ((BigDripleaf) blockData).setTilt(tilt);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BigDripleafData(blockData);
+    }
 }

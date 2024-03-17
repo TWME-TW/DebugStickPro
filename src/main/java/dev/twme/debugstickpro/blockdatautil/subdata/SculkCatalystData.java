@@ -66,4 +66,9 @@ public class SculkCatalystData implements SubBlockData {
         ((SculkCatalyst) blockData).setBloom(isBloom);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SculkCatalystData(blockData);
+    }
 }

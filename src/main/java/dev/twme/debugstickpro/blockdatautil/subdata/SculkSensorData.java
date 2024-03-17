@@ -80,4 +80,9 @@ public class SculkSensorData implements SubBlockData {
         ((SculkSensor) blockData).setPhase(phase);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SculkSensorData(blockData);
+    }
 }

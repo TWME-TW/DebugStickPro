@@ -82,4 +82,9 @@ public class DirectionalData implements SubBlockData {
         ((Directional) blockData).setFacing(direction);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new DirectionalData(blockData);
+    }
 }

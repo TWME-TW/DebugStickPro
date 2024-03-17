@@ -118,4 +118,9 @@ public class CrafterOrientationData implements SubBlockData {
         ((Crafter) blockData).setOrientation(orientation);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CrafterOrientationData(blockData);
+    }
 }

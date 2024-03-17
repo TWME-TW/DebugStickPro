@@ -65,4 +65,9 @@ public class ScaffoldingBottomData implements SubBlockData {
         ((Scaffolding) blockData).setBottom(bottom);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new ScaffoldingBottomData(blockData);
+    }
 }

@@ -65,4 +65,9 @@ public class WallUpData implements SubBlockData {
         ((Wall) blockData).setUp(up);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new WallUpData(blockData);
+    }
 }

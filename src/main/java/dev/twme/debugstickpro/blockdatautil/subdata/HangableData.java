@@ -66,4 +66,9 @@ public class HangableData implements SubBlockData {
         ((Hangable) blockData).setHanging(hangable);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new HangableData(blockData);
+    }
 }

@@ -65,4 +65,9 @@ public class DaylightDetectorData implements SubBlockData {
         ((DaylightDetector) blockData).setInverted(inverted);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new DaylightDetectorData(blockData);
+    }
 }

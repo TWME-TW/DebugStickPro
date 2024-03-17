@@ -66,4 +66,9 @@ public class BrewingStandBottle_2 implements SubBlockData {
         ((BrewingStand) blockData).setBottle(2, bottle);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BrewingStandBottle_2(blockData);
+    }
 }

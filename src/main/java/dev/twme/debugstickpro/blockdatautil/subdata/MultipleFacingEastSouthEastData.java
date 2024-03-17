@@ -67,4 +67,9 @@ public class MultipleFacingEastSouthEastData implements SubBlockData {
         ((MultipleFacing) blockData).setFace(face, has);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new MultipleFacingEastSouthEastData(blockData);
+    }
 }

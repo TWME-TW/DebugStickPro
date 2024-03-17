@@ -75,4 +75,9 @@ public class BrushableData implements SubBlockData {
         ((Brushable) blockData).setDusted(dusted);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BrushableData(blockData);
+    }
 }

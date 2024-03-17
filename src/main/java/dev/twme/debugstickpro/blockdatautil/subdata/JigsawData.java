@@ -117,4 +117,9 @@ public class JigsawData implements SubBlockData {
         ((Jigsaw) blockData).setOrientation(orientation);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new JigsawData(blockData);
+    }
 }

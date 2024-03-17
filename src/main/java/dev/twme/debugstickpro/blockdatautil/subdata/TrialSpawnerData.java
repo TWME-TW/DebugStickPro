@@ -92,4 +92,9 @@ public class TrialSpawnerData implements SubBlockData {
         ((TrialSpawner) blockData).setTrialSpawnerState(state);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new TrialSpawnerData(blockData);
+    }
 }

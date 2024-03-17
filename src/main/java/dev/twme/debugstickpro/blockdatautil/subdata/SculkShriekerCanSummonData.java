@@ -65,4 +65,9 @@ public class SculkShriekerCanSummonData implements SubBlockData {
         ((SculkShrieker) blockData).setCanSummon(isCanSummon);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SculkShriekerCanSummonData(blockData);
+    }
 }

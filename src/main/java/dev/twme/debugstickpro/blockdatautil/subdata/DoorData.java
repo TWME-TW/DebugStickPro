@@ -70,4 +70,9 @@ public class DoorData implements SubBlockData {
         ((Door) blockData).setHinge(hinge);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new DoorData(blockData);
+    }
 }

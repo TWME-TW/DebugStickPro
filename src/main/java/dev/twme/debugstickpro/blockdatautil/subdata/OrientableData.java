@@ -98,4 +98,9 @@ public class OrientableData implements SubBlockData {
         ((Orientable) blockData).setAxis(axis);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new OrientableData(blockData);
+    }
 }

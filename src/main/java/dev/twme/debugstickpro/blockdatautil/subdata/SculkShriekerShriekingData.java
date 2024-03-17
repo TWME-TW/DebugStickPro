@@ -65,4 +65,9 @@ public class SculkShriekerShriekingData implements SubBlockData {
         ((SculkShrieker) blockData).setShrieking(isShrieking);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SculkShriekerShriekingData(blockData);
+    }
 }

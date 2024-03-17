@@ -82,4 +82,9 @@ public class NoteBlockInstrumentData implements SubBlockData {
         ((NoteBlock) blockData).setInstrument(instrument);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new NoteBlockInstrumentData(blockData);
+    }
 }

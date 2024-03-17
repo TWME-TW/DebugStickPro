@@ -66,4 +66,9 @@ public class PistonHeadData implements SubBlockData {
         ((PistonHead) blockData).setShort(shortArm);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new PistonHeadData(blockData);
+    }
 }

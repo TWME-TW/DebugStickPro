@@ -76,4 +76,9 @@ public class LecternData implements SubBlockData {
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockDataString);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new LecternData(blockData);
+    }
 }

@@ -77,4 +77,9 @@ public class SaplingData implements SubBlockData {
         ((Sapling) blockData).setStage(stage);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SaplingData(blockData);
+    }
 }

@@ -66,4 +66,9 @@ public class PistonData implements SubBlockData {
         ((Piston) blockData).setExtended(extended);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new PistonData(blockData);
+    }
 }

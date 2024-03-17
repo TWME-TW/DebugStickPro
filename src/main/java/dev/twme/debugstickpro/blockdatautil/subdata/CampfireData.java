@@ -66,4 +66,9 @@ public class CampfireData implements SubBlockData {
         ((Campfire) blockData).setSignalFire(isSignalFire);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CampfireData(blockData);
+    }
 }

@@ -78,4 +78,9 @@ public class BedData implements SubBlockData {
         ((Bed) blockData).setPart(part);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BedData(blockData);
+    }
 }

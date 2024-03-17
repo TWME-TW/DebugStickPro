@@ -68,4 +68,9 @@ public class PointedDripstoneThicknessData implements SubBlockData {
         ((PointedDripstone) blockData).setThickness(thickness);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new PointedDripstoneThicknessData(blockData);
+    }
 }

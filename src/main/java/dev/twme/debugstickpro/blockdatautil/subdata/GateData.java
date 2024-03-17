@@ -67,4 +67,9 @@ public class GateData implements SubBlockData {
         ((Gate) blockData).setInWall(inWall);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new GateData(blockData);
+    }
 }

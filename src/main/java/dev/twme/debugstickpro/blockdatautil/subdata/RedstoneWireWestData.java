@@ -92,4 +92,9 @@ public class RedstoneWireWestData implements SubBlockData {
         ((RedstoneWire) blockData).setFace(face, connection);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new RedstoneWireWestData(blockData);
+    }
 }

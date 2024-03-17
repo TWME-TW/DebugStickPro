@@ -66,4 +66,9 @@ public class EndPortalFrameData implements SubBlockData {
         ((EndPortalFrame) blockData).setEye(eye);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new EndPortalFrameData(blockData);
+    }
 }

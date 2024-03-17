@@ -65,4 +65,9 @@ public class WaterloggedData implements SubBlockData {
         ((Waterlogged) blockData).setWaterlogged(waterlogged);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new WaterloggedData(blockData);
+    }
 }

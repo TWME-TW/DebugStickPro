@@ -77,4 +77,9 @@ public class AgeableData implements SubBlockData {
         ((Ageable) blockData).setAge(this.age);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new AgeableData(blockData);
+    }
 }

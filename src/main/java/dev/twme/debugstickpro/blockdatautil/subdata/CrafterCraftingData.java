@@ -66,4 +66,9 @@ public class CrafterCraftingData implements SubBlockData {
         ((Crafter) blockData).setCrafting(crafting);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CrafterCraftingData(blockData);
+    }
 }

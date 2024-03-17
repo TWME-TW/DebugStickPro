@@ -68,4 +68,9 @@ public class AttachableData implements SubBlockData {
         ((Attachable) blockData).setAttached(isAttached);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new AttachableData(blockData);
+    }
 }

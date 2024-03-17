@@ -83,4 +83,9 @@ public class StructureBlockData implements SubBlockData {
         ((StructureBlock) blockData).setMode(mode);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new StructureBlockData(blockData);
+    }
 }

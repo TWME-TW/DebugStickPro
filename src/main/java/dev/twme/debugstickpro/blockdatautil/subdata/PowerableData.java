@@ -65,4 +65,9 @@ public class PowerableData implements SubBlockData {
         ((Powerable) blockData).setPowered(powered);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new PowerableData(blockData);
+    }
 }

@@ -115,4 +115,9 @@ public class NoteBlockNoteData implements SubBlockData {
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockNoteData);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new NoteBlockNoteData(blockData);
+    }
 }

@@ -89,6 +89,11 @@ public class RotatableData implements SubBlockData {
         return blockData;
     }
 
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new RotatableData(blockData);
+    }
+
     public static LinkedList<BlockFace> getSortedBlockFaces() {
         LinkedList<BlockFace> blockFaces = new LinkedList<>();
 

@@ -65,4 +65,9 @@ public class HopperData implements SubBlockData {
         ((Hopper) blockData).setEnabled(enabled);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new HopperData(blockData);
+    }
 }

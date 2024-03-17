@@ -74,4 +74,9 @@ public class RespawnAnchorData implements SubBlockData {
         ((RespawnAnchor) blockData).setCharges(charges);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new RespawnAnchorData(blockData);
+    }
 }

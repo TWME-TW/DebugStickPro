@@ -71,4 +71,9 @@ public class ComparatorData implements SubBlockData {
         ((Comparator) blockData).setMode(mode);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new ComparatorData(blockData);
+    }
 }

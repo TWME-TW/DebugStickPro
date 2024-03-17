@@ -65,4 +65,9 @@ public class CommandBlockData implements SubBlockData {
         ((CommandBlock) blockData).setConditional(conditional);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CommandBlockData(blockData);
+    }
 }

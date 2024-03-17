@@ -81,4 +81,9 @@ public class WallHeightWestData implements SubBlockData {
         ((Wall) blockData).setHeight(BlockFace.WEST, height);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new WallHeightWestData(blockData);
+    }
 }

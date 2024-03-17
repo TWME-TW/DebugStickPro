@@ -78,4 +78,9 @@ public class JukeboxData implements SubBlockData {
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockDataString);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new JukeboxData(blockData);
+    }
 }

@@ -77,4 +77,9 @@ public class CandleData implements SubBlockData {
         ((Candle) blockData).setCandles(candleCount);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CandleData(blockData);
+    }
 }

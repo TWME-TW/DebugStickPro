@@ -63,4 +63,9 @@ public class SnowableData implements SubBlockData {
         ((Snowable) blockData).setSnowy(snowy);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new SnowableData(blockData);
+    }
 }

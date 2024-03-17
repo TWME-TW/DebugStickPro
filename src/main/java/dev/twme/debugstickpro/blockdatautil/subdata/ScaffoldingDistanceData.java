@@ -77,4 +77,9 @@ public class ScaffoldingDistanceData implements SubBlockData {
         ((Scaffolding) blockData).setDistance(distance);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new ScaffoldingDistanceData(blockData);
+    }
 }

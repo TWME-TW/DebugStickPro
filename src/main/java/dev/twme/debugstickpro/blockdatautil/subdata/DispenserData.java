@@ -65,4 +65,9 @@ public class DispenserData implements SubBlockData {
         ((Dispenser) blockData).setTriggered(triggered);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new DispenserData(blockData);
+    }
 }

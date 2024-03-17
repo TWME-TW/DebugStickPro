@@ -85,4 +85,9 @@ public class BellData implements SubBlockData {
         ((Bell) blockData).setAttachment(attachment);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BellData(blockData);
+    }
 }

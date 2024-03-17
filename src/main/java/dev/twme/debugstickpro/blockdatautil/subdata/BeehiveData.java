@@ -77,4 +77,9 @@ public class BeehiveData implements SubBlockData {
         ((Beehive) blockData).setHoneyLevel(honeyLevel);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BeehiveData(blockData);
+    }
 }

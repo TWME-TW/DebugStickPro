@@ -77,4 +77,9 @@ public class FarmlandData implements SubBlockData {
         Farmland farmland = (Farmland) blockData;
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new FarmlandData(blockData);
+    }
 }

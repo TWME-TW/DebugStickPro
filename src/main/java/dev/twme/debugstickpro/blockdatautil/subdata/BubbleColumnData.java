@@ -66,4 +66,9 @@ public class BubbleColumnData implements SubBlockData {
         ((BubbleColumn) blockData).setDrag(hasBubbleColumn);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new BubbleColumnData(blockData);
+    }
 }

@@ -77,4 +77,9 @@ public class PinkPetalsData implements SubBlockData {
         ((PinkPetals) blockData).setFlowerAmount(flowerAmount);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new PinkPetalsData(blockData);
+    }
 }

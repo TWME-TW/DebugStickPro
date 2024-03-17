@@ -76,4 +76,9 @@ public class TurtleEggData implements SubBlockData {
         ((TurtleEgg) blockData).setEggs(eggs);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new TurtleEggData(blockData);
+    }
 }

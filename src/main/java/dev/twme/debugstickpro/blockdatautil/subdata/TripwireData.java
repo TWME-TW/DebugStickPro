@@ -64,4 +64,9 @@ public class TripwireData implements SubBlockData {
         ((Tripwire) blockData).setDisarmed(isDisarmed);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new TripwireData(blockData);
+    }
 }

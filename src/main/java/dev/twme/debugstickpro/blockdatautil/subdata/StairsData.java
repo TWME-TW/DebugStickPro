@@ -90,4 +90,9 @@ public class StairsData implements SubBlockData {
         ((Stairs) blockData).setShape(shape);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new StairsData(blockData);
+    }
 }

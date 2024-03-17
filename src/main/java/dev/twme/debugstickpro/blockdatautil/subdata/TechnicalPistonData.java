@@ -69,4 +69,9 @@ public class TechnicalPistonData implements SubBlockData {
         ((TechnicalPiston) blockData).setType(type);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new TechnicalPistonData(blockData);
+    }
 }

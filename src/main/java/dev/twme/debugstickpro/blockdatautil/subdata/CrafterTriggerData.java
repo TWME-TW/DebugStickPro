@@ -66,4 +66,9 @@ public class CrafterTriggerData implements SubBlockData {
         ((Crafter) blockData).setTriggered(triggered);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new CrafterTriggerData(blockData);
+    }
 }

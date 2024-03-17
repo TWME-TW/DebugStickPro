@@ -77,4 +77,9 @@ public class LevelledData implements SubBlockData {
         return blockData;
     }
 
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new LevelledData(blockData);
+    }
+
 }

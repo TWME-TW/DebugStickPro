@@ -65,4 +65,9 @@ public class TNTData implements SubBlockData {
         ((TNT) blockData).setUnstable(unstable);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new TNTData(blockData);
+    }
 }

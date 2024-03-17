@@ -85,4 +85,9 @@ public class RailData implements SubBlockData {
         ((Rail) blockData).setShape(shape);
         return blockData;
     }
+
+    @Override
+    public SubBlockData getDataFac(BlockData blockData) {
+        return new RailData(blockData);
+    }
 }
