@@ -41,16 +41,16 @@
 ### Permissions:
 [plugin.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/plugin.yml)
 
-
---- 
-
-### Usage:
-#### Commands:
+### Commands:
  > `/debugstickpro` = `/dsp` ≒ `/dsp help`
  - `/dsp help` Show help message.
  - `/dsp give [player]` Give a debug stick to a player.
  - `/dsp mode [mode]` Change the mode.
  - `/dsp reload` Reload the configuration file.
+   
+---
+
+### Usage:
 
 #### Classic Mode:
 Same as regular debugging stick operation: 
