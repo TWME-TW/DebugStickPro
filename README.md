@@ -9,10 +9,13 @@
 ### Display block data directly.
     - Display the data of the block you are looking at in the action bar.
 #### Classic Mode
+<img width="960" alt="image" src="https://github.com/TWME-TW/DebugStickPro/assets/65117253/1410849c-3648-435c-85ad-cabafa16153a">
 
 #### Copy Mode
+<img width="958" alt="image" src="https://github.com/TWME-TW/DebugStickPro/assets/65117253/d244bcfe-25a2-44df-bd1e-5b0f36d2e8f1">
 
 #### Freeze Mode
+<img width="959" alt="image" src="https://github.com/TWME-TW/DebugStickPro/assets/65117253/ae7572c8-a015-4890-87bc-fc08445ec41a">
 
 ### Three Modes:
  - Classic Mode: The same as the original debug stick.
