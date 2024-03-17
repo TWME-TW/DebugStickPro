@@ -4,6 +4,7 @@ main: dev.twme.debugstickpro.DebugStickPro
 api-version: '1.19'
 prefix: DebugStickPro
 authors: [TWME]
+website: https://github.com/TWME-TW/DebugStickPro
 softdepend:
   - CoreProtect
 commands:
