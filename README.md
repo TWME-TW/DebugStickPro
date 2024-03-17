@@ -51,7 +51,7 @@
 ---
 
 ### Usage:
-
+ - Use `/dsp give` to get a debug stick.
 #### Classic Mode:
 Same as regular debugging stick operation: 
  - Left-click to select the desired data type to modify.
