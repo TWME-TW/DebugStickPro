@@ -32,6 +32,9 @@
 
 ### Auto Region Protection Support:
  - Support for region protection plugins, such as WorldGuard, GriefPrevention, etc.
+
+### Support filtering specific BlockData:
+ - You can filter specific BlockData in the config file.
 ## Configuration:
 ### Configuration File:
 [config.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/config.yml)
