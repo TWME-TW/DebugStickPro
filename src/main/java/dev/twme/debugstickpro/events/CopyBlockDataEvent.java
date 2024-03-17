@@ -32,7 +32,9 @@ public class CopyBlockDataEvent extends Event implements Cancellable {
     public void setCancelled(boolean b) {
         this.isCancelled = b;
     }
-
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;

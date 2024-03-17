@@ -32,6 +32,9 @@ public class PasteBlockDataEvent extends Event implements Cancellable {
         this.isCancelled = b;
     }
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;

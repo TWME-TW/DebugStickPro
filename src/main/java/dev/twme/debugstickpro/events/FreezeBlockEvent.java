@@ -20,6 +20,9 @@ public class FreezeBlockEvent extends Event implements Cancellable {
         this.playerUUID = playerUUID;
         this.block = block;
     }
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
