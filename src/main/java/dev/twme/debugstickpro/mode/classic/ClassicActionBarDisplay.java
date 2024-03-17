@@ -21,7 +21,7 @@ public class ClassicActionBarDisplay {
         PlayerData playerData = PlayerDataManager.getPlayerData(playerUUID);
 
         // 獲取方塊拆分後的資料
-        ArrayList<SubBlockData> displayList = BlockDataSeparater.Separate(blockData);
+        ArrayList<SubBlockData> displayList = BlockDataSeparater.separate(blockData);
 
         // TODO: 需檢查這邊的返回是否是冗於
         if (displayList.isEmpty()) {

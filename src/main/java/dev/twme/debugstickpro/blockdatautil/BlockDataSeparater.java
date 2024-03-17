@@ -14,13 +14,29 @@ import java.util.Set;
 
 public class BlockDataSeparater {
 
-    public static HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
+    private static HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
 
-    public static ArrayList<SubBlockData> Separate(Block block) {
-        return Separate(block.getBlockData());
+    public static ArrayList<SubBlockData> separate(Block block) {
+        return separate(block.getBlockData());
     }
 
-    public static ArrayList<SubBlockData> Separate(BlockData blockData) {
+    public static void clearCache() {
+        cache.clear();
+    }
+    private static boolean isValidMaterial(String material) {
+        if (material == null) {
+            return false;
+        } else {
+            try {
+                Material.valueOf(material);
+                return true;
+            } catch (IllegalArgumentException var3) {
+                return false;
+            }
+        }
+    }
+
+    public static ArrayList<SubBlockData> separate(BlockData blockData) {
 
 
         ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
@@ -666,18 +682,5 @@ public class BlockDataSeparater {
         cache.put(blockData.getMaterial(), blockDataList);
 
         return blockDataList;
-    }
-
-    private static boolean isValidMaterial(String material) {
-        if (material == null) {
-            return false;
-        } else {
-            try {
-                Material.valueOf(material);
-                return true;
-            } catch (IllegalArgumentException var3) {
-                return false;
-            }
-        }
     }
 }

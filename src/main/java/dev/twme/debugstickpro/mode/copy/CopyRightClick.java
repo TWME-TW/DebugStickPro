@@ -38,7 +38,7 @@ public class CopyRightClick {
         // 紀錄玩家操作
         CoreProtectUtil.logBlockBreak(player.getName(), block.getLocation(), block.getBlockData());
 
-        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.Separate(block);
+        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
 
         for (SubBlockData subBlockData : subBlockDataList) {
             for (SubBlockData copiedSubBlockData : playerData.getCopiedSubBlockData()) {

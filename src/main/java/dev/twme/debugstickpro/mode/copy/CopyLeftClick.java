@@ -32,7 +32,7 @@ public class CopyLeftClick {
             return;
         }
 
-        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.Separate(block);
+        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
         playerData.setCopiedSubBlockData(subBlockDataList);
 
         PlayerDataManager.setPlayerData(playerUUID, playerData);

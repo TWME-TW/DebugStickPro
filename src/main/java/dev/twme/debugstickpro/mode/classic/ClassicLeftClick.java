@@ -23,7 +23,7 @@ public class ClassicLeftClick {
             return;
         }
 
-        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.Separate(block);
+        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
 
         if (subBlockDataList.isEmpty()) {
             return;
