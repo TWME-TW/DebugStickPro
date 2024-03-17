@@ -1,5 +1,5 @@
 # Don't touch this value
-ConfigVersion: 2
+ConfigVersion: 3
 
 ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.
@@ -61,3 +61,14 @@ BlockDataFilter:
     Blacklist:
       - "AgeableData"
       - "WaterloggedData"
+
+ModeSetting:
+  ClassicMode:
+    # If enabled, when switching modes, the selected BlockData type will be cleared.
+    ClearSelectedDataTypeWhenModeChange: false
+  CopyMode:
+    #If enabled, when switching modes, previously copied BlockData will be cleared.
+    ClearStoredDataWhenModeChange: false
+  FreezeMode:
+    # If enabled, when switching modes, all frozen blocks will be unfrozen.
+    UnfreezeAllBlockWhenModeChange: false

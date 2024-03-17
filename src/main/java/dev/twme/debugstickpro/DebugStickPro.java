@@ -19,7 +19,7 @@ public final class DebugStickPro extends JavaPlugin {
     private int taskID;
 
     // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
-    public static final int ConfigVersion = 2;
+    public static final int ConfigVersion = 3;
 
     // TODO: 如果更改此值，請確保在 lang.yml 中也更改了相應的值
     public static final int LangVersion = 1;
@@ -72,6 +72,7 @@ public final class DebugStickPro extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerSwapHandItemsEventListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new WorldUnloadEventListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerChangedWorldEventListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerChangeDebugStickModeEventListener(), this);
     }
 
     private void registerTasks() {

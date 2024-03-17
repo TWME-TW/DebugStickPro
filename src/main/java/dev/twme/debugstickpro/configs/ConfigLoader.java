@@ -95,6 +95,10 @@ public class ConfigLoader {
         ConfigFile.BlockDataFilter.Blacklist.Enabled = config.getBoolean("BlockDataFilter.Blacklist.Enabled");
         ConfigFile.BlockDataFilter.Blacklist.Blacklist = new HashSet<>(config.getStringList("BlockDataFilter.Blacklist.Blacklist"));
 
+        ConfigFile.ModeSetting.ClassicMode.ClearSelectedDataTypeWhenModeChange = config.getBoolean("ModeSetting.ClassicMode.ClearSelectedDataTypeWhenModeChange");
+        ConfigFile.ModeSetting.CopyMode.ClearStoredDataWhenModeChange = config.getBoolean("ModeSetting.CopyMode.ClearStoredDataWhenModeChange");
+        ConfigFile.ModeSetting.FreezeMode.UnfreezeAllBlockWhenModeChange = config.getBoolean("ModeSetting.FreezeMode.UnfreezeAllBlockWhenModeChange");
+
     }
 
     public void save() {

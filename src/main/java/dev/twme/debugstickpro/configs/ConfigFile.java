@@ -51,4 +51,16 @@ public class ConfigFile {
             public static HashSet<String> Blacklist;
         }
     }
+
+    public static class ModeSetting {
+        public static class ClassicMode {
+            public static boolean ClearSelectedDataTypeWhenModeChange;
+        }
+        public static class CopyMode {
+            public static boolean ClearStoredDataWhenModeChange;
+        }
+        public static class FreezeMode {
+            public static boolean UnfreezeAllBlockWhenModeChange;
+        }
+    }
 }
