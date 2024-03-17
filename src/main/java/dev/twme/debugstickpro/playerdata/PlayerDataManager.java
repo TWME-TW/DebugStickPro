@@ -1,6 +1,7 @@
 package dev.twme.debugstickpro.playerdata;
 
 import dev.twme.debugstickpro.display.ActionbarUtil;
+import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
 import dev.twme.debugstickpro.mode.classic.ClassicLeftClick;
 import dev.twme.debugstickpro.mode.classic.ClassicRightClick;
 import dev.twme.debugstickpro.mode.copy.CopyLeftClick;
@@ -62,15 +63,24 @@ public class PlayerDataManager {
         switch (playerData.getDebugStickMode()) {
             case Classic:
                 if (player.hasPermission("debugstickpro.mode.copy")) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.Classic, DebugStickMode.Copy)) {
+                        return;
+                    }
                     playerData.setDebugStickMode(DebugStickMode.Copy);
                     break;
                 }
             case Copy:
                 if (player.hasPermission("debugstickpro.mode.freeze")) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.Copy, DebugStickMode.Freeze)) {
+                        return;
+                    }
                     playerData.setDebugStickMode(DebugStickMode.Freeze);
                     break;
                 }
             case Freeze:
+                if (modeChangeEventCancelled(uuid, DebugStickMode.Freeze, DebugStickMode.Classic)) {
+                    return;
+                }
             default:
                 playerData.setDebugStickMode(DebugStickMode.Classic);
                 break;
@@ -85,19 +95,34 @@ public class PlayerDataManager {
         switch (playerData.getDebugStickMode()) {
             case Classic:
                 if (player.hasPermission("debugstickpro.mode.freeze")) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.Classic, DebugStickMode.Freeze)) {
+                        return;
+                    }
                     playerData.setDebugStickMode(DebugStickMode.Freeze);
                     break;
                 }
             case Freeze:
                 if (player.hasPermission("debugstickpro.mode.copy")) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.Freeze, DebugStickMode.Copy)) {
+                        return;
+                    }
                     playerData.setDebugStickMode(DebugStickMode.Copy);
                     break;
                 }
             case Copy:
+                if (modeChangeEventCancelled(uuid, DebugStickMode.Copy, DebugStickMode.Classic)) {
+                    return;
+                }
             default:
                 playerData.setDebugStickMode(DebugStickMode.Classic);
                 break;
         }
+    }
+
+    public static boolean modeChangeEventCancelled(UUID playerUUID, DebugStickMode previousMode, DebugStickMode newMode) {
+        PlayerChangeDebugStickModeEvent event = new PlayerChangeDebugStickModeEvent(playerUUID, previousMode, newMode);
+        Bukkit.getPluginManager().callEvent(event);
+        return event.isCancelled();
     }
 
     public static void playerLeftClick(UUID uuid){

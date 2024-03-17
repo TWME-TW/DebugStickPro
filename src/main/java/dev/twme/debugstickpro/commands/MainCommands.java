@@ -1,29 +1,26 @@
 package dev.twme.debugstickpro.commands;
 
 import dev.twme.debugstickpro.DebugStickPro;
-import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
 import dev.twme.debugstickpro.playerdata.DebugStickMode;
+import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItem;
-import dev.twme.debugstickpro.util.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainCommands implements CommandExecutor , TabCompleter {
     @Override
@@ -94,14 +91,26 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                 return true;
             } else {
                 if (strings[1].equalsIgnoreCase("classic")) {
-                    PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Classic));
+                    PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+
+                    if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.Classic)) {
+                        return true;
+                    }
+
+                    PlayerDataManager.setPlayerData(player.getUniqueId(),playerData.setDebugStickMode(DebugStickMode.Classic));
                     Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToClassic);
                     player.sendMessage(parsed);
                     return true;
                 }
                 if (strings[1].equalsIgnoreCase("copy")) {
                     if (player.hasPermission("debugstickpro.mode.copy")) {
-                        PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Copy));
+                        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+
+                        if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.Copy)) {
+                            return true;
+                        }
+
+                        PlayerDataManager.setPlayerData(player.getUniqueId(),playerData.setDebugStickMode(DebugStickMode.Copy));
                         Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToCopy);
                         player.sendMessage(parsed);
                         return true;
@@ -113,6 +122,12 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                 }
                 if (strings[1].equalsIgnoreCase("freeze")) {
                     if (player.hasPermission("debugstickpro.mode.freeze")) {
+                        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+
+                        if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.Freeze)) {
+                            return true;
+                        }
+
                         PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Freeze));
                         Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToFreeze);
                         player.sendMessage(parsed);
@@ -170,5 +185,13 @@ public class MainCommands implements CommandExecutor , TabCompleter {
             }
         }
         return list;
+    }
+
+    public static boolean modeChangeEventCancelled(UUID playerUUID, DebugStickMode previousMode, DebugStickMode newMode) {
+        PlayerChangeDebugStickModeEvent event = new PlayerChangeDebugStickModeEvent(playerUUID, previousMode, newMode);
+
+        Bukkit.getPluginManager().callEvent(event);
+
+        return event.isCancelled();
     }
 }
