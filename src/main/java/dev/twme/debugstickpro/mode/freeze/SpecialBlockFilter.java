@@ -22,7 +22,7 @@ public class SpecialBlockFilter {
             case POINTED_DRIPSTONE -> {
                 return calculateLocation(location, 0.125f);
             }
-            case LILY_PAD, SEA_PICKLE -> {
+            case LILY_PAD, SEA_PICKLE, TURTLE_EGG -> {
                 return clientRelation(location);
             }
             case FERN, LARGE_FERN, TALL_GRASS -> {
