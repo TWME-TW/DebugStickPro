@@ -63,10 +63,6 @@ public class BlockDataSeparater {
 
         if (cache.containsKey(blockData.getMaterial())) {
 
-            if (cache.get(blockData.getMaterial()).isEmpty()) {
-                return blockDataList;
-            }
-
             for (SubBlockData subBlockData : cache.get(blockData.getMaterial())) {
                 blockDataList.add(subBlockData.getDataFac(blockData));
             }
