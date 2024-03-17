@@ -100,11 +100,12 @@ public class BlockDataSeparater {
             blockDataList.add(brewingStandBottle_2);
         }
 
-        if (blockData instanceof Brushable) {
-            SubBlockData brushable = new BrushableData(blockData);
-            blockDataList.add(brushable);
+        if (isValidMaterial("suspicious_sand")) {
+            if (blockData instanceof Brushable) {
+                SubBlockData brushable = new BrushableData(blockData);
+                blockDataList.add(brushable);
+            }
         }
-
         if (blockData instanceof BubbleColumn) {
             SubBlockData BubbleColumnData = new BubbleColumnData(blockData);
             blockDataList.add(BubbleColumnData);
@@ -187,13 +188,15 @@ public class BlockDataSeparater {
 
         }
         */
-        if (blockData instanceof Crafter) {
-            SubBlockData crafterOrientation = new CrafterOrientationData(blockData);
-            blockDataList.add(crafterOrientation);
-            SubBlockData crafterCrafting = new CrafterCraftingData(blockData);
-            blockDataList.add(crafterCrafting);
-            SubBlockData crafterTriggered = new CrafterTriggerData(blockData);
-            blockDataList.add(crafterTriggered);
+        if (isValidMaterial("crafter")) {
+            if (blockData instanceof Crafter) {
+                SubBlockData crafterOrientation = new CrafterOrientationData(blockData);
+                blockDataList.add(crafterOrientation);
+                SubBlockData crafterCrafting = new CrafterCraftingData(blockData);
+                blockDataList.add(crafterCrafting);
+                SubBlockData crafterTriggered = new CrafterTriggerData(blockData);
+                blockDataList.add(crafterTriggered);
+            }
         }
 
         if (blockData instanceof DaylightDetector) {
@@ -287,11 +290,12 @@ public class BlockDataSeparater {
 
         }
         */
-        if (blockData instanceof Hatchable) {
-            SubBlockData hatchable = new HatchableData(blockData);
-            blockDataList.add(hatchable);
+        if (isValidMaterial("sniffer_egg")) {
+            if (blockData instanceof Hatchable) {
+                SubBlockData hatchable = new HatchableData(blockData);
+                blockDataList.add(hatchable);
+            }
         }
-
         if (blockData instanceof Hopper) {
             SubBlockData hopperEnabled = new HopperData(blockData);
             blockDataList.add(hopperEnabled);
@@ -612,11 +616,12 @@ public class BlockDataSeparater {
 
         }
         */
-        if (blockData instanceof TrialSpawner) {
-            SubBlockData trialSpawnerDelay = new TrialSpawnerData(blockData);
-            blockDataList.add(trialSpawnerDelay);
+        if (isValidMaterial("trial_spawner")) {
+            if (blockData instanceof TrialSpawner) {
+                SubBlockData trialSpawnerDelay = new TrialSpawnerData(blockData);
+                blockDataList.add(trialSpawnerDelay);
+            }
         }
-
         if (blockData instanceof Tripwire) {
             SubBlockData tripwire = new TripwireData(blockData);
             blockDataList.add(tripwire);
@@ -661,5 +666,18 @@ public class BlockDataSeparater {
         cache.put(blockData.getMaterial(), blockDataList);
 
         return blockDataList;
+    }
+
+    private static boolean isValidMaterial(String material) {
+        if (material == null) {
+            return false;
+        } else {
+            try {
+                Material.valueOf(material);
+                return true;
+            } catch (IllegalArgumentException var3) {
+                return false;
+            }
+        }
     }
 }
