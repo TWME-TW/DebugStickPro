@@ -42,7 +42,7 @@ public class ActionBarDisplayTask implements Runnable{
                     ActionbarUtil.sendActionBar(player, CopyActionBarDisplay.getDisplay(uuid));
                     continue;
                 case Freeze:
-                    ActionbarUtil.sendActionBar(player, FreezeActionBarDisplay.getDisplay());
+                    ActionbarUtil.sendActionBar(player, FreezeActionBarDisplay.getDisplay(uuid));
                     continue;
             }
         }

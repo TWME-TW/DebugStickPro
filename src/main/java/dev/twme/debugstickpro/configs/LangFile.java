@@ -45,6 +45,12 @@ public class LangFile {
         public static String formatCopiedBlockData(String key, String value){
             return CopiedBlockDataFormat.replace("%key%", key).replace("%value%", value);
         }
+
+        public static String FreezeBlockCount;
+
+        public static String formatFreezeBlockCount(int count){
+            return FreezeBlockCount.replace("%count%", String.valueOf(count));
+        }
     }
 
     public static class Tips {
