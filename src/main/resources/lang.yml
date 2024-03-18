@@ -1,5 +1,5 @@
 # Don't change this value
-LangFileVersion: 1
+LangFileVersion: 2
 
 CommandsMessages:
     Help:
@@ -22,6 +22,7 @@ ActionBar:
   SelectedDataFormat: "<b><u><gold>%key%</gold></u></b>: %value%"
   NotSelectedDataFormat: "<b><aqua>%key%</aqua></b>: %value%"
   CopiedBlockDataFormat: "<b><red>%key%</red></b>: %value%"
+  FreezeBlockCount: "<aqua>%count%</aqua> blocks have been <blue>frozen</blue>."
 
 Tips:
   classicModeIntroduction: "<b><gold>Classic mode</gold></b>: <b><green><key:key.attack></green></b> to select the desired data type to modify, <b><light_purple><key:key.use></light_purple></b> to change the value of that data."

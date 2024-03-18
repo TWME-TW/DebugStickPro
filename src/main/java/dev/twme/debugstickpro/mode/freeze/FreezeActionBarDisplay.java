@@ -2,8 +2,14 @@ package dev.twme.debugstickpro.mode.freeze;
 
 import dev.twme.debugstickpro.configs.LangFile;
 
+import java.util.UUID;
+
 public class FreezeActionBarDisplay {
-    public static String getDisplay() {
-        return LangFile.Tips.freezeModeIntroduction;
+    public static String getDisplay(UUID playerUUID) {
+        if (FreezeBlockManager.getFreezeBlockCount(playerUUID) == 0) {
+            return LangFile.Tips.freezeModeIntroduction;
+        } else {
+            return LangFile.ActionBar.formatFreezeBlockCount(FreezeBlockManager.getFreezeBlockCount(playerUUID));
+        }
     }
 }

@@ -200,4 +200,11 @@ public class FreezeBlockManager {
             }
         }
     }
+
+    public static int getFreezeBlockCount(UUID playerUUID) {
+        if (!freezeBlockData.containsKey(playerUUID)) {
+            return 0;
+        }
+        return freezeBlockData.get(playerUUID).size();
+    }
 }

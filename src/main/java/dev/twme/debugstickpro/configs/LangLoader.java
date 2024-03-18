@@ -100,6 +100,7 @@ public class LangLoader {
         LangFile.ActionBar.SelectedDataFormat = langFile.getString("ActionBar.SelectedDataFormat");
         LangFile.ActionBar.NotSelectedDataFormat = langFile.getString("ActionBar.NotSelectedDataFormat");
         LangFile.ActionBar.CopiedBlockDataFormat = langFile.getString("ActionBar.CopiedBlockDataFormat");
+        LangFile.ActionBar.FreezeBlockCount = langFile.getString("ActionBar.FreezeBlockCount");
 
         LangFile.Tips.classicModeIntroduction = langFile.getString("Tips.classicModeIntroduction");
         LangFile.Tips.copyModeIntroduction = langFile.getString("Tips.copyModeIntroduction");
