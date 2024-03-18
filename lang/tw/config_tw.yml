@@ -1,5 +1,5 @@
 # Don't touch this value
-ConfigVersion: 1
+ConfigVersion: 3
 
 ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.
@@ -24,7 +24,6 @@ DebugStickItem:
     - "<b><light_purple><key:key.use></light_purple></b> 凍結/解凍一個方塊，"
     - "<b><green><key:key.attack></green></b> 解凍所有已凍結的方塊。 "
     - "<i>凍結方塊的狀態將不會更新。</i>"
-
   CustomModelData:
     Enabled: false
     CustomModelData: 0
@@ -45,3 +44,30 @@ BlacklistWorlds:
 AutoRegionProtection:
   # If enabled, an attempt will be made to automatically support the region protection system.
   Enabled: true
+
+BlockDataFilter:
+  Whitelist:
+    # If enabled, only the specified block data will be displayed.
+    Enabled: false
+    # Options to fill in: https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/java/dev/twme/debugstickpro/blockdatautil/subdata
+    Whitelist:
+      - "*"
+  Blacklist:
+    # If enabled, the specified block data will not be displayed.
+    # This option takes precedence over the whitelist.
+    Enabled: false
+    # Options to fill in: https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/java/dev/twme/debugstickpro/blockdatautil/subdata
+    Blacklist:
+      - "AgeableData"
+      - "WaterloggedData"
+
+ModeSetting:
+  ClassicMode:
+    # If enabled, when switching modes, the selected BlockData type will be cleared.
+    ClearSelectedDataTypeWhenModeChange: false
+  CopyMode:
+    #If enabled, when switching modes, previously copied BlockData will be cleared.
+    ClearStoredDataWhenModeChange: false
+  FreezeMode:
+    # If enabled, when switching modes, all frozen blocks will be unfrozen.
+    UnfreezeAllBlockWhenModeChange: false
