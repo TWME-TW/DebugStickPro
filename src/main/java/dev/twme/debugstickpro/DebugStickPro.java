@@ -23,7 +23,7 @@ public final class DebugStickPro extends JavaPlugin {
     public static final int ConfigVersion = 3;
 
     // TODO: 如果更改此值，請確保在 lang.yml 中也更改了相應的值
-    public static final int LangVersion = 2;
+    public static final int LangVersion = 3;
 
     @Override
     public void onEnable() {
