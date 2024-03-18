@@ -56,31 +56,30 @@ public class ClassicRightClick {
 
         boolean hasIsUsingType = false;
 
+        SubBlockData selectedSubBlockData = null;
+
+        // TODO: 調整邏輯
+
         // 將與玩家原本相同類型的 SubBlockData 類型設為 True
         for (SubBlockData subBlockData : subBlockDataList) {
             if (subBlockData.name().equals(playerData.getSelectedSubBlockDataType())) {
-                subBlockData.setIsUsing(true);
+                selectedSubBlockData = subBlockData;
                 hasIsUsingType = true;
                 break;
             }
         }
 
         if (!hasIsUsingType) {
-            subBlockDataList.get(0).setIsUsing(true);
+            selectedSubBlockData = subBlockDataList.get(0);
         }
 
-        for (SubBlockData subBlockData : subBlockDataList) {
-            if (subBlockData.isUsing()) {
-                if (player.isSneaking()) {
-                    previousData(playerUUID, block, subBlockData);
-                } else {
-                    nextData(playerUUID, block, subBlockData);
-                }
-                block.getState().update();
-                callClassicModeChangedBlockEvent(playerUUID, block);
-                break;
-            }
+        if (player.isSneaking()) {
+            previousData(playerUUID, block, selectedSubBlockData);
+        } else {
+            nextData(playerUUID, block, selectedSubBlockData);
         }
+
+        block.getState().update();
 
         CoreProtectUtil.logBlockPlace(player.getName(), block.getLocation(), block.getBlockData());
     }
