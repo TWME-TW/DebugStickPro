@@ -1,13 +1,17 @@
 package dev.twme.debugstickpro.mode.classic;
 
+import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.events.ClassicModeChangeBlockEvent;
+import dev.twme.debugstickpro.events.ClassicModeBlockBlockDataChangingEvent;
+import dev.twme.debugstickpro.events.ClassicModeChangedBlockEvent;
+import dev.twme.debugstickpro.events.ClassicModeChangingBlockEvent;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ public class ClassicRightClick {
             return;
         }
 
-        ClassicModeChangeBlockEvent event = new ClassicModeChangeBlockEvent(playerUUID, block);
+        ClassicModeChangingBlockEvent event = new ClassicModeChangingBlockEvent(playerUUID, block);
         Bukkit.getPluginManager().callEvent(event);
 
         if (event.isCancelled()) {
@@ -68,15 +72,47 @@ public class ClassicRightClick {
         for (SubBlockData subBlockData : subBlockDataList) {
             if (subBlockData.isUsing()) {
                 if (player.isSneaking()) {
-                    block.setBlockData(subBlockData.previousData().getBlockData(), false);
+                    previousData(playerUUID,block,subBlockData);
                 } else {
-                    block.setBlockData(subBlockData.nextData().getBlockData(), false);
+                    nextData(playerUUID,block,subBlockData);
                 }
                 block.getState().update();
+                callClassicModeChangedBlockEvent(playerUUID, block);
                 break;
             }
         }
 
         CoreProtectUtil.logBlockPlace(player.getName(), block.getLocation(), block.getBlockData());
+    }
+
+    // TODO
+
+    private static void nextData(UUID playerUUID, Block block, SubBlockData subBlockData) {
+        BlockData oldBlockData = DebugStickPro.getInstance().getServer().createBlockData(block.getBlockData().getAsString());
+        BlockData newBlockData = subBlockData.nextData().getBlockData();
+        ClassicModeBlockBlockDataChangingEvent event = new ClassicModeBlockBlockDataChangingEvent(playerUUID, block, oldBlockData, newBlockData);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
+        block.setBlockData(event.getNewBlockData(),false);
+    }
+
+    private static void previousData(UUID playerUUID, Block block, SubBlockData subBlockData) {
+        BlockData oldBlockData = DebugStickPro.getInstance().getServer().createBlockData(block.getBlockData().getAsString());
+        BlockData newBlockData = subBlockData.previousData().getBlockData();
+        ClassicModeBlockBlockDataChangingEvent event = new ClassicModeBlockBlockDataChangingEvent(playerUUID, block, oldBlockData, newBlockData);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
+        block.setBlockData(event.getNewBlockData(),false);
+    }
+
+    private static void callClassicModeChangedBlockEvent(UUID playerUUID, Block block) {
+        ClassicModeChangedBlockEvent event = new ClassicModeChangedBlockEvent(playerUUID, block);
+        Bukkit.getPluginManager().callEvent(event);
     }
 }

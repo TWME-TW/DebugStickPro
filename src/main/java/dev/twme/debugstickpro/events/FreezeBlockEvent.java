@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 public class FreezeBlockEvent extends Event implements Cancellable {
-    private UUID playerUUID;
-    private Block block;
+    private final UUID playerUUID;
+    private final Block block;
     private static final HandlerList HANDLERS = new HandlerList();
     private boolean isCancelled = false;
     public FreezeBlockEvent(UUID playerUUID, Block block) {
