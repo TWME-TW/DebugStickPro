@@ -11,6 +11,7 @@ import dev.twme.debugstickpro.commands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
 import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -60,19 +61,23 @@ public final class DebugStickPro extends JavaPlugin {
     }
 
     private void registerListeners() {
-        Bukkit.getServer().getPluginManager().registerEvents(new ChunkLoadEventListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new BlockPlaceEventListenerCanBuildChecker(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new ChunkUnloadEventListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new RightClickListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new LeftClickListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerItemHeldListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new BlockBreakEventListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerSwapHandItemsEventListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new WorldUnloadEventListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerChangedWorldEventListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerChangeDebugStickModeEventListener(), this);
+        registerListener(new ChunkLoadEventListener());
+        registerListener(new BlockPlaceEventListenerCanBuildChecker());
+        registerListener(new ChunkUnloadEventListener());
+        registerListener(new RightClickListener());
+        registerListener(new LeftClickListener());
+        registerListener(new PlayerQuitListener());
+        registerListener(new PlayerItemHeldListener());
+        registerListener(new PlayerJoinListener());
+        registerListener(new BlockBreakEventListener();
+        registerListener(new PlayerSwapHandItemsEventListener());
+        registerListener(new WorldUnloadEventListener();
+        registerListener(new PlayerChangedWorldEventListener());
+        registerListener(new PlayerChangeDebugStickModeEventListener());
+    }
+
+    private void registerListener(Listener listener) {
+        Bukkit.getServer().getPluginManager().registerEvents(listener, this);
     }
 
     private void registerTasks() {
