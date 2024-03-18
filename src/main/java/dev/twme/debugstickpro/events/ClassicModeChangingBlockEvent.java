@@ -1,6 +1,5 @@
 package dev.twme.debugstickpro.events;
 
-import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -11,14 +10,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class ClassicModeChangeBlockEvent extends Event implements Cancellable {
+public class ClassicModeChangingBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
-    private UUID playerUUID;
-    private Block block;
+    private final UUID playerUUID;
+    private final Block block;
 
     private boolean isCancelled = false;
 
-    public ClassicModeChangeBlockEvent(UUID playerUUID, Block block) {
+    public ClassicModeChangingBlockEvent(UUID playerUUID, Block block) {
         this.playerUUID = playerUUID;
         this.block = block;
     }

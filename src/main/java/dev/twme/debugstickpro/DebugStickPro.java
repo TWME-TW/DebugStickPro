@@ -69,9 +69,9 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerQuitListener());
         registerListener(new PlayerItemHeldListener());
         registerListener(new PlayerJoinListener());
-        registerListener(new BlockBreakEventListener();
+        registerListener(new BlockBreakEventListener());
         registerListener(new PlayerSwapHandItemsEventListener());
-        registerListener(new WorldUnloadEventListener();
+        registerListener(new WorldUnloadEventListener());
         registerListener(new PlayerChangedWorldEventListener());
         registerListener(new PlayerChangeDebugStickModeEventListener());
     }
