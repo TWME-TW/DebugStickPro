@@ -19,8 +19,8 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class FreezeBlockManager {
-    private static HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
-    private static HashMap<UUID, ArrayList<FreezeBlockData>> freezeBlockData = new HashMap<>();
+    private static final HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
+    private static final HashMap<UUID, ArrayList<FreezeBlockData>> freezeBlockData = new HashMap<>();
 
     public static void addBlock(UUID playerUUID, Block block) {
         Location location = block.getLocation();

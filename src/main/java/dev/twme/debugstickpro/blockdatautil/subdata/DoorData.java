@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Door;
 
 public class DoorData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Door.Hinge hinge;
     private boolean isUsing = false;
 

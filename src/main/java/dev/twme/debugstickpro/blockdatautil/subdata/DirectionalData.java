@@ -9,7 +9,7 @@ import org.bukkit.block.data.Directional;
 import java.util.List;
 
 public class DirectionalData implements SubBlockData {
-    private org.bukkit.block.data.BlockData blockData;
+    private final org.bukkit.block.data.BlockData blockData;
     private BlockFace direction;
     private boolean isUsing = false;
 

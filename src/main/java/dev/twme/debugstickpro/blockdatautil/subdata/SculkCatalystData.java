@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkCatalyst;
 
 public class SculkCatalystData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isBloom;
     private boolean isUsing = false;
 

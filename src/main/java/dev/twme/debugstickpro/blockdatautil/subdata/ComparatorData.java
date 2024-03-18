@@ -7,7 +7,7 @@ import org.bukkit.block.data.type.Comparator;
 
 public class ComparatorData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private Comparator.Mode mode;
     private boolean isUsing = false;
 

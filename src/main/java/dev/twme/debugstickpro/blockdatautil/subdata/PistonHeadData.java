@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PistonHead;
 
 public class PistonHeadData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean shortArm;
     private boolean isUsing = false;
 

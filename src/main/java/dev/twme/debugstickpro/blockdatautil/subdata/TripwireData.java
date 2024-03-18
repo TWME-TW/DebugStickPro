@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Tripwire;
 
 public class TripwireData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isDisarmed;
     private boolean isUsing = false;
 

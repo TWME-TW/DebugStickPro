@@ -6,9 +6,9 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RespawnAnchor;
 
 public class RespawnAnchorData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int charges;
-    private boolean isUsing = false;
+    private final boolean isUsing = false;
 
     public RespawnAnchorData(BlockData blockData) {
         this.blockData = blockData;

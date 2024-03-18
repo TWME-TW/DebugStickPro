@@ -6,7 +6,7 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 
 public class AgeableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int age;
     private boolean isUsing = false;
 

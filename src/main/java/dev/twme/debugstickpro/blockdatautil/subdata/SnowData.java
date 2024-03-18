@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Snow;
 
 public class SnowData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int layers;
     private boolean isUsing = false;
 

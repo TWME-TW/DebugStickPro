@@ -31,7 +31,7 @@ public class SpecialBlockFilter {
             case SMALL_DRIPLEAF -> {
                 return calculateLocationWithY(location, 0.25f, 0.1F);
             }
-        };
+        }
 
         if (isValidMaterial("GRASS")) {
             if (material == Material.valueOf("GRASS")) {

@@ -7,7 +7,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.MultipleFacing;
 
 public class MultipleFacingWestSouthWestData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isUsing = false;
     private boolean has;
     final BlockFace face = BlockFace.WEST_SOUTH_WEST;

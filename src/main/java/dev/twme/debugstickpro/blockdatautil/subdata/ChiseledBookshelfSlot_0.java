@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
 public class ChiseledBookshelfSlot_0 implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean slot_0;
     private boolean isUsing = false;
 
@@ -50,11 +50,7 @@ public class ChiseledBookshelfSlot_0 implements SubBlockData {
 
     public SubBlockData nextData() {
         ChiseledBookshelf chiseledBookshelf = ((ChiseledBookshelf) blockData);
-        if (chiseledBookshelf.isSlotOccupied(0)) {
-            chiseledBookshelf.setSlotOccupied(0, false);
-        } else {
-            chiseledBookshelf.setSlotOccupied(0, true);
-        }
+        chiseledBookshelf.setSlotOccupied(0, !chiseledBookshelf.isSlotOccupied(0));
         this.slot_0 = chiseledBookshelf.isSlotOccupied(0);
         return this;
     }

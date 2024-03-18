@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.TrialSpawner;
 
 public class TrialSpawnerData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private TrialSpawner.State state;
     private boolean isUsing = false;
 

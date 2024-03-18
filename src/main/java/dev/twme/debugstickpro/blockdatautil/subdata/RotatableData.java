@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class RotatableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private BlockFace blockFace;
     private boolean isUsing = false;
 

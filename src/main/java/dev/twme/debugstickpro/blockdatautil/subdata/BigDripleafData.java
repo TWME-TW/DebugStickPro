@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.BigDripleaf;
 
 public class BigDripleafData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private BigDripleaf.Tilt tilt;
     private boolean isUsing = false;
 

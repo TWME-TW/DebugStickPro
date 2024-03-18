@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.TechnicalPiston;
 
 public class TechnicalPistonData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private TechnicalPiston.Type type;
     private boolean isUsing = false;
 

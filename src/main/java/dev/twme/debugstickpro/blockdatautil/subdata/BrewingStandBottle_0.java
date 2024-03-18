@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.BrewingStand;
 
 public class BrewingStandBottle_0 implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean bottle;
     private boolean isUsing = false;
 

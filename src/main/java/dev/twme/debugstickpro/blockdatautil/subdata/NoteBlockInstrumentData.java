@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NoteBlockInstrumentData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Instrument instrument;
     private boolean isUsing = false;
 

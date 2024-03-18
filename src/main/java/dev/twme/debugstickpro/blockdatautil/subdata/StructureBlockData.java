@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.StructureBlock;
 
 public class StructureBlockData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private StructureBlock.Mode mode;
     private boolean isUsing = false;
 

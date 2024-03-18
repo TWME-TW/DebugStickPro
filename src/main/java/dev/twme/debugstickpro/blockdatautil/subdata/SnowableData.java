@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Snowable;
 
 public class SnowableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean snowy;
     private boolean isUsing = false;
 

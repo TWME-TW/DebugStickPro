@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Waterlogged;
 
 public class WaterloggedData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean waterlogged;
     private boolean isUsing = false;
 

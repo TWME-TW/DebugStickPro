@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Hopper;
 
 public class HopperData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean enabled;
     private boolean isUsing = false;
 

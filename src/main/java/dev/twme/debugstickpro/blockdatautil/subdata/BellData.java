@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bell;
 
 public class BellData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Bell.Attachment attachment;
     private boolean isUsing = false;
 

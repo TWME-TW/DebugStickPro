@@ -7,7 +7,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Wall;
 
 public class WallHeightNorthData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Wall.Height height;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Hatchable;
 
 public class HatchableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int hatch;
     private boolean isUsing = false;
 

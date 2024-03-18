@@ -15,7 +15,7 @@ public class ClassicModeBlockBlockDataChangingEvent extends Event implements Can
     private static final HandlerList HANDLERS = new HandlerList();
 
     private final UUID playerUUID;
-    private Block block;
+    private final Block block;
     private BlockData oldBlockData;
     private BlockData newBlockData;
     private boolean isCancelled = false;

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
 public class RepeaterDelayData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int delay;
     private boolean isUsing = false;
 

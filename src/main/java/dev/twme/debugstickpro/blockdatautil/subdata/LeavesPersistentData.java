@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Leaves;
 
 public class LeavesPersistentData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean persistent;
     private boolean isUsing;
 

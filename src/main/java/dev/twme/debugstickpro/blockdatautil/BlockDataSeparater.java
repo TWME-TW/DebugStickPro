@@ -16,7 +16,7 @@ import java.util.Set;
 public class BlockDataSeparater {
 
     // 快取
-    private static HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
+    private static final HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
 
     // 分解 BlockData 成 SubBlockData
     public static ArrayList<SubBlockData> separate(Block block) {

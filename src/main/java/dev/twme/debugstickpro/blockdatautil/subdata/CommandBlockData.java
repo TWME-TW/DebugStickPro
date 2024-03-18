@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CommandBlock;
 
 public class CommandBlockData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean conditional;
     private boolean isUsing = false;
 

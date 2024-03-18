@@ -7,7 +7,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RedstoneWire;
 
 public class RedstoneWireEastData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private RedstoneWire.Connection connection;
     final private BlockFace face = BlockFace.EAST;
     private boolean isUsing = false;

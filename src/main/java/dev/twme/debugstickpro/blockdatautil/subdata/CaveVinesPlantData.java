@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CaveVinesPlant;
 
 public class CaveVinesPlantData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isBerries;
     private boolean isUsing = false;
 

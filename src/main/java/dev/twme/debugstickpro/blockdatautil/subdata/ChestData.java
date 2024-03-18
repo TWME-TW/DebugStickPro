@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Chest;
 
 public class ChestData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Chest.Type type;
     private boolean isUsing = false;
 

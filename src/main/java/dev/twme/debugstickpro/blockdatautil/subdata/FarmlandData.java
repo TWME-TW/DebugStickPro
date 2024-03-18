@@ -7,7 +7,7 @@ import org.bukkit.block.data.type.Farmland;
 
 public class FarmlandData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private int moisture;
     private boolean isUsing = false;
 

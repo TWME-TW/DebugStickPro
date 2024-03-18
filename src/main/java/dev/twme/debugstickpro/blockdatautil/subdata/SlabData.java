@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Slab;
 
 public class SlabData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Slab.Type type;
     private boolean isUsing = false;
 

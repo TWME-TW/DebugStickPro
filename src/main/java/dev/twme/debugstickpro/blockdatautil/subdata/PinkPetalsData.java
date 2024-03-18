@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PinkPetals;
 
 public class PinkPetalsData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int flowerAmount;
     private boolean isUsing = false;
 

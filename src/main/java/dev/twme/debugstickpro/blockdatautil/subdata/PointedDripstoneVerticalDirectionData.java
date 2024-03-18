@@ -9,7 +9,7 @@ import org.bukkit.block.data.type.PointedDripstone;
 import java.util.List;
 
 public class PointedDripstoneVerticalDirectionData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private BlockFace verticalDirection;
     private boolean isUsing = false;
 

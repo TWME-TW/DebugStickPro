@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SeaPickle;
 
 public class SeaPickleData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int pickles;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bamboo;
 
 public class BambooData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Bamboo.Leaves leaves;
     private boolean isUsing = false;
 

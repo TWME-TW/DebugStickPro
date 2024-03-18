@@ -9,7 +9,7 @@ import org.bukkit.block.data.Orientable;
 import java.util.List;
 
 public class OrientableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Axis axis;
     private boolean isUsing = false;
 

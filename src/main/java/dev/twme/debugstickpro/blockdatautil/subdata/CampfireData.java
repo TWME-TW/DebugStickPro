@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Campfire;
 
 public class CampfireData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isSignalFire;
     private boolean isUsing = false;
 

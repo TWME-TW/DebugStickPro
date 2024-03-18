@@ -5,10 +5,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
 public class FreezeBlockData {
-    private Entity itemDisplay;
-    private Entity blockDisplay;
-    private Block block;
-    private String blockString;
+    private final Entity itemDisplay;
+    private final Entity blockDisplay;
+    private final Block block;
+    private final String blockString;
 
     public FreezeBlockData(Entity itemDisplay, Entity blockDisplay, Block block) {
         this.itemDisplay = itemDisplay;

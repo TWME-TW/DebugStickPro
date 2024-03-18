@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkShrieker;
 
 public class SculkShriekerShriekingData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isShrieking;
     private boolean isUsing = false;
 

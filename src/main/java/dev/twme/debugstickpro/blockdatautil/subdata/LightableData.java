@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Lightable;
 
 public class LightableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean lit;
     private boolean isUsing = false;
 

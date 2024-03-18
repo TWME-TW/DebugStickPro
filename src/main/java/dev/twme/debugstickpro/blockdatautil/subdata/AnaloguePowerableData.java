@@ -6,7 +6,7 @@ import org.bukkit.block.data.AnaloguePowerable;
 import org.bukkit.block.data.BlockData;
 
 public class AnaloguePowerableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int power;
     private boolean isUsing = false;
 

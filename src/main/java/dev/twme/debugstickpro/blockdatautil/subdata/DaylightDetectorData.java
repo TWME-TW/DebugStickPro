@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.DaylightDetector;
 
 public class DaylightDetectorData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean inverted;
     private boolean isUsing = false;
 

@@ -7,7 +7,7 @@ import org.bukkit.block.data.type.Gate;
 
 public class GateData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean inWall;
     private boolean isUsing = false;
 

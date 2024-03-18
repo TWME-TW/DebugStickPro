@@ -8,7 +8,7 @@ import org.bukkit.block.data.Rail;
 import java.util.List;
 
 public class RailData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Rail.Shape shape;
     private boolean isUsing = false;
 

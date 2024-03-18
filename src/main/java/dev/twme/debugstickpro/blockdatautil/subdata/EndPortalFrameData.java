@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.EndPortalFrame;
 
 public class EndPortalFrameData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean eye;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Sapling;
 
 public class SaplingData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int stage;
     private boolean isUsing = false;
 

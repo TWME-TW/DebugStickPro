@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PointedDripstone;
 
 public class PointedDripstoneThicknessData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private PointedDripstone.Thickness thickness;
     private boolean isUsing = false;
 

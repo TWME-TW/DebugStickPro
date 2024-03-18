@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Levelled;
 
 public class LevelledData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isUsing;
     private int level;
 

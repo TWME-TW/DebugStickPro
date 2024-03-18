@@ -72,9 +72,9 @@ public class ClassicRightClick {
         for (SubBlockData subBlockData : subBlockDataList) {
             if (subBlockData.isUsing()) {
                 if (player.isSneaking()) {
-                    previousData(playerUUID,block,subBlockData);
+                    previousData(playerUUID, block, subBlockData);
                 } else {
-                    nextData(playerUUID,block,subBlockData);
+                    nextData(playerUUID, block, subBlockData);
                 }
                 block.getState().update();
                 callClassicModeChangedBlockEvent(playerUUID, block);
@@ -96,7 +96,7 @@ public class ClassicRightClick {
             return;
         }
 
-        block.setBlockData(event.getNewBlockData(),false);
+        block.setBlockData(event.getNewBlockData(), false);
     }
 
     private static void previousData(UUID playerUUID, Block block, SubBlockData subBlockData) {
@@ -108,7 +108,7 @@ public class ClassicRightClick {
             return;
         }
 
-        block.setBlockData(event.getNewBlockData(),false);
+        block.setBlockData(event.getNewBlockData(), false);
     }
 
     private static void callClassicModeChangedBlockEvent(UUID playerUUID, Block block) {

@@ -7,7 +7,7 @@ import org.bukkit.block.data.type.Bed;
 
 public class BedData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private Bed.Part part;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Beehive;
 
 public class BeehiveData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int honeyLevel;
     private boolean isUsing = false;
 

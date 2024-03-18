@@ -7,7 +7,7 @@ import org.bukkit.block.data.BlockData;
 
 public class BisectedData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private Bisected.Half half;
     private boolean isUsing = false;
 

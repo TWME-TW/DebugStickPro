@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Jigsaw;
 
 public class JigsawData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Jigsaw.Orientation orientation;
     private boolean isUsing = false;
 

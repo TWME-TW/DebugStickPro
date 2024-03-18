@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.FaceAttachable;
 
 public class FaceAttachableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private FaceAttachable.AttachedFace attachedFace;
     private boolean isUsing = false;
 

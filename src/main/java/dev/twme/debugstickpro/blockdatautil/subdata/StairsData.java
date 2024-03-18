@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
 
 public class StairsData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private Stairs.Shape shape;
     private boolean isUsing = false;
 

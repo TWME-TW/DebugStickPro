@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Scaffolding;
 
 public class ScaffoldingBottomData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean bottom;
     private boolean isUsing = false;
 

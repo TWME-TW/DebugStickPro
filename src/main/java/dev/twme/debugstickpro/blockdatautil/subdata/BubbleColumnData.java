@@ -7,7 +7,7 @@ import org.bukkit.block.data.type.BubbleColumn;
 
 public class BubbleColumnData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean hasBubbleColumn;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.TurtleEgg;
 
 public class TurtleEggData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int eggs;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Brushable;
 
 public class BrushableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private int dusted;
     private boolean isUsing = false;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Candle;
 
 public class CandleData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isUsing = false;
     private int candleCount;
 

@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkSensor;
 
 public class SculkSensorData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private SculkSensor.Phase phase;
     private boolean isUsing = false;
 

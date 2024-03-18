@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Hangable;
 
 public class HangableData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean hangable;
     private boolean isUsing = false;
 

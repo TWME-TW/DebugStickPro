@@ -7,7 +7,7 @@ import org.bukkit.block.data.BlockData;
 
 public class AttachableData implements SubBlockData {
 
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean isAttached;
     private boolean isUsing = false;
 

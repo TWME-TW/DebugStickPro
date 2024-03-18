@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 
 public class CrafterTriggerData implements SubBlockData {
-    private BlockData blockData;
+    private final BlockData blockData;
     private boolean triggered;
     private boolean isUsing = false;
 
