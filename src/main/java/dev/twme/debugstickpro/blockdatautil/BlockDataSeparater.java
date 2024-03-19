@@ -19,6 +19,7 @@ public class BlockDataSeparater {
     private static final HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
 
     // 分解 BlockData 成 SubBlockData
+    // separate BlockData into SubBlockData
     public static ArrayList<SubBlockData> separate(Block block) {
         return separate(block.getBlockData());
     }
@@ -42,6 +43,7 @@ public class BlockDataSeparater {
         }
     }
 
+    // filter SubBlockData
     private static ArrayList<SubBlockData> filterSubBlockData(ArrayList<SubBlockData> blockDataList) {
 
         if (ConfigFile.BlockDataFilter.Whitelist.Enabled && !ConfigFile.BlockDataFilter.Whitelist.Whitelist.contains("*")) {
@@ -56,11 +58,13 @@ public class BlockDataSeparater {
     }
 
     // 分解 BlockData 成 SubBlockData
+    // separate BlockData into SubBlockData
     public static ArrayList<SubBlockData> separate(BlockData blockData) {
 
 
         ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
 
+        // when cached, use it
         if (cache.containsKey(blockData.getMaterial())) {
 
             for (SubBlockData subBlockData : cache.get(blockData.getMaterial())) {
@@ -72,6 +76,8 @@ public class BlockDataSeparater {
         if (blockData == null) {
             return blockDataList;
         }
+
+        // start separate !!
 
         if (blockData instanceof Ageable) {
             SubBlockData ageableUtil = new AgeableData(blockData);

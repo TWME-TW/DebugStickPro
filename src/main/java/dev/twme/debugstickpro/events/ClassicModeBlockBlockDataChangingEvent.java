@@ -10,7 +10,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
-
+// when a player changes the block data of a block in classic mode
 public class ClassicModeBlockBlockDataChangingEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
 

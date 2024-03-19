@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
+// when a player copies (not copied) the block data of a block
 public class CopyBlockDataEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private boolean isCancelled = false;

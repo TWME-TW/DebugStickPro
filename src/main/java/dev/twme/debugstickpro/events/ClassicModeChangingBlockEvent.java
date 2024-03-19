@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+// when a player changing(not changed) the block of a block in classic mode
 public class ClassicModeChangingBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private final UUID playerUUID;

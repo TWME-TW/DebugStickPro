@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+// when a player changes (changed) the block of a block in classic mode
 public class ClassicModeChangedBlockEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
 

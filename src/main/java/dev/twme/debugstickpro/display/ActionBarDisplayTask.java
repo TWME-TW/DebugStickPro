@@ -18,6 +18,8 @@ public class ActionBarDisplayTask implements Runnable{
             Player player = Bukkit.getPlayer(uuid);
 
             Block block;
+
+            // player is offline or something
             if (player == null) {
                 continue;
             }
