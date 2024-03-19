@@ -13,6 +13,6 @@ public class PlayerQuitListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         PlayerDataManager.removePlayerFromDisplayList(uuid);
         PlayerDataManager.removePlayerData(uuid);
-        FreezeBlockManager.removeAllBlock(uuid);
+        FreezeBlockManager.removeAllPlayerFrozenBlock(uuid);
     }
 }

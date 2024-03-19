@@ -20,9 +20,9 @@ import java.util.UUID;
 
 public class FreezeBlockManager {
     private static final HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
-    private static final HashMap<UUID, ArrayList<FreezeBlockData>> freezeBlockData = new HashMap<>();
+    private static final HashMap<UUID, ArrayList<FreezeBlockData>> playerFrozenBlockData = new HashMap<>();
 
-    public static void addBlock(UUID playerUUID, Block block) {
+    public static void freezeBlock(UUID playerUUID, Block block) {
         Location location = block.getLocation();
         FreezeLocation freezeLocation = new FreezeLocation(location);
         if (freezeBlockLocations.contains(freezeLocation)) {
@@ -32,60 +32,34 @@ public class FreezeBlockManager {
         if (event.isCancelled()){
             return;
         }
-        Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
 
 
-        // spawn item display
-
-        Entity entity = location.getWorld().spawnEntity(entityLocation, EntityType.ITEM_DISPLAY);
-        ItemDisplay itemDisplay = (ItemDisplay) entity;
-        ItemStack itemStack = new ItemStack(Material.TINTED_GLASS, 1);
-        itemDisplay.setItemStack(itemStack);
-
-        Transformation transformation = itemDisplay.getTransformation();
-        transformation.getScale().set(1.0001F);
-        itemDisplay.setTransformation(transformation);
-
-        entity.setGlowing(true);
-        entity.setInvulnerable(true);
-
-        // Entity entity = location.getWorld().spawnEntity(entityLocation,EntityType.SHULKER);
-        // entity.setGlowing(true);
-        // entity.setInvulnerable(true);
-        // LivingEntity livingEntity = (LivingEntity) entity;
-        // livingEntity.setInvisible(true);
-        // livingEntity.setAI(false);
-        // livingEntity.setSilent(true);
-        // livingEntity.setCollidable(false);
-        // livingEntity.setGravity(false);
-
-
-        // spawn block display
-        Location location1 = SpecialBlockFilter.filter(block.getType(), location);
-
-        Entity blockEntity = location.getWorld().spawnEntity(location1, EntityType.BLOCK_DISPLAY);
-        BlockDisplay blockDisplay = (BlockDisplay) blockEntity;
-        blockDisplay.setBlock(block.getBlockData());
-        blockEntity.setInvulnerable(true);
-
-        entity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
-        blockEntity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
-
-        if (!freezeBlockData.containsKey(playerUUID)) {
-            freezeBlockData.put(playerUUID, new ArrayList<>());
+        // create player freeze block data list
+        if (!playerFrozenBlockData.containsKey(playerUUID)) {
+            playerFrozenBlockData.put(playerUUID, new ArrayList<>());
         }
+        ArrayList<FreezeBlockData> freezeBlockList = playerFrozenBlockData.get(playerUUID);
 
-        ArrayList<FreezeBlockData> freezeBlockList = freezeBlockData.get(playerUUID);
-        FreezeBlockData freezeBlock = new FreezeBlockData(entity, blockDisplay, block);
+        // create and add freeze block to freezeBlockList
+        FreezeBlockData freezeBlock = freezeBlockBuilder(playerUUID, location);
         freezeBlockList.add(freezeBlock);
+
+        // set block to barrier
         block.setType(Material.BARRIER, false);
         block.getState().update();
-        freezeBlockData.put(playerUUID, freezeBlockList);
+
+        // add freeze block recode to playerFreezeBlockDataList
+        playerFrozenBlockData.put(playerUUID, freezeBlockList);
+
+        // add freeze block to freezeBlockLocations
         freezeBlockLocations.add(freezeLocation);
     }
 
-    public static void removeBlock(UUID playerUUID, Block block) {
-        if (!freezeBlockData.containsKey(playerUUID)) {
+    // when player right-click a freeze block , unfreeze it!
+    public static void removeOneBlock(UUID playerUUID, Block block) {
+
+        // no data
+        if (!playerFrozenBlockData.containsKey(playerUUID)) {
             return;
         }
 
@@ -94,7 +68,7 @@ public class FreezeBlockManager {
             return;
         }
 
-        ArrayList<FreezeBlockData> freezeBlocks = freezeBlockData.get(playerUUID);
+        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
 
         for (FreezeBlockData f : freezeBlocks) {
             if (f.getBlock().getType() != Material.BARRIER) {
@@ -113,11 +87,12 @@ public class FreezeBlockManager {
         block.getState().update();
     }
 
-    public static void removeAllBlock(UUID playerUUID) {
-        if (!freezeBlockData.containsKey(playerUUID)) {
+    // when player left-click, remove all this player frozen blocks
+    public static void removeAllPlayerFrozenBlock(UUID playerUUID) {
+        if (!playerFrozenBlockData.containsKey(playerUUID)) {
             return;
         }
-        ArrayList<FreezeBlockData> freezeBlocks = freezeBlockData.get(playerUUID);
+        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
         for (FreezeBlockData f : freezeBlocks) {
 
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
@@ -133,7 +108,7 @@ public class FreezeBlockManager {
                 freezeBlockLocations.remove(freezeLocation);
             }
         }
-        freezeBlockData.remove(playerUUID);
+        playerFrozenBlockData.remove(playerUUID);
     }
 
     public static boolean isFreezeBlock(Location location) {
@@ -147,14 +122,15 @@ public class FreezeBlockManager {
         }
         UUID playerUUID = UUID.fromString(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING));
 
-        if (!freezeBlockData.containsKey(playerUUID)) {
+        if (!playerFrozenBlockData.containsKey(playerUUID)) {
             removeNullPlayerEntityAndBlock(entity);
             return;
         }
-        removeBlock(playerUUID, entity.getLocation().getBlock());
+        removeOneBlock(playerUUID, entity.getLocation().getBlock());
 
     }
 
+    // remove freeze block when no freeze block data on player
     private static void removeNullPlayerEntityAndBlock(Entity entity){
         if (entity.getType() != EntityType.ITEM_DISPLAY || entity.getType() != EntityType.BLOCK_DISPLAY) {
             return;
@@ -162,7 +138,9 @@ public class FreezeBlockManager {
 
         Material material = entity.getLocation().getBlock().getType();
         Location location = entity.getLocation();
+
         boolean notBarrierOrAir = material != Material.BARRIER && material != Material.AIR && material != Material.CAVE_AIR && material != Material.VOID_AIR;
+
         if (entity.getType() == EntityType.ITEM_DISPLAY) {
             if (notBarrierOrAir) {
                 entity.remove();
@@ -189,9 +167,9 @@ public class FreezeBlockManager {
     }
 
     public static void removeOnServerClose(){
-        if (!freezeBlockData.isEmpty()) {
-            for (UUID playerUUID : freezeBlockData.keySet()) {
-                removeAllBlock(playerUUID);
+        if (!playerFrozenBlockData.isEmpty()) {
+            for (UUID playerUUID : playerFrozenBlockData.keySet()) {
+                removeAllPlayerFrozenBlock(playerUUID);
             }
         }
         if (!freezeBlockLocations.isEmpty()) {
@@ -202,9 +180,43 @@ public class FreezeBlockManager {
     }
 
     public static int getFreezeBlockCount(UUID playerUUID) {
-        if (!freezeBlockData.containsKey(playerUUID)) {
+        if (!playerFrozenBlockData.containsKey(playerUUID)) {
             return 0;
         }
-        return freezeBlockData.get(playerUUID).size();
+        return playerFrozenBlockData.get(playerUUID).size();
+    }
+
+    public static FreezeBlockData freezeBlockBuilder(UUID playerUUID, Location location) {
+
+        Block block = location.getBlock();
+        // offset location
+        Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
+        // spawn item display
+
+        Entity entity = location.getWorld().spawnEntity(entityLocation, EntityType.ITEM_DISPLAY);
+        ItemDisplay itemDisplay = (ItemDisplay) entity;
+        ItemStack itemStack = new ItemStack(Material.TINTED_GLASS, 1);
+        itemDisplay.setItemStack(itemStack);
+
+        Transformation transformation = itemDisplay.getTransformation();
+        transformation.getScale().set(1.0001F);
+        itemDisplay.setTransformation(transformation);
+
+        entity.setGlowing(true);
+        entity.setInvulnerable(true);
+
+        // spawn block display
+        Location location1 = SpecialBlockFilter.filter(block.getType(), location);
+
+        Entity blockEntity = location.getWorld().spawnEntity(location1, EntityType.BLOCK_DISPLAY);
+        BlockDisplay blockDisplay = (BlockDisplay) blockEntity;
+        blockDisplay.setBlock(block.getBlockData());
+        blockEntity.setInvulnerable(true);
+
+        // add persistent data
+        entity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
+        blockEntity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
+
+        return new FreezeBlockData(blockDisplay, itemDisplay, block);
     }
 }

@@ -32,7 +32,7 @@ public class PlayerChangeDebugStickModeEventListener implements Listener {
 
         if (ConfigFile.ModeSetting.FreezeMode.UnfreezeAllBlockWhenModeChange) {
             if (event.getPreviousMode() == DebugStickMode.FREEZE && !(event.getNewMode() == DebugStickMode.FREEZE)) {
-                FreezeBlockManager.removeAllBlock(event.getPlayerUUID());
+                FreezeBlockManager.removeAllPlayerFrozenBlock(event.getPlayerUUID());
             }
         }
     }
