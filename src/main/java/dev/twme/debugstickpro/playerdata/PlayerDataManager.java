@@ -61,28 +61,28 @@ public class PlayerDataManager {
 
         ActionbarUtil.removeActionBar(uuid);
         switch (playerData.getDebugStickMode()) {
-            case Classic:
+            case CLASSIC:
                 if (player.hasPermission("debugstickpro.mode.copy")) {
-                    if (modeChangeEventCancelled(uuid, DebugStickMode.Classic, DebugStickMode.Copy)) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.CLASSIC, DebugStickMode.COPY)) {
                         return;
                     }
-                    playerData.setDebugStickMode(DebugStickMode.Copy);
+                    playerData.setDebugStickMode(DebugStickMode.COPY);
                     break;
                 }
-            case Copy:
+            case COPY:
                 if (player.hasPermission("debugstickpro.mode.freeze")) {
-                    if (modeChangeEventCancelled(uuid, DebugStickMode.Copy, DebugStickMode.Freeze)) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.COPY, DebugStickMode.FREEZE)) {
                         return;
                     }
-                    playerData.setDebugStickMode(DebugStickMode.Freeze);
+                    playerData.setDebugStickMode(DebugStickMode.FREEZE);
                     break;
                 }
-            case Freeze:
-                if (modeChangeEventCancelled(uuid, DebugStickMode.Freeze, DebugStickMode.Classic)) {
+            case FREEZE:
+                if (modeChangeEventCancelled(uuid, DebugStickMode.FREEZE, DebugStickMode.CLASSIC)) {
                     return;
                 }
             default:
-                playerData.setDebugStickMode(DebugStickMode.Classic);
+                playerData.setDebugStickMode(DebugStickMode.CLASSIC);
                 break;
         }
     }
@@ -93,28 +93,28 @@ public class PlayerDataManager {
 
         ActionbarUtil.removeActionBar(uuid);
         switch (playerData.getDebugStickMode()) {
-            case Classic:
+            case CLASSIC:
                 if (player.hasPermission("debugstickpro.mode.freeze")) {
-                    if (modeChangeEventCancelled(uuid, DebugStickMode.Classic, DebugStickMode.Freeze)) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.CLASSIC, DebugStickMode.FREEZE)) {
                         return;
                     }
-                    playerData.setDebugStickMode(DebugStickMode.Freeze);
+                    playerData.setDebugStickMode(DebugStickMode.FREEZE);
                     break;
                 }
-            case Freeze:
+            case FREEZE:
                 if (player.hasPermission("debugstickpro.mode.copy")) {
-                    if (modeChangeEventCancelled(uuid, DebugStickMode.Freeze, DebugStickMode.Copy)) {
+                    if (modeChangeEventCancelled(uuid, DebugStickMode.FREEZE, DebugStickMode.COPY)) {
                         return;
                     }
-                    playerData.setDebugStickMode(DebugStickMode.Copy);
+                    playerData.setDebugStickMode(DebugStickMode.COPY);
                     break;
                 }
-            case Copy:
-                if (modeChangeEventCancelled(uuid, DebugStickMode.Copy, DebugStickMode.Classic)) {
+            case COPY:
+                if (modeChangeEventCancelled(uuid, DebugStickMode.COPY, DebugStickMode.CLASSIC)) {
                     return;
                 }
             default:
-                playerData.setDebugStickMode(DebugStickMode.Classic);
+                playerData.setDebugStickMode(DebugStickMode.CLASSIC);
                 break;
         }
     }
@@ -130,13 +130,13 @@ public class PlayerDataManager {
         PlayerData playerData = getPlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
-            case Classic:
+            case CLASSIC:
                 ClassicLeftClick.changeSelectedSubBlockType(uuid, playerData);
                 break;
-            case Copy:
+            case COPY:
                 CopyLeftClick.onLeftClick(uuid, playerData);
                 break;
-            case Freeze:
+            case FREEZE:
                 FreezeBlockManager.removeAllBlock(uuid);
                 break;
         }
@@ -147,13 +147,13 @@ public class PlayerDataManager {
         PlayerData playerData = getPlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
-            case Classic:
+            case CLASSIC:
                 ClassicRightClick.changeSelectedSubBlockDataValue(uuid, playerData);
                 break;
-            case Copy:
+            case COPY:
                 CopyRightClick.onRightClick(uuid, playerData);
                 break;
-            case Freeze:
+            case FREEZE:
                 FreezeRightClick.onRightClick(uuid);
                 break;
         }

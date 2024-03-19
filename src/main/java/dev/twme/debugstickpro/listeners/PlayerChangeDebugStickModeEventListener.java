@@ -1,6 +1,5 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
@@ -20,19 +19,19 @@ public class PlayerChangeDebugStickModeEventListener implements Listener {
         }
 
         if (ConfigFile.ModeSetting.ClassicMode.ClearSelectedDataTypeWhenModeChange) {
-            if (event.getPreviousMode() == DebugStickMode.Classic && !(event.getNewMode() == DebugStickMode.Classic)) {
+            if (event.getPreviousMode() == DebugStickMode.CLASSIC && !(event.getNewMode() == DebugStickMode.CLASSIC)) {
                 PlayerDataManager.setPlayerData(event.getPlayerUUID(), PlayerDataManager.getPlayerData(event.getPlayerUUID()).setSelectedSubBlockDayaType(null));
             }
         }
 
         if (ConfigFile.ModeSetting.CopyMode.ClearStoredDataWhenModeChange) {
-            if (event.getPreviousMode() == DebugStickMode.Copy && !(event.getNewMode() == DebugStickMode.Copy)) {
+            if (event.getPreviousMode() == DebugStickMode.COPY && !(event.getNewMode() == DebugStickMode.COPY)) {
                 PlayerDataManager.setPlayerData(event.getPlayerUUID(), PlayerDataManager.getPlayerData(event.getPlayerUUID()).setCopiedSubBlockData(new ArrayList<>()));
             }
         }
 
         if (ConfigFile.ModeSetting.FreezeMode.UnfreezeAllBlockWhenModeChange) {
-            if (event.getPreviousMode() == DebugStickMode.Freeze && !(event.getNewMode() == DebugStickMode.Freeze)) {
+            if (event.getPreviousMode() == DebugStickMode.FREEZE && !(event.getNewMode() == DebugStickMode.FREEZE)) {
                 FreezeBlockManager.removeAllBlock(event.getPlayerUUID());
             }
         }

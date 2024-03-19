@@ -93,11 +93,11 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                 if (strings[1].equalsIgnoreCase("classic")) {
                     PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
 
-                    if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.Classic)) {
+                    if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.CLASSIC)) {
                         return true;
                     }
 
-                    PlayerDataManager.setPlayerData(player.getUniqueId(),playerData.setDebugStickMode(DebugStickMode.Classic));
+                    PlayerDataManager.setPlayerData(player.getUniqueId(),playerData.setDebugStickMode(DebugStickMode.CLASSIC));
                     Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToClassic);
                     player.sendMessage(parsed);
                     return true;
@@ -106,11 +106,11 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                     if (player.hasPermission("debugstickpro.mode.copy")) {
                         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
 
-                        if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.Copy)) {
+                        if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.COPY)) {
                             return true;
                         }
 
-                        PlayerDataManager.setPlayerData(player.getUniqueId(),playerData.setDebugStickMode(DebugStickMode.Copy));
+                        PlayerDataManager.setPlayerData(player.getUniqueId(),playerData.setDebugStickMode(DebugStickMode.COPY));
                         Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToCopy);
                         player.sendMessage(parsed);
                         return true;
@@ -124,11 +124,11 @@ public class MainCommands implements CommandExecutor , TabCompleter {
                     if (player.hasPermission("debugstickpro.mode.freeze")) {
                         PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
 
-                        if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.Freeze)) {
+                        if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.FREEZE)) {
                             return true;
                         }
 
-                        PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.Freeze));
+                        PlayerDataManager.setPlayerData(player.getUniqueId(),PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.FREEZE));
                         Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToFreeze);
                         player.sendMessage(parsed);
                         return true;

@@ -13,7 +13,7 @@ public class PlayerData {
     private ArrayList<SubBlockData> copiedSubBlockData = new ArrayList<>();
 
     /* 除錯棒模式，預設為 Classic */
-    private DebugStickMode debugStickMode = DebugStickMode.Classic;
+    private DebugStickMode debugStickMode = DebugStickMode.CLASSIC;
 
     /*
      * 設置被選到的 SubBlockData 類型

@@ -31,17 +31,17 @@ public class ActionBarDisplayTask implements Runnable{
             PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
 
             switch (playerData.getDebugStickMode()) {
-                case Classic:
+                case CLASSIC:
                     if (block == null) {
                         ActionbarUtil.removeActionBar(uuid);
                         continue;
                     }
                     ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block.getBlockData()));
                     continue;
-                case Copy:
+                case COPY:
                     ActionbarUtil.sendActionBar(player, CopyActionBarDisplay.getDisplay(uuid));
                     continue;
-                case Freeze:
+                case FREEZE:
                     ActionbarUtil.sendActionBar(player, FreezeActionBarDisplay.getDisplay(uuid));
                     continue;
             }
