@@ -6,7 +6,7 @@ import org.bukkit.Tag;
 
 import java.util.Random;
 
-public class SpecialBlockFilter {
+public class SpecialBlockLocationOffsetFilter {
     private static final Random RANDOM = new Random();
 
     public static Location filter(Material material, Location location) {

@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.NewFreezeBlockManager;
 import dev.twme.debugstickpro.util.DebugStickItem;
 import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
 import org.bukkit.Location;
@@ -12,8 +12,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BlockBreakEventListener implements Listener {
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event) {
-        Location location = event.getBlock().getLocation();
-        if (FreezeBlockManager.isFreezeBlock(location)) {
+
+        if (NewFreezeBlockManager.isFreezeBlock(event.getBlock())) {
             event.setCancelled(true);
             return;
         }

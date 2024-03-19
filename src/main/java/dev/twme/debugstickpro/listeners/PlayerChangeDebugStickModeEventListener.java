@@ -3,7 +3,7 @@ package dev.twme.debugstickpro.listeners;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.NewFreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.DebugStickMode;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.event.EventHandler;
@@ -33,7 +33,7 @@ public class PlayerChangeDebugStickModeEventListener implements Listener {
 
         if (ConfigFile.ModeSetting.FreezeMode.UnfreezeAllBlockWhenModeChange) {
             if (event.getPreviousMode() == DebugStickMode.Freeze && !(event.getNewMode() == DebugStickMode.Freeze)) {
-                FreezeBlockManager.removeAllBlock(event.getPlayerUUID());
+                NewFreezeBlockManager.clearPlayerFreezeBlock(event.getPlayerUUID());
             }
         }
     }

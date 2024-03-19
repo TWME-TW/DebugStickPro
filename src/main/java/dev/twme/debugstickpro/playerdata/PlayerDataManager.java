@@ -6,8 +6,9 @@ import dev.twme.debugstickpro.mode.classic.ClassicLeftClick;
 import dev.twme.debugstickpro.mode.classic.ClassicRightClick;
 import dev.twme.debugstickpro.mode.copy.CopyLeftClick;
 import dev.twme.debugstickpro.mode.copy.CopyRightClick;
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
-import dev.twme.debugstickpro.mode.freeze.FreezeRightClick;
+
+import dev.twme.debugstickpro.mode.freeze.NewFreezeLeftClick;
+import dev.twme.debugstickpro.mode.freeze.NewFreezeRightClick;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -137,7 +138,7 @@ public class PlayerDataManager {
                 CopyLeftClick.onLeftClick(uuid, playerData);
                 break;
             case Freeze:
-                FreezeBlockManager.removeAllBlock(uuid);
+                NewFreezeLeftClick.onLeftClick(uuid);
                 break;
         }
     }
@@ -154,7 +155,7 @@ public class PlayerDataManager {
                 CopyRightClick.onRightClick(uuid, playerData);
                 break;
             case Freeze:
-                FreezeRightClick.onRightClick(uuid);
+                NewFreezeRightClick.onRightClick(uuid);
                 break;
         }
     }

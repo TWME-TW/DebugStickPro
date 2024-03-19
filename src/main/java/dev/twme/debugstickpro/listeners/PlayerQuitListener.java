@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.NewFreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +13,6 @@ public class PlayerQuitListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         PlayerDataManager.removePlayerFromDisplayList(uuid);
         PlayerDataManager.removePlayerData(uuid);
-        FreezeBlockManager.removeAllBlock(uuid);
+        NewFreezeBlockManager.clearPlayerFreezeBlock(uuid);
     }
 }

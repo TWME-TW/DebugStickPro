@@ -6,9 +6,10 @@ import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.configs.LangLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.commands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.mode.freeze.NewFreezeBlockLocation;
+import dev.twme.debugstickpro.mode.freeze.NewFreezeBlockManager;
 import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -43,7 +44,7 @@ public final class DebugStickPro extends JavaPlugin {
     }
 
     public void onReload() {
-        FreezeBlockManager.removeOnServerClose();
+
         unregisterTasks();
         ConfigLoader.getInstance().load();
         LangLoader.getInstance().load();
@@ -53,7 +54,7 @@ public final class DebugStickPro extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        FreezeBlockManager.removeOnServerClose();
+        NewFreezeBlockManager.clearOnServerClose();
     }
 
     private void registerCommands() {
