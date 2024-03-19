@@ -6,7 +6,6 @@ import dev.twme.debugstickpro.mode.classic.ClassicLeftClick;
 import dev.twme.debugstickpro.mode.classic.ClassicRightClick;
 import dev.twme.debugstickpro.mode.copy.CopyLeftClick;
 import dev.twme.debugstickpro.mode.copy.CopyRightClick;
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeLeftClick;
 import dev.twme.debugstickpro.mode.freeze.FreezeRightClick;
 import org.bukkit.Bukkit;

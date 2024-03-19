@@ -26,33 +26,31 @@ public class PlayerData {
         return this;
     }
 
-    // 設置該玩家在複製模式下複製的方塊資料
+    // set player copied SubBlockData
     public PlayerData setCopiedSubBlockData(ArrayList<SubBlockData> copiedSubBlockData) {
         this.copiedSubBlockData = copiedSubBlockData;
         return this;
     }
 
-    // 設置玩家的除錯棒模式
+    // set player debug stick mode
     public PlayerData setDebugStickMode(DebugStickMode debugStickMode) {
         this.debugStickMode = debugStickMode;
         return this;
     }
 
-    // 獲取玩家選鑿的
+    // get player selected SubBlockData type
     public String getSelectedSubBlockDataType() {
         return selectedSubBlockDataType;
     }
 
+    // get player copied SubBlockData
     public ArrayList<SubBlockData> getCopiedSubBlockData() {
         return copiedSubBlockData;
     }
 
+    // get player debug stick mode
     public DebugStickMode getDebugStickMode() {
         return debugStickMode;
     }
-
-
-
-
 
 }

@@ -45,6 +45,7 @@ public final class DebugStickPro extends JavaPlugin {
     public void onReload() {
         FreezeBlockManager.removeOnServerClose();
         unregisterTasks();
+
         ConfigLoader.getInstance().load();
         LangLoader.getInstance().load();
         registerTasks();
@@ -81,6 +82,8 @@ public final class DebugStickPro extends JavaPlugin {
     }
 
     private void registerTasks() {
+
+        // this is a task that will display the action bar
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         taskID = scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
     }

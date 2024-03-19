@@ -9,6 +9,7 @@ import java.util.Random;
 public class SpecialBlockFilter {
     private static final Random RANDOM = new Random();
 
+    //This class is designed to solve the problem of special offsets when special blocks are displayed on the client.
     public static Location filter(Material material, Location location) {
 
         if (Tag.FLOWERS.isTagged(material)) {
