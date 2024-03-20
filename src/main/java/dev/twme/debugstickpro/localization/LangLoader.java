@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.configs;
+package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.util.Log;

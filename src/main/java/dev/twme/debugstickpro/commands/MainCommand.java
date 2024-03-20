@@ -4,7 +4,7 @@ import dev.twme.debugstickpro.commands.subcommand.GiveCommand;
 import dev.twme.debugstickpro.commands.subcommand.HelpCommand;
 import dev.twme.debugstickpro.commands.subcommand.ModeCommand;
 import dev.twme.debugstickpro.commands.subcommand.ReloadCommand;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.LangFile;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;

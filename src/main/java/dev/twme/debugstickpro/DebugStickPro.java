@@ -5,10 +5,12 @@ import dev.twme.debugstickpro.commands.MainCommandTabComplete;
 import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
-import dev.twme.debugstickpro.configs.LangLoader;
+import dev.twme.debugstickpro.localization.LangLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.localization.NewLangFileManager;
+import dev.twme.debugstickpro.localization.PlayerLocaleChangeEventListener;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Bukkit;
@@ -37,6 +39,7 @@ public final class DebugStickPro extends JavaPlugin {
 
         ConfigLoader.getInstance().load();
         LangLoader.getInstance().load();
+        NewLangFileManager.initialization();
 
         registerCommands();
         registerListeners();
@@ -77,6 +80,7 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new WorldUnloadEventListener());
         registerListener(new PlayerChangedWorldEventListener());
         registerListener(new PlayerChangeDebugStickModeEventListener());
+        registerListener(new PlayerLocaleChangeEventListener());
     }
 
     private void registerListener(Listener listener) {

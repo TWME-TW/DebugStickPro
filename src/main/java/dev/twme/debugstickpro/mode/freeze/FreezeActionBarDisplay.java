@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.mode.freeze;
 
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.LangFile;
 
 import java.util.UUID;
 

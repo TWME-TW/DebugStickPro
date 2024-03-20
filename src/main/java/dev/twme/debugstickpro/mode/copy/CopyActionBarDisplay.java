@@ -1,11 +1,10 @@
 package dev.twme.debugstickpro.mode.copy;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.LangFile;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

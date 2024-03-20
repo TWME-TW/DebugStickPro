@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.LangFile;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.SculkCatalyst;
 

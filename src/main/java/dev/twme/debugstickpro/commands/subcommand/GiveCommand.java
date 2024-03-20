@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.commands.subcommand;
 
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.LangFile;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItem;
 import net.kyori.adventure.text.Component;

@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.configs;
+package dev.twme.debugstickpro.localization;
 
 import net.kyori.adventure.text.Component;
 

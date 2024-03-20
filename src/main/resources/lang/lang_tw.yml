@@ -1,11 +1,15 @@
 # Don't change this value
-LangFileVersion: 1
+LangFileVersion: 3
 
 CommandsMessages:
   Help:
-    Title: "DebugStickPro 說明"
-    Description: "使用 <b><u>/dsp help</u></b> 顯示此說明訊息。"
-    Usage: "用法: <b><u>/dsp [help|onReload|give] (玩家)</u></b>"
+    HelpMessage:
+      - "<b><gold>Debug Stick</gold></b> - <gray>Plugin to modify block data."
+      - "<gray>Commands:</gray>"
+      - "<gray>  /dsp reload - <gold>Reloads the plugin."
+      - "<gray>  /dsp give <player> - <gold>Gives Debug Stick to the player."
+      - "<gray>  /dsp mode <classic|copy|freeze> - <gold>Changes the mode of the Debug Stick."
+      - "<gray>  /dsp - <gold>Shows the help message."
   Reload:
     Success: "重新載入成功。"
   Give:
@@ -23,6 +27,7 @@ ActionBar:
   SelectedDataFormat: "<b><u><gold>%key%</gold></u></b>: %value%"
   NotSelectedDataFormat: "<b><aqua>%key%</aqua></b>: %value%"
   CopiedBlockDataFormat: "<b><red>%key%</red></b>: %value%"
+  FreezeBlockCount: "<aqua>%count%</aqua> blocks have been <blue>frozen</blue>."
 
 Tips:
   classicModeIntroduction: "<b><gold>經典模式</gold></b>: <b><green><key:key.attack></green></b> 選擇要修改的數據類型，<b><light_purple><key:key.use></light_purple></b> 更改該數據的值。"

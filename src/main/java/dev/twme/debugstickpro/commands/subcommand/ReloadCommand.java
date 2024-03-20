@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.commands.subcommand;
 
 import dev.twme.debugstickpro.DebugStickPro;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.LangFile;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
