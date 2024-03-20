@@ -155,11 +155,14 @@ public class FreezeBlockManager {
                 BlockDisplay blockDisplay = (BlockDisplay) entity;
                 BlockData blockData = blockDisplay.getBlock();
                 location.getBlock().setBlockData(blockData, false);
+                entity.remove();
+                location.getBlock().getState().update();
             }
         }
 
         if (location.getBlock().getType() == Material.BARRIER) {
             location.getBlock().setType(Material.AIR, false);
+            location.getBlock().getState().update();
         }
 
         FreezeLocation freezeLocation = new FreezeLocation(location);
