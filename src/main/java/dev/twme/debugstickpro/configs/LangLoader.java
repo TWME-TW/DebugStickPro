@@ -2,20 +2,24 @@ package dev.twme.debugstickpro.configs;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.util.Log;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LangLoader {
     private final static LangLoader instance = new LangLoader();
     private File file;
     private YamlConfiguration langFile;
+
     private LangLoader() {
     }
 
-    public void load(){
+    public void load() {
         file = new File(DebugStickPro.getInstance().getDataFolder(), "lang.yml");
 
         if (!file.exists()) {
@@ -33,20 +37,20 @@ public class LangLoader {
 
         LangFile.LangFileVersion = langFile.getInt("LangFileVersion");
 
-        if(!checkLangFileVersion()){
+        if (!checkLangFileVersion()) {
             load();
             return;
         }
         loadValues();
     }
 
-    public boolean checkLangFileVersion(){
-        if(LangFile.LangFileVersion != DebugStickPro.LangVersion){
+    public boolean checkLangFileVersion() {
+        if (LangFile.LangFileVersion != DebugStickPro.LangVersion) {
             Log.warning("Lang file version is not compatible with this version of the plugin.");
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             String strDate = formatter.format(date);
-            String backupFileName = file.getAbsolutePath().replace("lang","lang-" + strDate);
+            String backupFileName = file.getAbsolutePath().replace("lang", "lang-" + strDate);
 
             File newFile = new File(backupFileName);
             if (file.renameTo(newFile)) {
@@ -79,9 +83,12 @@ public class LangLoader {
 
     private void loadValues() {
 
-        LangFile.CommandsMessages.Help.Title = langFile.getString("CommandsMessages.Help.Title");
-        LangFile.CommandsMessages.Help.Description = langFile.getString("CommandsMessages.Help.Description");
-        LangFile.CommandsMessages.Help.Usage = langFile.getString("CommandsMessages.Help.Usage");
+        MiniMessage mm = MiniMessage.miniMessage();
+        ArrayList<Component> messages = new ArrayList<>();
+        for (String loreString : langFile.getStringList("CommandsMessages.Help.HelpMessage")) {
+            messages.add(mm.deserialize(loreString));
+        }
+        LangFile.CommandsMessages.Help.HelpMessage = messages;
 
         LangFile.CommandsMessages.Reload.Success = langFile.getString("CommandsMessages.Reload.Success");
 

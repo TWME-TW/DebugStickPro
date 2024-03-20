@@ -1,14 +1,15 @@
 package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
+import dev.twme.debugstickpro.commands.MainCommandTabComplete;
+import dev.twme.debugstickpro.commands.MainCommands;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.configs.LangLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
-import dev.twme.debugstickpro.commands.MainCommands;
 import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -23,7 +24,7 @@ public final class DebugStickPro extends JavaPlugin {
     public static final int ConfigVersion = 3;
 
     // TODO: 如果更改此值，請確保在 lang.yml 中也更改了相應的值
-    public static final int LangVersion = 2;
+    public static final int LangVersion = 3;
 
     @Override
     public void onEnable() {
@@ -59,6 +60,7 @@ public final class DebugStickPro extends JavaPlugin {
 
     private void registerCommands() {
         this.getCommand("debugstickpro").setExecutor(new MainCommands());
+        this.getCommand("debugstickpro").setTabCompleter(new MainCommandTabComplete());
     }
 
     private void registerListeners() {

@@ -1,14 +1,16 @@
 package dev.twme.debugstickpro.configs;
 
+import net.kyori.adventure.text.Component;
+
+import java.util.ArrayList;
+
 public class LangFile {
 
     public static int LangFileVersion;
 
     public static class CommandsMessages {
         public static class Help {
-            public static String Title;
-            public static String Description;
-            public static String Usage;
+            public static ArrayList<Component> HelpMessage;
         }
 
         public static class Reload {
@@ -26,29 +28,33 @@ public class LangFile {
             public static String SuccessSetToCopy;
             public static String SuccessSetToFreeze;
         }
+
         public static String NoPermission;
         public static String YouAreNotPlayer;
     }
 
     public static class ActionBar {
         public static String SelectedDataFormat;
-        public static String formatSelectedData(String key, String value){
+
+        public static String formatSelectedData(String key, String value) {
             return SelectedDataFormat.replace("%key%", key).replace("%value%", value);
         }
 
         public static String NotSelectedDataFormat;
-        public static String formatNotSelectedData(String key, String value){
+
+        public static String formatNotSelectedData(String key, String value) {
             return NotSelectedDataFormat.replace("%key%", key).replace("%value%", value);
         }
 
         public static String CopiedBlockDataFormat;
-        public static String formatCopiedBlockData(String key, String value){
+
+        public static String formatCopiedBlockData(String key, String value) {
             return CopiedBlockDataFormat.replace("%key%", key).replace("%value%", value);
         }
 
         public static String FreezeBlockCount;
 
-        public static String formatFreezeBlockCount(int count){
+        public static String formatFreezeBlockCount(int count) {
             return FreezeBlockCount.replace("%count%", String.valueOf(count));
         }
     }
