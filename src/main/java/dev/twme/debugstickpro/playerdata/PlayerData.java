@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.playerdata;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerData {
 
@@ -10,7 +11,7 @@ public class PlayerData {
     private String selectedSubBlockDataType = null;
 
     /* 用於顯示方塊資料 */
-    private ArrayList<SubBlockData> copiedSubBlockData = new ArrayList<>();
+    private List<SubBlockData> copiedSubBlockData = new ArrayList<>();
 
     /* 除錯棒模式，預設為 Classic */
     private DebugStickMode debugStickMode = DebugStickMode.CLASSIC;
@@ -44,7 +45,7 @@ public class PlayerData {
     }
 
     // get player copied SubBlockData
-    public ArrayList<SubBlockData> getCopiedSubBlockData() {
+    public List<SubBlockData> getCopiedSubBlockData() {
         return copiedSubBlockData;
     }
 

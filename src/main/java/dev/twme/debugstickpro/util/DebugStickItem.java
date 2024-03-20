@@ -11,7 +11,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 
-public class DebugStickItem {
+public final class DebugStickItem {
     public static boolean isDebugStickItem(ItemStack item) {
         if (item == null ) {
             return false;

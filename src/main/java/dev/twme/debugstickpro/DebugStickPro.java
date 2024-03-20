@@ -2,7 +2,7 @@ package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommandTabComplete;
-import dev.twme.debugstickpro.commands.MainCommands;
+import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.configs.LangLoader;
@@ -21,10 +21,10 @@ public final class DebugStickPro extends JavaPlugin {
     private int taskID;
 
     // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
-    public static final int ConfigVersion = 3;
+    public static final int CONFIG_VERSION = 3;
 
     // TODO: 如果更改此值，請確保在 lang.yml 中也更改了相應的值
-    public static final int LangVersion = 3;
+    public static final int LANG_VERSION = 3;
 
     @Override
     public void onEnable() {
@@ -59,7 +59,7 @@ public final class DebugStickPro extends JavaPlugin {
     }
 
     private void registerCommands() {
-        this.getCommand("debugstickpro").setExecutor(new MainCommands());
+        this.getCommand("debugstickpro").setExecutor(new MainCommand());
         this.getCommand("debugstickpro").setTabCompleter(new MainCommandTabComplete());
     }
 

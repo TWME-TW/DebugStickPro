@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.util;
 
 import org.bukkit.Bukkit;
 
-public class Log {
+public final class Log {
     private static final String prefix = "[DebugStickPro] ";
     public static void info(String message) {
         Bukkit.getLogger().info( prefix + message);

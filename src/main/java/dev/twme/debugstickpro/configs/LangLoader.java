@@ -45,7 +45,7 @@ public class LangLoader {
     }
 
     public boolean checkLangFileVersion() {
-        if (LangFile.LangFileVersion != DebugStickPro.LangVersion) {
+        if (LangFile.LangFileVersion != DebugStickPro.LANG_VERSION) {
             Log.warning("Lang file version is not compatible with this version of the plugin.");
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");

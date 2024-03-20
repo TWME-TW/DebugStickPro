@@ -3,7 +3,7 @@ package dev.twme.debugstickpro.util;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 
-public class CheckPlayerCanUseUtil {
+public final class CheckPlayerCanUseUtil {
     public static boolean check(Player player) {
         return check(player,true);
     }

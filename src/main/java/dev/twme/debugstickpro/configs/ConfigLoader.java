@@ -48,7 +48,7 @@ public class ConfigLoader {
     }
 
     private boolean checkConfigVersion() {
-        if (ConfigFile.ConfigVersion != DebugStickPro.ConfigVersion) {
+        if (ConfigFile.ConfigVersion != DebugStickPro.CONFIG_VERSION) {
             Log.warning("Config file version is not compatible with this version of the plugin.");
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");

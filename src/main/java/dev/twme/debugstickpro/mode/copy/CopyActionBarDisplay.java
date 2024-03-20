@@ -6,13 +6,14 @@ import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CopyActionBarDisplay {
     public static String getDisplay(UUID playerUUID) {
 
         PlayerData playerData = PlayerDataManager.getPlayerData(playerUUID);
-        ArrayList<SubBlockData> copiedSubBlockData = playerData.getCopiedSubBlockData();
+        List<SubBlockData> copiedSubBlockData = playerData.getCopiedSubBlockData();
 
         if (copiedSubBlockData.isEmpty()) {
             return LangFile.Tips.copyModeIntroduction;
