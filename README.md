@@ -77,6 +77,9 @@ Same as regular debugging stick operation:
 3. Restart your server.
 4. Enjoy!
 
+## Latest Dev Version:
+ - https://repo.twme.dev/#/snapshots/dev/twme/DebugStickPro
+
 ### Known Issues:
  - You have to sneak in order to change the Lit value of the candle.
 
