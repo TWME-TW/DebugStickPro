@@ -1,8 +1,8 @@
 package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
-import dev.twme.debugstickpro.commands.MainCommandTabComplete;
 import dev.twme.debugstickpro.commands.MainCommand;
+import dev.twme.debugstickpro.commands.MainCommandTabComplete;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
 import dev.twme.debugstickpro.configs.LangLoader;
