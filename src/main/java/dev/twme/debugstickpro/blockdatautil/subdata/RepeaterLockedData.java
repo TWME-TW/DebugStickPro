@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
@@ -22,7 +22,7 @@ public class RepeaterLockedData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.RepeaterLockedDataName;
+        return Lang.DataKeyName.RepeaterLockedDataName;
     }
 
     @Override

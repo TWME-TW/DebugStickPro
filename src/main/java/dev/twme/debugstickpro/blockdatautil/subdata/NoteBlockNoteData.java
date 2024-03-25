@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.Note;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.NoteBlock;
@@ -27,7 +27,7 @@ public class NoteBlockNoteData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.NoteBlockNoteDataName;
+        return Lang.DataKeyName.NoteBlockNoteDataName;
     }
 
     @Override

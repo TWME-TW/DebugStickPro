@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Lectern;
 
@@ -23,7 +23,7 @@ public class LecternData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.LectronDataName;
+        return Lang.DataKeyName.LectronDataName;
     }
 
     @Override

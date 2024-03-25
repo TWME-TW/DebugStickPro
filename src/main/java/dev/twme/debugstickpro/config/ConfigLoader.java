@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.configs;
+package dev.twme.debugstickpro.config;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.util.Log;
@@ -67,7 +67,7 @@ public class ConfigLoader {
 
     private void loadValues() {
 
-        ConfigFile.LangFiles = (ArrayList<String>) config.getList("LangFiles");
+        ConfigFile.LangFiles.addAll( config.getStringList("LangFiles"));
 
         ConfigFile.ActionBarDisplay.AutoToCenter = config.getBoolean("ActionBarDisplay.AutoToCenter");
         ConfigFile.ActionBarDisplay.UpdateInterval = config.getLong("ActionBarDisplay.UpdateInterval");

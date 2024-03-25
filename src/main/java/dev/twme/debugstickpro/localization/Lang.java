@@ -1,10 +1,6 @@
 package dev.twme.debugstickpro.localization;
 
-import net.kyori.adventure.text.Component;
-
-import java.util.ArrayList;
-
-public class NewLang {
+public class Lang {
     public final static String LangFileVersion = "LangFileVersion";
 
     public final static class CommandsMessages {
@@ -104,7 +100,7 @@ public class NewLang {
         public final static String FaceAttachableDataName = "DataKeyName.FaceAttachableDataName";
         public final static String FarmlandDataName = "DataKeyName.FarmlandDataName";
         public final static String GateDataName = "DataKeyName.GateDataName";
-        public final static String HangableDataNam = "DataKeyName.HangableDataNam";
+        public final static String HangableDataName = "DataKeyName.HangableDataNam";
         public final static String HatchableDataName = "DataKeyName.HatchableDataName";
         public final static String HopperDataName = "DataKeyName.HopperDataName";
         public final static String JigsawDataName = "DataKeyName.JigsawDataName";

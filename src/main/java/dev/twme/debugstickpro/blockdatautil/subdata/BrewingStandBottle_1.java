@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.BrewingStand;
 
@@ -22,7 +22,7 @@ public class BrewingStandBottle_1 implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.BrewingStandBottle_1DataName;
+        return Lang.DataKeyName.BrewingStandBottle_1DataName;
     }
 
     @Override

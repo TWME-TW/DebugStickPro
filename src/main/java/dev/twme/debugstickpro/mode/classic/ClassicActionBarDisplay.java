@@ -2,8 +2,9 @@ package dev.twme.debugstickpro.mode.classic;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.ConfigFile;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.config.ConfigFile;
+import dev.twme.debugstickpro.localization.I18n;
+import dev.twme.debugstickpro.localization.Lang;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.block.data.BlockData;
@@ -56,12 +57,11 @@ public class ClassicActionBarDisplay {
         for (int i = 0; i < displayList.size(); i++) {
             SubBlockData subBlockData = displayList.get((i + sort) % displayList.size());
             if (subBlockData.isUsing()) {
-                stringBuilder.append(LangFile.ActionBar.formatSelectedData(subBlockData.dataName(), subBlockData.getDataAsString().toLowerCase())).append(" ");
+                stringBuilder.append(I18n.str(playerUUID, Lang.ActionBar.formatSelectedData(I18n.str(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase()))).append(" ");
             } else {
-                stringBuilder.append(LangFile.ActionBar.formatNotSelectedData(subBlockData.dataName(), subBlockData.getDataAsString().toLowerCase())).append(" ");
+                stringBuilder.append(I18n.str(playerUUID, Lang.ActionBar.formatNotSelectedData(I18n.str(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase()))).append(" ");
             }
         }
-
         return stringBuilder.toString();
     }
 }

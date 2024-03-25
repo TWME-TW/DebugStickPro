@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.configs;
+package dev.twme.debugstickpro.config;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -10,7 +10,7 @@ public class ConfigFile {
 
     public static int ConfigVersion;
 
-    public static ArrayList<String> LangFiles;
+    public static ArrayList<String> LangFiles = new ArrayList<>();
 
 
     public static class ActionBarDisplay {

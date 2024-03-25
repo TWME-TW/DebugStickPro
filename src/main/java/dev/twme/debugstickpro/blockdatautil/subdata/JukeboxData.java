@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Jukebox;
 
@@ -24,7 +24,7 @@ public class JukeboxData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.JukeboxDataName;
+        return Lang.DataKeyName.JukeboxDataName;
     }
 
     @Override

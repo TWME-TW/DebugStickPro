@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.*;
-import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.config.ConfigFile;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

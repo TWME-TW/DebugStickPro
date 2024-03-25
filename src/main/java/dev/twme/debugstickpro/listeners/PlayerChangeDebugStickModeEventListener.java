@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.config.ConfigFile;
 import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.DebugStickMode;

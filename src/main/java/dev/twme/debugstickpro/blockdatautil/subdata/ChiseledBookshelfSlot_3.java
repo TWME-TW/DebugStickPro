@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.ChiseledBookshelf;
 
@@ -22,7 +22,7 @@ public class ChiseledBookshelfSlot_3 implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.ChiseledBookshelfSlot_3DataName;
+        return Lang.DataKeyName.ChiseledBookshelfSlot_3DataName;
     }
 
     @Override
