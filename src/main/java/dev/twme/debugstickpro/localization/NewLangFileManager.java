@@ -1,6 +1,7 @@
 package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.configs.ConfigFile;
 
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ public class NewLangFileManager {
 
     public static void initialization() {
         langFile = new HashMap<>();
-        for (String langFile : DebugStickPro.langFiles) {
+        for (String langFile : ConfigFile.LangFiles) {
             addLang(langFile);
         }
     }

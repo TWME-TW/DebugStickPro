@@ -23,10 +23,7 @@ public final class DebugStickPro extends JavaPlugin {
     private int taskID;
 
     // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
-    public static final int CONFIG_VERSION = 3;
-
-    // TODO: 儲存所有都語言檔案的名稱
-    public static final String[] langFiles = {"en_US", "zh_TW"};
+    public static final int CONFIG_VERSION = 4;
 
     // TODO: 如果更改此值，請確保在 lang/your_language.yml 中也更改了相應的值
     public static final int LANG_VERSION = 3;

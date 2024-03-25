@@ -10,6 +10,8 @@ public class ConfigFile {
 
     public static int ConfigVersion;
 
+    public static ArrayList<String> LangFiles;
+
 
     public static class ActionBarDisplay {
         public static boolean AutoToCenter;
