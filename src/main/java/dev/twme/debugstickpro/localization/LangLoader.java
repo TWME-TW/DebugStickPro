@@ -20,10 +20,10 @@ public class LangLoader {
     }
 
     public void load() {
-        file = new File(DebugStickPro.getInstance().getDataFolder(), "lang.yml");
+        file = new File(DebugStickPro.getInstance().getDataFolder(), "lang/en_US.yml");
 
         if (!file.exists()) {
-            DebugStickPro.getInstance().saveResource("lang.yml", false);
+            DebugStickPro.getInstance().saveResource("lang/en_US.yml", false);
         }
 
         langFile = new YamlConfiguration();

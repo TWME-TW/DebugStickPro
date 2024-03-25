@@ -11,6 +11,8 @@ public class ConfigFile {
 
     public static int ConfigVersion;
 
+    public static ArrayList<String> LocaleFile;
+
     public static class ActionBarDisplay{
         public static boolean AutoToCenter;
         public static long UpdateInterval;

@@ -1,45 +1,36 @@
 package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.util.Log;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class NewLangFileManager {
+    private static HashMap<String, NewLangFile> langFile;
     public static void initialization() {
-        copyFromPluginResourceFolder("lang");
+        langFile = new HashMap<>();
+        for (String langFile : ConfigFile.LocaleFile){
+            addLang(langFile);
+        }
     }
 
-    private static void copyFromPluginResourceFolder(String folderName) {
-        File pluginDataFolder = DebugStickPro.getInstance().getDataFolder();
-        InputStream inputStream = DebugStickPro.getInstance().getResource(folderName);
-        if (inputStream != null) {
-            File destinationFolder = new File(pluginDataFolder, folderName);
+    public static void addLang(String locale) {
 
-            if (!destinationFolder.exists()) {
-                destinationFolder.mkdirs();
-            }
-
-            try {
-                // 复制文件
-                File[] files = new File(pluginDataFolder, folderName).listFiles();
-                for (File file : files) {
-                    InputStream in = DebugStickPro.getInstance().getResource(folderName + "/" + file.getName());
-                    OutputStream out = new FileOutputStream(new File(destinationFolder, file.getName()));
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    while ((length = in.read(buffer)) > 0) {
-                        out.write(buffer, 0, length);
-                    }
-                    in.close();
-                    out.close();
-                }
-                Log.info("文件夹已成功复制到插件数据文件夹！");
-            } catch (IOException e) {
-                Log.warning("复制文件夹时出现错误：" + e.getMessage());
-            }
-        } else {
-            Log.warning("无法找到资源文件夹：" + folderName);
+        if (langFile.containsKey(locale)) {
+            return;
         }
+        // TODO: 完成這邊(要把死完文件檔案讀取移至此處)
+        NewLangFile newLangFile = new NewLangFile(locale);
+        langFile.put(locale, newLangFile);
+    }
+
+    public static NewLangFile getLang(String locale) {
+
+        if (!langFile.containsKey(locale)) {
+            return langFile.get("en_US");
+        }
+        return langFile.get(locale);
     }
 }

@@ -1,6 +1,7 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItem;
@@ -18,9 +19,8 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
-        // TODO: remove this
-        Log.announcement(player.getName() + " lang: " + player.locale() + "!");
-        Log.announcement(DebugStickPro.getInstance().getR);
+        // TODO: remove this or change to player.locale()
+        PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.getLocale());
 
 
         UUID playerUUID = event.getPlayer().getUniqueId();
