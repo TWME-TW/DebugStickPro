@@ -1,14 +1,14 @@
 package dev.twme.debugstickpro;
 
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
-import dev.twme.debugstickpro.commands.MainCommandTabComplete;
 import dev.twme.debugstickpro.commands.MainCommand;
+import dev.twme.debugstickpro.commands.MainCommandTabComplete;
 import dev.twme.debugstickpro.configs.ConfigFile;
 import dev.twme.debugstickpro.configs.ConfigLoader;
-import dev.twme.debugstickpro.localization.LangLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.localization.LangLoader;
 import dev.twme.debugstickpro.localization.NewLangFileManager;
 import dev.twme.debugstickpro.localization.PlayerLocaleChangeEventListener;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
@@ -23,7 +23,10 @@ public final class DebugStickPro extends JavaPlugin {
     private int taskID;
 
     // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
-    public static final int CONFIG_VERSION = 4;
+    public static final int CONFIG_VERSION = 3;
+
+    // TODO: 儲存所有都語言檔案的名稱
+    public static final String[] langFiles = {"en_US", "zh_TW"};
 
     // TODO: 如果更改此值，請確保在 lang/your_language.yml 中也更改了相應的值
     public static final int LANG_VERSION = 3;
@@ -37,9 +40,11 @@ public final class DebugStickPro extends JavaPlugin {
             Log.warning("CoreProtect is not loaded or is not compatible with this version of the plugin.");
         }
 
+
         ConfigLoader.getInstance().load();
         //LangLoader.getInstance().load();
         NewLangFileManager.initialization();
+
 
         registerCommands();
         registerListeners();

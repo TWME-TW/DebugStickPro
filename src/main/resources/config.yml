@@ -1,10 +1,5 @@
 # Don't touch this value
-ConfigVersion: 4
-
-# Don't touch this value
-LocaleFile:
-  - en_US
-  - zh_TW
+ConfigVersion: 3
 
 ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.
