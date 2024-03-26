@@ -38,7 +38,7 @@ public class LangFileManager {
     public static LangFileReader getLang(String locale) {
 
         if (!langFile.containsKey(locale)) {
-            return langFile.get("en_US");
+            return langFile.get(ConfigFile.DefaultLanguage);
         }
         return langFile.get(locale);
     }

@@ -4,12 +4,12 @@ LangFileVersion: 3
 CommandsMessages:
   Help:
     HelpMessage:
-      - "<b><gold>Debug Stick</gold></b> - <gray>Plugin to modify block data."
-      - "<gray>Commands:</gray>"
-      - "<gray>  /dsp reload - <gold>Reloads the plugin."
-      - "<gray>  /dsp give <player> - <gold>Gives Debug Stick to the player."
-      - "<gray>  /dsp mode <classic|copy|freeze> - <gold>Changes the mode of the Debug Stick."
-      - "<gray>  /dsp - <gold>Shows the help message."
+      - "<b><gold>調試棒</gold></b> - <gray>用於修改方塊數據的插件。"
+      - "<gray>指令:</gray>"
+      - "<gray>  /dsp reload - <gold>重新加載插件。</gold></gray>"
+      - "<gray>  /dsp give <player> - <gold>將調試棒交給玩家。</gold></gray>"
+      - "<gray>  /dsp mode <classic|copy|freeze> - <gold>更改調試棒的模式。</gold></gray>"
+      - "<gray>  /dsp - <gold>顯示幫助訊息。</gold></gray>"
   Reload:
     Success: "重新載入成功。"
   Give:
@@ -27,12 +27,11 @@ ActionBar:
   SelectedDataFormat: "<b><u><gold>%key%</gold></u></b>: %value%"
   NotSelectedDataFormat: "<b><aqua>%key%</aqua></b>: %value%"
   CopiedBlockDataFormat: "<b><red>%key%</red></b>: %value%"
-  FreezeBlockCount: "<aqua>%count%</aqua> blocks have been <blue>frozen</blue>."
-
+  FreezeBlockCount: "<aqua>%count%</aqua> 個方塊已被 <blue>凍結</blue>。"
 Tips:
-  classicModeIntroduction: "<b><gold>經典模式</gold></b>: <b><green><key:key.attack></green></b> 選擇要修改的數據類型，<b><light_purple><key:key.use></light_purple></b> 更改該數據的值。"
-  copyModeIntroduction: "<b><red>複製模式</red></b>: <green><key:key.attack></green> 進行複製，<light_purple><key:key.use></light_purple> 進行粘貼。"
-  freezeModeIntroduction: "<b><blue>凍結模式</blue></b>: <green><key:key.attack></green> 解凍所有方塊，<light_purple><key:key.use></light_purple> 凍結/解凍單個方塊。"
+  ClassicModeIntroduction: "<b><gold>經典模式</gold></b>: <b><green><key:key.attack></green></b> 選擇要修改的數據類型，<b><light_purple><key:key.use></light_purple></b> 更改該數據的值。"
+  CopyModeIntroduction: "<b><red>複製模式</red></b>: <green><key:key.attack></green> 進行複製，<light_purple><key:key.use></light_purple> 進行粘貼。"
+  FreezeModeIntroduction: "<b><blue>凍結模式</blue></b>: <green><key:key.attack></green> 解凍所有方塊，<light_purple><key:key.use></light_purple> 凍結/解凍單個方塊。"
 
 DataKeyName:
   AgeableDataName: "Age"

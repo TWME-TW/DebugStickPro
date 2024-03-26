@@ -1,5 +1,7 @@
 package dev.twme.debugstickpro.localization;
 
+import dev.twme.debugstickpro.config.ConfigFile;
+
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -8,7 +10,7 @@ public class PlayerLanguageManager {
     public static String getLocale(UUID playerUUID) {
 
         if (!playerLang.containsKey(playerUUID)) {
-            return "en_US";
+            return ConfigFile.DefaultLanguage;
         }
         return playerLang.get(playerUUID);
     }

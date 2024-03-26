@@ -11,6 +11,7 @@ public class ConfigFile {
     public static int ConfigVersion;
 
     public static ArrayList<String> LangFiles = new ArrayList<>();
+    public static String DefaultLanguage;
 
 
     public static class ActionBarDisplay {

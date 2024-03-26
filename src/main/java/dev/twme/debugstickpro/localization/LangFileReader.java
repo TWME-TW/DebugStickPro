@@ -51,7 +51,7 @@ public class LangFileReader {
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             String strDate = formatter.format(date);
-            String backupFileName = file.getAbsolutePath().replace("lang", "lang-" + strDate);
+            String backupFileName = file.getAbsolutePath().replace(locale, locale + strDate);
 
             File newFile = new File(backupFileName);
             if (file.renameTo(newFile)) {

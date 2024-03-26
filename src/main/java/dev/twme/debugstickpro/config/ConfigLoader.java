@@ -68,6 +68,7 @@ public class ConfigLoader {
     private void loadValues() {
 
         ConfigFile.LangFiles.addAll( config.getStringList("LangFiles"));
+        ConfigFile.DefaultLanguage = config.getString("DefaultLanguage");
 
         ConfigFile.ActionBarDisplay.AutoToCenter = config.getBoolean("ActionBarDisplay.AutoToCenter");
         ConfigFile.ActionBarDisplay.UpdateInterval = config.getLong("ActionBarDisplay.UpdateInterval");
