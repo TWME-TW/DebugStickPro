@@ -71,9 +71,9 @@ public class JukeboxData implements SubBlockData {
     public BlockData copyTo(BlockData blockData) {
         String blockDataString = blockData.getAsString();
         if (hasRecord) {
-            blockDataString.replace("has_record=false", "has_record=true");
+            blockDataString = blockDataString.replace("has_record=false", "has_record=true");
         } else {
-            blockDataString.replace("has_record=true", "has_record=false");
+            blockDataString = blockDataString.replace("has_record=true", "has_record=false");
         }
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockDataString);
         return blockData;

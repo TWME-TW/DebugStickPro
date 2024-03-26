@@ -9,13 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class LangFile {
+public class LangFileReader {
     private File file;
     private YamlConfiguration langFile;
     private int langFileVersion;
     private final String locale;
 
-    public LangFile(String locale) throws IllegalArgumentException{
+    public LangFileReader(String locale) throws IllegalArgumentException{
         this.locale = locale;
         load();
     }
@@ -26,7 +26,7 @@ public class LangFile {
 
         if (!file.exists()) {
             DebugStickPro.getInstance().saveResource("lang" + File.separator + locale + ".yml", false);
-            Log.info("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+            Log.info("lang" + File.separator + locale + ".yml has been created.");
         }
 
         this.langFile = new YamlConfiguration();
@@ -39,7 +39,6 @@ public class LangFile {
         }
 
         langFileVersion = this.langFile.getInt(Lang.LangFileVersion);
-
         if (!checkLangFileVersion()) {
             return;
         }
@@ -66,13 +65,11 @@ public class LangFile {
     }
 
     public String getString(String key) {
-        // if (this.langFile.getString(key) == null) {
-        //     String newLore = LangFileManager.getLang("en_US").getString(key);
-        //
-        //     setString(key, newLore);
-        //
-        //     return getString(key);
-        // }
+
+        if (this.langFile.getString(key) == null) {
+            set(key, LangFileManager.getLang("en_US").getString(key));
+            return this.langFile.getString(key);
+        }
         return this.langFile.getString(key);
     }
     public List<String> getList(String key) {
@@ -81,15 +78,15 @@ public class LangFile {
 
         if (this.langFile.getString(key) == null) {
             messages = LangFileManager.getLang("en_US").getList(key);
-
+            set(key, messages);
             return messages;
         }
         messages = this.langFile.getStringList(key);
         return messages;
     }
 
-    public void setString(String key, String value) {
-        this.langFile.set(key, value);
+    public void set(String path, Object value) {
+        this.langFile.set(path, value);
         save();
     }
 

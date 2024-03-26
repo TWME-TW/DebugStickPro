@@ -6,7 +6,7 @@ import dev.twme.debugstickpro.util.Log;
 import java.util.HashMap;
 
 public class LangFileManager {
-    private static final HashMap<String, LangFile> langFile = new HashMap<>();;
+    private static final HashMap<String, LangFileReader> langFile = new HashMap<>();
 
     public static void initialization() {
         langFile.clear();
@@ -21,9 +21,9 @@ public class LangFileManager {
             return;
         }
         // TODO: 完成這邊(要把死完文件檔案讀取移至此處)
-        LangFile lang;
+        LangFileReader lang;
         try {
-            lang = new LangFile(locale);
+            lang = new LangFileReader(locale);
         } catch (IllegalArgumentException e) {
             return;
         }
@@ -35,7 +35,7 @@ public class LangFileManager {
         langFile.put(locale, lang);
     }
 
-    public static LangFile getLang(String locale) {
+    public static LangFileReader getLang(String locale) {
 
         if (!langFile.containsKey(locale)) {
             return langFile.get("en_US");

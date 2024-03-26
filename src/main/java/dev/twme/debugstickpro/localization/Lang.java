@@ -31,26 +31,26 @@ public class Lang {
     public final static class ActionBar {
         public final static String SelectedDataFormat = "ActionBar.SelectedDataFormat";
 
-        public static String formatSelectedData(String key, String value) {
-            return SelectedDataFormat.replace("%key%", key).replace("%value%", value);
+        public static String formatSelectedData(String actionBar, String key, String value) {
+            return actionBar.replace("%key%", key).replace("%value%", value);
         }
 
         public final static String NotSelectedDataFormat = "ActionBar.NotSelectedDataFormat";
 
-        public static String formatNotSelectedData(String key, String value) {
-            return NotSelectedDataFormat.replace("%key%", key).replace("%value%", value);
+        public static String formatNotSelectedData(String actionBar, String key, String value) {
+            return actionBar.replace("%key%", key).replace("%value%", value);
         }
 
         public final static String CopiedBlockDataFormat = "ActionBar.CopiedBlockDataFormat";
 
-        public static String formatCopiedBlockData(String key, String value) {
-            return CopiedBlockDataFormat.replace("%key%", key).replace("%value%", value);
+        public static String formatCopiedBlockData(String actionBar, String key, String value) {
+            return actionBar.replace("%key%", key).replace("%value%", value);
         }
 
         public final static String FreezeBlockCount = "ActionBar.FreezeBlockCount";
 
-        public static String formatFreezeBlockCount(int count) {
-            return FreezeBlockCount.replace("%count%", String.valueOf(count));
+        public static String formatFreezeBlockCount(String actionBar, int count) {
+            return actionBar.replace("%count%", String.valueOf(count));
         }
     }
 

@@ -10,6 +10,6 @@ public class PlayerLocaleChangeEventListener implements Listener {
     @EventHandler
     public void onPlayerLocaleChangeEvent(PlayerLocaleChangeEvent event) {
         Player player = event.getPlayer();
-        PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.getLocale());
+        PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.locale().toString());
     }
 }

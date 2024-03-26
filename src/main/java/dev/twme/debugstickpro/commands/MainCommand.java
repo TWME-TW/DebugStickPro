@@ -20,7 +20,7 @@ public class MainCommand implements CommandExecutor {
 
         if (!(commandSender instanceof Player)) {
             MiniMessage mm = MiniMessage.miniMessage();
-            Component parsed = mm.deserialize(I18n.str("en_US", Lang.CommandsMessages.YouAreNotPlayer));
+            Component parsed = mm.deserialize(I18n.str(Lang.CommandsMessages.YouAreNotPlayer));
             commandSender.sendMessage(parsed);
             return true;
         }

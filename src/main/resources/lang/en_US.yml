@@ -29,9 +29,9 @@ ActionBar:
   FreezeBlockCount: "<aqua>%count%</aqua> blocks have been <blue>frozen</blue>."
 
 Tips:
-  classicModeIntroduction: "<b><gold>Classic mode</gold></b>: <b><green><key:key.attack></green></b> to select the desired data type to modify, <b><light_purple><key:key.use></light_purple></b> to change the value of that data."
-  copyModeIntroduction: "<b><red>Copy mode</red></b>: <green><key:key.attack></green> to copy, <light_purple><key:key.use></light_purple> to paste."
-  freezeModeIntroduction: "<b><blue>Freeze mode</blue></b>: <green><key:key.attack></green> to unfreeze all blocks, <light_purple><key:key.use></light_purple> to freeze/unfreeze individual blocks."
+  ClassicModeIntroduction: "<b><gold>Classic mode</gold></b>: <b><green><key:key.attack></green></b> to select the desired data type to modify, <b><light_purple><key:key.use></light_purple></b> to change the value of that data."
+  CopyModeIntroduction: "<b><red>Copy mode</red></b>: <green><key:key.attack></green> to copy, <light_purple><key:key.use></light_purple> to paste."
+  FreezeModeIntroduction: "<b><blue>Freeze mode</blue></b>: <green><key:key.attack></green> to unfreeze all blocks, <light_purple><key:key.use></light_purple> to freeze/unfreeze individual blocks."
 
 DataKeyName:
   AgeableDataName: "Age"

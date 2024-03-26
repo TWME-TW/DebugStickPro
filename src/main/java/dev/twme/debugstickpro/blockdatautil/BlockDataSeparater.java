@@ -62,7 +62,7 @@ public class BlockDataSeparater {
     public static ArrayList<SubBlockData> separate(BlockData blockData) {
 
 
-        ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
+        ArrayList<SubBlockData> blockDataList = new ArrayList<>();
 
         // when cached, use it
         if (cache.containsKey(blockData.getMaterial())) {

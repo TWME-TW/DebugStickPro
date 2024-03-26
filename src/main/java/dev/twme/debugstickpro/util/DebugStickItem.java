@@ -31,9 +31,6 @@ public final class DebugStickItem {
     }
     public static boolean checkPlayer(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
-        if (item == null) {
-            return false;
-        }
         return isDebugStickItem(item);
     }
 

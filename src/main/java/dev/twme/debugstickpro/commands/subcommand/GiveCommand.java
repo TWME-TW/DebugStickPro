@@ -24,7 +24,7 @@ public class GiveCommand {
         if (args.length == 1) {
             player.getInventory().addItem(DebugStickItem.getDebugStickItem());
 
-            Component parsed = mm.deserialize(I18n.str(playerUUID, I18n.str(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName())));
+            Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName()));
             player.sendMessage(parsed);
             if (DebugStickItem.checkPlayer(player)) {
                 PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
@@ -38,7 +38,7 @@ public class GiveCommand {
                 return true;
             } else {
                 onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
-                Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Give.Success.replace("%player%", player.getName())));
+                Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName()));
                 player.sendMessage(parsed);
                 if (DebugStickItem.checkPlayer(onlinePlayer)) {
                     PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());
