@@ -64,10 +64,20 @@ public class LangFileReader {
 
     public String getString(String key) {
 
-        if (this.langFile.getString(key) == null) {
-            set(key, LangFileManager.getLang("en_US").getString(key));
-            return this.langFile.getString(key);
+        try {
+            if (this.langFile.getString(key) == null) {
+                set(key, LangFileManager.getLang("en_US").getString(key));
+                Log.warning("Missing key: " + key + " in " + locale + ".yml");
+                if (this.langFile.getString(key) == null) {
+                    return "Missing key: " + key;
+                }
+            }
+        } catch (StackOverflowError e) {
+            Log.warning(e.getMessage());
+            return "Missing key: \"" + key + "\"" + " in " + locale + ".yml";
         }
+
+
         return this.langFile.getString(key);
     }
 

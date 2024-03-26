@@ -100,7 +100,7 @@ public class Lang {
         public final static String FaceAttachableDataName = "DataKeyName.FaceAttachableDataName";
         public final static String FarmlandDataName = "DataKeyName.FarmlandDataName";
         public final static String GateDataName = "DataKeyName.GateDataName";
-        public final static String HangableDataName = "DataKeyName.HangableDataNam";
+        public final static String HangableDataName = "DataKeyName.HangableDataName";
         public final static String HatchableDataName = "DataKeyName.HatchableDataName";
         public final static String HopperDataName = "DataKeyName.HopperDataName";
         public final static String JigsawDataName = "DataKeyName.JigsawDataName";
