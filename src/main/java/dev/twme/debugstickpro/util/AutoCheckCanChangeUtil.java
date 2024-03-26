@@ -1,6 +1,6 @@
 package dev.twme.debugstickpro.util;
 
-import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.config.ConfigFile;
 import dev.twme.debugstickpro.listeners.BlockPlaceEventListenerCanBuildChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

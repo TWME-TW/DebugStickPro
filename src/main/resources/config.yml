@@ -1,5 +1,11 @@
 # Don't touch this value
-ConfigVersion: 3
+ConfigVersion: 4
+
+LangFiles:
+  - "en_US"
+  - "zh_TW"
+
+DefaultLanguage: "en_US"
 
 ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.

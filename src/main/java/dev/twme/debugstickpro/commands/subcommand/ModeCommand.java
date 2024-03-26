@@ -1,7 +1,8 @@
 package dev.twme.debugstickpro.commands.subcommand;
 
-import dev.twme.debugstickpro.configs.LangFile;
 import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
+import dev.twme.debugstickpro.localization.I18n;
+import dev.twme.debugstickpro.localization.Lang;
 import dev.twme.debugstickpro.playerdata.DebugStickMode;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
@@ -24,14 +25,14 @@ public class ModeCommand {
 
     public static boolean onModeCommand(Player player, String[] args) {
         MiniMessage mm = MiniMessage.miniMessage();
-
+        UUID playerUUID = player.getUniqueId();
         if (!player.hasPermission("debugstickpro.mode")) {
-            Component parsed = mm.deserialize(LangFile.CommandsMessages.NoPermission);
+            Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.NoPermission));
             player.sendMessage(parsed);
             return true;
         }
         if (args.length == 1) {
-            Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.Usage);
+            Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Mode.Usage));
             player.sendMessage(parsed);
             return true;
         } else {
@@ -43,7 +44,7 @@ public class ModeCommand {
                 }
 
                 PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.CLASSIC));
-                Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToClassic);
+                Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToClassic));
                 player.sendMessage(parsed);
                 return true;
             } else if (args[1].equalsIgnoreCase("copy")) {
@@ -55,11 +56,11 @@ public class ModeCommand {
                     }
 
                     PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.COPY));
-                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToCopy);
+                    Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToCopy));
                     player.sendMessage(parsed);
                     return true;
                 } else {
-                    Component parsed = mm.deserialize(LangFile.CommandsMessages.NoPermission);
+                    Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.NoPermission));
                     player.sendMessage(parsed);
                     return true;
                 }
@@ -72,16 +73,16 @@ public class ModeCommand {
                     }
 
                     PlayerDataManager.setPlayerData(player.getUniqueId(), PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.FREEZE));
-                    Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.SuccessSetToFreeze);
+                    Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToFreeze));
                     player.sendMessage(parsed);
                     return true;
                 } else {
-                    Component parsed = mm.deserialize(LangFile.CommandsMessages.NoPermission);
+                    Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.NoPermission));
                     player.sendMessage(parsed);
                     return true;
                 }
             } else {
-                Component parsed = mm.deserialize(LangFile.CommandsMessages.Mode.Usage);
+                Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Mode.Usage));
                 player.sendMessage(parsed);
                 return true;
             }

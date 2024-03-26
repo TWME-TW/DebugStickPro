@@ -1,19 +1,16 @@
 package dev.twme.debugstickpro.util;
 
-import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.config.ConfigFile;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
-
 public final class DebugStickItem {
     public static boolean isDebugStickItem(ItemStack item) {
-        if (item == null ) {
+        if (item == null) {
             return false;
         }
         if (item.getType() != ConfigFile.DebugStickItem.Material) {
@@ -22,7 +19,7 @@ public final class DebugStickItem {
         if (item.getItemMeta() == null) {
             return false;
         }
-        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)){
+        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)) {
             return false;
         }
         if (ConfigFile.DebugStickItem.CustomModelData.Enabled) {
@@ -32,11 +29,9 @@ public final class DebugStickItem {
         }
         return true;
     }
+
     public static boolean checkPlayer(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
-        if (item == null) {
-            return false;
-        }
         return isDebugStickItem(item);
     }
 

@@ -1,7 +1,6 @@
 package dev.twme.debugstickpro.mode.freeze;
 
 import org.bukkit.block.Block;
-
 import org.bukkit.entity.Entity;
 
 public class FreezeBlockData {
@@ -20,6 +19,7 @@ public class FreezeBlockData {
     public Entity getItemDisplay() {
         return itemDisplay;
     }
+
     public Entity getBlockDisplay() {
         return blockDisplay;
     }
@@ -27,7 +27,8 @@ public class FreezeBlockData {
     public String getBlockString() {
         return blockString;
     }
-    public Block getBlock(){
+
+    public Block getBlock() {
         return block;
     }
 

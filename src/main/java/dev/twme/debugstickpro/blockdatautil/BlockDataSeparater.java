@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil;
 
 import dev.twme.debugstickpro.blockdatautil.subdata.*;
-import dev.twme.debugstickpro.configs.ConfigFile;
+import dev.twme.debugstickpro.config.ConfigFile;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -62,7 +62,7 @@ public class BlockDataSeparater {
     public static ArrayList<SubBlockData> separate(BlockData blockData) {
 
 
-        ArrayList<SubBlockData> blockDataList = new ArrayList<SubBlockData>();
+        ArrayList<SubBlockData> blockDataList = new ArrayList<>();
 
         // when cached, use it
         if (cache.containsKey(blockData.getMaterial())) {

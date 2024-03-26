@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.Attachable;
 import org.bukkit.block.data.BlockData;
 
@@ -24,7 +24,7 @@ public class AttachableData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.AttachableDataName;
+        return Lang.DataKeyName.AttachableDataName;
     }
 
     @Override

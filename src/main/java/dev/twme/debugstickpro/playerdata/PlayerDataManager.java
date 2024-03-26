@@ -23,32 +23,32 @@ public class PlayerDataManager {
     // 該玩家是否加入顯示列表
     private static final HashSet<UUID> playerEnableDisplaySet = new HashSet<>();
 
-    public static void setPlayerData(UUID uuid, PlayerData playerData){
+    public static void setPlayerData(UUID uuid, PlayerData playerData) {
         playerDataMap.put(uuid, playerData);
     }
 
-    public static PlayerData getPlayerData(UUID uuid){
+    public static PlayerData getPlayerData(UUID uuid) {
         return playerDataMap.get(uuid);
     }
 
-    public static void removePlayerData(UUID uuid){
+    public static void removePlayerData(UUID uuid) {
         playerDataMap.remove(uuid);
     }
 
-    public static void addPlayerToDisplayList(UUID uuid){
+    public static void addPlayerToDisplayList(UUID uuid) {
         playerEnableDisplaySet.add(uuid);
     }
 
-    public static void removePlayerFromDisplayList(UUID uuid){
+    public static void removePlayerFromDisplayList(UUID uuid) {
         playerEnableDisplaySet.remove(uuid);
         ActionbarUtil.removeActionBar(uuid);
     }
 
-    public static HashSet<UUID> getDisplaySet(){
+    public static HashSet<UUID> getDisplaySet() {
         return playerEnableDisplaySet;
     }
 
-    public static void nextDebugStickMode(UUID uuid){
+    public static void nextDebugStickMode(UUID uuid) {
 
         Player player = Bukkit.getPlayer(uuid);
 
@@ -87,7 +87,7 @@ public class PlayerDataManager {
         }
     }
 
-    public static void previousDebugStickMode(UUID uuid){
+    public static void previousDebugStickMode(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
         PlayerData playerData = getPlayerData(uuid);
 
@@ -125,7 +125,7 @@ public class PlayerDataManager {
         return event.isCancelled();
     }
 
-    public static void playerLeftClick(UUID uuid){
+    public static void playerLeftClick(UUID uuid) {
 
         PlayerData playerData = getPlayerData(uuid);
 
@@ -142,7 +142,7 @@ public class PlayerDataManager {
         }
     }
 
-    public static void playerRightClick(UUID uuid){
+    public static void playerRightClick(UUID uuid) {
 
         PlayerData playerData = getPlayerData(uuid);
 

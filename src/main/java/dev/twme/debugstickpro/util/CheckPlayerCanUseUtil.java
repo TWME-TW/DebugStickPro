@@ -5,11 +5,11 @@ import org.bukkit.entity.Player;
 
 public final class CheckPlayerCanUseUtil {
     public static boolean check(Player player) {
-        return check(player,true);
+        return check(player, true);
     }
 
-    public static boolean check(Player player,boolean checkItem) {
-        if (player == null){
+    public static boolean check(Player player, boolean checkItem) {
+        if (player == null) {
             return false;
         }
         if (!player.isOnline()) {
@@ -19,7 +19,7 @@ public final class CheckPlayerCanUseUtil {
             return returnFalse(player);
         }
         if (checkItem) {
-            if (!DebugStickItem.checkPlayer(player)){
+            if (!DebugStickItem.checkPlayer(player)) {
                 return returnFalse(player);
             }
         }

@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CommandBlock;
 
@@ -22,7 +22,7 @@ public class CommandBlockData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.CommandBlockDataName;
+        return Lang.DataKeyName.CommandBlockDataName;
     }
 
     @Override

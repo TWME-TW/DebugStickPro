@@ -3,12 +3,12 @@ package dev.twme.debugstickpro;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.commands.MainCommandTabComplete;
-import dev.twme.debugstickpro.configs.ConfigFile;
-import dev.twme.debugstickpro.configs.ConfigLoader;
-import dev.twme.debugstickpro.configs.LangLoader;
+import dev.twme.debugstickpro.config.ConfigFile;
+import dev.twme.debugstickpro.config.ConfigLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.util.Log;
 import org.bukkit.Bukkit;
@@ -21,9 +21,9 @@ public final class DebugStickPro extends JavaPlugin {
     private int taskID;
 
     // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
-    public static final int CONFIG_VERSION = 3;
+    public static final int CONFIG_VERSION = 4;
 
-    // TODO: 如果更改此值，請確保在 lang.yml 中也更改了相應的值
+    // TODO: 如果更改此值，請確保在 lang/your_language.yml 中也更改了相應的值
     public static final int LANG_VERSION = 3;
 
     @Override
@@ -35,8 +35,11 @@ public final class DebugStickPro extends JavaPlugin {
             Log.warning("CoreProtect is not loaded or is not compatible with this version of the plugin.");
         }
 
+
         ConfigLoader.getInstance().load();
-        LangLoader.getInstance().load();
+
+        LangFileManager.initialization();
+
 
         registerCommands();
         registerListeners();
@@ -48,7 +51,7 @@ public final class DebugStickPro extends JavaPlugin {
         unregisterTasks();
 
         ConfigLoader.getInstance().load();
-        LangLoader.getInstance().load();
+        LangFileManager.initialization();
         registerTasks();
         BlockDataSeparater.clearCache();
     }
@@ -77,6 +80,8 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new WorldUnloadEventListener());
         registerListener(new PlayerChangedWorldEventListener());
         registerListener(new PlayerChangeDebugStickModeEventListener());
+        registerListener(new PlayerLocaleChangeEventListener());
+        registerListener(new PlayerLocaleChangeEventListener());
     }
 
     private void registerListener(Listener listener) {

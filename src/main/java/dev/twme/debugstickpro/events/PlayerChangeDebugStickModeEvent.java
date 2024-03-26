@@ -9,6 +9,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
+
 // when a player changes the debug stick mode
 public class PlayerChangeDebugStickModeEvent extends Event implements Cancellable {
 
@@ -53,6 +54,7 @@ public class PlayerChangeDebugStickModeEvent extends Event implements Cancellabl
     public static HandlerList getHandlerList() {
         return HANDLERS;
     }
+
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;

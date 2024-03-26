@@ -15,12 +15,12 @@ import java.util.UUID;
 
 public class BlockPlaceEventListenerCanBuildChecker implements Listener {
 
-    public static LinkedHashMap<Location,Boolean> locationCheck = new LinkedHashMap<>();
+    public static LinkedHashMap<Location, Boolean> locationCheck = new LinkedHashMap<>();
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (locationCheck.containsKey(event.getBlock().getLocation())) {
-            locationCheck.put(event.getBlock().getLocation(),event.isCancelled());
+            locationCheck.put(event.getBlock().getLocation(), event.isCancelled());
             event.setCancelled(true);
         }
     }
@@ -28,9 +28,9 @@ public class BlockPlaceEventListenerCanBuildChecker implements Listener {
     public static boolean canBuild(Block block, UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
 
-        locationCheck.put(block.getLocation(),false);
+        locationCheck.put(block.getLocation(), false);
 
-        BlockPlaceEvent blockPlaceEvent = new BlockPlaceEvent(block, block.getState(),block,player.getInventory().getItemInMainHand(),player,true, EquipmentSlot.HAND);
+        BlockPlaceEvent blockPlaceEvent = new BlockPlaceEvent(block, block.getState(), block, player.getInventory().getItemInMainHand(), player, true, EquipmentSlot.HAND);
         Bukkit.getPluginManager().callEvent(blockPlaceEvent);
 
         if (locationCheck.get(block.getLocation())) {

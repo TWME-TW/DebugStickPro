@@ -1,7 +1,6 @@
-package dev.twme.debugstickpro.configs;
+package dev.twme.debugstickpro.config;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -11,7 +10,11 @@ public class ConfigFile {
 
     public static int ConfigVersion;
 
-    public static class ActionBarDisplay{
+    public static ArrayList<String> LangFiles = new ArrayList<>();
+    public static String DefaultLanguage;
+
+
+    public static class ActionBarDisplay {
         public static boolean AutoToCenter;
         public static long UpdateInterval;
     }
@@ -26,12 +29,13 @@ public class ConfigFile {
             public static int CustomModelData;
         }
     }
-    public static class WhitelistWorlds{
+
+    public static class WhitelistWorlds {
         public static boolean Enabled;
         public static HashSet<String> Worlds;
     }
 
-    public static class BlacklistWorlds{
+    public static class BlacklistWorlds {
         public static boolean Enabled;
         public static HashSet<String> Worlds;
     }
@@ -56,9 +60,11 @@ public class ConfigFile {
         public static class ClassicMode {
             public static boolean ClearSelectedDataTypeWhenModeChange;
         }
+
         public static class CopyMode {
             public static boolean ClearStoredDataWhenModeChange;
         }
+
         public static class FreezeMode {
             public static boolean UnfreezeAllBlockWhenModeChange;
         }

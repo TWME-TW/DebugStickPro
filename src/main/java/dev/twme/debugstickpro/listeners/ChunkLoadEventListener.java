@@ -12,7 +12,7 @@ public class ChunkLoadEventListener implements Listener {
     public void onChunkLoad(ChunkLoadEvent event) {
         Entity[] entities = event.getChunk().getEntities();
         for (Entity entity : entities) {
-            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY)){
+            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY)) {
                 FreezeBlockManager.removeOnChunkLoadOrUnload(entity);
             }
         }

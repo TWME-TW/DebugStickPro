@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PointedDripstone;
@@ -25,7 +25,7 @@ public class PointedDripstoneVerticalDirectionData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.PointedDripstoneVerticalDirectionDataName;
+        return Lang.DataKeyName.PointedDripstoneVerticalDirectionDataName;
     }
 
     @Override

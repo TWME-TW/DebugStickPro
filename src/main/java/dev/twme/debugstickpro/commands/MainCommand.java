@@ -4,7 +4,8 @@ import dev.twme.debugstickpro.commands.subcommand.GiveCommand;
 import dev.twme.debugstickpro.commands.subcommand.HelpCommand;
 import dev.twme.debugstickpro.commands.subcommand.ModeCommand;
 import dev.twme.debugstickpro.commands.subcommand.ReloadCommand;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.I18n;
+import dev.twme.debugstickpro.localization.Lang;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
@@ -19,7 +20,7 @@ public class MainCommand implements CommandExecutor {
 
         if (!(commandSender instanceof Player)) {
             MiniMessage mm = MiniMessage.miniMessage();
-            Component parsed = mm.deserialize(LangFile.CommandsMessages.YouAreNotPlayer);
+            Component parsed = mm.deserialize(I18n.str(Lang.CommandsMessages.YouAreNotPlayer));
             commandSender.sendMessage(parsed);
             return true;
         }

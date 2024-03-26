@@ -13,6 +13,7 @@ public class ActionbarUtil {
             Bukkit.getPlayer(uuid).sendActionBar(Component.text(" "));
         }
     }
+
     public static void sendActionBar(Player player, String message) {
         var mm = MiniMessage.miniMessage();
         Component parsed = mm.deserialize(message);

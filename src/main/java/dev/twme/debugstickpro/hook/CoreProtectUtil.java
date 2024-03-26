@@ -11,6 +11,7 @@ import static org.bukkit.Bukkit.getServer;
 public class CoreProtectUtil {
     private static CoreProtectAPI coreProtectAPI;
     private static boolean isCoreProtectLoaded = true;
+
     public static boolean initCoreProtect() {
         try {
 

@@ -2,7 +2,7 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Jukebox;
 
@@ -24,7 +24,7 @@ public class JukeboxData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.JukeboxDataName;
+        return Lang.DataKeyName.JukeboxDataName;
     }
 
     @Override
@@ -71,9 +71,9 @@ public class JukeboxData implements SubBlockData {
     public BlockData copyTo(BlockData blockData) {
         String blockDataString = blockData.getAsString();
         if (hasRecord) {
-            blockDataString.replace("has_record=false", "has_record=true");
+            blockDataString = blockDataString.replace("has_record=false", "has_record=true");
         } else {
-            blockDataString.replace("has_record=true", "has_record=false");
+            blockDataString = blockDataString.replace("has_record=true", "has_record=false");
         }
         blockData = DebugStickPro.getInstance().getServer().createBlockData(blockDataString);
         return blockData;

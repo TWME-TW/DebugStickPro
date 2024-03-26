@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.configs.LangFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.TrialSpawner;
 
@@ -22,7 +22,7 @@ public class TrialSpawnerData implements SubBlockData {
 
     @Override
     public String dataName() {
-        return LangFile.DataKeyName.TrialSpawnerDataName;
+        return Lang.DataKeyName.TrialSpawnerDataName;
     }
 
     @Override

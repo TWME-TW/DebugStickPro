@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class ActionBarDisplayTask implements Runnable{
+public class ActionBarDisplayTask implements Runnable {
     @Override
     public void run() {
         for (UUID uuid : PlayerDataManager.getDisplaySet()) {
