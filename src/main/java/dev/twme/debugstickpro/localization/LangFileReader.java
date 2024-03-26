@@ -69,7 +69,7 @@ public class LangFileReader {
                 set(key, LangFileManager.getLang("en_US").getString(key));
                 Log.warning("Missing key: " + key + " in " + locale + ".yml");
                 if (this.langFile.getString(key) == null) {
-                    return "Missing key: " + key;
+                    return "Missing key: \"" + key + "\" in en_US.yml";
                 }
             }
         } catch (StackOverflowError e) {

@@ -18,6 +18,7 @@ public final class Log {
             return;
         }
         Bukkit.getLogger().warning(prefix + message);
+        warnCooldown.put(message, System.currentTimeMillis());
     }
 
     public static void announcement(String message) {
