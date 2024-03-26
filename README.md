@@ -40,7 +40,7 @@
 [config.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/config.yml)
 
 ### Language File:
-[lang.yml](https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/resources/lang)
+[lang](https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/resources/lang)
 ### Permissions:
 [plugin.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/plugin.yml)
 
