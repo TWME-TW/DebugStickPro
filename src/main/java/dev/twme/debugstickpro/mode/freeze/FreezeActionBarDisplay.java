@@ -10,9 +10,7 @@ public class FreezeActionBarDisplay {
         if (FreezeBlockManager.getFreezeBlockCount(playerUUID) == 0) {
             return I18n.str(playerUUID, Lang.Tips.freezeModeIntroduction);
         } else {
-            return Lang.ActionBar.formatFreezeBlockCount(
-                    I18n.str(playerUUID, Lang.ActionBar.FreezeBlockCount),
-                    FreezeBlockManager.getFreezeBlockCount(playerUUID));
+            return Lang.ActionBar.formatFreezeBlockCount(I18n.str(playerUUID, Lang.ActionBar.FreezeBlockCount), FreezeBlockManager.getFreezeBlockCount(playerUUID));
         }
     }
 }

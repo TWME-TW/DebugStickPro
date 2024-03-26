@@ -36,7 +36,7 @@ public class SpecialBlockFilter {
 
         if (isValidMaterial("GRASS")) {
             if (material == Material.valueOf("GRASS")) {
-                return calculateLocationWithY(location, 0.25f,0.2F);
+                return calculateLocationWithY(location, 0.25f, 0.2F);
             }
         } else {
             if (material == Material.SHORT_GRASS) {
@@ -63,7 +63,7 @@ public class SpecialBlockFilter {
         long l = hashCode((int) location.getX(), 0, (int) location.getZ());
 
         double x = clamp(((double) ((float) (l & 0xFL) / 15.0f) - 0.5) * 0.5, (-offsetNum), offsetNum);
-        double y = ((double)((float)(l >> 4 & 0xFL) / 15.0f) - 1.0) * (double)yOffSetNum;
+        double y = ((double) ((float) (l >> 4 & 0xFL) / 15.0f) - 1.0) * (double) yOffSetNum;
         double z = clamp(((double) ((float) (l >> 8 & 0xFL) / 15.0f) - 0.5) * 0.5, (-offsetNum), offsetNum);
 
         return new Location(location.getWorld(), location.getX() + x, location.getY() + y, location.getZ() + z);

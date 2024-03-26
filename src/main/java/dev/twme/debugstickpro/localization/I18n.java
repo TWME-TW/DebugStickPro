@@ -1,7 +1,5 @@
 package dev.twme.debugstickpro.localization;
 
-import dev.twme.debugstickpro.util.Log;
-
 import java.util.List;
 import java.util.UUID;
 

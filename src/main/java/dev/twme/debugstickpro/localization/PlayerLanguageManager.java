@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class PlayerLanguageManager {
     private static final HashMap<UUID, String> playerLang = new HashMap<>();
+
     public static String getLocale(UUID playerUUID) {
 
         if (!playerLang.containsKey(playerUUID)) {

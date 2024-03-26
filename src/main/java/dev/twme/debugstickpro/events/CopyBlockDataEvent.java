@@ -24,6 +24,7 @@ public class CopyBlockDataEvent extends Event implements Cancellable {
         this.playerUUID = playerUUID;
         this.block = block;
     }
+
     @Override
     public boolean isCancelled() {
         return isCancelled;
@@ -33,13 +34,16 @@ public class CopyBlockDataEvent extends Event implements Cancellable {
     public void setCancelled(boolean b) {
         this.isCancelled = b;
     }
+
     public static HandlerList getHandlerList() {
         return HANDLERS;
     }
+
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
     }
+
     public @Nullable Player getPlayer() {
         return Bukkit.getPlayer(playerUUID);
     }
@@ -47,9 +51,11 @@ public class CopyBlockDataEvent extends Event implements Cancellable {
     public UUID getPlayerUUID() {
         return playerUUID;
     }
+
     public Block getBlock() {
         return block;
     }
+
     public Location getLocation() {
         return block.getLocation();
     }

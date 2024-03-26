@@ -10,7 +10,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 public final class DebugStickItem {
     public static boolean isDebugStickItem(ItemStack item) {
-        if (item == null ) {
+        if (item == null) {
             return false;
         }
         if (item.getType() != ConfigFile.DebugStickItem.Material) {
@@ -19,7 +19,7 @@ public final class DebugStickItem {
         if (item.getItemMeta() == null) {
             return false;
         }
-        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)){
+        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)) {
             return false;
         }
         if (ConfigFile.DebugStickItem.CustomModelData.Enabled) {
@@ -29,6 +29,7 @@ public final class DebugStickItem {
         }
         return true;
     }
+
     public static boolean checkPlayer(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         return isDebugStickItem(item);

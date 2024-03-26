@@ -1,11 +1,9 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.util.DebugStickItem;
-import dev.twme.debugstickpro.util.Log;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +14,7 @@ import java.util.UUID;
 
 public class PlayerJoinListener implements Listener {
     @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event){
+    public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
         // TODO: remove this or change to player.locale()

@@ -15,14 +15,13 @@ public class LangFileReader {
     private int langFileVersion;
     private final String locale;
 
-    public LangFileReader(String locale) throws IllegalArgumentException{
+    public LangFileReader(String locale) throws IllegalArgumentException {
         this.locale = locale;
         load();
     }
 
     public void load() throws IllegalArgumentException {
         file = new File(DebugStickPro.getInstance().getDataFolder(), "lang" + File.separator + locale + ".yml");
-        Log.warning(file.getAbsolutePath());
 
         if (!file.exists()) {
             DebugStickPro.getInstance().saveResource("lang" + File.separator + locale + ".yml", false);
@@ -42,7 +41,6 @@ public class LangFileReader {
         if (!checkLangFileVersion()) {
             return;
         }
-        Log.warning(langFile.getName());
     }
 
     public boolean checkLangFileVersion() {
@@ -72,6 +70,7 @@ public class LangFileReader {
         }
         return this.langFile.getString(key);
     }
+
     public List<String> getList(String key) {
 
         List<String> messages;

@@ -22,8 +22,7 @@ public class CopyActionBarDisplay {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (SubBlockData subBlockData : copiedSubBlockData) {
-            stringBuilder.append(Lang.ActionBar.formatCopiedBlockData(I18n.str(playerUUID, Lang.ActionBar.CopiedBlockDataFormat),
-                    I18n.str(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase())).append(" ");
+            stringBuilder.append(Lang.ActionBar.formatCopiedBlockData(I18n.str(playerUUID, Lang.ActionBar.CopiedBlockDataFormat), I18n.str(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase())).append(" ");
         }
         return stringBuilder.toString();
     }

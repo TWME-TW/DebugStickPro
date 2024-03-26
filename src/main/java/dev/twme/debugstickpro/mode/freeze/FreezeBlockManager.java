@@ -7,7 +7,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.*;
+import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -29,7 +32,7 @@ public class FreezeBlockManager {
             return;
         }
         FreezeBlockEvent event = new FreezeBlockEvent(playerUUID, block);
-        if (event.isCancelled()){
+        if (event.isCancelled()) {
             return;
         }
 
@@ -115,9 +118,10 @@ public class FreezeBlockManager {
         FreezeLocation freezeLocation = new FreezeLocation(location);
         return freezeBlockLocations.contains(freezeLocation);
     }
-    public static void removeOnChunkLoadOrUnload(Entity entity){
+
+    public static void removeOnChunkLoadOrUnload(Entity entity) {
         PersistentDataContainer container = entity.getPersistentDataContainer();
-        if (!container.has(PersistentKeys.FREEZE_BLOCK_DISPLAY , PersistentDataType.STRING)) {
+        if (!container.has(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)) {
             return;
         }
         UUID playerUUID = UUID.fromString(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING));
@@ -131,7 +135,7 @@ public class FreezeBlockManager {
     }
 
     // remove freeze block when no freeze block data on player
-    private static void removeNullPlayerEntityAndBlock(Entity entity){
+    private static void removeNullPlayerEntityAndBlock(Entity entity) {
         if (entity.getType() != EntityType.ITEM_DISPLAY || entity.getType() != EntityType.BLOCK_DISPLAY) {
             return;
         }
@@ -169,7 +173,7 @@ public class FreezeBlockManager {
         freezeBlockLocations.remove(freezeLocation);
     }
 
-    public static void removeOnServerClose(){
+    public static void removeOnServerClose() {
         if (!playerFrozenBlockData.isEmpty()) {
             for (UUID playerUUID : playerFrozenBlockData.keySet()) {
                 removeAllPlayerFrozenBlock(playerUUID);
