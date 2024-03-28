@@ -34,10 +34,10 @@ public class FreezeLocation {
 
     @Override
     public int hashCode() {
-        int result = worldUUID.hashCode();
-        result = 30 * result + x;
+        long result = worldUUID.hashCode();
+        result = 31 * result + x;
         result = 31 * result + y;
         result = 31 * result + z;
-        return result;
+        return (int) (result % Integer.MAX_VALUE);
     }
 }
