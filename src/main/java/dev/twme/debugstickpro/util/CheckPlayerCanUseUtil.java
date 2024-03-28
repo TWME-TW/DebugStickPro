@@ -13,21 +13,23 @@ public final class CheckPlayerCanUseUtil {
             return false;
         }
         if (!player.isOnline()) {
-            return returnFalse(player);
+            removePlayerFromDisplayList(player);
+            return false;
         }
         if (!player.hasPermission("debugstickpro.use")) {
-            return returnFalse(player);
+            removePlayerFromDisplayList(player);
+            return false;
         }
         if (checkItem) {
             if (!DebugStickItem.checkPlayer(player)) {
-                return returnFalse(player);
+                removePlayerFromDisplayList(player);
+                return false;
             }
         }
         return true;
     }
 
-    private static boolean returnFalse(Player player) {
+    private static void removePlayerFromDisplayList(Player player) {
         PlayerDataManager.removePlayerFromDisplayList(player.getUniqueId());
-        return false;
     }
 }

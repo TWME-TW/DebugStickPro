@@ -14,6 +14,10 @@ public final class AutoCheckCanChangeUtil {
         Player player = Bukkit.getPlayer(playerUUID);
         World world = block.getWorld();
 
+        if (player.hasPermission("debugstickpro.bypassregion")) {
+            return true;
+        }
+
         boolean canChange = true;
 
         if (ConfigFile.WhitelistWorlds.Enabled) {
@@ -38,9 +42,6 @@ public final class AutoCheckCanChangeUtil {
                     canChange = false;
                 }
             }
-        }
-        if (player.hasPermission("debugstickpro.bypassregion")) {
-            canChange = true;
         }
 
         return canChange;
