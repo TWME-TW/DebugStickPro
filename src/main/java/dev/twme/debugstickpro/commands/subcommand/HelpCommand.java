@@ -16,7 +16,7 @@ public class HelpCommand {
             return false;
         }
         if (!player.hasPermission("debugstickpro.help")) {
-            Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.NoPermission));
+            Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
             player.sendMessage(parsed);
             return true;
         }

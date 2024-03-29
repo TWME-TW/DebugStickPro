@@ -16,13 +16,13 @@ public class CopyActionBarDisplay {
         List<SubBlockData> copiedSubBlockData = playerData.getCopiedSubBlockData();
 
         if (copiedSubBlockData.isEmpty()) {
-            return I18n.str(playerUUID, Lang.Tips.copyModeIntroduction);
+            return I18n.string(playerUUID, Lang.Tips.copyModeIntroduction);
         }
 
         StringBuilder stringBuilder = new StringBuilder();
 
         for (SubBlockData subBlockData : copiedSubBlockData) {
-            stringBuilder.append(Lang.ActionBar.formatCopiedBlockData(I18n.str(playerUUID, Lang.ActionBar.CopiedBlockDataFormat), I18n.str(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase())).append(" ");
+            stringBuilder.append(Lang.ActionBar.formatCopiedBlockData(I18n.string(playerUUID, Lang.ActionBar.CopiedBlockDataFormat), I18n.string(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase())).append(" ");
         }
         return stringBuilder.toString();
     }

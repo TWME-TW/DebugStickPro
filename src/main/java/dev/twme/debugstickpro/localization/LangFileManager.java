@@ -20,7 +20,7 @@ public class LangFileManager {
         if (langFile.containsKey(locale)) {
             return;
         }
-        // TODO: 完成這邊(要把死完文件檔案讀取移至此處)
+        // TODO 更改載入邏輯
         LangFileReader lang;
         try {
             lang = new LangFileReader(locale);
@@ -29,16 +29,20 @@ public class LangFileManager {
         }
 
         if (!lang.getFile().exists()) {
+            Log.warning(locale + ".yml not found");
             return;
         }
-        Log.info(locale + ".yml added successfully");
+        Log.info(locale + ".yml loaded successfully");
         langFile.put(locale, lang);
     }
 
     public static LangFileReader getLang(String locale) {
 
         if (!langFile.containsKey(locale)) {
-            return langFile.get(ConfigFile.DefaultLanguage);
+            if (langFile.containsKey(ConfigFile.DefaultLanguage)) {
+                return langFile.get(ConfigFile.DefaultLanguage);
+            }
+            return langFile.get("en_US");
         }
         return langFile.get(locale);
     }

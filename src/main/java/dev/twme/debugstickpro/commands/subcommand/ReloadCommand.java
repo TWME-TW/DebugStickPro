@@ -17,12 +17,12 @@ public class ReloadCommand {
             return false;
         }
         if (!player.hasPermission("debugstickpro.reload")) {
-            Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.NoPermission));
+            Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
             player.sendMessage(parsed);
             return true;
         }
         DebugStickPro.getInstance().onReload();
-        Component parsed = mm.deserialize(I18n.str(playerUUID, Lang.CommandsMessages.Reload.Success));
+        Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Reload.Success));
         player.sendMessage(parsed);
         return true;
     }

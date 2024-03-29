@@ -1,10 +1,12 @@
 package dev.twme.debugstickpro.localization;
 
+import dev.twme.debugstickpro.config.ConfigFile;
+
 import java.util.List;
 import java.util.UUID;
 
 public class I18n {
-    public static String str(UUID playerUUID, String key) {
+    public static String string(UUID playerUUID, String key) {
 
         String playerLocale = PlayerLanguageManager.getLocale(playerUUID);
         LangFileReader lang = LangFileManager.getLang(playerLocale);
@@ -12,9 +14,9 @@ public class I18n {
         return lang.getString(key);
     }
 
-    public static String str(String key) {
+    public static String string(String key) {
 
-        LangFileReader langFileReader = LangFileManager.getLang("en_US");
+        LangFileReader langFileReader = LangFileManager.getLang(ConfigFile.DefaultLanguage);
 
         return langFileReader.getString(key);
     }
