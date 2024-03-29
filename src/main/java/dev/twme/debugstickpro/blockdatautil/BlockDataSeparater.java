@@ -64,16 +64,16 @@ public class BlockDataSeparater {
 
         ArrayList<SubBlockData> blockDataList = new ArrayList<>();
 
+        if (blockData == null) {
+            return blockDataList;
+        }
+
         // when cached, use it
         if (cache.containsKey(blockData.getMaterial())) {
 
             for (SubBlockData subBlockData : cache.get(blockData.getMaterial())) {
                 blockDataList.add(subBlockData.getDataFac(blockData));
             }
-            return blockDataList;
-        }
-
-        if (blockData == null) {
             return blockDataList;
         }
 
