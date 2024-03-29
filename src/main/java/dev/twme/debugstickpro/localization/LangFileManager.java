@@ -10,7 +10,7 @@ public class LangFileManager {
 
     public static void initialization() {
         langFile.clear();
-        for (String langFile : ConfigFile.LangFiles) {
+        for (String langFile : ConfigFile.Language.LangFiles) {
             addLang(langFile);
         }
     }
@@ -25,6 +25,7 @@ public class LangFileManager {
         try {
             lang = new LangFileReader(locale);
         } catch (IllegalArgumentException e) {
+            Log.warning(locale + ".yml not found");
             return;
         }
 
@@ -39,8 +40,8 @@ public class LangFileManager {
     public static LangFileReader getLang(String locale) {
 
         if (!langFile.containsKey(locale)) {
-            if (langFile.containsKey(ConfigFile.DefaultLanguage)) {
-                return langFile.get(ConfigFile.DefaultLanguage);
+            if (langFile.containsKey(ConfigFile.Language.DefaultLanguage)) {
+                return langFile.get(ConfigFile.Language.DefaultLanguage);
             }
             return langFile.get("en_US");
         }

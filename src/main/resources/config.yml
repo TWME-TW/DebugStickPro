@@ -1,19 +1,30 @@
 # Don't touch this value
-ConfigVersion: 4
+ConfigVersion: 5
 
-LangFiles:
-  - "en_US"
-  - "zh_TW"
-
-DefaultLanguage: "en_US"
+Language:
+  # Language files are located in the "lang" folder.
+  # The file name is in the format of "{lang}.yml".
+  # The default language file is "en_US.yml".
+  # If the specified language file does not exist, the default language file will be used.
+  # The language file will be reloaded when the server is reloaded.
+  DefaultLanguage: "en_US"
+  # The language file to be loaded.
+  # If the text is empty, the default language file will be used.
+  # If don't want to use automatic language switching, please only fill in the language file you want to use.
+  LangFiles:
+    - "en_US"
+    - "zh_TW"
 
 ActionBarDisplay:
   # If enabled, the selected BlockData option will automatically be displayed in the center.
+  # Default: true
   AutoToCenter: true
   # ActionBar update interval (tick)
+  # Default: 4
   UpdateInterval: 4
 DebugStickItem:
   # Options to fill: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+  # Default: "BLAZE_ROD"
   Material: "BLAZE_ROD"
   DisplayName: "<b><gold>Debug Stick</gold></b>"
   Lore:
@@ -31,6 +42,7 @@ DebugStickItem:
     - "<b><light_purple><key:key.use></light_purple></b> to freeze/unfreeze a block, "
     - "<b><green><key:key.attack></green></b> to unfreeze all frozen blocks. "
     - "<i>The status of <u><aqua>frozen blocks</aqua></u> will <u><red>not</red></u> be updated.</i>"
+  # If you want to use CustomModelData, please enable it and fill in the CustomModelData value.
   CustomModelData:
     Enabled: false
     CustomModelData: 0
@@ -62,6 +74,7 @@ BlockDataFilter:
   Blacklist:
     # If enabled, the specified block data will not be displayed.
     # This option takes precedence over the whitelist.
+    # Default: false
     Enabled: false
     # Options to fill in: https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/java/dev/twme/debugstickpro/blockdatautil/subdata
     Blacklist:
@@ -71,10 +84,13 @@ BlockDataFilter:
 ModeSetting:
   ClassicMode:
     # If enabled, when switching modes, the selected BlockData type will be cleared.
+    # Default: false
     ClearSelectedDataTypeWhenModeChange: false
   CopyMode:
     #If enabled, when switching modes, previously copied BlockData will be cleared.
+    # Default: false
     ClearStoredDataWhenModeChange: false
   FreezeMode:
     # If enabled, when switching modes, all frozen blocks will be unfrozen.
+    # Default: false
     UnfreezeAllBlockWhenModeChange: false

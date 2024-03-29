@@ -16,7 +16,7 @@ public class I18n {
 
     public static String string(String key) {
 
-        LangFileReader langFileReader = LangFileManager.getLang(ConfigFile.DefaultLanguage);
+        LangFileReader langFileReader = LangFileManager.getLang(ConfigFile.Language.DefaultLanguage);
 
         return langFileReader.getString(key);
     }

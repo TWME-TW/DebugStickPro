@@ -17,6 +17,11 @@ public class LeftClickListener implements Listener {
         }
 
         Player player = event.getPlayer();
+
+        if (!player.hasPermission("debugstickpro.use")) {
+            return;
+        }
+
         if (!DebugStickItem.checkPlayer(player)) {
             return;
         }

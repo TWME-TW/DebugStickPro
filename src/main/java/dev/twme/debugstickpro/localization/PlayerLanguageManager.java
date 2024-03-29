@@ -11,7 +11,7 @@ public class PlayerLanguageManager {
     public static String getLocale(UUID playerUUID) {
 
         if (!playerLang.containsKey(playerUUID)) {
-            return ConfigFile.DefaultLanguage;
+            return ConfigFile.Language.DefaultLanguage;
         }
         return playerLang.get(playerUUID);
     }

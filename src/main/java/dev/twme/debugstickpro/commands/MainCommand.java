@@ -27,19 +27,17 @@ public class MainCommand implements CommandExecutor {
 
         Player player = (Player) commandSender;
 
-        if (strings.length == 0 || strings[0].equalsIgnoreCase("help")) {
+        if (strings.length == 0) {
             return HelpCommand.onHelpCommand(player, strings);
         }
-        if (strings[0].equalsIgnoreCase("reload")) {
-            return ReloadCommand.onReloadCommand(player, strings);
-        }
-        if (strings[0].equalsIgnoreCase("give")) {
-            return GiveCommand.onGiveCommand(player, strings);
-        }
 
-        if (strings[0].equalsIgnoreCase("mode")) {
-            return ModeCommand.onModeCommand(player, strings);
-        }
-        return false;
+        return switch (strings[0].toLowerCase()) {
+            case "help" -> HelpCommand.onHelpCommand(player, strings);
+            case "reload" -> ReloadCommand.onReloadCommand(player, strings);
+            case "give" -> GiveCommand.onGiveCommand(player, strings);
+            case "mode" -> ModeCommand.onModeCommand(player, strings);
+            default -> false;
+        };
+
     }
 }

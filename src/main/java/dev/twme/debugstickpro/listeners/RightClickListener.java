@@ -19,15 +19,15 @@ public class RightClickListener implements Listener {
 
         Player player = event.getPlayer();
 
+        if (!player.hasPermission("debugstickpro.use")) {
+            return;
+        }
+
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) {
             return;
         }
 
         if (!DebugStickItem.checkPlayer(player)) {
-            return;
-        }
-
-        if (!player.hasPermission("debugstickpro.use")) {
             return;
         }
 

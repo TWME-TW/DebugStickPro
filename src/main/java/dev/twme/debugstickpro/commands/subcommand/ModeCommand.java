@@ -35,57 +35,58 @@ public class ModeCommand {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.Usage));
             player.sendMessage(parsed);
             return true;
-        } else {
-            if (args[1].equalsIgnoreCase("classic")) {
-                PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+        }
 
-                if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.CLASSIC)) {
-                    return true;
-                }
+        if (args.length != 2) {
+            return false;
+        }
+        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+        if (args[1].equalsIgnoreCase("classic")) {
 
-                PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.CLASSIC));
-                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToClassic));
-                player.sendMessage(parsed);
-                return true;
-            } else if (args[1].equalsIgnoreCase("copy")) {
-                if (player.hasPermission("debugstickpro.mode.copy")) {
-                    PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
 
-                    if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.COPY)) {
-                        return true;
-                    }
-
-                    PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.COPY));
-                    Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToCopy));
-                    player.sendMessage(parsed);
-                    return true;
-                } else {
-                    Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
-                    player.sendMessage(parsed);
-                    return true;
-                }
-            } else if (args[1].equalsIgnoreCase("freeze")) {
-                if (player.hasPermission("debugstickpro.mode.freeze")) {
-                    PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
-
-                    if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.FREEZE)) {
-                        return true;
-                    }
-
-                    PlayerDataManager.setPlayerData(player.getUniqueId(), PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.FREEZE));
-                    Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToFreeze));
-                    player.sendMessage(parsed);
-                    return true;
-                } else {
-                    Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
-                    player.sendMessage(parsed);
-                    return true;
-                }
-            } else {
-                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.Usage));
-                player.sendMessage(parsed);
+            if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.CLASSIC)) {
                 return true;
             }
+
+            PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.CLASSIC));
+            Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToClassic));
+            player.sendMessage(parsed);
+            return true;
+        } else if (args[1].equalsIgnoreCase("copy")) {
+            if (player.hasPermission("debugstickpro.mode.copy")) {
+
+                if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.COPY)) {
+                    return true;
+                }
+
+                PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.COPY));
+                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToCopy));
+                player.sendMessage(parsed);
+            } else {
+                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
+                player.sendMessage(parsed);
+            }
+            return true;
+        } else if (args[1].equalsIgnoreCase("freeze")) {
+            if (player.hasPermission("debugstickpro.mode.freeze")) {
+
+                if (modeChangeEventCancelled(player.getUniqueId(), playerData.getDebugStickMode(), DebugStickMode.FREEZE)) {
+                    return true;
+                }
+
+                PlayerDataManager.setPlayerData(player.getUniqueId(), PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.FREEZE));
+                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToFreeze));
+                player.sendMessage(parsed);
+            } else {
+                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
+                player.sendMessage(parsed);
+            }
+            return true;
+        } else {
+            Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.Usage));
+            player.sendMessage(parsed);
+            return true;
         }
+
     }
 }

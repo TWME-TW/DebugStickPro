@@ -10,9 +10,12 @@ public class ConfigFile {
 
     public static int ConfigVersion;
 
-    public static ArrayList<String> LangFiles = new ArrayList<>();
-    public static String DefaultLanguage;
+    public static class Language {
+        public static String DefaultLanguage;
 
+        public static ArrayList<String> LangFiles = new ArrayList<>();
+
+    }
 
     public static class ActionBarDisplay {
         public static boolean AutoToCenter;

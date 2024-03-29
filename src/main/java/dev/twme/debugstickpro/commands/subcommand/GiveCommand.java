@@ -30,21 +30,28 @@ public class GiveCommand {
                 PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
             }
             return true;
-        } else {
-            Player onlinePlayer = Bukkit.getPlayerExact(args[1]);
-            if (onlinePlayer == null) {
-                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.NoPlayer));
-                player.sendMessage(parsed);
-                return true;
-            } else {
-                onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
-                Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName()));
-                player.sendMessage(parsed);
-                if (DebugStickItem.checkPlayer(onlinePlayer)) {
-                    PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());
-                }
-                return true;
-            }
         }
+
+        if (args.length != 2) {
+            return false;
+        }
+
+        Player onlinePlayer = Bukkit.getPlayerExact(args[1]);
+
+        if (onlinePlayer == null) {
+            Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.NoPlayer));
+            player.sendMessage(parsed);
+            return true;
+        }
+
+        onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
+        Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName()));
+        player.sendMessage(parsed);
+
+        if (DebugStickItem.checkPlayer(onlinePlayer)) {
+            PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());
+        }
+
+        return true;
     }
 }

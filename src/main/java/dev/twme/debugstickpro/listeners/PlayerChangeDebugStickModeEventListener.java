@@ -10,6 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class PlayerChangeDebugStickModeEventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
@@ -18,21 +19,23 @@ public class PlayerChangeDebugStickModeEventListener implements Listener {
             return;
         }
 
+        UUID playerUUID = event.getPlayerUUID();
+
         if (ConfigFile.ModeSetting.ClassicMode.ClearSelectedDataTypeWhenModeChange) {
             if (event.getPreviousMode() == DebugStickMode.CLASSIC && !(event.getNewMode() == DebugStickMode.CLASSIC)) {
-                PlayerDataManager.setPlayerData(event.getPlayerUUID(), PlayerDataManager.getPlayerData(event.getPlayerUUID()).setSelectedSubBlockDayaType(null));
+                PlayerDataManager.setPlayerData(playerUUID, PlayerDataManager.getPlayerData(playerUUID).setSelectedSubBlockDayaType(null));
             }
         }
 
         if (ConfigFile.ModeSetting.CopyMode.ClearStoredDataWhenModeChange) {
             if (event.getPreviousMode() == DebugStickMode.COPY && !(event.getNewMode() == DebugStickMode.COPY)) {
-                PlayerDataManager.setPlayerData(event.getPlayerUUID(), PlayerDataManager.getPlayerData(event.getPlayerUUID()).setCopiedSubBlockData(new ArrayList<>()));
+                PlayerDataManager.setPlayerData(playerUUID, PlayerDataManager.getPlayerData(playerUUID).setCopiedSubBlockData(new ArrayList<>()));
             }
         }
 
         if (ConfigFile.ModeSetting.FreezeMode.UnfreezeAllBlockWhenModeChange) {
             if (event.getPreviousMode() == DebugStickMode.FREEZE && !(event.getNewMode() == DebugStickMode.FREEZE)) {
-                FreezeBlockManager.removeAllPlayerFrozenBlock(event.getPlayerUUID());
+                FreezeBlockManager.removeAllPlayerFrozenBlock(playerUUID);
             }
         }
     }

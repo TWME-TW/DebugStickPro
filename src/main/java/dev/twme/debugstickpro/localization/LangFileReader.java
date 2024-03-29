@@ -69,6 +69,7 @@ public class LangFileReader {
                 set(key, LangFileManager.getLang("en_US").getString(key));
                 Log.warning("Missing key: " + key + " in " + locale + ".yml");
                 if (this.langFile.getString(key) == null) {
+                    LangFileManager.getLang("en_US").set(key, "Missing...");
                     return "Missing key: \"" + key + "\" in en_US.yml";
                 }
             }
@@ -76,19 +77,23 @@ public class LangFileReader {
             Log.warning(e.getMessage());
             return "Missing key: \"" + key + "\"" + " in " + locale + ".yml";
         }
-
-
         return this.langFile.getString(key);
     }
 
     public List<String> getList(String key) {
 
         List<String> messages;
-
-        if (this.langFile.getString(key) == null) {
-            messages = LangFileManager.getLang("en_US").getList(key);
-            set(key, messages);
-            return messages;
+        try {
+            if (this.langFile.getList(key) == null) {
+                set(key, LangFileManager.getLang("en_US").getList(key));
+                Log.warning("Missing key: " + key + " in " + locale + ".yml");
+                if (this.langFile.getList(key) == null) {
+                    LangFileManager.getLang("en_US").set(key, "Missing...");
+                    return List.of("Missing key: \"" + key + "\" in en_US.yml");
+                }
+            }
+        } catch (StackOverflowError e) {
+            return List.of("Missing key: \"" + key + "\"" + " in " + locale + ".yml");
         }
         messages = this.langFile.getStringList(key);
         return messages;
