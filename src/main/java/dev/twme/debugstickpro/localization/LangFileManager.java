@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.config.ConfigFile;
-import dev.twme.debugstickpro.util.Log;
+import dev.twme.debugstickpro.utils.Log;
 
 import java.util.HashMap;
 

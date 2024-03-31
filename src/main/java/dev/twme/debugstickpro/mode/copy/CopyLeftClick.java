@@ -5,7 +5,7 @@ import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.events.CopyBlockDataEvent;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
+import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

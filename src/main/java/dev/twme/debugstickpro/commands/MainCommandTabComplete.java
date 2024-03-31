@@ -12,13 +12,13 @@ import java.util.List;
 
 public class MainCommandTabComplete implements TabCompleter {
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(commandSender instanceof Player)) {
             return null;
         }
         ArrayList<String> list = new ArrayList<>();
         Player player = (Player) commandSender;
-        if (strings.length == 1) {
+        if (args.length == 1) {
             if (player.hasPermission("debugstickpro.help")) {
                 list.add("help");
             }
@@ -34,12 +34,13 @@ public class MainCommandTabComplete implements TabCompleter {
             return list;
         }
 
-        if (strings.length == 2) {
-            if (strings[0].equalsIgnoreCase("give")) {
+        if (args.length == 2) {
+
+            if ("give".equalsIgnoreCase(args[0])) {
                 return null;
             }
 
-            if (strings[0].equalsIgnoreCase("mode")) {
+            if (args[0].equalsIgnoreCase("mode")) {
                 if (player.hasPermission("debugstickpro.mode")) {
                     list.add("classic");
                 }

@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.commands.subcommand;
+package dev.twme.debugstickpro.commands.subcommands;
 
 import dev.twme.debugstickpro.events.PlayerChangeDebugStickModeEvent;
 import dev.twme.debugstickpro.localization.I18n;
@@ -31,6 +31,8 @@ public class ModeCommand {
             player.sendMessage(parsed);
             return true;
         }
+
+        // If no mode is specified, display the usage message
         if (args.length == 1) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.Usage));
             player.sendMessage(parsed);

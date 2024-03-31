@@ -3,7 +3,7 @@ package dev.twme.debugstickpro.listeners;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.DebugStickItem;
+import dev.twme.debugstickpro.utils.DebugStickItem;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

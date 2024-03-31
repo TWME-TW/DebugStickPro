@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.util;
+package dev.twme.debugstickpro.utils;
 
 import dev.twme.debugstickpro.config.ConfigFile;
 import net.kyori.adventure.text.Component;

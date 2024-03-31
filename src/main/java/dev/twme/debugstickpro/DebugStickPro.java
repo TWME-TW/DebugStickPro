@@ -10,7 +10,7 @@ import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.listeners.*;
 import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
-import dev.twme.debugstickpro.util.Log;
+import dev.twme.debugstickpro.utils.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +18,9 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public final class DebugStickPro extends JavaPlugin {
     private static DebugStickPro instance;
-    private int taskID;
+
+    // This is the task ID of the actionbar display task
+    private int actionBarTaskID;
 
     // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
     public static final int CONFIG_VERSION = 5;
@@ -62,8 +64,8 @@ public final class DebugStickPro extends JavaPlugin {
     }
 
     private void registerCommands() {
-        this.getCommand("debugstickpro").setExecutor(new MainCommand());
-        this.getCommand("debugstickpro").setTabCompleter(new MainCommandTabComplete());
+        getCommand("debugstickpro").setExecutor(new MainCommand());
+        getCommand("debugstickpro").setTabCompleter(new MainCommandTabComplete());
     }
 
     private void registerListeners() {
@@ -92,11 +94,11 @@ public final class DebugStickPro extends JavaPlugin {
 
         // this is a task that will display the action bar
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        taskID = scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
+        actionBarTaskID = scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
     }
 
     private void unregisterTasks() {
-        Bukkit.getScheduler().cancelTask(taskID);
+        Bukkit.getScheduler().cancelTask(actionBarTaskID);
     }
 
     public static DebugStickPro getInstance() {

@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.mode.freeze;
 
 import dev.twme.debugstickpro.events.FreezeBlockEvent;
-import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
+import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

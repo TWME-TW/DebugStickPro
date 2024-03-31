@@ -8,7 +8,7 @@ import dev.twme.debugstickpro.events.ClassicModeChangedBlockEvent;
 import dev.twme.debugstickpro.events.ClassicModeChangingBlockEvent;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
-import dev.twme.debugstickpro.util.AutoCheckCanChangeUtil;
+import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;

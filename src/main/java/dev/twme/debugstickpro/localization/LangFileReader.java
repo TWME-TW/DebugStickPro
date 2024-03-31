@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.DebugStickPro;
-import dev.twme.debugstickpro.util.Log;
+import dev.twme.debugstickpro.utils.Log;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

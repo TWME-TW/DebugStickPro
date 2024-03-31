@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.config;
 
 import dev.twme.debugstickpro.DebugStickPro;
-import dev.twme.debugstickpro.util.Log;
+import dev.twme.debugstickpro.utils.Log;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;

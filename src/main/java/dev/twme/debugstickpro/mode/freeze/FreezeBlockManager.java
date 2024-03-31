@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.mode.freeze;
 
 import dev.twme.debugstickpro.events.FreezeBlockEvent;
-import dev.twme.debugstickpro.util.PersistentKeys;
+import dev.twme.debugstickpro.utils.PersistentKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

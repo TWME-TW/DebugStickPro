@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.util;
+package dev.twme.debugstickpro.utils;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import org.bukkit.NamespacedKey;

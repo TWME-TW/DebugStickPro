@@ -1,8 +1,8 @@
 package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.util.CheckPlayerCanUseUtil;
-import dev.twme.debugstickpro.util.DebugStickItem;
+import dev.twme.debugstickpro.utils.CheckPlayerCanUseUtil;
+import dev.twme.debugstickpro.utils.DebugStickItem;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;

@@ -1,9 +1,9 @@
 package dev.twme.debugstickpro.commands;
 
-import dev.twme.debugstickpro.commands.subcommand.GiveCommand;
-import dev.twme.debugstickpro.commands.subcommand.HelpCommand;
-import dev.twme.debugstickpro.commands.subcommand.ModeCommand;
-import dev.twme.debugstickpro.commands.subcommand.ReloadCommand;
+import dev.twme.debugstickpro.commands.subcommands.GiveCommand;
+import dev.twme.debugstickpro.commands.subcommands.HelpCommand;
+import dev.twme.debugstickpro.commands.subcommands.ModeCommand;
+import dev.twme.debugstickpro.commands.subcommands.ReloadCommand;
 import dev.twme.debugstickpro.localization.I18n;
 import dev.twme.debugstickpro.localization.Lang;
 import net.kyori.adventure.text.Component;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
         if (!(commandSender instanceof Player)) {
             MiniMessage mm = MiniMessage.miniMessage();
@@ -27,15 +27,15 @@ public class MainCommand implements CommandExecutor {
 
         Player player = (Player) commandSender;
 
-        if (strings.length == 0) {
-            return HelpCommand.onHelpCommand(player, strings);
+        if (args.length == 0) {
+            return HelpCommand.onHelpCommand(player, args);
         }
 
-        return switch (strings[0].toLowerCase()) {
-            case "help" -> HelpCommand.onHelpCommand(player, strings);
-            case "reload" -> ReloadCommand.onReloadCommand(player, strings);
-            case "give" -> GiveCommand.onGiveCommand(player, strings);
-            case "mode" -> ModeCommand.onModeCommand(player, strings);
+        return switch (args[0].toLowerCase()) {
+            case "help" -> HelpCommand.onHelpCommand(player, args);
+            case "reload" -> ReloadCommand.onReloadCommand(player, args);
+            case "give" -> GiveCommand.onGiveCommand(player, args);
+            case "mode" -> ModeCommand.onModeCommand(player, args);
             default -> false;
         };
 

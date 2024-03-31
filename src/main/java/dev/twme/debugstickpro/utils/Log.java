@@ -1,4 +1,4 @@
-package dev.twme.debugstickpro.util;
+package dev.twme.debugstickpro.utils;
 
 import org.bukkit.Bukkit;
 
