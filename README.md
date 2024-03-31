@@ -35,6 +35,10 @@
 
 ### Support filtering specific BlockData:
  - You can filter specific BlockData in the config file.
+
+### Support for multiple languages.
+ - Automatically select translation files based on the player's language. 
+> Translation files for each language need to be translated manually beforehand.
 ## Configuration:
 ### Configuration File:
 [config.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/config.yml)
@@ -48,7 +52,7 @@
  > `/debugstickpro` = `/dsp` ≒ `/dsp help`
  - `/dsp help` Show help message.
  - `/dsp give [player]` Give a debug stick to a player.
- - `/dsp mode [mode]` Change the mode.
+ - `/dsp mode <mode>` Change the mode.
  - `/dsp reload` Reload the configuration file.
    
 ---
@@ -69,7 +73,7 @@ Same as regular debugging stick operation:
  - Right-click to freeze/unfreeze a block.
  - Left-click to unfreeze all frozen blocks.
 ### How to change mode:
- - Press the `Swap Hand` key to switch mode.
+ - Press the `Swap Hand` key to switch mode. (Default: F)
 
 ## How to install:
 1. Download the latest version of the plugin from the [release page](https://github.com/TWME-TW/DebugStickPro/releases).
