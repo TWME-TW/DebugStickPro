@@ -30,6 +30,7 @@ public class PlayerChangeDebugStickModeEventListener implements Listener {
         if (ConfigFile.ModeSetting.CopyMode.ClearStoredDataWhenModeChange) {
             if (event.getPreviousMode() == DebugStickMode.COPY && !(event.getNewMode() == DebugStickMode.COPY)) {
                 PlayerDataManager.setPlayerData(playerUUID, PlayerDataManager.getPlayerData(playerUUID).setCopiedSubBlockData(new ArrayList<>()));
+                PlayerDataManager.setPlayerData(playerUUID, PlayerDataManager.getPlayerData(playerUUID).removePlayerProfile());
             }
         }
 

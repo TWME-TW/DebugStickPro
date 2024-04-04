@@ -10,6 +10,11 @@ public class BlockBreakEventListener implements Listener {
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event) {
         Location location = event.getBlock().getLocation();
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         if (FreezeBlockManager.isFreezeBlock(location)) {
             event.setCancelled(true);
             return;

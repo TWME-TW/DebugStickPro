@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.playerdata;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class PlayerData {
 
     /* 用於顯示方塊資料 */
     private List<SubBlockData> copiedSubBlockData = new ArrayList<>();
+    private PlayerProfile copiedSkullBlockPlayerProfile;
 
     /* 除錯棒模式，預設為 Classic */
     private DebugStickMode debugStickMode = DebugStickMode.CLASSIC;
@@ -52,6 +54,20 @@ public class PlayerData {
     // get player debug stick mode
     public DebugStickMode getDebugStickMode() {
         return debugStickMode;
+    }
+
+    public PlayerData setCopiedSkullBlockPlayerProfile(PlayerProfile copiedSkullBlockPlayerProfile) {
+        this.copiedSkullBlockPlayerProfile = copiedSkullBlockPlayerProfile;
+        return this;
+    }
+
+    public PlayerProfile getCopiedSkullBlockPlayerProfile() {
+        return copiedSkullBlockPlayerProfile;
+    }
+
+    public PlayerData removePlayerProfile() {
+        this.copiedSkullBlockPlayerProfile = null;
+        return this;
     }
 
 }

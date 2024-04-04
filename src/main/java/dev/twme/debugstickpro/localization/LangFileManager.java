@@ -10,6 +10,7 @@ public class LangFileManager {
 
     public static void initialization() {
         langFile.clear();
+        LangFileReader.clearCache();
         for (String langFile : ConfigFile.Language.LangFiles) {
             addLang(langFile);
         }

@@ -7,7 +7,9 @@ import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -32,9 +34,22 @@ public class CopyLeftClick {
             return;
         }
 
+        if (Material.PLAYER_HEAD == block.getType()) {
+
+        }
+
         ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
         playerData.setCopiedSubBlockData(subBlockDataList);
 
+        if (block.getType() == Material.PLAYER_HEAD) {
+            if (block.getState() instanceof Skull) {
+                if (((Skull) block.getState()).hasOwner()) {
+                    playerData.setCopiedSkullBlockPlayerProfile(((Skull) block.getState()).getPlayerProfile());
+                }
+            }
+        } else {
+            playerData.removePlayerProfile();
+        }
         PlayerDataManager.setPlayerData(playerUUID, playerData);
     }
 }

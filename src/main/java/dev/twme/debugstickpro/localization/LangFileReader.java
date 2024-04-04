@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class LangFileReader {
@@ -14,6 +15,14 @@ public class LangFileReader {
     private YamlConfiguration langFile;
     private int langFileVersion;
     private final String locale;
+
+
+    // cache for lang file
+    private static HashMap<String,String> cache = new HashMap<>();
+
+    public static void clearCache() {
+        cache.clear();
+    }
 
     public LangFileReader(String locale) throws IllegalArgumentException {
         this.locale = locale;
@@ -64,6 +73,10 @@ public class LangFileReader {
 
     public String getString(String key) {
 
+        if (cache.containsKey(locale + key)) {
+            return cache.get(locale + key);
+        }
+
         try {
             if (this.langFile.getString(key) == null) {
                 set(key, LangFileManager.getLang("en_US").getString(key));
@@ -77,6 +90,8 @@ public class LangFileReader {
             Log.warning(e.getMessage());
             return "Missing key: \"" + key + "\"" + " in " + locale + ".yml";
         }
+
+        cache.put(locale + key, this.langFile.getString(key));
         return this.langFile.getString(key);
     }
 

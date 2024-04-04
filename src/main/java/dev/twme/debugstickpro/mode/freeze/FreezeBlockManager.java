@@ -100,16 +100,12 @@ public class FreezeBlockManager {
 
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
 
-            if (f.getBlock().getLocation().getBlock().getType() == Material.BARRIER) {
-                f.getItemDisplay().remove();
-                f.getBlockDisplay().remove();
-                f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
-                f.getBlock().getState().update();
+            f.getItemDisplay().remove();
+            f.getBlockDisplay().remove();
+            f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
+            f.getBlock().getState().update();
+            freezeBlockLocations.remove(freezeLocation);
 
-                freezeBlockLocations.remove(freezeLocation);
-            } else {
-                freezeBlockLocations.remove(freezeLocation);
-            }
         }
         playerFrozenBlockData.remove(playerUUID);
     }

@@ -51,3 +51,20 @@ permissions:
   debugstickpro.bypassregion:
     description: Allows bypass region protection
     default: op
+  debugstickpro.basic:
+    description: Allows basic usage of the DebugStickPro
+    default: op
+    children:
+      - debugstickpro.use
+      - debugstickpro.mode
+      - debugstickpro.give
+      - debugstickpro.mode.copy
+      - debugstickpro.mode.freeze
+      - debugstickpro.help
+  debugstickpro.admin:
+    description: Allows full access to the DebugStickPro
+    default: op
+    children:
+      - debugstickpro.basic
+      - debugstickpro.reload
+      - debugstickpro.bypassregion
