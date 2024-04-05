@@ -37,8 +37,8 @@ public class LangFileReader {
             Log.info("lang" + File.separator + locale + ".yml has been created.");
         }
 
-        this.langFile = new YamlConfiguration();
-        this.langFile.options().parseComments(true);
+        langFile = new YamlConfiguration();
+        langFile.options().parseComments(true);
 
         try {
             this.langFile.load(file);
