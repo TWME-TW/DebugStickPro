@@ -82,7 +82,7 @@ public class SculkSensorData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new SculkSensorData(blockData);
     }
 }

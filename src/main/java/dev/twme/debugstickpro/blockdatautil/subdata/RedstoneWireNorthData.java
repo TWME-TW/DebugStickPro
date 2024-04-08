@@ -94,7 +94,7 @@ public class RedstoneWireNorthData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new RedstoneWireNorthData(blockData);
     }
 }

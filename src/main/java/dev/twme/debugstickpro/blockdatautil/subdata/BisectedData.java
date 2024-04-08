@@ -73,7 +73,7 @@ public class BisectedData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new BisectedData(blockData);
     }
 }

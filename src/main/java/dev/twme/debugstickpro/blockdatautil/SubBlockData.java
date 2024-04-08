@@ -22,5 +22,5 @@ public interface SubBlockData {
 
     BlockData copyTo(BlockData blockData);
 
-    SubBlockData getDataFac(BlockData blockData);
+    SubBlockData fromBlockData(BlockData blockData);
 }

@@ -80,7 +80,7 @@ public class JukeboxData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new JukeboxData(blockData);
     }
 }

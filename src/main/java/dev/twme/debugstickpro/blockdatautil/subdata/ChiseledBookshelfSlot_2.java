@@ -66,7 +66,7 @@ public class ChiseledBookshelfSlot_2 implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new ChiseledBookshelfSlot_2(blockData);
     }
 }

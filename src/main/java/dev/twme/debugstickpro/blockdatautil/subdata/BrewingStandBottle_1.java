@@ -69,7 +69,7 @@ public class BrewingStandBottle_1 implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new BrewingStandBottle_1(blockData);
     }
 }

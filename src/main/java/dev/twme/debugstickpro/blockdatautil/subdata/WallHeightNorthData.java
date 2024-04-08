@@ -83,7 +83,7 @@ public class WallHeightNorthData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new WallHeightNorthData(blockData);
     }
 }

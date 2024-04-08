@@ -78,7 +78,7 @@ public class LeavesDistanceData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new LeavesDistanceData(blockData);
     }
 }

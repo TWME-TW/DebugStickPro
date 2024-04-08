@@ -72,7 +72,7 @@ public class BlockDataSeparater {
         if (cache.containsKey(blockData.getMaterial())) {
 
             for (SubBlockData subBlockData : cache.get(blockData.getMaterial())) {
-                blockDataList.add(subBlockData.getDataFac(blockData));
+                blockDataList.add(subBlockData.fromBlockData(blockData));
             }
             return blockDataList;
         }

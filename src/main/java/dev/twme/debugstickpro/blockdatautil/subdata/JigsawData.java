@@ -119,7 +119,7 @@ public class JigsawData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new JigsawData(blockData);
     }
 }

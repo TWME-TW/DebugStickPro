@@ -68,7 +68,7 @@ public class CaveVinesPlantData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new CaveVinesPlantData(blockData);
     }
 }

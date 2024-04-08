@@ -69,7 +69,7 @@ public class MultipleFacingEastData implements SubBlockData {
     }
 
     @Override
-    public SubBlockData getDataFac(BlockData blockData) {
+    public SubBlockData fromBlockData(BlockData blockData) {
         return new MultipleFacingEastData(blockData);
     }
 }
