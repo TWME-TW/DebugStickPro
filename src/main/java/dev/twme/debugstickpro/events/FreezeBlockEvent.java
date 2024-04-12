@@ -11,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+/**
+ * This event is called when a player freezes a block
+ */
 public class FreezeBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private final UUID playerUUID;
@@ -40,6 +43,11 @@ public class FreezeBlockEvent extends Event implements Cancellable {
         return isCancelled;
     }
 
+    /**
+     * Set the cancelled state of this event
+     *
+     * @param b true if you want to cancel this event
+     */
     @Override
     public void setCancelled(boolean b) {
         this.isCancelled = b;

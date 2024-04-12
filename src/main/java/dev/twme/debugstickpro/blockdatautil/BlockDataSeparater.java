@@ -12,24 +12,43 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-
+/**
+ * Separate BlockData into SubBlockData.
+ */
 public class BlockDataSeparater {
 
-    // 快取
+    /**
+     * This is a cache for results of BlockDataSeparater.separate(BlockData).
+     */
+
     private static final HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
 
-    // 分解 BlockData 成 SubBlockData
-    // separate BlockData into SubBlockData
+    /**
+     * Separate BlockData into SubBlockData.
+     * @param block Block to separate.
+     * @return ArrayList of SubBlockData.
+     */
+
     public static ArrayList<SubBlockData> separate(Block block) {
         return separate(block.getBlockData());
     }
 
     // 清除快取
+
+    /**
+     * Clear the cache.
+     */
+
     public static void clearCache() {
         cache.clear();
     }
 
-    // 確認該材料是否有效
+    /**
+     * Check if the material is valid.
+     * @param material name of the material.
+     * @return true if the material is valid.
+     */
+
     private static boolean isValidMaterial(String material) {
         if (material == null) {
             return false;
@@ -44,6 +63,13 @@ public class BlockDataSeparater {
     }
 
     // filter SubBlockData
+
+    /**
+     * Filter SubBlockData.
+     * @param blockDataList ArrayList of SubBlockData.
+     * @return ArrayList of SubBlockData.
+     */
+
     private static ArrayList<SubBlockData> filterSubBlockData(ArrayList<SubBlockData> blockDataList) {
 
         if (ConfigFile.BlockDataFilter.Whitelist.Enabled && !ConfigFile.BlockDataFilter.Whitelist.Whitelist.contains("*")) {
@@ -59,6 +85,13 @@ public class BlockDataSeparater {
 
     // 分解 BlockData 成 SubBlockData
     // separate BlockData into SubBlockData
+
+    /**
+     * Separate BlockData into SubBlockData.
+     * @param blockData BlockData to separate.
+     * @return ArrayList of SubBlockData.
+     */
+
     public static ArrayList<SubBlockData> separate(BlockData blockData) {
 
 

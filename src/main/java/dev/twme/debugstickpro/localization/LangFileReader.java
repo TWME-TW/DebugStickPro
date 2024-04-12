@@ -18,17 +18,32 @@ public class LangFileReader {
 
 
     // cache for lang file
+
+    /**
+     * This is the cache of the language file
+     */
     private static HashMap<String,String> cache = new HashMap<>();
 
+    /**
+     * Clear the cache of the language file
+     */
     public static void clearCache() {
         cache.clear();
     }
 
+    /**
+     * This is the constructor of the LangFileReader
+     *
+     * @param locale the locale of the language file
+     */
     public LangFileReader(String locale) throws IllegalArgumentException {
         this.locale = locale;
         load();
     }
 
+    /**
+     * Load the language file
+     */
     public void load() throws IllegalArgumentException {
         file = new File(DebugStickPro.getInstance().getDataFolder(), "lang" + File.separator + locale + ".yml");
 
@@ -52,6 +67,11 @@ public class LangFileReader {
         }
     }
 
+    /**
+     * Check the version of the language file
+     *
+     * @return true if the version is compatible
+     */
     public boolean checkLangFileVersion() {
         if (langFileVersion != DebugStickPro.LANG_VERSION) {
             Log.warning("Lang file version is not compatible with this version of the plugin.");
@@ -71,6 +91,12 @@ public class LangFileReader {
         return true;
     }
 
+    /**
+     * Get the string of the key
+     *
+     * @param key the key of the string
+     * @return the string of the key
+     */
     public String getString(String key) {
 
         if (cache.containsKey(locale + key)) {
@@ -95,6 +121,12 @@ public class LangFileReader {
         return this.langFile.getString(key);
     }
 
+    /**
+     * Get the list of the key
+     *
+     * @param key the key of the list
+     * @return the list of the key
+     */
     public List<String> getList(String key) {
 
         List<String> messages;
@@ -114,11 +146,20 @@ public class LangFileReader {
         return messages;
     }
 
+    /**
+     * Set the value of the path
+     *
+     * @param path the path of the value
+     * @param value the value of the path
+     */
     public void set(String path, Object value) {
         this.langFile.set(path, value);
         save();
     }
 
+    /**
+     * Save the language file
+     */
     public void save() {
         try {
             this.langFile.save(file);
@@ -127,6 +168,11 @@ public class LangFileReader {
         }
     }
 
+    /**
+     * Get the locale of the language file
+     *
+     * @return the locale of the language file
+     */
     public File getFile() {
         return file;
     }

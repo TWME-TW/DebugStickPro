@@ -40,6 +40,15 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <show>protected</show>
+                    <show>package</show>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>

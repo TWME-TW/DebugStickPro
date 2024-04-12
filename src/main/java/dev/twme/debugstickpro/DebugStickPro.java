@@ -17,16 +17,31 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public final class DebugStickPro extends JavaPlugin {
+    /**
+     * This is the instance of the plugin
+     */
+
     private static DebugStickPro instance;
 
-    // This is the task ID of the actionbar display task
+    /**
+     * This is the task ID of the action bar task
+     */
     private int actionBarTaskID;
 
-    // TODO: 如果更改此值，請確保在 config.yml 中也更改了相應的值
+    /**
+     * This is the version of the plugin
+     */
     public static final int CONFIG_VERSION = 5;
 
-    // TODO: 如果更改此值，請確保在 lang/your_language.yml 中也更改了相應的值
+    /**
+     * This is the version of the language file
+     */
+
     public static final int LANG_VERSION = 3;
+
+    /**
+     * This method is called when the plugin is enabled
+     */
 
     @Override
     public void onEnable() {
@@ -48,6 +63,10 @@ public final class DebugStickPro extends JavaPlugin {
         registerTasks();
     }
 
+    /**
+     * This method is called when the plugin is reloaded
+     */
+
     public void onReload() {
         FreezeBlockManager.removeOnServerClose();
         unregisterTasks();
@@ -58,15 +77,27 @@ public final class DebugStickPro extends JavaPlugin {
         BlockDataSeparater.clearCache();
     }
 
+    /**
+     * This method is called when the plugin is disabled
+     */
+
     @Override
     public void onDisable() {
         FreezeBlockManager.removeOnServerClose();
     }
 
+    /**
+     * This method registers the commands
+     */
+
     private void registerCommands() {
         getCommand("debugstickpro").setExecutor(new MainCommand());
         getCommand("debugstickpro").setTabCompleter(new MainCommandTabComplete());
     }
+
+    /**
+     * This method registers the listeners
+     */
 
     private void registerListeners() {
         registerListener(new ChunkLoadEventListener());
@@ -86,9 +117,17 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerLocaleChangeEventListener());
     }
 
+    /**
+     * This method makes it easier to register listeners
+     */
+
     private void registerListener(Listener listener) {
         Bukkit.getServer().getPluginManager().registerEvents(listener, this);
     }
+
+    /**
+     * This method registers the tasks
+     */
 
     private void registerTasks() {
 
@@ -97,9 +136,17 @@ public final class DebugStickPro extends JavaPlugin {
         actionBarTaskID = scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
     }
 
+    /**
+     * This method unregisters the tasks
+     */
+
     private void unregisterTasks() {
         Bukkit.getScheduler().cancelTask(actionBarTaskID);
     }
+
+    /**
+     * This method returns the instance of the plugin
+     */
 
     public static DebugStickPro getInstance() {
         return instance;
