@@ -523,6 +523,11 @@ public class BlockDataSeparater {
 
         }
         */
+
+        if  (blockData instanceof Openable) {
+            SubBlockData openable = new OpenableData(blockData);
+            blockDataList.add(openable);
+        }
         if (blockData instanceof Orientable) {
             SubBlockData orientable = new OrientableData(blockData);
             blockDataList.add(orientable);

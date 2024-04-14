@@ -1,5 +1,5 @@
 # Don't change this value
-LangFileVersion: 3
+LangFileVersion: 4
 
 CommandsMessages:
   Help:
@@ -103,6 +103,7 @@ DataKeyName:
   MultipleFacingWestSouthWestDataName: "Faces(West South West)"
   NoteBlockInstrumentDataName: "Instrument"
   NoteBlockNoteDataName: "Note"
+  OpenableDataName: "Open"
   OrientableDataName: "Axis"
   PinkPetalsDataname: "Flower Amount"
   PistonDataName: "Extended"

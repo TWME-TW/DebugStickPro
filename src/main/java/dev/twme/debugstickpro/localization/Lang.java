@@ -131,6 +131,7 @@ public class Lang {
         public final static String MultipleFacingWestSouthWestDataName = "DataKeyName.MultipleFacingWestSouthWestDataName";
         public final static String NoteBlockInstrumentDataName = "DataKeyName.NoteBlockInstrumentDataName";
         public final static String NoteBlockNoteDataName = "DataKeyName.NoteBlockNoteDataName";
+        public final static String OpenableDataName = "DataKeyName.OpenableDataName";
         public final static String OrientableDataName = "DataKeyName.OrientableDataName";
         public final static String PinkPetalsDataname = "DataKeyName.PinkPetalsDataname";
         public final static String PistonDataName = "DataKeyName.PistonDataName";
