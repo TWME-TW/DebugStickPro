@@ -49,4 +49,11 @@ public class I18n {
 
         return lang.getList(key);
     }
+
+    public static List<String> list(String key) {
+
+        LangFileReader lang = LangFileManager.getLang(ConfigFile.Language.DefaultLanguage);
+
+        return lang.getList(key);
+    }
 }

@@ -13,9 +13,7 @@ import java.util.List;
 public class MainCommandTabComplete implements TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(commandSender instanceof Player)) {
-            return null;
-        }
+
         ArrayList<String> list = new ArrayList<>();
         Player player = (Player) commandSender;
         if (args.length == 1) {
@@ -28,8 +26,11 @@ public class MainCommandTabComplete implements TabCompleter {
             if (player.hasPermission("debugstickpro.give")) {
                 list.add("give");
             }
-            if (player.hasPermission("debugstickpro.mode")) {
-                list.add("mode");
+
+            if (commandSender instanceof Player) {
+                if (player.hasPermission("debugstickpro.mode")) {
+                    list.add("mode");
+                }
             }
             return list;
         }
@@ -38,9 +39,8 @@ public class MainCommandTabComplete implements TabCompleter {
 
             if ("give".equalsIgnoreCase(args[0])) {
                 return null;
-            }
+            } else if (args[0].equalsIgnoreCase("mode")) {
 
-            if (args[0].equalsIgnoreCase("mode")) {
                 if (player.hasPermission("debugstickpro.mode")) {
                     list.add("classic");
                 }
@@ -51,6 +51,8 @@ public class MainCommandTabComplete implements TabCompleter {
                     list.add("freeze");
                 }
                 return list;
+            } else if (!(commandSender instanceof Player)) {
+                return null;
             }
         }
         return list;

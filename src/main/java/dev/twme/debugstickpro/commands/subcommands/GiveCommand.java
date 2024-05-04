@@ -48,7 +48,7 @@ public class GiveCommand {
 
         // Give another player a debug stick
         onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
-        Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName()));
+        Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", onlinePlayer.getName()));
         player.sendMessage(parsed);
 
         if (DebugStickItem.checkPlayer(onlinePlayer)) {
