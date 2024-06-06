@@ -137,6 +137,8 @@ DataKeyName:
   TrialSpawnerDataName: "State"
   TripwireDataName: "Disarmed"
   TurtleEggDataName: "Eggs"
+  VaultStateDataName: "Vault State"
+  VaultOminousDataName: "Ominous"
   WallHeightEastDataName: "East"
   WallHeightNorthDataName: "North"
   WallHeightSouthDataName: "South"

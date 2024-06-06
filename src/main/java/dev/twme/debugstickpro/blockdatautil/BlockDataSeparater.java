@@ -717,6 +717,15 @@ public class BlockDataSeparater {
             blockDataList.add(turtleEggHatch);
         }
 
+        if(isValidMaterial("vault")) {
+            if (blockData instanceof Vault) {
+                SubBlockData vaultOminous = new VaultOminousData(blockData);
+                blockDataList.add(vaultOminous);
+                SubBlockData vaultState = new VaultStateData(blockData);
+                blockDataList.add(vaultState);
+            }
+        }
+
         if (blockData instanceof Wall) {
             SubBlockData wallHeightEast = new WallHeightEastData(blockData);
             blockDataList.add(wallHeightEast);

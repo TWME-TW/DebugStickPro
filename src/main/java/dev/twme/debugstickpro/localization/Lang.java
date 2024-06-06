@@ -167,6 +167,8 @@ public class Lang {
         public final static String TrialSpawnerDataName = "DataKeyName.TrialSpawnerDataName";
         public final static String TripwireDataName = "DataKeyName.TripwireDataName";
         public final static String TurtleEggDataName = "DataKeyName.TurtleEggDataName";
+        public final static String VaultStateDataName = "DataKeyName.VaultStateDataName";
+        public final static String VaultOminousDataName = "DataKeyName.VaultOminousDataName";
         public final static String WallHeightEastDataName = "DataKeyName.WallHeightEastDataName";
         public final static String WallHeightNorthDataName = "DataKeyName.WallHeightNorthDataName";
         public final static String WallHeightSouthDataName = "DataKeyName.WallHeightSouthDataName";
