@@ -9,12 +9,20 @@ import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.listeners.*;
 import dev.twme.debugstickpro.localization.LangFileManager;
+import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.utils.DebugStickItem;
 import dev.twme.debugstickpro.utils.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import java.util.UUID;
 
 public final class DebugStickPro extends JavaPlugin {
     /**
@@ -52,11 +60,14 @@ public final class DebugStickPro extends JavaPlugin {
             Log.warning("CoreProtect is not loaded or is not compatible with this version of the plugin.");
         }
 
-
         ConfigLoader.getInstance().load();
 
         LangFileManager.initialization();
 
+        if (!Bukkit.getOnlinePlayers().isEmpty()) {
+            Log.warning("The server is reloaded. The plugin may not work normally");
+            onServerReloadCommand();
+        }
 
         registerCommands();
         registerListeners();
@@ -84,6 +95,27 @@ public final class DebugStickPro extends JavaPlugin {
     @Override
     public void onDisable() {
         FreezeBlockManager.removeOnServerClose();
+    }
+
+    /*
+     * When a stupid admin executes the /reload command
+     */
+    public void onServerReloadCommand() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.locale().toString());
+
+            UUID playerUUID = player.getUniqueId();
+            PlayerDataManager.setPlayerData(playerUUID, new PlayerData());
+
+            if (!player.hasPermission("debugstickpro.use")) {
+                return;
+            }
+            ItemStack item = player.getInventory().getItemInMainHand();
+
+            if (DebugStickItem.isDebugStickItem(item)) {
+                PlayerDataManager.addPlayerToDisplayList(playerUUID);
+            }
+        }
     }
 
     /**
