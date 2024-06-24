@@ -7,6 +7,7 @@ authors: [TWME]
 website: https://github.com/TWME-TW/DebugStickPro
 softdepend:
   - CoreProtect
+  - PlaceholderAPI
 commands:
   debugstickpro:
     description: DebugStickPro command
