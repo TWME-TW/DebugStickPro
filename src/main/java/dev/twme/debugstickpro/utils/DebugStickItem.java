@@ -23,9 +23,10 @@ public final class DebugStickItem {
             return false;
         }
         if (ConfigFile.DebugStickItem.CustomModelData.Enabled) {
-            if (item.getItemMeta().getCustomModelData() != ConfigFile.DebugStickItem.CustomModelData.CustomModelData) {
+            if (!item.getItemMeta().hasCustomModelData()) {
                 return false;
             }
+            return item.getItemMeta().getCustomModelData() == ConfigFile.DebugStickItem.CustomModelData.CustomModelData;
         }
         return true;
     }
@@ -44,10 +45,12 @@ public final class DebugStickItem {
         itemMeta.lore(ConfigFile.DebugStickItem.Lore);
         itemMeta.getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");
         if (ConfigFile.DebugStickItem.CustomModelData.Enabled) {
+            Log.warning("CustomModelData is enabled");
             itemMeta.setCustomModelData(ConfigFile.DebugStickItem.CustomModelData.CustomModelData);
+            itemStack.setItemMeta(itemMeta);
+            return itemStack;
         }
         itemStack.setItemMeta(itemMeta);
-
         return itemStack;
     }
 }

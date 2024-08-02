@@ -82,8 +82,8 @@ public class ConfigLoader {
             lore.add(mm.deserialize(loreString));
         }
         ConfigFile.DebugStickItem.Lore = lore;
-        ConfigFile.DebugStickItem.CustomModelData.Enabled = config.getBoolean("CustomModelData.DebugStickItem.Enabled");
-        ConfigFile.DebugStickItem.CustomModelData.CustomModelData = config.getInt("CustomModelData.DebugStickItem.CustomModelData");
+        ConfigFile.DebugStickItem.CustomModelData.Enabled = config.getBoolean("DebugStickItem.CustomModelData.Enabled");
+        ConfigFile.DebugStickItem.CustomModelData.CustomModelData = config.getInt("DebugStickItem.CustomModelData.CustomModelData");
 
         ConfigFile.WhitelistWorlds.Enabled = config.getBoolean("WhitelistWorlds.Enabled");
         ConfigFile.WhitelistWorlds.Worlds = new HashSet<>(config.getStringList("WhitelistWorlds.Worlds"));
