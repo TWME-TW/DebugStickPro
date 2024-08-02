@@ -7,6 +7,7 @@ import dev.twme.debugstickpro.config.ConfigFile;
 import dev.twme.debugstickpro.config.ConfigLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
+import dev.twme.debugstickpro.hook.PlaceholderAPIUtil;
 import dev.twme.debugstickpro.listeners.*;
 import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
@@ -58,6 +59,11 @@ public final class DebugStickPro extends JavaPlugin {
         boolean isCoreProtectLoaded = CoreProtectUtil.initCoreProtect();
         if (!isCoreProtectLoaded) {
             Log.warning("CoreProtect is not loaded or is not compatible with this version of the plugin.");
+        }
+
+        boolean isPlaceholderAPILoaded = PlaceholderAPIUtil.initPlaceholderAPI();
+        if (!isPlaceholderAPILoaded) {
+            Log.warning("PlaceholderAPI is not loaded or is not compatible with this version of the plugin.");
         }
 
         ConfigLoader.getInstance().load();

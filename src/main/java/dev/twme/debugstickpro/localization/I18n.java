@@ -1,6 +1,8 @@
 package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.config.ConfigFile;
+import dev.twme.debugstickpro.hook.PlaceholderAPIUtil;
+import org.bukkit.Bukkit;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +13,7 @@ public class I18n {
      * Get the translated string of the key
      *
      * @param playerUUID the UUID of the player
-     * @param key the key of the string
+     * @param key        the key of the string
      * @return the string of the key
      */
     public static String string(UUID playerUUID, String key) {
@@ -19,7 +21,7 @@ public class I18n {
         String playerLocale = PlayerLanguageManager.getLocale(playerUUID);
         LangFileReader lang = LangFileManager.getLang(playerLocale);
 
-        return lang.getString(key);
+        return PlaceholderAPIUtil.insertPAPI(Bukkit.getPlayer(playerUUID), lang.getString(key));
     }
 
     /**
@@ -39,7 +41,7 @@ public class I18n {
      * Get the translated list of the key
      *
      * @param playerUUID the UUID of the player
-     * @param key the key of the list
+     * @param key        the key of the list
      * @return the list of the key
      */
     public static List<String> list(UUID playerUUID, String key) {
@@ -47,7 +49,7 @@ public class I18n {
         String playerLocale = PlayerLanguageManager.getLocale(playerUUID);
         LangFileReader lang = LangFileManager.getLang(playerLocale);
 
-        return lang.getList(key);
+        return PlaceholderAPIUtil.insertPAPI(Bukkit.getPlayer(playerUUID), lang.getList(key));
     }
 
     public static List<String> list(String key) {
