@@ -31,11 +31,6 @@ public class FreezeBlockManager {
         if (freezeBlockLocations.contains(freezeLocation)) {
             return;
         }
-        FreezeBlockEvent event = new FreezeBlockEvent(playerUUID, block);
-        if (event.isCancelled()) {
-            return;
-        }
-
 
         // create player freeze block data list
         if (!playerFrozenBlockData.containsKey(playerUUID)) {

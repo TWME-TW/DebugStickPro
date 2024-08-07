@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.mode.copy;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.events.CopyModeChangingBlockEvent;
 import dev.twme.debugstickpro.events.PasteBlockDataEvent;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.profile.PlayerTextures;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CopyRightClick {
@@ -60,10 +62,21 @@ public class CopyRightClick {
             }
         }
 
-        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
+        List<SubBlockData> oldSubBlockDataList = BlockDataSeparater.separate(block);
+        List<SubBlockData> newSubBlockDataList = playerData.getCopiedSubBlockData();
 
-        for (SubBlockData subBlockData : subBlockDataList) {
-            for (SubBlockData copiedSubBlockData : playerData.getCopiedSubBlockData()) {
+        CopyModeChangingBlockEvent copyModeChangingBlockEvent = new CopyModeChangingBlockEvent(playerUUID, block, oldSubBlockDataList, newSubBlockDataList);
+        Bukkit.getPluginManager().callEvent(copyModeChangingBlockEvent);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
+        oldSubBlockDataList = copyModeChangingBlockEvent.getOldBlockData();
+        newSubBlockDataList = copyModeChangingBlockEvent.getNewBlockData();
+
+        for (SubBlockData subBlockData : oldSubBlockDataList) {
+            for (SubBlockData copiedSubBlockData : newSubBlockDataList) {
                 if (subBlockData.name().equals(copiedSubBlockData.name())) {
                     block.setBlockData(copiedSubBlockData.copyTo(subBlockData.getBlockData()), false);
                     block.getState().update();
