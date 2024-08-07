@@ -33,6 +33,8 @@
 ### Auto Region Protection Support:
  - Support for region protection plugins, such as WorldGuard, GriefPrevention, etc.
 
+### Addon:
+ - [Nether-No-Water](https://www.spigotmc.org/resources/dsp-add-on-nether-no-water.118723/): An add-on that prevents players from changing Waterlogged data in the Nether.
 ### Support filtering specific BlockData:
  - You can filter specific BlockData in the config file.
 
