@@ -90,7 +90,7 @@ public class ClassicRightClick {
         BlockData oldBlockData = DebugStickPro.getInstance().getServer().createBlockData(block.getBlockData().getAsString());
         BlockData newBlockData = subBlockData.nextData().getBlockData();
         ClassicModeBlockBlockDataChangingEvent event = new ClassicModeBlockBlockDataChangingEvent(playerUUID, block, oldBlockData, newBlockData);
-
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return;
         }
@@ -102,7 +102,7 @@ public class ClassicRightClick {
         BlockData oldBlockData = DebugStickPro.getInstance().getServer().createBlockData(block.getBlockData().getAsString());
         BlockData newBlockData = subBlockData.previousData().getBlockData();
         ClassicModeBlockBlockDataChangingEvent event = new ClassicModeBlockBlockDataChangingEvent(playerUUID, block, oldBlockData, newBlockData);
-
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return;
         }
