@@ -21,7 +21,7 @@ public class ClassicModeBlockBlockDataChangingEvent extends Event implements Can
 
     private final UUID playerUUID;
     private final Block block;
-    private BlockData oldBlockData;
+    private final BlockData oldBlockData;
     private BlockData newBlockData;
     private boolean isCancelled = false;
 
@@ -38,15 +38,6 @@ public class ClassicModeBlockBlockDataChangingEvent extends Event implements Can
         this.block = block;
         this.oldBlockData = oldBlockData;
         this.newBlockData = newBlockData;
-    }
-
-    /**
-     * Set the old block data
-     *
-     * @param blockData the old block data
-     */
-    public void setOldBlockData(BlockData blockData) {
-        this.oldBlockData = blockData;
     }
 
     /**

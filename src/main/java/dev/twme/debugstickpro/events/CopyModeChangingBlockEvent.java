@@ -10,6 +10,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,8 +22,8 @@ public class CopyModeChangingBlockEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private final UUID playerUUID;
     private final Block block;
-    private List<SubBlockData> oldBlockData;
-    private List<SubBlockData> newBlockData;
+    private List<SubBlockData> oldBlockData = new ArrayList<>();
+    private List<SubBlockData> newBlockData = new ArrayList<>();
 
 
     /*
@@ -35,8 +36,8 @@ public class CopyModeChangingBlockEvent extends Event implements Cancellable {
     public CopyModeChangingBlockEvent(UUID playerUUID, Block block, List<SubBlockData> oldBlockData, List<SubBlockData> newBlockData) {
         this.playerUUID = playerUUID;
         this.block = block;
-        this.oldBlockData = oldBlockData;
-        this.newBlockData = newBlockData;
+        this.oldBlockData.addAll(oldBlockData);
+        this.newBlockData.addAll(newBlockData);
     }
 
     @Override
