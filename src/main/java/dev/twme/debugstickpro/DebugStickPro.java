@@ -153,6 +153,7 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerChangeDebugStickModeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
+        registerListener(new PlayerDropItemListener());
     }
 
     /**
