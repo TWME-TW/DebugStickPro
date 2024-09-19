@@ -5,20 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Comparator;
 
-public class ComparatorData implements SubBlockData {
-
-    private final BlockData blockData;
+public class ComparatorData extends SubBlockData {
     private Comparator.Mode mode;
-    private boolean isUsing = false;
 
     public ComparatorData(BlockData blockData) {
         this.blockData = blockData;
         this.mode = ((Comparator) blockData).getMode();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -27,26 +19,8 @@ public class ComparatorData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return mode.name();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

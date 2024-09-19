@@ -5,10 +5,8 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bell;
 
-public class BellData implements SubBlockData {
-    private final BlockData blockData;
+public class BellData extends SubBlockData {
     private Bell.Attachment attachment;
-    private boolean isUsing = false;
 
     public BellData(BlockData blockData) {
         this.blockData = blockData;
@@ -16,18 +14,8 @@ public class BellData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.BellDataName;
-    }
-
-    @Override
-    public BlockData getBlockData() {
-        return blockData;
     }
 
 
@@ -36,17 +24,6 @@ public class BellData implements SubBlockData {
         return attachment.name();
     }
 
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
-    }
 
     @Override
     public SubBlockData nextData() {

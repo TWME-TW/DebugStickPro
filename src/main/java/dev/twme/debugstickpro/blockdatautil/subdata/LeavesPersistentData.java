@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Leaves;
 
-public class LeavesPersistentData implements SubBlockData {
-    private final BlockData blockData;
+public class LeavesPersistentData extends SubBlockData {
     private boolean persistent;
-    private boolean isUsing;
 
     public LeavesPersistentData(BlockData blockData) {
         this.blockData = blockData;
         this.persistent = ((Leaves) blockData).isPersistent();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class LeavesPersistentData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(persistent);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

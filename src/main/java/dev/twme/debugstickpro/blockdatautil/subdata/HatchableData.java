@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Hatchable;
 
-public class HatchableData implements SubBlockData {
-    private final BlockData blockData;
+public class HatchableData extends SubBlockData {
     private int hatch;
-    private boolean isUsing = false;
 
     public HatchableData(BlockData blockData) {
         this.blockData = blockData;
         this.hatch = ((Hatchable) blockData).getHatch();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class HatchableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(hatch);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

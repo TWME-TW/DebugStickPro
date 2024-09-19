@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 
-public class CrafterTriggerData implements SubBlockData {
-    private final BlockData blockData;
+public class CrafterTriggerData extends SubBlockData {
     private boolean triggered;
-    private boolean isUsing = false;
 
     public CrafterTriggerData(BlockData blockData) {
         this.blockData = blockData;
         this.triggered = ((Crafter) blockData).isTriggered();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class CrafterTriggerData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(triggered);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

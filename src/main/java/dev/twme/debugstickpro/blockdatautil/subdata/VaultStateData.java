@@ -6,9 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Vault;
 
-public class VaultStateData implements SubBlockData {
-    private final BlockData blockData;
-    private boolean isUsing = false;
+public class VaultStateData extends SubBlockData {
     private Vault.State state;
 
     public VaultStateData(BlockData blockData) {
@@ -17,34 +15,13 @@ public class VaultStateData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.VaultStateDataName;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return state.name();
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

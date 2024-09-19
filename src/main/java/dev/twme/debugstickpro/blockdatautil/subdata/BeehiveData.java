@@ -5,10 +5,8 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Beehive;
 
-public class BeehiveData implements SubBlockData {
-    private final BlockData blockData;
+public class BeehiveData extends SubBlockData {
     private int honeyLevel;
-    private boolean isUsing = false;
 
     public BeehiveData(BlockData blockData) {
         this.blockData = blockData;
@@ -16,18 +14,8 @@ public class BeehiveData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.BeehiveDataName;
-    }
-
-    @Override
-    public BlockData getBlockData() {
-        return blockData;
     }
 
 
@@ -36,17 +24,6 @@ public class BeehiveData implements SubBlockData {
         return String.valueOf(honeyLevel);
     }
 
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
-    }
 
     @Override
     public SubBlockData nextData() {

@@ -5,20 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Repeater;
 
-public class RepeaterDelayData implements SubBlockData {
-    private final BlockData blockData;
+public class RepeaterDelayData extends SubBlockData {
     private int delay;
-    private boolean isUsing = false;
 
     public RepeaterDelayData(BlockData blockData) {
         this.blockData = blockData;
         this.delay = ((Repeater) blockData).getDelay();
-    }
-
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -27,26 +19,8 @@ public class RepeaterDelayData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(delay);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

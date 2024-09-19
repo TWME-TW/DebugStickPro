@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PinkPetals;
 
-public class PinkPetalsData implements SubBlockData {
-    private final BlockData blockData;
+public class PinkPetalsData extends SubBlockData {
     private int flowerAmount;
-    private boolean isUsing = false;
 
     public PinkPetalsData(BlockData blockData) {
         this.blockData = blockData;
         this.flowerAmount = ((PinkPetals) blockData).getFlowerAmount();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class PinkPetalsData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(flowerAmount);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

@@ -5,11 +5,8 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 
-public class BisectedData implements SubBlockData {
-
-    private final BlockData blockData;
+public class BisectedData extends SubBlockData {
     private Bisected.Half half;
-    private boolean isUsing = false;
 
     public BisectedData(BlockData blockData) {
         this.blockData = blockData;
@@ -17,18 +14,8 @@ public class BisectedData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.BisectedDataName;
-    }
-
-    @Override
-    public BlockData getBlockData() {
-        return blockData;
     }
 
 
@@ -37,17 +24,6 @@ public class BisectedData implements SubBlockData {
         return half.name();
     }
 
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
-    }
 
     @Override
     public SubBlockData nextData() {

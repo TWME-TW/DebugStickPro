@@ -5,9 +5,7 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Vault;
 
-public class VaultOminousData implements SubBlockData {
-    private final BlockData blockData;
-    private boolean isUsing = false;
+public class VaultOminousData extends SubBlockData {
     private boolean ominous;
 
     public VaultOminousData(BlockData blockData) {
@@ -16,34 +14,13 @@ public class VaultOminousData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.VaultOminousDataName;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(ominous);
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

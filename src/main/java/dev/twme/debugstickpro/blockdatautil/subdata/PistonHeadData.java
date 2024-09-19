@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.PistonHead;
 
-public class PistonHeadData implements SubBlockData {
-    private final BlockData blockData;
+public class PistonHeadData extends SubBlockData {
     private boolean shortArm;
-    private boolean isUsing = false;
 
     public PistonHeadData(BlockData blockData) {
         this.blockData = blockData;
         this.shortArm = ((PistonHead) blockData).isShort();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class PistonHeadData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(shortArm);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

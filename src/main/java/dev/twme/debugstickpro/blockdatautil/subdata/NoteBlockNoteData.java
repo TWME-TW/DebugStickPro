@@ -10,19 +10,12 @@ import org.bukkit.block.data.type.NoteBlock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NoteBlockNoteData implements SubBlockData {
-    private BlockData blockData;
+public class NoteBlockNoteData extends SubBlockData {
     private Note note;
-    private boolean isUsing = false;
 
     public NoteBlockNoteData(BlockData blockData) {
         this.blockData = blockData;
         this.note = ((NoteBlock) blockData).getNote();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -31,25 +24,8 @@ public class NoteBlockNoteData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(note);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

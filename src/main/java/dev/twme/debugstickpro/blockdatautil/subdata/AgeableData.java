@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 
-public class AgeableData implements SubBlockData {
-    private final BlockData blockData;
+public class AgeableData extends SubBlockData {
     private int age;
-    private boolean isUsing = false;
 
     public AgeableData(BlockData blockData) {
         this.blockData = blockData;
         this.age = ((Ageable) blockData).getAge();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class AgeableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(age);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

@@ -8,19 +8,12 @@ import org.bukkit.block.data.Directional;
 
 import java.util.List;
 
-public class DirectionalData implements SubBlockData {
-    private final org.bukkit.block.data.BlockData blockData;
+public class DirectionalData extends SubBlockData {
     private BlockFace direction;
-    private boolean isUsing = false;
 
-    public DirectionalData(org.bukkit.block.data.BlockData blockData) {
+    public DirectionalData(BlockData blockData) {
         this.blockData = blockData;
         this.direction = ((Directional) blockData).getFacing();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -29,26 +22,8 @@ public class DirectionalData implements SubBlockData {
     }
 
     @Override
-    public org.bukkit.block.data.BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return direction.name();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override
@@ -56,7 +31,7 @@ public class DirectionalData implements SubBlockData {
         List<BlockFace> blockFaces = ((Directional) blockData).getFaces().stream().toList();
         int index = blockFaces.indexOf(direction);
         if (index >= blockFaces.size() - 1) {
-            ((Directional) blockData).setFacing(blockFaces.get(0));
+            ((Directional) blockData).setFacing(blockFaces.getFirst());
         } else {
             ((Directional) blockData).setFacing(blockFaces.get(index + 1));
         }
@@ -69,7 +44,7 @@ public class DirectionalData implements SubBlockData {
         List<BlockFace> blockFaces = ((Directional) blockData).getFaces().stream().toList();
         int index = blockFaces.indexOf(direction);
         if (index <= 0) {
-            ((Directional) blockData).setFacing(blockFaces.get(blockFaces.size() - 1));
+            ((Directional) blockData).setFacing(blockFaces.getLast());
         } else {
             ((Directional) blockData).setFacing(blockFaces.get(index - 1));
         }

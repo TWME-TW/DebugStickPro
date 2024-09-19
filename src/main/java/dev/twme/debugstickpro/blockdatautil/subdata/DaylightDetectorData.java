@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.DaylightDetector;
 
-public class DaylightDetectorData implements SubBlockData {
-    private final BlockData blockData;
+public class DaylightDetectorData extends SubBlockData {
     private boolean inverted;
-    private boolean isUsing = false;
 
     public DaylightDetectorData(BlockData blockData) {
         this.blockData = blockData;
         this.inverted = ((DaylightDetector) blockData).isInverted();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class DaylightDetectorData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(inverted);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

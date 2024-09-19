@@ -5,10 +5,8 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.RespawnAnchor;
 
-public class RespawnAnchorData implements SubBlockData {
-    private final BlockData blockData;
+public class RespawnAnchorData extends SubBlockData {
     private int charges;
-    private final boolean isUsing = false;
 
     public RespawnAnchorData(BlockData blockData) {
         this.blockData = blockData;
@@ -16,18 +14,8 @@ public class RespawnAnchorData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.RespawnAnchorDataName;
-    }
-
-    @Override
-    public BlockData getBlockData() {
-        return blockData;
     }
 
     @Override
@@ -38,11 +26,6 @@ public class RespawnAnchorData implements SubBlockData {
     @Override
     public SubBlockData setIsUsing(boolean isUsing) {
         return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

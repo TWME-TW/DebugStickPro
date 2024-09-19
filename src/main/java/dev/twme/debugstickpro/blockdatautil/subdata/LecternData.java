@@ -6,19 +6,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Lectern;
 
-public class LecternData implements SubBlockData {
-    private BlockData blockData;
+public class LecternData extends SubBlockData {
     private boolean hasBook;
-    private boolean isUsing = false;
 
     public LecternData(BlockData blockData) {
         this.blockData = blockData;
         this.hasBook = ((Lectern) blockData).hasBook();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -27,24 +20,8 @@ public class LecternData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(hasBook);
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override
