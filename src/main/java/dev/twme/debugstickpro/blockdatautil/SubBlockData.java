@@ -5,79 +5,86 @@ import org.bukkit.block.data.BlockData;
 /**
  * This interface is used to represent the SubBlockData
  */
-public interface SubBlockData {
+public abstract class SubBlockData {
+
+    protected BlockData blockData;
+    protected boolean isUsing = false;
     /**
      * Get the name of the SubBlockData
      *
      * @return the name of the SubBlockData
      */
-
-    String name();
+    public String name() {
+        return this.getClass().getSimpleName();
+    }
 
     /**
      * Get the name of the SubBlockData
      *
      * @return the name of the SubBlockData
      */
-
-    String dataName();
+    public abstract String dataName();
 
     /**
      * Get the BlockData of the SubBlockData
      *
      * @return the BlockData of the SubBlockData
      */
-
-    BlockData getBlockData();
+    public BlockData getBlockData() {
+        return blockData;
+    }
 
     /**
      * Get the String of the BlockData of the SubBlockData
      *
      * @return the String of the BlockData of the SubBlockData
      */
-    String getDataAsString();
+    public abstract String getDataAsString();
 
     /**
      * Set the SubBlockData is using or not
      *
      * @return the BlockData of the SubBlockData
      */
-
-    SubBlockData setIsUsing(boolean isUsing);
+    public SubBlockData setIsUsing(boolean isUsing) {
+        this.isUsing = isUsing;
+        return this;
+    }
 
     /**
      * Check if the SubBlockData is using
      *
      * @return true if the SubBlockData is using
      */
-
-    boolean isUsing();
+    public boolean isUsing() {
+        return isUsing;
+    }
 
     /**
      * Get next BlockData of the SubBlockData
      *
      * @return the BlockData of the SubBlockData
      */
-    SubBlockData nextData();
+    public abstract SubBlockData nextData();
 
     /**
      * Get previous BlockData of the SubBlockData
      *
      * @return the BlockData of the SubBlockData
      */
-    SubBlockData previousData();
+    public abstract SubBlockData previousData();
 
     /**
      * Copy the BlockData of the SubBlockData to the BlockData
      *
      * @return the BlockData of the SubBlockData
      */
-    BlockData copyTo(BlockData blockData);
+    public abstract BlockData copyTo(BlockData blockData);
 
     /**
      * Get the BlockData of the SubBlockData
      *
      * @return the BlockData of the SubBlockData
      */
-    SubBlockData fromBlockData(BlockData blockData);
+    public abstract SubBlockData fromBlockData(BlockData blockData);
 }

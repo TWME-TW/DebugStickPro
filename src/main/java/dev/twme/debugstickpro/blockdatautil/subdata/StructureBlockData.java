@@ -5,10 +5,8 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.StructureBlock;
 
-public class StructureBlockData implements SubBlockData {
-    private final BlockData blockData;
+public class StructureBlockData extends SubBlockData {
     private StructureBlock.Mode mode;
-    private boolean isUsing = false;
 
     public StructureBlockData(BlockData blockData) {
         this.blockData = blockData;
@@ -16,35 +14,14 @@ public class StructureBlockData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.StructureBlockDataName;
-    }
-
-    @Override
-    public BlockData getBlockData() {
-        return blockData;
     }
 
 
     @Override
     public String getDataAsString() {
         return mode.name();
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
 
-public class StairsData implements SubBlockData {
-    private final BlockData blockData;
+public class StairsData extends SubBlockData {
     private Stairs.Shape shape;
-    private boolean isUsing = false;
 
     public StairsData(BlockData blockData) {
         this.blockData = blockData;
         this.shape = ((Stairs) blockData).getShape();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class StairsData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return shape.name();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

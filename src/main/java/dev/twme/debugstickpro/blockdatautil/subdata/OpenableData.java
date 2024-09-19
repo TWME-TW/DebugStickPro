@@ -5,20 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
 
-public class OpenableData implements SubBlockData {
-
-    private BlockData blockData;
+public class OpenableData extends SubBlockData {
     private boolean isOpen;
-    private boolean isUsing = false;
 
     public OpenableData(BlockData blockData) {
         this.blockData = blockData;
         this.isOpen = ((Openable) blockData).isOpen();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -27,24 +19,8 @@ public class OpenableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(isOpen);
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

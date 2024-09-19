@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Hopper;
 
-public class HopperData implements SubBlockData {
-    private final BlockData blockData;
+public class HopperData extends SubBlockData {
     private boolean enabled;
-    private boolean isUsing = false;
 
     public HopperData(BlockData blockData) {
         this.blockData = blockData;
         this.enabled = ((Hopper) blockData).isEnabled();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class HopperData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(enabled);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

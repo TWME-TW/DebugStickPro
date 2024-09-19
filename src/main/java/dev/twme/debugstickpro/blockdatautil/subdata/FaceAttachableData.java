@@ -5,19 +5,18 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.FaceAttachable;
 
-public class FaceAttachableData implements SubBlockData {
-    private final BlockData blockData;
+import java.util.List;
+
+public class FaceAttachableData extends SubBlockData {
     private FaceAttachable.AttachedFace attachedFace;
-    private boolean isUsing = false;
+    private final static List<FaceAttachable.AttachedFace> faces = List.of(
+            FaceAttachable.AttachedFace.CEILING,
+            FaceAttachable.AttachedFace.FLOOR,
+            FaceAttachable.AttachedFace.WALL);
 
     public FaceAttachableData(BlockData blockData) {
         this.blockData = blockData;
         this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,54 +25,21 @@ public class FaceAttachableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return attachedFace.name();
     }
 
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
-    }
-
     @Override
     public SubBlockData nextData() {
-        FaceAttachable faceAttachable = ((FaceAttachable) blockData);
-        if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.CEILING) {
-            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.FLOOR);
-        } else if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.FLOOR) {
-            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.WALL);
-        } else {
-            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.CEILING);
-        }
-        this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
+        FaceAttachable.AttachedFace attachedFace = ((FaceAttachable) blockData).getAttachedFace();
+        this.attachedFace = faces.get((faces.indexOf(attachedFace) + 1) % faces.size());
         return this;
     }
 
     @Override
     public SubBlockData previousData() {
-        FaceAttachable faceAttachable = ((FaceAttachable) blockData);
-
-        if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.WALL) {
-            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.FLOOR);
-        } else if (faceAttachable.getAttachedFace() == FaceAttachable.AttachedFace.FLOOR) {
-            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.CEILING);
-        } else {
-            faceAttachable.setAttachedFace(FaceAttachable.AttachedFace.WALL);
-        }
-        this.attachedFace = ((FaceAttachable) blockData).getAttachedFace();
+        FaceAttachable.AttachedFace attachedFace = ((FaceAttachable) blockData).getAttachedFace();
+        this.attachedFace = faces.get((faces.indexOf(attachedFace) - 1 + faces.size()) % faces.size());
         return this;
     }
 

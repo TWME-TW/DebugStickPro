@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Powerable;
 
-public class PowerableData implements SubBlockData {
-    private final BlockData blockData;
+public class PowerableData extends SubBlockData {
     private boolean powered;
-    private boolean isUsing = false;
 
     public PowerableData(BlockData blockData) {
         this.blockData = blockData;
         this.powered = ((Powerable) blockData).isPowered();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,25 +19,8 @@ public class PowerableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(powered);
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

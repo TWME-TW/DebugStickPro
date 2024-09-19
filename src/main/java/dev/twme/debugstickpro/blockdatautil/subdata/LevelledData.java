@@ -5,9 +5,7 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Levelled;
 
-public class LevelledData implements SubBlockData {
-    private final BlockData blockData;
-    private boolean isUsing;
+public class LevelledData extends SubBlockData {
     private int level;
 
     public LevelledData(BlockData blockData) {
@@ -16,36 +14,13 @@ public class LevelledData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.LevelledDataName;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(level);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

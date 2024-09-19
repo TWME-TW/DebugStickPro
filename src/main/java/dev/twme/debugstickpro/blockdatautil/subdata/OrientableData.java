@@ -8,19 +8,12 @@ import org.bukkit.block.data.Orientable;
 
 import java.util.List;
 
-public class OrientableData implements SubBlockData {
-    private final BlockData blockData;
+public class OrientableData extends SubBlockData {
     private Axis axis;
-    private boolean isUsing = false;
 
     public OrientableData(BlockData blockData) {
         this.blockData = blockData;
         this.axis = ((org.bukkit.block.data.Orientable) blockData).getAxis();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -29,26 +22,8 @@ public class OrientableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return axis.name();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override
@@ -56,13 +31,13 @@ public class OrientableData implements SubBlockData {
         Orientable orientable = (Orientable) blockData;
         List<Axis> axisList = orientable.getAxes().stream().toList();
         if (axisList.size() == 1) {
-            orientable.setAxis(axisList.get(0));
-            this.axis = axisList.get(0);
+            orientable.setAxis(axisList.getFirst());
+            this.axis = axisList.getFirst();
         } else {
             int index = axisList.indexOf(axis);
             if (index == axisList.size() - 1) {
-                orientable.setAxis(axisList.get(0));
-                this.axis = axisList.get(0);
+                orientable.setAxis(axisList.getFirst());
+                this.axis = axisList.getFirst();
             } else {
                 orientable.setAxis(axisList.get(index + 1));
                 this.axis = axisList.get(index + 1);
@@ -77,13 +52,13 @@ public class OrientableData implements SubBlockData {
         Orientable orientable = (Orientable) blockData;
         List<Axis> axisList = orientable.getAxes().stream().toList();
         if (axisList.size() == 1) {
-            orientable.setAxis(axisList.get(0));
-            this.axis = axisList.get(0);
+            orientable.setAxis(axisList.getFirst());
+            this.axis = axisList.getFirst();
         } else {
             int index = axisList.indexOf(axis);
             if (index == 0) {
-                orientable.setAxis(axisList.get(axisList.size() - 1));
-                this.axis = axisList.get(axisList.size() - 1);
+                orientable.setAxis(axisList.getLast());
+                this.axis = axisList.getLast();
             } else {
                 orientable.setAxis(axisList.get(index - 1));
                 this.axis = axisList.get(index - 1);

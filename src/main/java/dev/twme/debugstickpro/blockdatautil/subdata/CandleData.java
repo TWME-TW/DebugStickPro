@@ -5,9 +5,7 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Candle;
 
-public class CandleData implements SubBlockData {
-    private final BlockData blockData;
-    private boolean isUsing = false;
+public class CandleData extends SubBlockData {
     private int candleCount;
 
     public CandleData(BlockData blockData) {
@@ -16,36 +14,13 @@ public class CandleData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.CandleDataName;
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(candleCount);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

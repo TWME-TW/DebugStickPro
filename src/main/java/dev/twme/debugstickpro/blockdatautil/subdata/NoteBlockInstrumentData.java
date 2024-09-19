@@ -9,19 +9,12 @@ import org.bukkit.block.data.type.NoteBlock;
 import java.util.Arrays;
 import java.util.List;
 
-public class NoteBlockInstrumentData implements SubBlockData {
-    private final BlockData blockData;
+public class NoteBlockInstrumentData extends SubBlockData {
     private Instrument instrument;
-    private boolean isUsing = false;
 
     public NoteBlockInstrumentData(BlockData blockData) {
         this.blockData = blockData;
         this.instrument = ((NoteBlock) blockData).getInstrument();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -30,25 +23,8 @@ public class NoteBlockInstrumentData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return instrument.toString();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override
@@ -56,7 +32,7 @@ public class NoteBlockInstrumentData implements SubBlockData {
         NoteBlock noteBlock = ((NoteBlock) blockData);
         List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
         if (instruments.indexOf(instrument) == instruments.size() - 1) {
-            instrument = instruments.get(0);
+            instrument = instruments.getFirst();
         } else {
             instrument = instruments.get(instruments.indexOf(instrument) + 1);
         }
@@ -69,7 +45,7 @@ public class NoteBlockInstrumentData implements SubBlockData {
         NoteBlock noteBlock = ((NoteBlock) blockData);
         List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
         if (instruments.indexOf(instrument) == 0) {
-            instrument = instruments.get(instruments.size() - 1);
+            instrument = instruments.getLast();
         } else {
             instrument = instruments.get(instruments.indexOf(instrument) - 1);
         }

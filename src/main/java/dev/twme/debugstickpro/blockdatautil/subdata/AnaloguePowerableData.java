@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.AnaloguePowerable;
 import org.bukkit.block.data.BlockData;
 
-public class AnaloguePowerableData implements SubBlockData {
-    private final BlockData blockData;
+public class AnaloguePowerableData extends SubBlockData {
     private int power;
-    private boolean isUsing = false;
 
     public AnaloguePowerableData(BlockData blockData) {
         this.blockData = blockData;
         this.power = ((AnaloguePowerable) blockData).getPower();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,25 +19,10 @@ public class AnaloguePowerableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(power);
     }
 
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
-    }
 
 
     @Override

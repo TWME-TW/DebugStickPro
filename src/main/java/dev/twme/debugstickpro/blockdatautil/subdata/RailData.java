@@ -7,19 +7,12 @@ import org.bukkit.block.data.Rail;
 
 import java.util.List;
 
-public class RailData implements SubBlockData {
-    private final BlockData blockData;
+public class RailData extends SubBlockData {
     private Rail.Shape shape;
-    private boolean isUsing = false;
 
     public RailData(BlockData blockData) {
         this.blockData = blockData;
         this.shape = ((Rail) blockData).getShape();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -28,26 +21,8 @@ public class RailData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return shape.toString();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

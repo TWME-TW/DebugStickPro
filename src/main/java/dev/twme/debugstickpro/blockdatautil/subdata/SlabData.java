@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Slab;
 
-public class SlabData implements SubBlockData {
-    private final BlockData blockData;
+public class SlabData extends SubBlockData {
     private Slab.Type type;
-    private boolean isUsing = false;
 
     public SlabData(BlockData blockData) {
         this.blockData = blockData;
         this.type = ((Slab) blockData).getType();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class SlabData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return type.name();
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

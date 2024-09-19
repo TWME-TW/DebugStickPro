@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Tripwire;
 
-public class TripwireData implements SubBlockData {
-    private final BlockData blockData;
+public class TripwireData extends SubBlockData {
     private boolean isDisarmed;
-    private boolean isUsing = false;
 
     public TripwireData(BlockData blockData) {
         this.blockData = blockData;
         this.isDisarmed = ((Tripwire) blockData).isDisarmed();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,25 +19,8 @@ public class TripwireData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(isDisarmed);
-    }
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

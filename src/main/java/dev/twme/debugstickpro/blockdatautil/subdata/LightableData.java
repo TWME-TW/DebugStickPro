@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Lightable;
 
-public class LightableData implements SubBlockData {
-    private final BlockData blockData;
+public class LightableData extends SubBlockData {
     private boolean lit;
-    private boolean isUsing = false;
 
     public LightableData(BlockData blockData) {
         this.blockData = blockData;
         this.lit = ((Lightable) blockData).isLit();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class LightableData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(lit);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

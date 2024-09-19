@@ -7,19 +7,12 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Jukebox;
 
 
-public class JukeboxData implements SubBlockData {
-    private BlockData blockData;
+public class JukeboxData extends SubBlockData {
     private boolean hasRecord;
-    private boolean isUsing = false;
 
     public JukeboxData(BlockData blockData) {
         this.blockData = blockData;
         this.hasRecord = ((Jukebox) blockData).hasRecord();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -28,26 +21,8 @@ public class JukeboxData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(hasRecord);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     public SubBlockData nextData() {

@@ -5,19 +5,12 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Campfire;
 
-public class CampfireData implements SubBlockData {
-    private final BlockData blockData;
+public class CampfireData extends SubBlockData {
     private boolean isSignalFire;
-    private boolean isUsing = false;
 
     public CampfireData(BlockData blockData) {
         this.blockData = blockData;
         this.isSignalFire = ((Campfire) blockData).isSignalFire();
-    }
-
-    @Override
-    public String name() {
-        return this.getClass().getSimpleName();
     }
 
     @Override
@@ -26,26 +19,8 @@ public class CampfireData implements SubBlockData {
     }
 
     @Override
-    public BlockData getBlockData() {
-        return blockData;
-    }
-
-
-    @Override
     public String getDataAsString() {
         return String.valueOf(isSignalFire);
-    }
-
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
     }
 
     @Override

@@ -5,11 +5,8 @@ import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bed;
 
-public class BedData implements SubBlockData {
-
-    private final BlockData blockData;
+public class BedData extends SubBlockData {
     private Bed.Part part;
-    private boolean isUsing = false;
 
     public BedData(BlockData blockData) {
         this.blockData = blockData;
@@ -17,18 +14,8 @@ public class BedData implements SubBlockData {
     }
 
     @Override
-    public String name() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     public String dataName() {
         return Lang.DataKeyName.BedDataName;
-    }
-
-    @Override
-    public BlockData getBlockData() {
-        return blockData;
     }
 
 
@@ -37,17 +24,6 @@ public class BedData implements SubBlockData {
         return part.name();
     }
 
-
-    @Override
-    public SubBlockData setIsUsing(boolean isUsing) {
-        this.isUsing = isUsing;
-        return this;
-    }
-
-    @Override
-    public boolean isUsing() {
-        return isUsing;
-    }
 
     @Override
     public SubBlockData nextData() {
@@ -63,13 +39,7 @@ public class BedData implements SubBlockData {
 
     @Override
     public SubBlockData previousData() {
-        Bed bed = (Bed) blockData;
-        if (bed.getPart() == Bed.Part.FOOT) {
-            bed.setPart(Bed.Part.HEAD);
-        } else {
-            bed.setPart(Bed.Part.FOOT);
-        }
-        this.part = ((Bed) blockData).getPart();
+        nextData();
         return this;
     }
 
