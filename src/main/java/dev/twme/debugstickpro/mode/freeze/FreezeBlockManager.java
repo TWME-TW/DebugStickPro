@@ -1,6 +1,5 @@
 package dev.twme.debugstickpro.mode.freeze;
 
-import dev.twme.debugstickpro.events.FreezeBlockEvent;
 import dev.twme.debugstickpro.utils.PersistentKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,10 +15,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Transformation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 
 public class FreezeBlockManager {
     private static final HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
@@ -53,7 +49,10 @@ public class FreezeBlockManager {
         freezeBlockLocations.add(freezeLocation);
     }
 
-    // when player right-click a freeze block , unfreeze it!
+
+    /*
+       when player right-click a freeze block , unfreeze it!
+     */
     public static void removeOneBlock(UUID playerUUID, Block block) {
 
         // no data
@@ -115,7 +114,7 @@ public class FreezeBlockManager {
         if (!container.has(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)) {
             return;
         }
-        UUID playerUUID = UUID.fromString(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING));
+        UUID playerUUID = UUID.fromString(Objects.requireNonNull(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)));
 
         if (!playerFrozenBlockData.containsKey(playerUUID)) {
             removeNullPlayerEntityAndBlock(entity);

@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.mode.freeze;
 
-import dev.twme.debugstickpro.events.FreezeBlockEvent;
-import dev.twme.debugstickpro.events.UnFreezeBlockEvent;
+import dev.twme.debugstickpro.events.FreezeModeFreezeBlockEvent;
+import dev.twme.debugstickpro.events.FreezeModeUnFreezeBlockEvent;
 import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
@@ -27,15 +27,15 @@ public class FreezeRightClick {
         if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
             // remove a freeze block
 
-            UnFreezeBlockEvent unFreezeBlockEvent = new UnFreezeBlockEvent(playerUUID, block);
-            Bukkit.getPluginManager().callEvent(unFreezeBlockEvent);
-            if (unFreezeBlockEvent.isCancelled()) {
+            FreezeModeUnFreezeBlockEvent freezeModeUnFreezeBlockEvent = new FreezeModeUnFreezeBlockEvent(playerUUID, block);
+            Bukkit.getPluginManager().callEvent(freezeModeUnFreezeBlockEvent);
+            if (freezeModeUnFreezeBlockEvent.isCancelled()) {
                 return;
             }
             FreezeBlockManager.removeOneBlock(playerUUID, block);
         } else {
             // start add a freeze block
-            FreezeBlockEvent event = new FreezeBlockEvent(playerUUID, block);
+            FreezeModeFreezeBlockEvent event = new FreezeModeFreezeBlockEvent(playerUUID, block);
             Bukkit.getPluginManager().callEvent(event);
             // if event is cancelled, do nothing
             if (event.isCancelled()) {

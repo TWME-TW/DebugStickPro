@@ -4,7 +4,7 @@ import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.events.CopyModeChangingBlockEvent;
-import dev.twme.debugstickpro.events.PasteBlockDataEvent;
+import dev.twme.debugstickpro.events.CopyModePasteBlockDataEvent;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
@@ -15,7 +15,6 @@ import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 import org.bukkit.profile.PlayerTextures;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +27,7 @@ public class CopyRightClick {
             return;
         }
 
-        PasteBlockDataEvent event = new PasteBlockDataEvent(playerUUID, block);
+        CopyModePasteBlockDataEvent event = new CopyModePasteBlockDataEvent(playerUUID, block);
         Bukkit.getPluginManager().callEvent(event);
 
         if (event.isCancelled()) {
