@@ -15,39 +15,83 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
 
+/**
+ * Player data manager
+ */
 public class PlayerDataManager {
 
-    // 儲存玩家的資訊
+    /**
+     * player data map
+     */
     private static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<>();
 
-    // 該玩家是否加入顯示列表
+    /**
+     * player enable display set
+     */
     private static final HashSet<UUID> playerEnableDisplaySet = new HashSet<>();
 
+    /**
+     * set player data
+     *
+     * @param uuid player UUID
+     * @param playerData player data
+     */
     public static void setPlayerData(UUID uuid, PlayerData playerData) {
         playerDataMap.put(uuid, playerData);
     }
 
+    /**
+     * get player data
+     *
+     * @param uuid player UUID
+     * @return player data
+     */
     public static PlayerData getPlayerData(UUID uuid) {
         return playerDataMap.get(uuid);
     }
 
+    /**
+     * remove player data
+     *
+     * @param uuid player UUID
+     */
     public static void removePlayerData(UUID uuid) {
         playerDataMap.remove(uuid);
     }
 
+    /**
+     * add player to display list
+     *
+     * @param uuid player UUID
+     */
     public static void addPlayerToDisplayList(UUID uuid) {
         playerEnableDisplaySet.add(uuid);
     }
 
+    /**
+     * remove player from display list
+     *
+     * @param uuid player UUID
+     */
     public static void removePlayerFromDisplayList(UUID uuid) {
         playerEnableDisplaySet.remove(uuid);
         ActionbarUtil.removeActionBar(uuid);
     }
 
+    /**
+     * get display set
+     *
+     * @return display set
+     */
     public static HashSet<UUID> getDisplaySet() {
         return playerEnableDisplaySet;
     }
 
+    /**
+     * switch to next debug stick mode
+     *
+     * @param uuid player UUID
+     */
     public static void nextDebugStickMode(UUID uuid) {
 
         Player player = Bukkit.getPlayer(uuid);
@@ -87,6 +131,11 @@ public class PlayerDataManager {
         }
     }
 
+    /**
+     * switch to previous debug stick mode
+     *
+     * @param uuid player UUID
+     */
     public static void previousDebugStickMode(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
         PlayerData playerData = getPlayerData(uuid);
@@ -119,12 +168,25 @@ public class PlayerDataManager {
         }
     }
 
+    /**
+     * debug stick mode change event
+     *
+     * @param playerUUID player UUID
+     * @param previousMode previous debug stick mode
+     * @param newMode new debug stick mode
+     * @return true if the event is cancelled
+     */
     public static boolean modeChangeEventCancelled(UUID playerUUID, DebugStickMode previousMode, DebugStickMode newMode) {
         PlayerChangeDebugStickModeEvent event = new PlayerChangeDebugStickModeEvent(playerUUID, previousMode, newMode);
         Bukkit.getPluginManager().callEvent(event);
         return event.isCancelled();
     }
 
+    /**
+     * player left click
+     *
+     * @param uuid player UUID
+     */
     public static void playerLeftClick(UUID uuid) {
 
         PlayerData playerData = getPlayerData(uuid);
@@ -142,6 +204,11 @@ public class PlayerDataManager {
         }
     }
 
+    /**
+     * player right click
+     *
+     * @param uuid player UUID
+     */
     public static void playerRightClick(UUID uuid) {
 
         PlayerData playerData = getPlayerData(uuid);
