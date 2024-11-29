@@ -46,7 +46,7 @@ public final class DebugStickPro extends JavaPlugin {
      * This is the version of the language file
      */
 
-    public static final int LANG_VERSION = 4;
+    public static final int LANG_VERSION = 5;
 
     /**
      * This method is called when the plugin is enabled
