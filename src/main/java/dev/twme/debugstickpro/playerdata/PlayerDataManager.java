@@ -8,6 +8,7 @@ import dev.twme.debugstickpro.mode.copy.CopyLeftClick;
 import dev.twme.debugstickpro.mode.copy.CopyRightClick;
 import dev.twme.debugstickpro.mode.freeze.FreezeLeftClick;
 import dev.twme.debugstickpro.mode.freeze.FreezeRightClick;
+import dev.twme.debugstickpro.utils.CustomModelDataManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -96,6 +97,10 @@ public class PlayerDataManager {
 
         Player player = Bukkit.getPlayer(uuid);
 
+        if (player == null) {
+            return;
+        }
+
         if (player.isSneaking()) {
             previousDebugStickMode(uuid);
             return;
@@ -110,6 +115,7 @@ public class PlayerDataManager {
                     if (modeChangeEventCancelled(uuid, DebugStickMode.CLASSIC, DebugStickMode.COPY)) {
                         return;
                     }
+                    CustomModelDataManager.updateItem(player, DebugStickMode.COPY);
                     playerData.setDebugStickMode(DebugStickMode.COPY);
                     break;
                 }
@@ -118,6 +124,7 @@ public class PlayerDataManager {
                     if (modeChangeEventCancelled(uuid, DebugStickMode.COPY, DebugStickMode.FREEZE)) {
                         return;
                     }
+                    CustomModelDataManager.updateItem(player, DebugStickMode.FREEZE);
                     playerData.setDebugStickMode(DebugStickMode.FREEZE);
                     break;
                 }
@@ -126,6 +133,7 @@ public class PlayerDataManager {
                     return;
                 }
             default:
+                CustomModelDataManager.updateItem(player, DebugStickMode.CLASSIC);
                 playerData.setDebugStickMode(DebugStickMode.CLASSIC);
                 break;
         }
@@ -179,6 +187,7 @@ public class PlayerDataManager {
     public static boolean modeChangeEventCancelled(UUID playerUUID, DebugStickMode previousMode, DebugStickMode newMode) {
         PlayerChangeDebugStickModeEvent event = new PlayerChangeDebugStickModeEvent(playerUUID, previousMode, newMode);
         Bukkit.getPluginManager().callEvent(event);
+
         return event.isCancelled();
     }
 

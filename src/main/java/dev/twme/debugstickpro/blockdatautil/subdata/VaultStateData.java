@@ -35,7 +35,7 @@ public class VaultStateData extends SubBlockData {
         } else if (state == Vault.State.UNLOCKING) {
             state = Vault.State.ACTIVE;
         }
-        ((Vault) blockData).setTrialSpawnerState(state);
+        ((Vault) blockData).setVaultState(state);
         return this;
     }
 
@@ -50,13 +50,13 @@ public class VaultStateData extends SubBlockData {
         } else if (state == Vault.State.EJECTING) {
             state = Vault.State.ACTIVE;
         }
-        ((Vault) blockData).setTrialSpawnerState(state);
+        ((Vault) blockData).setVaultState(state);
         return this;
     }
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((Vault) blockData).setTrialSpawnerState(state);
+        ((Vault) blockData).setVaultState(state);
         return blockData;
     }
 

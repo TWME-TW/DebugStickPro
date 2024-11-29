@@ -83,7 +83,9 @@ public class ConfigLoader {
         }
         ConfigFile.DebugStickItem.Lore = lore;
         ConfigFile.DebugStickItem.CustomModelData.Enabled = config.getBoolean("DebugStickItem.CustomModelData.Enabled");
-        ConfigFile.DebugStickItem.CustomModelData.CustomModelData = config.getInt("DebugStickItem.CustomModelData.CustomModelData");
+        ConfigFile.DebugStickItem.CustomModelData.ClassicMode = config.getInt("DebugStickItem.CustomModelData.ClassicMode");
+        ConfigFile.DebugStickItem.CustomModelData.CopyMode = config.getInt("DebugStickItem.CustomModelData.CopyMode");
+        ConfigFile.DebugStickItem.CustomModelData.FreezeMode = config.getInt("DebugStickItem.CustomModelData.FreezeMode");
 
         ConfigFile.WhitelistWorlds.Enabled = config.getBoolean("WhitelistWorlds.Enabled");
         ConfigFile.WhitelistWorlds.Worlds = new HashSet<>(config.getStringList("WhitelistWorlds.Worlds"));
