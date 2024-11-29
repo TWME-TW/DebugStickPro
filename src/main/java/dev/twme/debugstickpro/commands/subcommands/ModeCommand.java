@@ -6,6 +6,7 @@ import dev.twme.debugstickpro.localization.Lang;
 import dev.twme.debugstickpro.playerdata.DebugStickMode;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.utils.CustomModelDataManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -51,6 +52,9 @@ public class ModeCommand {
             }
 
             PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.CLASSIC));
+
+            CustomModelDataManager.updateItem(player, DebugStickMode.CLASSIC);
+
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToClassic));
             player.sendMessage(parsed);
             return true;
@@ -62,6 +66,9 @@ public class ModeCommand {
                 }
 
                 PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.COPY));
+
+                CustomModelDataManager.updateItem(player, DebugStickMode.COPY);
+
                 Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToCopy));
                 player.sendMessage(parsed);
             } else {
@@ -77,6 +84,9 @@ public class ModeCommand {
                 }
 
                 PlayerDataManager.setPlayerData(player.getUniqueId(), PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.FREEZE));
+
+                CustomModelDataManager.updateItem(player, DebugStickMode.FREEZE);
+
                 Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.SuccessSetToFreeze));
                 player.sendMessage(parsed);
             } else {

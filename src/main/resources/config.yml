@@ -1,5 +1,5 @@
 # Don't touch this value
-ConfigVersion: 5
+ConfigVersion: 6
 
 Language:
   # Language files are located in the "lang" folder.
@@ -45,7 +45,9 @@ DebugStickItem:
   # If you want to use CustomModelData, please enable it and fill in the CustomModelData value.
   CustomModelData:
     Enabled: false
-    CustomModelData: 0
+    ClassicMode: 0
+    CopyMode: 0
+    FreezeMode: 0
 
 WhitelistWorlds:
   # If enabled, the debug stick will only be available in whitelisted worlds.

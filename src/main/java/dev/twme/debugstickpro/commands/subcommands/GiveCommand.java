@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.commands.subcommands;
 import dev.twme.debugstickpro.localization.I18n;
 import dev.twme.debugstickpro.localization.Lang;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.utils.CustomModelDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -48,6 +49,7 @@ public class GiveCommand {
 
         // Give another player a debug stick
         onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
+        CustomModelDataManager.updatePlayerMode(onlinePlayer);
         Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", onlinePlayer.getName()));
         player.sendMessage(parsed);
 

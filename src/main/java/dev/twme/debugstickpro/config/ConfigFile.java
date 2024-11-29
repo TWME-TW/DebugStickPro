@@ -29,7 +29,9 @@ public class ConfigFile {
 
         public static class CustomModelData {
             public static boolean Enabled;
-            public static int CustomModelData;
+            public static int ClassicMode;
+            public static int CopyMode;
+            public static int FreezeMode;
         }
     }
 
