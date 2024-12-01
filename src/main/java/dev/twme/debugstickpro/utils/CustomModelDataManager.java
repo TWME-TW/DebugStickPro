@@ -5,28 +5,64 @@ import dev.twme.debugstickpro.playerdata.DebugStickMode;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+/**
+ * CustomModelDataManager
+ */
 public class CustomModelDataManager {
-    public static void updateItem(Player player, DebugStickMode newMode) {
+    /**
+     * updateItem
+     * @param player Player
+     * @param newMode DebugStickMode new mode
+     * @return boolean true: success, false: failed
+     */
+    public static boolean updateItem(Player player, DebugStickMode newMode) {
         ItemStack item = player.getInventory().getItemInMainHand();
         if(DebugStickItem.isDebugStickItem(item)) {
-            item.getItemMeta().setCustomModelData(getCustomModelData(newMode));
-            item.getItemMeta().getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_MODE, PersistentDataType.STRING, newMode.name());
+            ItemMeta itemMeta = item.getItemMeta();
+            itemMeta.setCustomModelData(getCustomModelData(newMode));
+            itemMeta.getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_MODE, PersistentDataType.STRING, newMode.name());
+            item.setItemMeta(itemMeta);
+            player.getInventory().setItemInMainHand(item);
+            player.updateInventory();
+            return true;
         }
+        return false;
     }
 
+    /**
+     * updatePlayerMode
+     * @param player Player
+     * @return boolean true: success, false: failed
+     */
+    public static boolean updatePlayerMode(Player player) {
+        ItemStack item = player.getInventory().getItemInMainHand();
+        return updatePlayerMode(player, item);
+    }
 
-    public static void updatePlayerMode(Player player) {
-        if (!DebugStickItem.checkPlayer(player)) {
-            return;
+    /**
+     * updatePlayerMode
+     * @param player Player
+     * @param item ItemStack
+     * @return boolean true: success, false: failed
+     */
+    public static boolean updatePlayerMode(Player player, ItemStack item) {
+        if (!DebugStickItem.isDebugStickItem(item)) {
+            return false;
         }
 
-        ItemStack item = player.getInventory().getItemInMainHand();
         DebugStickMode mode = DebugStickMode.valueOf(item.getItemMeta().getPersistentDataContainer().get(PersistentKeys.DEBUG_STICK_MODE, PersistentDataType.STRING));
         PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(mode);
+        return true;
     }
 
+    /**
+     * getCustomModelData
+     * @param mode DebugStickMode
+     * @return int
+     */
     private static int getCustomModelData(DebugStickMode mode) {
 
         if (mode == DebugStickMode.COPY) {
