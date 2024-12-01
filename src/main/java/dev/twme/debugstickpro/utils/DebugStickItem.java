@@ -23,12 +23,6 @@ public final class DebugStickItem {
         if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)) {
             return false;
         }
-//        if (ConfigFile.DebugStickItem.CustomModelData.Enabled) {
-//            if (!item.getItemMeta().hasCustomModelData()) {
-//                return false;
-//            }
-//            return item.getItemMeta().getCustomModelData() == ConfigFile.DebugStickItem.CustomModelData.CustomModelData;
-//        }
         return true;
     }
 

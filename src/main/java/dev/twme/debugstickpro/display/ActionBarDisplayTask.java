@@ -5,6 +5,7 @@ import dev.twme.debugstickpro.mode.copy.CopyActionBarDisplay;
 import dev.twme.debugstickpro.mode.freeze.FreezeActionBarDisplay;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.utils.DebugStickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -26,6 +27,11 @@ public class ActionBarDisplayTask implements Runnable {
             block = player.getTargetBlockExact(5);
 
             if (!player.hasPermission("debugstickpro.use")) {
+                PlayerDataManager.removePlayerFromDisplayList(uuid);
+                continue;
+            }
+
+            if (!DebugStickItem.checkPlayer(player)) {
                 PlayerDataManager.removePlayerFromDisplayList(uuid);
                 continue;
             }

@@ -27,7 +27,7 @@ public class PlayerItemHeldListener implements Listener {
         UUID playerUUID = player.getUniqueId();
 
         if (DebugStickItem.isDebugStickItem(newItem)) {
-            CustomModelDataManager.updatePlayerMode(player);
+            CustomModelDataManager.updatePlayerMode(player, newItem);
             PlayerDataManager.addPlayerToDisplayList(playerUUID);
         } else if (DebugStickItem.isDebugStickItem(oldItem)) {
             PlayerDataManager.removePlayerFromDisplayList(playerUUID);
