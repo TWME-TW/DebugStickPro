@@ -5,12 +5,20 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Set;
 import java.util.UUID;
 
 public class ActionbarUtil {
+
+    private static final Set<UUID> lastIsRemove = new java.util.HashSet<>();
     public static void removeActionBar(UUID uuid) {
-        if (Bukkit.getPlayer(uuid) != null) {
-            Bukkit.getPlayer(uuid).sendActionBar(Component.text(" "));
+        Player player = Bukkit.getPlayer(uuid);
+        if (lastIsRemove.contains(uuid)) {
+            return;
+        }
+        if (player != null) {
+            player.sendActionBar(Component.text(" "));
+            lastIsRemove.add(uuid);
         }
     }
 
@@ -18,5 +26,6 @@ public class ActionbarUtil {
         var mm = MiniMessage.miniMessage();
         Component parsed = mm.deserialize(message);
         player.sendActionBar(parsed);
+        lastIsRemove.remove(player.getUniqueId());
     }
 }
