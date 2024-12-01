@@ -10,6 +10,13 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public final class AutoCheckCanChangeUtil {
+    /**
+     * Check if the player can change the block
+     *
+     * @param playerUUID player UUID
+     * @param block block
+     * @return true if the player can change the block
+     */
     public static boolean canChange(UUID playerUUID, Block block) {
         Player player = Bukkit.getPlayer(playerUUID);
         World world = block.getWorld();
