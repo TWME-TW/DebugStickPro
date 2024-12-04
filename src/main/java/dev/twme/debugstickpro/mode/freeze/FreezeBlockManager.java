@@ -1,7 +1,10 @@
 package dev.twme.debugstickpro.mode.freeze;
 
+import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.PersistentKeys;
+import fr.skytasul.glowingentities.GlowingBlocks;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -55,6 +58,11 @@ public class FreezeBlockManager {
      */
     public static void removeOneBlock(UUID playerUUID, Block block) {
 
+        try {
+            DebugStickPro.getInstance().getGlowingBlocks().unsetGlowing(block.getLocation(), Objects.requireNonNull(Bukkit.getPlayer(playerUUID)));
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
         // no data
         if (!playerFrozenBlockData.containsKey(playerUUID)) {
             return;
@@ -93,6 +101,12 @@ public class FreezeBlockManager {
         for (FreezeBlockData f : freezeBlocks) {
 
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
+
+            try {
+                DebugStickPro.getInstance().getGlowingBlocks().unsetGlowing(f.getBlock().getLocation(), Objects.requireNonNull(Bukkit.getPlayer(playerUUID)));
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
 
             f.getItemDisplay().remove();
             f.getBlockDisplay().remove();
@@ -199,7 +213,13 @@ public class FreezeBlockManager {
         transformation.getScale().set(1.0001F);
         itemDisplay.setTransformation(transformation);
 
-        entity.setGlowing(true);
+        // entity.setGlowing(true);
+        GlowingBlocks glowingBlocks = DebugStickPro.getInstance().getGlowingBlocks();
+        try {
+            glowingBlocks.setGlowing(location, Bukkit.getPlayer(playerUUID), ChatColor.WHITE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         entity.setInvulnerable(true);
 
         // spawn block display

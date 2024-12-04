@@ -2,7 +2,6 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.localization.Lang;
-import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Vault;
 
@@ -11,7 +10,7 @@ public class VaultStateData extends SubBlockData {
 
     public VaultStateData(BlockData blockData) {
         this.blockData = blockData;
-        this.state = ((Vault) blockData).getTrialSpawnerState();
+        this.state = ((Vault) blockData).getVaultState();
     }
 
     @Override

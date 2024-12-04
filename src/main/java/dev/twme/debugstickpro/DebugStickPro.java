@@ -23,6 +23,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import fr.skytasul.glowingentities.GlowingBlocks;
+
 import java.util.UUID;
 
 public final class DebugStickPro extends JavaPlugin {
@@ -48,13 +50,14 @@ public final class DebugStickPro extends JavaPlugin {
 
     public static final int LANG_VERSION = 4;
 
+    private GlowingBlocks glowingBlocks;
     /**
      * This method is called when the plugin is enabled
      */
-
     @Override
     public void onEnable() {
         instance = this;
+        glowingBlocks = new GlowingBlocks(this);
 
         boolean isCoreProtectLoaded = CoreProtectUtil.initCoreProtect();
         if (!isCoreProtectLoaded) {
@@ -87,6 +90,7 @@ public final class DebugStickPro extends JavaPlugin {
     public void onReload() {
         FreezeBlockManager.removeOnServerClose();
         unregisterTasks();
+        getGlowingBlocks().disable();
 
         ConfigLoader.getInstance().load();
         LangFileManager.initialization();
@@ -101,6 +105,7 @@ public final class DebugStickPro extends JavaPlugin {
     @Override
     public void onDisable() {
         FreezeBlockManager.removeOnServerClose();
+        getGlowingBlocks().disable();
     }
 
     /*
@@ -189,5 +194,9 @@ public final class DebugStickPro extends JavaPlugin {
 
     public static DebugStickPro getInstance() {
         return instance;
+    }
+
+    public GlowingBlocks getGlowingBlocks() {
+        return glowingBlocks;
     }
 }
