@@ -53,6 +53,10 @@ public class CustomModelDataManager {
             return false;
         }
 
+        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_MODE, PersistentDataType.STRING)) {
+            return false;
+        }
+
         DebugStickMode mode = DebugStickMode.valueOf(item.getItemMeta().getPersistentDataContainer().get(PersistentKeys.DEBUG_STICK_MODE, PersistentDataType.STRING));
         PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(mode);
         return true;
