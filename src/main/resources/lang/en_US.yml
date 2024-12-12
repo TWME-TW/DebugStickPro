@@ -1,5 +1,5 @@
 # Don't change this value
-LangFileVersion: 4
+LangFileVersion: 5
 
 CommandsMessages:
     Help:
@@ -32,55 +32,397 @@ Tips:
   CopyModeIntroduction: "<b><red>Copy mode</red></b>: <green><key:key.attack></green> to copy, <light_purple><key:key.use></light_purple> to paste."
   FreezeModeIntroduction: "<b><blue>Freeze mode</blue></b>: <green><key:key.attack></green> to unfreeze all blocks, <light_purple><key:key.use></light_purple> to freeze/unfreeze individual blocks."
 
-DataKeyName:
-  AgeableDataName: "Age"
-  AnaloguePowerableDataName: "Power"
-  AttachableDataName: "Attached"
-  BambooDataName: "Leaves"
-  BedDataName: "Part"
-  BeehiveDataName: "Honey Level"
-  BellDataName: "Attachment"
-  BigDripleafDataName: "Tilt"
-  BisectedDataName: "Half"
-  BrewingStandBottle_0DataName: "Bottle 1"
-  BrewingStandBottle_1DataName: "Bottle 2"
-  BrewingStandBottle_2DataName: "Bottle 3"
-  BrushableDataName: "Brushed"
-  BubbleColumnDataName: "Drag"
-  CakeDataName: "Bites"
-  CampfireDataName: "Signal Fire"
-  CandleDataName: "Candle Count"
-  CaveVinesPlantDataName: "Berries"
-  ChestDataName: "Chest Type"
-  ChiseledBookshelfSlot_0DataName: "Slot 0"
-  ChiseledBookshelfSlot_1DataName: "Slot 1"
-  ChiseledBookshelfSlot_2DataName: "Slot 2"
-  ChiseledBookshelfSlot_3DataName: "Slot 3"
-  ChiseledBookshelfSlot_4DataName: "Slot 4"
-  ChiseledBookshelfSlot_5DataName: "Slot 5"
-  CommandBlockDataName: "Conditional"
-  ComparatorDataName: "Mode"
-  CrafterCraftingDataName: "Type"
-  CrafterOrientationDataName: "Crafter Orientation"
-  CrafterTriggerDataName: "Triggered"
-  DaylightDetectorDataName: "Inverted"
-  DirectionalDataName: "Direction"
-  DispenserDataName: "Triggered"
-  DoorDataName: "Door Hinge"
-  EndPortalFrameDataName: "Eye"
-  FaceAttachableDataName: "Attached Face"
-  FarmlandDataName: "Moisture"
-  GateDataName: "In Wall"
-  HangableDataName: "Hanging"
-  HatchableDataName: "Hatch"
-  HopperDataName: "Enabled"
-  JigsawDataName: "Orientation"
-  JukeboxDataName: "Has Record"
-  LeavesDistanceDataName: "Distance"
-  LeavesPersistentDataName: "Persistent"
-  LectronDataName: "Has Book"
-  LevelledDataName: "Level"
-  LightableDataName: "Lit"
+# Data's translation
+# Format:
+#   DataType:
+#     Name: "Data Name"
+#     Values:
+#       - "ValueName1:DisplayName1"
+#       - "ValueName2:DisplayName2"
+DataStrings:
+  Ageable:
+    Name: "Age"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+      - "7:7"
+      - "8:8"
+      - "9:9"
+      - "10:10"
+      - "11:11"
+      - "12:12"
+      - "13:13"
+      - "14:14"
+      - "15:15"
+  AnaloguePowerable:
+    Name: "Power"
+    Value:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+      - "7:7"
+      - "8:8"
+      - "9:9"
+      - "10:10"
+      - "11:11"
+      - "12:12"
+      - "13:13"
+      - "14:14"
+      - "15:15"
+  Attachable:
+    Name: "Attached"
+    Values:
+      - "false:None"
+      - "true:Attached"
+  Bamboo:
+    Name: "Leaves"
+    Values:
+      - "NONE:None"
+      - "SMALL:Small"
+      - "LARGE:Large"
+  Bed:
+    Name: "Part"
+    Values:
+      - "HEAD:Head"
+      - "FOOT:Foot"
+  Beehive:
+    Name: "Honey Level"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+  Bell:
+    Name: "Attachment"
+    Values:
+      - "FLOOR:Floor"
+      - "CEILING:Ceiling"
+      - "SINGLE_WALL:Single Wall"
+      - "DOUBLE_WALL:Double Wall"
+  BigDripleaf:
+    Name: "Tilt"
+    Values:
+      - "NONE:None"
+      - "UNSTABLE:Unstable"
+      - "PARTIAL:Partial"
+      - "FULL:Full"
+  Bisected:
+    Name: "Half"
+    Values:
+      - "TOP:Top"
+      - "BOTTOM:Bottom"
+  BrewingStandBottle_0:
+    Name: "Bottle 1"
+    Values:
+      - "true:Full"
+      - "false:Empty"
+  BrewingStandBottle_1:
+    Name: "Bottle 2"
+    Values:
+      - "true:Full"
+      - "false:Empty"
+  BrewingStandBottle_2:
+    Name: "Bottle 3"
+    Values:
+      - "true:Full"
+      - "false:Empty"
+  Brushable:
+    Name: "Brushed"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+      - "7:7"
+      - "8:8"
+      - "9:9"
+      - "10:10"
+      - "11:11"
+      - "12:12"
+      - "13:13"
+      - "14:14"
+      - "15:15"
+  BubbleColumn:
+    Name: "Drag"
+    Values:
+      - "true:true"
+      - "false:false"
+  Cake:
+    Name: "Bites"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+  Campfire:
+    Name: "Signal Fire"
+    Values:
+      - "true:true"
+      - "false:false"
+  Candle:
+    Name: "Candle Count"
+    Values:
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+  CaveVinesPlant:
+    Name: "Berries"
+    Values:
+      - "true:true"
+      - "false:false"
+  Chest:
+    Name: "Chest Type"
+    Values:
+      - "SINGLE:Single"
+      - "LEFT:Left"
+      - "RIGHT:Right"
+  ChiseledBookshelfSlot_0:
+    Name: "Slot 0"
+    Values:
+      - "true:true"
+      - "false:false"
+  ChiseledBookshelfSlot_1:
+    Name: "Slot 1"
+    Values:
+      - "true:true"
+      - "false:false"
+  ChiseledBookshelfSlot_2:
+    Name: "Slot 2"
+    Values:
+      - "true:true"
+      - "false:false"
+  ChiseledBookshelfSlot_3:
+    Name: "Slot 3"
+    Values:
+      - "true:true"
+      - "false:false"
+  ChiseledBookshelfSlot_4:
+    Name: "Slot 4"
+    Values:
+      - "true:true"
+      - "false:false"
+  ChiseledBookshelfSlot_5:
+    Name: "Slot 5"
+    Values:
+      - "true:true"
+      - "false:false"
+  CommandBlock:
+    Name: "Conditional"
+    Values:
+      - "true:true"
+      - "false:false"
+  Comparator:
+    Name: "Mode"
+    Values:
+      - "COMPARE:Compare"
+      - "SUBTRACT:Subtract"
+  CrafterCrafting:
+    Name: "Type"
+    Values:
+      - "true:true"
+      - "false:false"
+  CrafterOrientation:
+    Name: "Crafter Orientation"
+    Values:
+      - "DOWN_EAST:Down East"
+      - "DOWN_NORTH:Down North"
+      - "DOWN_SOUTH:Down South"
+      - "DOWN_WEST:Down West"
+      - "EAST_UP:East Up"
+      - "NORTH_UP:North Up"
+      - "SOUTH_UP:South Up"
+      - "WEST_UP:West Up"
+      - "UP_EAST:Up East"
+      - "UP_NORTH:Up North"
+      - "UP_SOUTH:Up South"
+      - "UP_WEST:Up West"
+  CrafterTrigger:
+    Name: "Triggered"
+    Values:
+      - "true:true"
+      - "false:false"
+  DaylightDetector:
+    Name: "Inverted"
+    Values:
+      - "true:true"
+      - "false:false"
+  Directional:
+    Name: "Direction"
+    Values:
+        - "NORTH:North"
+        - "EAST:East"
+        - "SOUTH:South"
+        - "WEST:West"
+        - "UP:Up"
+        - "DOWN:Down"
+        - "NORTH_EAST:North East"
+        - "NORTH_WEST:North West"
+        - "SOUTH_EAST:South East"
+        - "SOUTH_WEST:South West"
+        - "WEST_NORTH_WEST:West North West"
+        - "NORTH_NORTH_WEST:North North West"
+        - "NORTH_NORTH_EAST:North North East"
+        - "EAST_NORTH_EAST:East North East"
+        - "EAST_SOUTH_EAST:East South East"
+        - "SOUTH_SOUTH_EAST:South South East"
+        - "SOUTH_SOUTH_WEST:South South West"
+        - "WEST_SOUTH_WEST:West South West"
+        - "SELF:Self"
+  Dispenser:
+    Name: "Triggered"
+    Values:
+      - "true:true"
+      - "false:false"
+  Door:
+    Name: "Door Hinge"
+    Values:
+      - "LEFT:Left"
+      - "RIGHT:Right"
+  EndPortalFrame:
+    Name: "Eye"
+    Values:
+      - "true:true"
+      - "false:false"
+  FaceAttachable:
+    Name: "Attached Face"
+    Values:
+      - "FLOOR:Floor"
+      - "CEILING:Ceiling"
+      - "WALL:Wall"
+  Farmland:
+    Name: "Moisture"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+      - "7:7"
+      - "8:8"
+      - "9:9"
+      - "10:10"
+      - "11:11"
+      - "12:12"
+      - "13:13"
+      - "14:14"
+      - "15:15"
+  Gate:
+    Name: "In Wall"
+    Values:
+      - "true:true"
+      - "false:false"
+  Hangable:
+    Name: "Hanging"
+    Values:
+      - "true:true"
+      - "false:false"
+  Hatchable:
+    Name: "Hatch"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+  Hopper:
+    Name: "Enabled"
+    Values:
+      - "true:true"
+      - "false:false"
+  Jigsaw:
+    Name: "Orientation"
+    Values:
+        - "DOWN_EAST:Down East"
+        - "DOWN_NORTH:Down North"
+        - "DOWN_SOUTH:Down South"
+        - "DOWN_WEST:Down West"
+        - "EAST_UP:East Up"
+        - "NORTH_UP:North Up"
+        - "SOUTH_UP:South Up"
+        - "WEST_UP:West Up"
+        - "UP_EAST:Up East"
+        - "UP_NORTH:Up North"
+        - "UP_SOUTH:Up South"
+        - "UP_WEST:Up West"
+  Jukebox:
+    Name: "Has Record"
+    Values:
+      - "true:true"
+      - "false:false"
+  LeavesDistance:
+    Name: "Distance"
+    Values:
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+      - "7:7"
+      - "8:8"
+      - "9:9"
+      - "10:10"
+      - "11:11"
+      - "12:12"
+      - "13:13"
+      - "14:14"
+      - "15:15"
+  LeavesPersistent:
+    Name: "Persistent"
+    Values:
+      - "true:true"
+      - "false:false"
+  Lectern:
+    Name: "Has Book"
+    Values:
+      - "true:true"
+      - "false:false"
+  Levelled:
+    Name: "Level"
+    Values:
+      - "0:0"
+      - "1:1"
+      - "2:2"
+      - "3:3"
+      - "4:4"
+      - "5:5"
+      - "6:6"
+      - "7:7"
+      - "8:8"
+      - "9:9"
+      - "10:10"
+      - "11:11"
+      - "12:12"
+      - "13:13"
+      - "14:14"
+      - "15:15"
+  Lightable:
+    Name: "Lit"
+    Values:
+      - "true:true"
+      - "false:false"
   MultipleFacingDownDataName: "Faces(Down)"
   MultipleFacingEastDataName: "Faces(East)"
   MultipleFacingEastNorthEastDataName: "Faces(East North East)"
