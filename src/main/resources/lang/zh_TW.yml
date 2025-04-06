@@ -64,6 +64,8 @@ DataKeyName:
   CrafterCraftingDataName: "Type"
   CrafterOrientationDataName: "Crafter Orientation"
   CrafterTriggerDataName: "Triggered"
+  CreakingHeartNatureDataName: "isNature"
+  CreakingHeartStateDataName: "isActive"
   DaylightDetectorDataName: "Inverted"
   DirectionalDataName: "Direction"
   DispenserDataName: "Triggered"

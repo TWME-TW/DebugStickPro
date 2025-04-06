@@ -64,7 +64,7 @@ public class BlockDataSeparater {
             return false;
         } else {
             try {
-                Material.valueOf(material);
+                Material.valueOf(material.toUpperCase());
                 return true;
             } catch (IllegalArgumentException var3) {
                 return false;
@@ -285,6 +285,15 @@ public class BlockDataSeparater {
             }
         }
 
+        if (isValidMaterial("creaking_heart")) {
+            if (blockData instanceof CreakingHeart) {
+                SubBlockData creakingHeartNatural = new CreakingHeartNaturalData(blockData);
+                blockDataList.add(creakingHeartNatural);
+                SubBlockData creakingHeartState = new CreakingHeartStateData(blockData);
+                blockDataList.add(creakingHeartState);
+            }
+        }
+
         if (blockData instanceof DaylightDetector) {
             SubBlockData daylightDetectorData = new DaylightDetectorData(blockData);
             blockDataList.add(daylightDetectorData);
@@ -376,12 +385,11 @@ public class BlockDataSeparater {
 
         }
         */
-        if (isValidMaterial("sniffer_egg")) {
-            if (blockData instanceof Hatchable) {
-                SubBlockData hatchable = new HatchableData(blockData);
-                blockDataList.add(hatchable);
-            }
+        if (blockData instanceof Hatchable) {
+            SubBlockData hatchable = new HatchableData(blockData);
+            blockDataList.add(hatchable);
         }
+
         if (blockData instanceof Hopper) {
             SubBlockData hopperEnabled = new HopperData(blockData);
             blockDataList.add(hopperEnabled);
@@ -723,8 +731,8 @@ public class BlockDataSeparater {
         }
         */
         if (blockData instanceof TurtleEgg) {
-            SubBlockData turtleEggHatch = new TurtleEggData(blockData);
-            blockDataList.add(turtleEggHatch);
+            SubBlockData turtleEggCount = new TurtleEggData(blockData);
+            blockDataList.add(turtleEggCount);
         }
 
         if(isValidMaterial("vault")) {

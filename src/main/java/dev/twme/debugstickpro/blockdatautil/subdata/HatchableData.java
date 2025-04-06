@@ -27,7 +27,7 @@ public class HatchableData extends SubBlockData {
     public SubBlockData nextData() {
         Hatchable hatchable = ((Hatchable) blockData);
         if (hatchable.getHatch() >= hatchable.getMaximumHatch()) {
-            hatchable.setHatch(1);
+            hatchable.setHatch(0);
         } else {
             hatchable.setHatch(hatchable.getHatch() + 1);
         }

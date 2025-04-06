@@ -92,6 +92,8 @@ public class Lang {
         public final static String CrafterCraftingDataName = "DataKeyName.CrafterCraftingDataName";
         public final static String CrafterOrientationDataName = "DataKeyName.CrafterOrientationDataName";
         public final static String CrafterTriggerDataName = "DataKeyName.CrafterTriggerDataName";
+        public final static String CreakingHeartNaturalDataName = "DataKeyName.CreakingHeartNaturalDataName";
+        public final static String CreakingHeartStateDataName = "DataKeyName.CreakingHeartStateDataName";
         public final static String DaylightDetectorDataName = "DataKeyName.DaylightDetectorDataName";
         public final static String DirectionalDataName = "DataKeyName.DirectionalDataName";
         public final static String DispenserDataName = "DataKeyName.DispenserDataName";

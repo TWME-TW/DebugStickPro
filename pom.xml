@@ -6,7 +6,7 @@
 
     <groupId>dev.twme</groupId>
     <artifactId>DebugStickPro</artifactId>
-    <version>0.4.13</version>
+    <version>0.4.14</version>
     <packaging>jar</packaging>
 
     <name>DebugStickPro</name>
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.3-R0.1-SNAPSHOT</version>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
