@@ -285,6 +285,15 @@ public class BlockDataSeparater {
             }
         }
 
+        if (isValidMaterial("creaking_heart")) {
+            if (blockData instanceof CreakingHeart) {
+                SubBlockData creakingHeartNatural = new CreakingHeartNaturalData(blockData);
+                blockDataList.add(creakingHeartNatural);
+                SubBlockData creakingHeartState = new CreakingHeartStateData(blockData);
+                blockDataList.add(creakingHeartState);
+            }
+        }
+
         if (blockData instanceof DaylightDetector) {
             SubBlockData daylightDetectorData = new DaylightDetectorData(blockData);
             blockDataList.add(daylightDetectorData);
