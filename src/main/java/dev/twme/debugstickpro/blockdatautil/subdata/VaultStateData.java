@@ -11,7 +11,7 @@ public class VaultStateData extends SubBlockData {
 
     public VaultStateData(BlockData blockData) {
         this.blockData = blockData;
-        this.state = ((Vault) blockData).getTrialSpawnerState();
+        this.state = ((Vault) blockData).getVaultState();
     }
 
     @Override
