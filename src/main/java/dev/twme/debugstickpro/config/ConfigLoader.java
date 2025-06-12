@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.config;
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.Log;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -79,7 +80,7 @@ public class ConfigLoader {
         MiniMessage mm = MiniMessage.miniMessage();
         ArrayList<Component> lore = new ArrayList<>();
         for (String loreString : config.getStringList("DebugStickItem.Lore")) {
-            lore.add(mm.deserialize(loreString));
+            lore.add(mm.deserialize(loreString).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
         }
         ConfigFile.DebugStickItem.Lore = lore;
         ConfigFile.DebugStickItem.CustomModelData.Enabled = config.getBoolean("DebugStickItem.CustomModelData.Enabled");
