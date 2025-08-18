@@ -2,27 +2,29 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.localization.Lang;
+import org.bukkit.block.Orientation;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Crafter;
 import org.bukkit.entity.LightningStrike;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class CrafterOrientationData extends SubBlockData {
-    private Crafter.Orientation orientation;
-    private final static List<Crafter.Orientation> orientations = List.of(
-                    Crafter.Orientation.DOWN_EAST
-                    , Crafter.Orientation.DOWN_NORTH
-                    , Crafter.Orientation.DOWN_SOUTH
-                    , Crafter.Orientation.DOWN_WEST
-                    , Crafter.Orientation.EAST_UP
-                    , Crafter.Orientation.NORTH_UP
-                    , Crafter.Orientation.SOUTH_UP
-                    , Crafter.Orientation.UP_EAST
-                    , Crafter.Orientation.UP_NORTH
-                    , Crafter.Orientation.UP_SOUTH
-                    , Crafter.Orientation.UP_WEST
-                    , Crafter.Orientation.WEST_UP);
+    private @NotNull Orientation orientation;
+    private final static List<Orientation> orientations = List.of(
+                    Orientation.DOWN_EAST
+                    , Orientation.DOWN_NORTH
+                    , Orientation.DOWN_SOUTH
+                    , Orientation.DOWN_WEST
+                    , Orientation.EAST_UP
+                    , Orientation.NORTH_UP
+                    , Orientation.SOUTH_UP
+                    , Orientation.UP_EAST
+                    , Orientation.UP_NORTH
+                    , Orientation.UP_SOUTH
+                    , Orientation.UP_WEST
+                    , Orientation.WEST_UP);
 
     public CrafterOrientationData(BlockData blockData) {
         this.blockData = blockData;
@@ -41,14 +43,14 @@ public class CrafterOrientationData extends SubBlockData {
 
     @Override
     public SubBlockData nextData() {
-        Crafter.Orientation orientation = ((Crafter) blockData).getOrientation();
+        @NotNull Orientation orientation = ((Crafter) blockData).getOrientation();
         this.orientation = orientations.get((orientations.indexOf(orientation) + 1) % orientations.size());
         return this;
     }
 
     @Override
     public SubBlockData previousData() {
-        Crafter.Orientation orientation = ((Crafter) blockData).getOrientation();
+        Orientation orientation = ((Crafter) blockData).getOrientation();
         this.orientation = orientations.get((orientations.indexOf(orientation) - 1 + orientations.size()) % orientations.size());
         return this;
     }

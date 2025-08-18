@@ -2,26 +2,27 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.localization.Lang;
+import org.bukkit.block.Orientation;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Jigsaw;
 
 import java.util.List;
 
 public class JigsawData extends SubBlockData {
-    private Jigsaw.Orientation orientation;
-    private final static List<Jigsaw.Orientation> orientations = List.of(
-            Jigsaw.Orientation.DOWN_EAST
-            , Jigsaw.Orientation.DOWN_NORTH
-            , Jigsaw.Orientation.DOWN_SOUTH
-            , Jigsaw.Orientation.DOWN_WEST
-            , Jigsaw.Orientation.EAST_UP
-            , Jigsaw.Orientation.NORTH_UP
-            , Jigsaw.Orientation.SOUTH_UP
-            , Jigsaw.Orientation.UP_EAST
-            , Jigsaw.Orientation.UP_NORTH
-            , Jigsaw.Orientation.UP_SOUTH
-            , Jigsaw.Orientation.UP_WEST
-            , Jigsaw.Orientation.WEST_UP);
+    private Orientation orientation;
+    private final static List<Orientation> orientations = List.of(
+            Orientation.DOWN_EAST
+            , Orientation.DOWN_NORTH
+            , Orientation.DOWN_SOUTH
+            , Orientation.DOWN_WEST
+            , Orientation.EAST_UP
+            , Orientation.NORTH_UP
+            , Orientation.SOUTH_UP
+            , Orientation.UP_EAST
+            , Orientation.UP_NORTH
+            , Orientation.UP_SOUTH
+            , Orientation.UP_WEST
+            , Orientation.WEST_UP);
 
     public JigsawData(BlockData blockData) {
         this.blockData = blockData;

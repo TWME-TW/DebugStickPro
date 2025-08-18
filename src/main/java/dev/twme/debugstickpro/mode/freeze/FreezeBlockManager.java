@@ -6,10 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemDisplay;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -38,9 +35,11 @@ public class FreezeBlockManager {
         FreezeBlockData freezeBlock = freezeBlockBuilder(playerUUID, location);
         freezeBlockList.add(freezeBlock);
 
-        // set block to barrier
-        block.setType(Material.BARRIER, false);
-        block.getState().update();
+        Player player = Bukkit.getPlayer(playerUUID);
+        BlockData blockData = Bukkit.createBlockData(Material.BARRIER);
+        if (player != null) {
+            player.sendBlockChange(block.getLocation(), blockData);
+        }
 
         // add freeze block recode to playerFreezeBlockDataList
         playerFrozenBlockData.put(playerUUID, freezeBlockList);
@@ -68,10 +67,6 @@ public class FreezeBlockManager {
         ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
 
         for (FreezeBlockData f : freezeBlocks) {
-            if (f.getBlock().getType() != Material.BARRIER) {
-                freezeBlockLocations.remove(freezeLocation);
-                continue;
-            }
             if (f.getBlock().getLocation().equals(block.getLocation())) {
                 block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 f.getItemDisplay().remove();
@@ -133,16 +128,16 @@ public class FreezeBlockManager {
         Material material = entity.getLocation().getBlock().getType();
         Location location = entity.getLocation();
 
-        boolean notBarrierOrAir = material != Material.BARRIER && material != Material.AIR && material != Material.CAVE_AIR && material != Material.VOID_AIR;
+        boolean notAir = material != Material.AIR && material != Material.CAVE_AIR && material != Material.VOID_AIR;
 
         if (entity.getType() == EntityType.ITEM_DISPLAY) {
-            if (notBarrierOrAir) {
+            if (notAir) {
                 entity.remove();
             }
         }
 
         if (entity.getType() == EntityType.BLOCK_DISPLAY) {
-            if (notBarrierOrAir) {
+            if (notAir) {
                 entity.remove();
 
             } else {
@@ -152,11 +147,6 @@ public class FreezeBlockManager {
                 entity.remove();
                 location.getBlock().getState().update();
             }
-        }
-
-        if (location.getBlock().getType() == Material.BARRIER) {
-            location.getBlock().setType(Material.AIR, false);
-            location.getBlock().getState().update();
         }
 
         FreezeLocation freezeLocation = new FreezeLocation(location);
