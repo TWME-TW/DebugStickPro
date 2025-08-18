@@ -1,6 +1,7 @@
 package dev.twme.debugstickpro;
 
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.PacketEventsAPI;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.commands.MainCommandTabComplete;
@@ -18,6 +19,9 @@ import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
 import dev.twme.debugstickpro.utils.Log;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
+import me.tofaa.entitylib.APIConfig;
+import me.tofaa.entitylib.EntityLib;
+import me.tofaa.entitylib.spigot.SpigotEntityLibPlatform;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -71,6 +75,14 @@ public final class DebugStickPro extends JavaPlugin {
 
         //Initialize!
         PacketEvents.getAPI().init();
+
+        SpigotEntityLibPlatform platform = new SpigotEntityLibPlatform(this);
+        APIConfig settings = new APIConfig(PacketEvents.getAPI())
+                .debugMode()
+                .tickTickables()
+                .usePlatformLogger();
+
+        EntityLib.init(platform, settings);
 
         boolean isCoreProtectLoaded = CoreProtectUtil.initCoreProtect();
         if (!isCoreProtectLoaded) {

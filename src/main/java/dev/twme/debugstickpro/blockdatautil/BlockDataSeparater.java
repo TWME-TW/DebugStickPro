@@ -551,9 +551,9 @@ public class BlockDataSeparater {
             blockDataList.add(orientable);
         }
 
-        if (blockData instanceof PinkPetals) {
-            SubBlockData pinkPetals = new PinkPetalsData(blockData);
-            blockDataList.add(pinkPetals);
+        if (blockData instanceof FlowerBed) {
+            SubBlockData flowerBedPetals = new FlowerBedData(blockData);
+            blockDataList.add(flowerBedPetals);
         }
 
         if (blockData instanceof Piston) {

@@ -1,6 +1,15 @@
 package dev.twme.debugstickpro.mode.freeze;
 
+import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
+import com.github.retrooper.packetevents.protocol.item.type.ItemType;
+import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
+import com.github.retrooper.packetevents.util.Vector3f;
 import dev.twme.debugstickpro.utils.PersistentKeys;
+import io.github.retrooper.packetevents.util.SpigotConversionUtil;
+import me.tofaa.entitylib.EntityLib;
+import me.tofaa.entitylib.meta.display.BlockDisplayMeta;
+import me.tofaa.entitylib.meta.display.ItemDisplayMeta;
+import me.tofaa.entitylib.wrapper.WrapperEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -69,8 +78,8 @@ public class FreezeBlockManager {
         for (FreezeBlockData f : freezeBlocks) {
             if (f.getBlock().getLocation().equals(block.getLocation())) {
                 block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
-                f.getItemDisplay().remove();
-                f.getBlockDisplay().remove();
+                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
+                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
                 freezeBlocks.remove(f);
                 freezeBlockLocations.remove(freezeLocation);
                 break;
@@ -89,8 +98,8 @@ public class FreezeBlockManager {
 
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
 
-            f.getItemDisplay().remove();
-            f.getBlockDisplay().remove();
+            Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
+            Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
             f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
             f.getBlock().getState().update();
             freezeBlockLocations.remove(freezeLocation);
@@ -178,32 +187,30 @@ public class FreezeBlockManager {
         Block block = location.getBlock();
         // offset location
         Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
-        // spawn item display
 
-        Entity entity = location.getWorld().spawnEntity(entityLocation, EntityType.ITEM_DISPLAY);
-        ItemDisplay itemDisplay = (ItemDisplay) entity;
-        ItemStack itemStack = new ItemStack(Material.TINTED_GLASS, 1);
-        itemDisplay.setItemStack(itemStack);
+        UUID itemDisplayUUID = UUID.randomUUID();
+        UUID blockDisplayUUID = UUID.randomUUID();
+        WrapperEntity wrapperItemDisplayEntity = new WrapperEntity(itemDisplayUUID, EntityTypes.ITEM_DISPLAY);
 
-        Transformation transformation = itemDisplay.getTransformation();
-        transformation.getScale().set(1.0001F);
-        itemDisplay.setTransformation(transformation);
+        ItemDisplayMeta itemDisplayMeta = (ItemDisplayMeta) wrapperItemDisplayEntity.getEntityMeta();
 
-        entity.setGlowing(true);
-        entity.setInvulnerable(true);
+
+        com.github.retrooper.packetevents.protocol.item.ItemStack itemStack = com.github.retrooper.packetevents.protocol.item.ItemStack.builder().type(ItemTypes.TINTED_GLASS).amount(1).build();
+
+        itemDisplayMeta.setItem(itemStack);
+        itemDisplayMeta.setScale(new Vector3f(1.0001F, 1.0001F, 1.0001F));
+        itemDisplayMeta.setGlowing(true);
+
+        wrapperItemDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(entityLocation));
 
         // spawn block display
         Location location1 = SpecialBlockFilter.filter(block.getType(), location);
 
-        Entity blockEntity = location.getWorld().spawnEntity(location1, EntityType.BLOCK_DISPLAY);
-        BlockDisplay blockDisplay = (BlockDisplay) blockEntity;
-        blockDisplay.setBlock(block.getBlockData());
-        blockEntity.setInvulnerable(true);
+        WrapperEntity wrapperBlockDisplayEntity = new WrapperEntity(blockDisplayUUID, EntityTypes.BLOCK_DISPLAY);
+        BlockDisplayMeta bdMeta = (BlockDisplayMeta) wrapperBlockDisplayEntity.getEntityMeta();
+        bdMeta.setBlockId(SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId());
+        wrapperBlockDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(location1));
 
-        // add persistent data
-        entity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
-        blockEntity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
-
-        return new FreezeBlockData(blockDisplay, itemDisplay, block);
+        return new FreezeBlockData(blockDisplayUUID, itemDisplayUUID, block);
     }
 }
