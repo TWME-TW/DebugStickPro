@@ -41,50 +41,85 @@ public class SendFakeBarrier {
     }
     
     public static void sendFakeBarrier(Player player, Location location) {
-        if (player == null) return;
+        if (player == null) {
+            System.out.println("[SendFakeBarrier] Player is null!");
+            return;
+        }
+        
+        // Check if this player already has a fake barrier at this location
+        UUID playerUUID = player.getUniqueId();
+        String locationKey = getLocationKey(location);
+        
+        Map<String, String> playerBarriers = playerFakeBarriers.get(playerUUID);
+        if (playerBarriers != null && playerBarriers.containsKey(locationKey)) {
+            System.out.println("[SendFakeBarrier] Player " + player.getName() + " already has a fake barrier at " + locationKey);
+            return; // Don't send duplicate fake barrier
+        }
         
         BlocketAPI blocketAPI = DebugStickPro.getInstance().getBlocketAPI();
-        if (blocketAPI == null) return;
+        if (blocketAPI == null) {
+            System.out.println("[SendFakeBarrier] BlocketAPI is null!");
+            return;
+        }
         
-        // Create BlocketPosition from Location
-        BlocketPosition pos = BlocketPosition.fromLocation(location);
+        System.out.println("[SendFakeBarrier] Sending fake barrier to " + player.getName() + " at " + location.toString());
         
-        // Create audience for this player only
-        Audience audience = Audience.fromPlayers(Set.of(player));
+        try {
+            // Create BlocketPosition from Location
+            BlocketPosition pos = BlocketPosition.fromLocation(location);
+            System.out.println("[SendFakeBarrier] Created BlocketPosition: " + pos.toString());
+            
+            // Create audience for this player only
+            Audience audience = Audience.fromPlayers(Set.of(player));
+            System.out.println("[SendFakeBarrier] Created Audience with 1 player");
+            
+            // Create a unique stage ID for this player and location
+            String stageId = getStageId(playerUUID, location);
+            System.out.println("[SendFakeBarrier] Stage ID: " + stageId);
+            
+            // Create stage for the fake barrier (single block area)
+            Stage stage = new Stage(stageId, location.getWorld(), pos, pos, audience);
+            System.out.println("[SendFakeBarrier] Created Stage");
+            
+            // Create pattern for barrier block
+            BlockData barrierData = Material.BARRIER.createBlockData();
+            Map<BlockData, Double> blockWeights = new HashMap<>();
+            blockWeights.put(barrierData, 1.0);
+            Pattern barrierPattern = new Pattern(blockWeights);
+            System.out.println("[SendFakeBarrier] Created Pattern");
+            
+            // Create view with barrier pattern
+            View view = new View("barrier_view", stage, barrierPattern, false);
+            System.out.println("[SendFakeBarrier] Created View");
+            
+            // Add the specific block using addBlock
+            view.addBlock(pos);
+            System.out.println("[SendFakeBarrier] Added block to view");
+            
+            // Add view to stage
+            stage.addView(view);
+            System.out.println("[SendFakeBarrier] Added view to stage");
+            
+            // Register stage with Blocket FIRST
+            blocketAPI.getStageManager().createStage(stage);
+            System.out.println("[SendFakeBarrier] Registered stage with BlocketAPI");
+            
+            // THEN send blocks to audience
+            stage.sendBlocksToAudience();
+            System.out.println("[SendFakeBarrier] Sent blocks to audience");
         
-        // Create a unique stage ID for this player and location
-        String stageId = getStageId(player.getUniqueId(), location);
-        
-        // Create stage for the fake barrier (single block area)
-        Stage stage = new Stage(stageId, location.getWorld(), pos, pos, audience);
-        
-        // Create pattern for barrier block
-        BlockData barrierData = Material.BARRIER.createBlockData();
-        Map<BlockData, Double> blockWeights = new HashMap<>();
-        blockWeights.put(barrierData, 1.0);
-        Pattern barrierPattern = new Pattern(blockWeights);
-        
-        // Create view with barrier pattern
-        View view = new View("barrier_view", stage, barrierPattern, false);
-        
-        // Set the specific block directly instead of using addBlock
-        view.setBlock(pos, barrierData);
-        
-        // Add view to stage
-        stage.addView(view);
-        
-        // Register stage with Blocket
-        blocketAPI.getStageManager().createStage(stage);
-        
-        // Send blocks to audience
-        stage.sendBlocksToAudience();
-        
-        // Track this fake barrier
-        playerFakeBarriers.computeIfAbsent(player.getUniqueId(), k -> new ConcurrentHashMap<>())
-                          .put(getLocationKey(location), stageId);
-    }
-
-    public static void sendFakeBarrier(UUID playerUUID, Location location) {
+            
+            // Track this fake barrier
+            playerFakeBarriers.computeIfAbsent(playerUUID, k -> new ConcurrentHashMap<>())
+                              .put(locationKey, stageId);
+            
+            System.out.println("[SendFakeBarrier] Successfully sent fake barrier!");
+            
+        } catch (Exception e) {
+            System.out.println("[SendFakeBarrier] Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }    public static void sendFakeBarrier(UUID playerUUID, Location location) {
         Player player = Bukkit.getPlayer(playerUUID);
         sendFakeBarrier(player, location);
     }
@@ -102,23 +137,34 @@ public class SendFakeBarrier {
      * @param location The location to unfreeze
      */
     public static void removeFakeBarrier(Player player, Location location) {
-        if (player == null) return;
+        if (player == null) {
+            System.out.println("[RemoveFakeBarrier] Player is null!");
+            return;
+        }
         
         BlocketAPI blocketAPI = DebugStickPro.getInstance().getBlocketAPI();
-        if (blocketAPI == null) return;
+        if (blocketAPI == null) {
+            System.out.println("[RemoveFakeBarrier] BlocketAPI is null!");
+            return;
+        }
         
         UUID playerUUID = player.getUniqueId();
         String locationKey = getLocationKey(location);
+        
+        System.out.println("[RemoveFakeBarrier] Removing fake barrier for " + player.getName() + " at " + locationKey);
         
         // Check if this player has a fake barrier at this location
         Map<String, String> playerBarriers = playerFakeBarriers.get(playerUUID);
         if (playerBarriers != null) {
             String stageId = playerBarriers.get(locationKey);
             if (stageId != null) {
+                System.out.println("[RemoveFakeBarrier] Found stage ID: " + stageId);
                 // Get and properly remove the stage
                 try {
                     blocketAPI.getStageManager().deleteStage(stageId);
+                    System.out.println("[RemoveFakeBarrier] Successfully deleted stage");
                 } catch (Exception e) {
+                    System.out.println("[RemoveFakeBarrier] Error deleting stage: " + e.getMessage());
                     // Stage might already be removed, continue with cleanup
                 }
                 
@@ -127,7 +173,12 @@ public class SendFakeBarrier {
                 if (playerBarriers.isEmpty()) {
                     playerFakeBarriers.remove(playerUUID);
                 }
+                System.out.println("[RemoveFakeBarrier] Cleaned up tracking data");
+            } else {
+                System.out.println("[RemoveFakeBarrier] No stage ID found for location: " + locationKey);
             }
+        } else {
+            System.out.println("[RemoveFakeBarrier] No fake barriers found for player: " + player.getName());
         }
     }
 
