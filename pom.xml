@@ -88,6 +88,11 @@
             <name>EvokeGames Maven</name>
             <url>https://maven.evokegames.gg/snapshots</url>
         </repository>
+        <repository>
+            <id>twme-repo-releases</id>
+            <name>TWME Repository</name>
+            <url>https://repo.twme.dev/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -113,13 +118,18 @@
             <groupId>com.github.retrooper</groupId>
             <artifactId>packetevents-spigot</artifactId>
             <version>2.9.4</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-        <groupId>me.tofaa.entitylib</groupId>
-        <artifactId>spigot</artifactId>
-        <version>+d4c3b1e-SNAPSHOT</version>
-    </dependency>
+            <groupId>me.tofaa.entitylib</groupId>
+            <artifactId>spigot</artifactId>
+            <version>+598d71f-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.twme</groupId>
+            <artifactId>blocket-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <distributionManagement>

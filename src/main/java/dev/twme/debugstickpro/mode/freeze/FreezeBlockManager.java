@@ -1,10 +1,12 @@
 package dev.twme.debugstickpro.mode.freeze;
 
 import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
-import com.github.retrooper.packetevents.protocol.item.type.ItemType;
+import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import com.github.retrooper.packetevents.util.Vector3f;
+import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.PersistentKeys;
+import dev.twme.debugstickpro.utils.SendFakeBarrier;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import me.tofaa.entitylib.EntityLib;
 import me.tofaa.entitylib.meta.display.BlockDisplayMeta;
@@ -16,10 +18,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.util.Transformation;
 
 import java.util.*;
 
@@ -43,12 +43,7 @@ public class FreezeBlockManager {
         // create and add freeze block to freezeBlockList
         FreezeBlockData freezeBlock = freezeBlockBuilder(playerUUID, location);
         freezeBlockList.add(freezeBlock);
-
-        Player player = Bukkit.getPlayer(playerUUID);
-        BlockData blockData = Bukkit.createBlockData(Material.BARRIER);
-        if (player != null) {
-            player.sendBlockChange(block.getLocation(), blockData);
-        }
+        SendFakeBarrier.sendFakeBarrier(playerUUID, block.getLocation());
 
         // add freeze block recode to playerFreezeBlockDataList
         playerFrozenBlockData.put(playerUUID, freezeBlockList);
@@ -195,11 +190,13 @@ public class FreezeBlockManager {
         ItemDisplayMeta itemDisplayMeta = (ItemDisplayMeta) wrapperItemDisplayEntity.getEntityMeta();
 
 
-        com.github.retrooper.packetevents.protocol.item.ItemStack itemStack = com.github.retrooper.packetevents.protocol.item.ItemStack.builder().type(ItemTypes.TINTED_GLASS).amount(1).build();
+        ItemStack itemStack = ItemStack.builder().type(ItemTypes.TINTED_GLASS).amount(1).build();
 
         itemDisplayMeta.setItem(itemStack);
-        itemDisplayMeta.setScale(new Vector3f(1.0001F, 1.0001F, 1.0001F));
+        itemDisplayMeta.setScale(new Vector3f(1.001F, 1.001F, 1.001F));
         itemDisplayMeta.setGlowing(true);
+
+        addViewer(wrapperItemDisplayEntity);
 
         wrapperItemDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(entityLocation));
 
@@ -210,7 +207,14 @@ public class FreezeBlockManager {
         BlockDisplayMeta bdMeta = (BlockDisplayMeta) wrapperBlockDisplayEntity.getEntityMeta();
         bdMeta.setBlockId(SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId());
         wrapperBlockDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(location1));
+        addViewer(wrapperBlockDisplayEntity);
 
         return new FreezeBlockData(blockDisplayUUID, itemDisplayUUID, block);
+    }
+
+    private static void addViewer(WrapperEntity wrapperEntity) {
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            wrapperEntity.addViewer(player.getUniqueId());
+        }
     }
 }

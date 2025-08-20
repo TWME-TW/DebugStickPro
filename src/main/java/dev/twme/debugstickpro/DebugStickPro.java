@@ -2,6 +2,7 @@ package dev.twme.debugstickpro;
 
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.PacketEventsAPI;
+import dev.twme.blocket.api.BlocketAPI;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.commands.MainCommandTabComplete;
@@ -17,6 +18,7 @@ import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
+import dev.twme.debugstickpro.utils.FakeBlockAPI;
 import dev.twme.debugstickpro.utils.Log;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import me.tofaa.entitylib.APIConfig;
@@ -51,8 +53,14 @@ public final class DebugStickPro extends JavaPlugin {
     /**
      * This is the version of the language file
      */
-
     public static final int LANG_VERSION = 4;
+
+
+    /**
+     * This is the Blocket API instance
+     */
+    private BlocketAPI blocketAPI;
+
 
     /**
      * This method is called when the plugin is loaded
@@ -75,10 +83,11 @@ public final class DebugStickPro extends JavaPlugin {
 
         //Initialize!
         PacketEvents.getAPI().init();
+        FakeBlockAPI.getInstance().init(this);
+        blocketAPI = BlocketAPI.initialize(this);
 
         SpigotEntityLibPlatform platform = new SpigotEntityLibPlatform(this);
         APIConfig settings = new APIConfig(PacketEvents.getAPI())
-                .debugMode()
                 .tickTickables()
                 .usePlatformLogger();
 
@@ -184,6 +193,7 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerDropItemListener());
+        // registerListener(new BlockPhysicsEventListener());
     }
 
     /**
