@@ -72,6 +72,7 @@ public class FreezeBlockManager {
 
         for (FreezeBlockData f : freezeBlocks) {
             if (f.getBlock().getLocation().equals(block.getLocation())) {
+                SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
                 block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
@@ -90,7 +91,7 @@ public class FreezeBlockManager {
         }
         ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
         for (FreezeBlockData f : freezeBlocks) {
-
+            SendFakeBarrier.removeFakeBarrier(playerUUID, f.getBlock().getLocation());
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
 
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
@@ -115,46 +116,8 @@ public class FreezeBlockManager {
         }
         UUID playerUUID = UUID.fromString(Objects.requireNonNull(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)));
 
-        if (!playerFrozenBlockData.containsKey(playerUUID)) {
-            removeNullPlayerEntityAndBlock(entity);
-            return;
-        }
         removeOneBlock(playerUUID, entity.getLocation().getBlock());
 
-    }
-
-    // remove freeze block when no freeze block data on player
-    private static void removeNullPlayerEntityAndBlock(Entity entity) {
-        if (entity.getType() != EntityType.ITEM_DISPLAY || entity.getType() != EntityType.BLOCK_DISPLAY) {
-            return;
-        }
-
-        Material material = entity.getLocation().getBlock().getType();
-        Location location = entity.getLocation();
-
-        boolean notAir = material != Material.AIR && material != Material.CAVE_AIR && material != Material.VOID_AIR;
-
-        if (entity.getType() == EntityType.ITEM_DISPLAY) {
-            if (notAir) {
-                entity.remove();
-            }
-        }
-
-        if (entity.getType() == EntityType.BLOCK_DISPLAY) {
-            if (notAir) {
-                entity.remove();
-
-            } else {
-                BlockDisplay blockDisplay = (BlockDisplay) entity;
-                BlockData blockData = blockDisplay.getBlock();
-                location.getBlock().setBlockData(blockData, false);
-                entity.remove();
-                location.getBlock().getState().update();
-            }
-        }
-
-        FreezeLocation freezeLocation = new FreezeLocation(location);
-        freezeBlockLocations.remove(freezeLocation);
     }
 
     public static void removeOnServerClose() {

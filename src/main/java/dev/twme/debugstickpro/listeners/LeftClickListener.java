@@ -23,13 +23,6 @@ public class LeftClickListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            Location blockLocation = Objects.requireNonNull(event.getClickedBlock()).getLocation();
-            if (FreezeBlockManager.isFreezeBlock(blockLocation)) {
-                SendFakeBarrier.sendFakeBarrier(player, blockLocation);
-            }
-        }
-
         if (!player.hasPermission("debugstickpro.use")) {
             return;
         }

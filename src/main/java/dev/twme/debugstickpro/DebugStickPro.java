@@ -1,7 +1,6 @@
 package dev.twme.debugstickpro;
 
 import com.github.retrooper.packetevents.PacketEvents;
-import com.github.retrooper.packetevents.PacketEventsAPI;
 import dev.twme.blocket.api.BlocketAPI;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommand;
@@ -18,7 +17,6 @@ import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
-import dev.twme.debugstickpro.utils.FakeBlockAPI;
 import dev.twme.debugstickpro.utils.Log;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import me.tofaa.entitylib.APIConfig;
@@ -83,7 +81,7 @@ public final class DebugStickPro extends JavaPlugin {
 
         //Initialize!
         PacketEvents.getAPI().init();
-        FakeBlockAPI.getInstance().init(this);
+
         blocketAPI = BlocketAPI.initialize(this);
 
         SpigotEntityLibPlatform platform = new SpigotEntityLibPlatform(this);
@@ -229,5 +227,12 @@ public final class DebugStickPro extends JavaPlugin {
 
     public static DebugStickPro getInstance() {
         return instance;
+    }
+
+    /**
+     * This method returns the BlocketAPI instance
+     */
+    public BlocketAPI getBlocketAPI() {
+        return blocketAPI;
     }
 }
