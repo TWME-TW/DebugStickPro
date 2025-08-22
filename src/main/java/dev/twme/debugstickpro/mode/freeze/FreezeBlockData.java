@@ -3,24 +3,26 @@ package dev.twme.debugstickpro.mode.freeze;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
+import java.util.UUID;
+
 public class FreezeBlockData {
-    private final Entity itemDisplay;
-    private final Entity blockDisplay;
+    private final UUID itemDisplay;
+    private final UUID blockDisplay;
     private final Block block;
     private final String blockString;
 
-    public FreezeBlockData(Entity itemDisplay, Entity blockDisplay, Block block) {
+    public FreezeBlockData(UUID itemDisplay, UUID blockDisplay, Block block) {
         this.itemDisplay = itemDisplay;
         this.blockDisplay = blockDisplay;
         this.block = block;
         this.blockString = block.getBlockData().getAsString();
     }
 
-    public Entity getItemDisplay() {
+    public UUID getItemDisplay() {
         return itemDisplay;
     }
 
-    public Entity getBlockDisplay() {
+    public UUID getBlockDisplay() {
         return blockDisplay;
     }
 

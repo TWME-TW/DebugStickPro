@@ -1,16 +1,18 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
+import com.github.retrooper.packetevents.protocol.world.states.enums.CreakingHeartState;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.CreakingHeart;
 
 public class CreakingHeartStateData extends SubBlockData {
-    private boolean isActive;
+    private CreakingHeart.State state;
+    private final static CreakingHeart.State[] states = CreakingHeart.State.values();
 
     public CreakingHeartStateData(BlockData blockData) {
         this.blockData = blockData;
-        this.isActive = ((CreakingHeart) blockData).isActive();
+        this.state = ((CreakingHeart) blockData).getCreakingHeartState();
     }
 
     @Override
@@ -20,23 +22,26 @@ public class CreakingHeartStateData extends SubBlockData {
 
     @Override
     public String getDataAsString() {
-        return String.valueOf(isActive);
+        return String.valueOf(state);
     }
 
     @Override
     public SubBlockData nextData() {
-        this.isActive = !isActive;
+        this.state = states[(state.ordinal() + 1) % states.length];
+        ((CreakingHeart) blockData).setCreakingHeartState(state);
         return this;
     }
 
     @Override
     public SubBlockData previousData() {
-        return nextData();
+        this.state = states[(state.ordinal() - 1 + states.length) % states.length];
+        ((CreakingHeart) blockData).setCreakingHeartState(state);
+        return this;
     }
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((CreakingHeartStateData) blockData).isActive = this.isActive;
+        ((CreakingHeart) blockData).setCreakingHeartState(state);
         return blockData;
     }
 
