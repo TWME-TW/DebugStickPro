@@ -5,7 +5,9 @@
 ---
 > **Warning**: This plugin is still in development and may have bugs. Please report any bugs you find to the [issue page](https://github.com/TWME-TW/DebugStickPro/issues)
 
-> Support for Paper 1.19.4 ~ 1.21.1
+> **⚠️ v0.5.0+ Requirement**: This plugin now requires [PacketEvents](https://github.com/retrooper/packetevents) to function properly. Please install PacketEvents before using v0.5.0+.
+
+> Support for Paper 1.19.4 ~ 1.21.8+
 ---
 ## Features:
 ### Dynamically display block data:
@@ -23,6 +25,20 @@
  - Classic Mode: The same as the original debug stick.
  - Copy Mode: Copy the data of a block and paste it onto other blocks.
  - Freeze Mode: Freeze the status of a block.
+
+## 🆕 What's New in v0.5.0
+
+### **Revolutionary Freeze Mode Enhancement**
+- **🔧 Packet-Based Block Freezing**: Complete rewrite using PacketEvents for client-side visual effects
+- **👻 Ghost-Free Experience**: No more server-side `BARRIER` blocks - smoother and cleaner freeze operations
+- **⚡ Enhanced Performance**: Improved freeze/unfreeze logic with better cleanup and tracking
+- **🧹 Simplified Architecture**: Modernized codebase with PacketEvents and EntityLib integration
+
+### **Technical Improvements**
+- **New Dependencies**: PacketEvents 2.9.4 and EntityLib integration
+- **API Modernization**: Updated to use standard Bukkit enums for better compatibility  
+- **Better Physics Handling**: Enhanced BlockPhysicsEventListener for improved freeze functionality
+- **Advanced Tracking**: Sophisticated duplicate prevention and state management
 
 ### Custom Item Support:
  - You can customize the item used as the debug stick in the config file.
@@ -78,10 +94,18 @@ Same as regular debugging stick operation:
  - Press the `Swap Hand` key to switch mode. (Default: F)
 
 ## How to install:
-1. Download the latest version of the plugin from the [release page](https://github.com/TWME-TW/DebugStickPro/releases).
-2. Put the plugin into the `plugins` folder of your server.
-3. Restart your server.
-4. Enjoy!
+
+### Requirements
+- **Java 21** or higher
+- **Paper 1.19.4 ~ 1.21.8+**
+- **[PacketEvents](https://github.com/retrooper/packetevents) 2.9.4+** (Required for v0.5.0+)
+
+### Installation Steps
+1. Install [PacketEvents](https://github.com/retrooper/packetevents) if not already installed
+2. Download the latest version of DebugStickPro from the [release page](https://github.com/TWME-TW/DebugStickPro/releases)
+3. Put the plugin into the `plugins` folder of your server
+4. Restart your server
+5. Enjoy!
 
 ## Latest Dev Version:
  - https://repo.twme.dev/#/snapshots/dev/twme/DebugStickPro
