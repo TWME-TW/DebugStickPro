@@ -53,13 +53,6 @@ public final class DebugStickPro extends JavaPlugin {
      */
     public static final int LANG_VERSION = 4;
 
-
-    /**
-     * This is the Blocket API instance
-     */
-    private BlocketAPI blocketAPI;
-
-
     /**
      * This method is called when the plugin is loaded
      * It sets the PacketEvents API for Spigot
@@ -82,7 +75,7 @@ public final class DebugStickPro extends JavaPlugin {
         //Initialize!
         PacketEvents.getAPI().init();
 
-        blocketAPI = BlocketAPI.initialize(this);
+        BlocketAPI.initialize(this);
 
         SpigotEntityLibPlatform platform = new SpigotEntityLibPlatform(this);
         APIConfig settings = new APIConfig(PacketEvents.getAPI())
@@ -227,12 +220,5 @@ public final class DebugStickPro extends JavaPlugin {
 
     public static DebugStickPro getInstance() {
         return instance;
-    }
-
-    /**
-     * This method returns the BlocketAPI instance
-     */
-    public BlocketAPI getBlocketAPI() {
-        return blocketAPI;
     }
 }
