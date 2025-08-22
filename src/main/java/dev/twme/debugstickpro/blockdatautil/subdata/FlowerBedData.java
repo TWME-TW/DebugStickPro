@@ -3,14 +3,14 @@ package dev.twme.debugstickpro.blockdatautil.subdata;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.PinkPetals;
+import org.bukkit.block.data.type.FlowerBed;
 
-public class PinkPetalsData extends SubBlockData {
+public class FlowerBedData extends SubBlockData {
     private int flowerAmount;
 
-    public PinkPetalsData(BlockData blockData) {
+    public FlowerBedData(BlockData blockData) {
         this.blockData = blockData;
-        this.flowerAmount = ((PinkPetals) blockData).getFlowerAmount();
+        this.flowerAmount = ((FlowerBed) blockData).getFlowerAmount();
     }
 
     @Override
@@ -25,36 +25,36 @@ public class PinkPetalsData extends SubBlockData {
 
     @Override
     public SubBlockData nextData() {
-        PinkPetals pinkPetals = ((PinkPetals) blockData);
-        if (flowerAmount >= pinkPetals.getMaximumFlowerAmount()) {
+        FlowerBed flowerBeds = ((FlowerBed) blockData);
+        if (flowerAmount >= flowerBeds.getMaximumFlowerAmount()) {
             flowerAmount = 0;
         } else {
             flowerAmount++;
         }
-        pinkPetals.setFlowerAmount(flowerAmount);
+        flowerBeds.setFlowerAmount(flowerAmount);
         return this;
     }
 
     @Override
     public SubBlockData previousData() {
-        PinkPetals pinkPetals = ((PinkPetals) blockData);
+        FlowerBed flowerBeds = ((FlowerBed) blockData);
         if (flowerAmount <= 0) {
-            flowerAmount = pinkPetals.getMaximumFlowerAmount();
+            flowerAmount = flowerBeds.getMaximumFlowerAmount();
         } else {
             flowerAmount--;
         }
-        pinkPetals.setFlowerAmount(flowerAmount);
+        flowerBeds.setFlowerAmount(flowerAmount);
         return this;
     }
 
     @Override
     public BlockData copyTo(BlockData blockData) {
-        ((PinkPetals) blockData).setFlowerAmount(flowerAmount);
+        ((FlowerBed) blockData).setFlowerAmount(flowerAmount);
         return blockData;
     }
 
     @Override
     public SubBlockData fromBlockData(BlockData blockData) {
-        return new PinkPetalsData(blockData);
+        return new FlowerBedData(blockData);
     }
 }

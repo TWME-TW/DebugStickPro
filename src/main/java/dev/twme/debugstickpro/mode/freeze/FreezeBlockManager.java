@@ -1,19 +1,25 @@
 package dev.twme.debugstickpro.mode.freeze;
 
+import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
+import com.github.retrooper.packetevents.protocol.item.ItemStack;
+import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
+import com.github.retrooper.packetevents.util.Vector3f;
+import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.PersistentKeys;
+import dev.twme.debugstickpro.utils.SendFakeBarrier;
+import io.github.retrooper.packetevents.util.SpigotConversionUtil;
+import me.tofaa.entitylib.EntityLib;
+import me.tofaa.entitylib.meta.display.BlockDisplayMeta;
+import me.tofaa.entitylib.meta.display.ItemDisplayMeta;
+import me.tofaa.entitylib.wrapper.WrapperEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemDisplay;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.util.Transformation;
 
 import java.util.*;
 
@@ -37,10 +43,7 @@ public class FreezeBlockManager {
         // create and add freeze block to freezeBlockList
         FreezeBlockData freezeBlock = freezeBlockBuilder(playerUUID, location);
         freezeBlockList.add(freezeBlock);
-
-        // set block to barrier
-        block.setType(Material.BARRIER, false);
-        block.getState().update();
+        SendFakeBarrier.sendFakeBarrier(playerUUID, block.getLocation());
 
         // add freeze block recode to playerFreezeBlockDataList
         playerFrozenBlockData.put(playerUUID, freezeBlockList);
@@ -68,14 +71,11 @@ public class FreezeBlockManager {
         ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
 
         for (FreezeBlockData f : freezeBlocks) {
-            if (f.getBlock().getType() != Material.BARRIER) {
-                freezeBlockLocations.remove(freezeLocation);
-                continue;
-            }
             if (f.getBlock().getLocation().equals(block.getLocation())) {
+                SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
                 block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
-                f.getItemDisplay().remove();
-                f.getBlockDisplay().remove();
+                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
+                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
                 freezeBlocks.remove(f);
                 freezeBlockLocations.remove(freezeLocation);
                 break;
@@ -91,11 +91,11 @@ public class FreezeBlockManager {
         }
         ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
         for (FreezeBlockData f : freezeBlocks) {
-
+            SendFakeBarrier.removeFakeBarrier(playerUUID, f.getBlock().getLocation());
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
 
-            f.getItemDisplay().remove();
-            f.getBlockDisplay().remove();
+            Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
+            Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
             f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
             f.getBlock().getState().update();
             freezeBlockLocations.remove(freezeLocation);
@@ -116,51 +116,8 @@ public class FreezeBlockManager {
         }
         UUID playerUUID = UUID.fromString(Objects.requireNonNull(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)));
 
-        if (!playerFrozenBlockData.containsKey(playerUUID)) {
-            removeNullPlayerEntityAndBlock(entity);
-            return;
-        }
         removeOneBlock(playerUUID, entity.getLocation().getBlock());
 
-    }
-
-    // remove freeze block when no freeze block data on player
-    private static void removeNullPlayerEntityAndBlock(Entity entity) {
-        if (entity.getType() != EntityType.ITEM_DISPLAY || entity.getType() != EntityType.BLOCK_DISPLAY) {
-            return;
-        }
-
-        Material material = entity.getLocation().getBlock().getType();
-        Location location = entity.getLocation();
-
-        boolean notBarrierOrAir = material != Material.BARRIER && material != Material.AIR && material != Material.CAVE_AIR && material != Material.VOID_AIR;
-
-        if (entity.getType() == EntityType.ITEM_DISPLAY) {
-            if (notBarrierOrAir) {
-                entity.remove();
-            }
-        }
-
-        if (entity.getType() == EntityType.BLOCK_DISPLAY) {
-            if (notBarrierOrAir) {
-                entity.remove();
-
-            } else {
-                BlockDisplay blockDisplay = (BlockDisplay) entity;
-                BlockData blockData = blockDisplay.getBlock();
-                location.getBlock().setBlockData(blockData, false);
-                entity.remove();
-                location.getBlock().getState().update();
-            }
-        }
-
-        if (location.getBlock().getType() == Material.BARRIER) {
-            location.getBlock().setType(Material.AIR, false);
-            location.getBlock().getState().update();
-        }
-
-        FreezeLocation freezeLocation = new FreezeLocation(location);
-        freezeBlockLocations.remove(freezeLocation);
     }
 
     public static void removeOnServerClose() {
@@ -188,32 +145,39 @@ public class FreezeBlockManager {
         Block block = location.getBlock();
         // offset location
         Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
-        // spawn item display
 
-        Entity entity = location.getWorld().spawnEntity(entityLocation, EntityType.ITEM_DISPLAY);
-        ItemDisplay itemDisplay = (ItemDisplay) entity;
-        ItemStack itemStack = new ItemStack(Material.TINTED_GLASS, 1);
-        itemDisplay.setItemStack(itemStack);
+        UUID itemDisplayUUID = UUID.randomUUID();
+        UUID blockDisplayUUID = UUID.randomUUID();
+        WrapperEntity wrapperItemDisplayEntity = new WrapperEntity(itemDisplayUUID, EntityTypes.ITEM_DISPLAY);
 
-        Transformation transformation = itemDisplay.getTransformation();
-        transformation.getScale().set(1.0001F);
-        itemDisplay.setTransformation(transformation);
+        ItemDisplayMeta itemDisplayMeta = (ItemDisplayMeta) wrapperItemDisplayEntity.getEntityMeta();
 
-        entity.setGlowing(true);
-        entity.setInvulnerable(true);
+
+        ItemStack itemStack = ItemStack.builder().type(ItemTypes.TINTED_GLASS).amount(1).build();
+
+        itemDisplayMeta.setItem(itemStack);
+        itemDisplayMeta.setScale(new Vector3f(1.001F, 1.001F, 1.001F));
+        itemDisplayMeta.setGlowing(true);
+
+        addViewer(wrapperItemDisplayEntity);
+
+        wrapperItemDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(entityLocation));
 
         // spawn block display
         Location location1 = SpecialBlockFilter.filter(block.getType(), location);
 
-        Entity blockEntity = location.getWorld().spawnEntity(location1, EntityType.BLOCK_DISPLAY);
-        BlockDisplay blockDisplay = (BlockDisplay) blockEntity;
-        blockDisplay.setBlock(block.getBlockData());
-        blockEntity.setInvulnerable(true);
+        WrapperEntity wrapperBlockDisplayEntity = new WrapperEntity(blockDisplayUUID, EntityTypes.BLOCK_DISPLAY);
+        BlockDisplayMeta bdMeta = (BlockDisplayMeta) wrapperBlockDisplayEntity.getEntityMeta();
+        bdMeta.setBlockId(SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId());
+        wrapperBlockDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(location1));
+        addViewer(wrapperBlockDisplayEntity);
 
-        // add persistent data
-        entity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
-        blockEntity.getPersistentDataContainer().set(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING, playerUUID.toString());
+        return new FreezeBlockData(blockDisplayUUID, itemDisplayUUID, block);
+    }
 
-        return new FreezeBlockData(blockDisplay, itemDisplay, block);
+    private static void addViewer(WrapperEntity wrapperEntity) {
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            wrapperEntity.addViewer(player.getUniqueId());
+        }
     }
 }
