@@ -6,7 +6,7 @@
 
     <groupId>dev.twme</groupId>
     <artifactId>DebugStickPro</artifactId>
-    <version>0.4.14</version>
+    <version>0.5.0</version>
     <packaging>jar</packaging>
 
     <name>DebugStickPro</name>
