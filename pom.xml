@@ -84,14 +84,14 @@
             <url>https://repo.codemc.io/repository/maven-snapshots/</url>
         </repository>
         <repository>
-            <id>evoke-snapshots</id>
-            <name>EvokeGames Maven</name>
-            <url>https://maven.evokegames.gg/snapshots</url>
-        </repository>
-        <repository>
             <id>twme-repo-releases</id>
             <name>TWME Repository</name>
             <url>https://repo.twme.dev/releases</url>
+        </repository>
+        <repository>
+            <id>twme-repo-snapshots</id>
+            <name>TWME Repository</name>
+            <url>https://repo.twme.dev/snapshots</url>
         </repository>
     </repositories>
 
@@ -99,7 +99,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.8-R0.1-SNAPSHOT</version>
+            <version>1.21.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -121,9 +121,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.tofaa.entitylib</groupId>
+            <groupId>io.github.tofaa2</groupId>
             <artifactId>spigot</artifactId>
-            <version>+598d71f-SNAPSHOT</version>
+            <version>+eba7ada-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>dev.twme</groupId>
