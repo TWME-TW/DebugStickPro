@@ -772,7 +772,6 @@ public class BlockDataSeparater {
         }
 
         // 1.21.9
-
         if (isValidMaterial("copper_chain")) {
             if (blockData instanceof CopperGolemStatue) {
                 SubBlockData copperGolemStatuePose = new CopperGolemStatuePoseData(blockData);
@@ -781,6 +780,13 @@ public class BlockDataSeparater {
             if (blockData instanceof SideChaining) {
                 SubBlockData sideChaining = new SideChainingData(blockData);
                 blockDataList.add(sideChaining);
+            }
+        }
+
+        if (isValidMaterial("leaf_litter")) {
+            if (blockData instanceof Segmentable) {
+                SubBlockData segmentable = new SegmentableData(blockData);
+                blockDataList.add(segmentable);
             }
         }
 
