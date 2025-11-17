@@ -98,6 +98,7 @@ public class Lang {
         public final static String DaylightDetectorDataName = "DataKeyName.DaylightDetectorDataName";
         public final static String DirectionalDataName = "DataKeyName.DirectionalDataName";
         public final static String DispenserDataName = "DataKeyName.DispenserDataName";
+        public final static String DriedGhastHydrationDataName = "DataKeyName.DriedGhastHydrationDataName";
         public final static String DoorDataName = "DataKeyName.DoorDataName";
         public final static String EndPortalFrameDataName = "DataKeyName.EndPortalFrameDataName";
         public final static String FaceAttachableDataName = "DataKeyName.FaceAttachableDataName";

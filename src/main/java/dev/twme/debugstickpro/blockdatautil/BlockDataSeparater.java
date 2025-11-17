@@ -795,6 +795,13 @@ public class BlockDataSeparater {
             }
         }
 
+        if (isValidMaterial("dried_ghast")) {
+            if (blockData instanceof DriedGhast) {
+                SubBlockData driedGhastState = new DriedGhastHydrationData(blockData);
+                blockDataList.add(driedGhastState);
+            }
+        }
+
         blockDataList = filterSubBlockData(blockDataList);
         cache.put(blockData.getMaterial(), blockDataList);
 

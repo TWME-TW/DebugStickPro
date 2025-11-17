@@ -70,6 +70,7 @@ DataKeyName:
   DirectionalDataName: "Direction"
   DispenserDataName: "Triggered"
   DoorDataName: "Door Hinge"
+  DriedGhastHydrationDataName: "Hydration"
   EndPortalFrameDataName: "Eye"
   FaceAttachableDataName: "Attached Face"
   FarmlandDataName: "Moisture"
