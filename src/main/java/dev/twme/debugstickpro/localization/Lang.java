@@ -89,6 +89,7 @@ public class Lang {
         public final static String ChiseledBookshelfSlot_5DataName = "DataKeyName.ChiseledBookshelfSlot_5DataName";
         public final static String CommandBlockDataName = "DataKeyName.CommandBlockDataName";
         public final static String ComparatorDataName = "DataKeyName.ComparatorDataName";
+        public final static String CopperGolemStatuePoseDataName = "DataKeyName.CopperGolemStatuePoseDataName";
         public final static String CrafterCraftingDataName = "DataKeyName.CrafterCraftingDataName";
         public final static String CrafterOrientationDataName = "DataKeyName.CrafterOrientationDataName";
         public final static String CrafterTriggerDataName = "DataKeyName.CrafterTriggerDataName";

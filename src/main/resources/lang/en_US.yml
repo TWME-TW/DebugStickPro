@@ -60,6 +60,7 @@ DataKeyName:
   ChiseledBookshelfSlot_5DataName: "Slot 5"
   CommandBlockDataName: "Conditional"
   ComparatorDataName: "Mode"
+  CopperGolemStatuePoseDataName: "Pose"
   CrafterCraftingDataName: "Type"
   CrafterOrientationDataName: "Crafter Orientation"
   CrafterTriggerDataName: "Triggered"

@@ -771,6 +771,15 @@ public class BlockDataSeparater {
             blockDataList.add(waterlogged);
         }
 
+        // 1.21.9
+
+        if (isValidMaterial("copper_chain")) {
+            if (blockData instanceof CopperGolemStatue) {
+                SubBlockData copperGolemStatuePose = new CopperGolemStatuePoseData(blockData);
+                blockDataList.add(copperGolemStatuePose);
+            }
+        }
+
         blockDataList = filterSubBlockData(blockDataList);
         cache.put(blockData.getMaterial(), blockDataList);
 
