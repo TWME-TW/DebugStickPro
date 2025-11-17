@@ -778,6 +778,10 @@ public class BlockDataSeparater {
                 SubBlockData copperGolemStatuePose = new CopperGolemStatuePoseData(blockData);
                 blockDataList.add(copperGolemStatuePose);
             }
+            if (blockData instanceof SideChaining) {
+                SubBlockData sideChaining = new SideChainingData(blockData);
+                blockDataList.add(sideChaining);
+            }
         }
 
         blockDataList = filterSubBlockData(blockDataList);

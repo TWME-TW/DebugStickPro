@@ -160,6 +160,7 @@ public class Lang {
         public final static String SculkShriekerCanSummonDataName = "DataKeyName.SculkShriekerCanSummonDataName";
         public final static String SculkShriekerShriekingDataName = "DataKeyName.SculkShriekerShriekingDataName";
         public final static String SeaPickleDataName = "DataKeyName.SeaPickleDataName";
+        public final static String SideChainingDataName = "DataKeyName.SideChainingDataName";
         public final static String SlabDataName = "DataKeyName.SlabDataName";
         public final static String SnowableDataName = "DataKeyName.SnowableDataName";
         public final static String SnowDataName = "DataKeyName.SnowDataName";

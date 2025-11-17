@@ -130,6 +130,7 @@ DataKeyName:
   SculkShriekerCanSummonDataName: "Summoning"
   SculkShriekerShriekingDataName: "Shrieking"
   SeaPickleDataName: "Pickles"
+  SideChainingDataName: "Side Chain"
   SlabDataName: "Type"
   SnowableDataName: "Snowy"
   SnowDataName: "Layers"
