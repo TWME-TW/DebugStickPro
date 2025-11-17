@@ -89,6 +89,7 @@ public class Lang {
         public final static String ChiseledBookshelfSlot_5DataName = "DataKeyName.ChiseledBookshelfSlot_5DataName";
         public final static String CommandBlockDataName = "DataKeyName.CommandBlockDataName";
         public final static String ComparatorDataName = "DataKeyName.ComparatorDataName";
+        public final static String CopperGolemStatuePoseDataName = "DataKeyName.CopperGolemStatuePoseDataName";
         public final static String CrafterCraftingDataName = "DataKeyName.CrafterCraftingDataName";
         public final static String CrafterOrientationDataName = "DataKeyName.CrafterOrientationDataName";
         public final static String CrafterTriggerDataName = "DataKeyName.CrafterTriggerDataName";
@@ -97,6 +98,7 @@ public class Lang {
         public final static String DaylightDetectorDataName = "DataKeyName.DaylightDetectorDataName";
         public final static String DirectionalDataName = "DataKeyName.DirectionalDataName";
         public final static String DispenserDataName = "DataKeyName.DispenserDataName";
+        public final static String DriedGhastHydrationDataName = "DataKeyName.DriedGhastHydrationDataName";
         public final static String DoorDataName = "DataKeyName.DoorDataName";
         public final static String EndPortalFrameDataName = "DataKeyName.EndPortalFrameDataName";
         public final static String FaceAttachableDataName = "DataKeyName.FaceAttachableDataName";
@@ -159,12 +161,15 @@ public class Lang {
         public final static String SculkShriekerCanSummonDataName = "DataKeyName.SculkShriekerCanSummonDataName";
         public final static String SculkShriekerShriekingDataName = "DataKeyName.SculkShriekerShriekingDataName";
         public final static String SeaPickleDataName = "DataKeyName.SeaPickleDataName";
+        public final static String SegmentableDataName = "DataKeyName.SegmentableDataName";
+        public final static String SideChainingDataName = "DataKeyName.SideChainingDataName";
         public final static String SlabDataName = "DataKeyName.SlabDataName";
         public final static String SnowableDataName = "DataKeyName.SnowableDataName";
         public final static String SnowDataName = "DataKeyName.SnowDataName";
         public final static String StairsDataName = "DataKeyName.StairsDataName";
         public final static String StructureBlockDataName = "DataKeyName.StructureBlockDataName";
         public final static String TechnicalPistonDataName = "DataKeyName.TechnicalPistonDataName";
+        public final static String TestBlockDataName = "DataKeyName.TestBlockDataName";
         public final static String TNTDataName = "DataKeyName.TNTDataName";
         public final static String TrialSpawnerDataName = "DataKeyName.TrialSpawnerDataName";
         public final static String TripwireDataName = "DataKeyName.TripwireDataName";

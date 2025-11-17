@@ -771,6 +771,37 @@ public class BlockDataSeparater {
             blockDataList.add(waterlogged);
         }
 
+        // 1.21.9
+        if (isValidMaterial("copper_chain")) {
+            if (blockData instanceof CopperGolemStatue) {
+                SubBlockData copperGolemStatuePose = new CopperGolemStatuePoseData(blockData);
+                blockDataList.add(copperGolemStatuePose);
+            }
+            if (blockData instanceof SideChaining) {
+                SubBlockData sideChaining = new SideChainingData(blockData);
+                blockDataList.add(sideChaining);
+            }
+        }
+
+        if (isValidMaterial("leaf_litter")) {
+            if (blockData instanceof Segmentable) {
+                SubBlockData segmentable = new SegmentableData(blockData);
+                blockDataList.add(segmentable);
+            }
+
+            if (blockData instanceof TestBlock) {
+                SubBlockData testBlock = new TestBlockData(blockData);
+                blockDataList.add(testBlock);
+            }
+        }
+
+        if (isValidMaterial("dried_ghast")) {
+            if (blockData instanceof DriedGhast) {
+                SubBlockData driedGhastState = new DriedGhastHydrationData(blockData);
+                blockDataList.add(driedGhastState);
+            }
+        }
+
         blockDataList = filterSubBlockData(blockDataList);
         cache.put(blockData.getMaterial(), blockDataList);
 
