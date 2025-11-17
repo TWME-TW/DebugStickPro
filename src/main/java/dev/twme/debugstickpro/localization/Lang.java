@@ -168,6 +168,7 @@ public class Lang {
         public final static String StairsDataName = "DataKeyName.StairsDataName";
         public final static String StructureBlockDataName = "DataKeyName.StructureBlockDataName";
         public final static String TechnicalPistonDataName = "DataKeyName.TechnicalPistonDataName";
+        public final static String TestBlockDataName = "DataKeyName.TestBlockDataName";
         public final static String TNTDataName = "DataKeyName.TNTDataName";
         public final static String TrialSpawnerDataName = "DataKeyName.TrialSpawnerDataName";
         public final static String TripwireDataName = "DataKeyName.TripwireDataName";

@@ -788,6 +788,11 @@ public class BlockDataSeparater {
                 SubBlockData segmentable = new SegmentableData(blockData);
                 blockDataList.add(segmentable);
             }
+
+            if (blockData instanceof TestBlock) {
+                SubBlockData testBlock = new TestBlockData(blockData);
+                blockDataList.add(testBlock);
+            }
         }
 
         blockDataList = filterSubBlockData(blockDataList);

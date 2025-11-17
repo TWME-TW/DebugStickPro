@@ -139,6 +139,7 @@ DataKeyName:
   StairsDataName: "Shape"
   StructureBlockDataName: "Mode"
   TechnicalPistonDataName: "Type"
+  TestBlockDataName: "Mode"
   TNTDataName: "Unstable"
   TrialSpawnerDataName: "State"
   TripwireDataName: "Disarmed"
