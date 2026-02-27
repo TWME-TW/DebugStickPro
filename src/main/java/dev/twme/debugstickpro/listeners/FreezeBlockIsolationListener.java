@@ -34,6 +34,13 @@ public class FreezeBlockIsolationListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPhysics(BlockPhysicsEvent event) {
+        boolean protectedTarget = maintainProtected(event.getBlock());
+        boolean protectedSource = maintainProtected(event.getSourceBlock());
+        if (protectedTarget || protectedSource) {
+            event.setCancelled(true);
+            return;
+        }
+
         correctRailShapeIfNeeded(event.getBlock());
         if (isFrozen(event.getBlock()) || isFrozen(event.getSourceBlock())) {
             event.setCancelled(true);
@@ -91,22 +98,25 @@ public class FreezeBlockIsolationListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockExplode(BlockExplodeEvent event) {
-        event.blockList().removeIf(FreezeBlockIsolationListener::isFrozen);
-        if (isFrozen(event.getBlock())) {
+        event.blockList().removeIf(block -> isFrozen(block) || isProtected(block));
+        if (isFrozen(event.getBlock()) || isProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityExplode(EntityExplodeEvent event) {
-        event.blockList().removeIf(FreezeBlockIsolationListener::isFrozen);
+        event.blockList().removeIf(block -> isFrozen(block) || isProtected(block));
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         if (isFrozen(event.getBlock())
+                || isProtected(event.getBlock())
                 || containsFrozen(event.getBlocks())
-                || containsFrozenAtDestination(event.getBlocks(), event.getDirection())) {
+                || containsProtected(event.getBlocks())
+                || containsFrozenAtDestination(event.getBlocks(), event.getDirection())
+                || containsProtectedAtDestination(event.getBlocks(), event.getDirection())) {
             event.setCancelled(true);
         }
     }
@@ -114,8 +124,11 @@ public class FreezeBlockIsolationListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
         if (isFrozen(event.getBlock())
+                || isProtected(event.getBlock())
                 || containsFrozen(event.getBlocks())
-                || containsFrozenAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())) {
+                || containsProtected(event.getBlocks())
+                || containsFrozenAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())
+                || containsProtectedAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())) {
             event.setCancelled(true);
         }
     }
@@ -123,6 +136,7 @@ public class FreezeBlockIsolationListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         Block placedBlock = event.getBlockPlaced();
+        FreezeBlockManager.removeProtectedAttachable(placedBlock.getLocation());
         correctRailShapeIfNeeded(placedBlock);
         for (BlockFace face : HORIZONTAL_FACES) {
             correctRailShapeIfNeeded(placedBlock.getRelative(face));
@@ -138,6 +152,15 @@ public class FreezeBlockIsolationListener implements Listener {
         return false;
     }
 
+    private static boolean containsProtected(Iterable<Block> blocks) {
+        for (Block block : blocks) {
+            if (isProtected(block)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static boolean containsFrozenAtDestination(Iterable<Block> blocks, BlockFace direction) {
         for (Block block : blocks) {
             if (isFrozen(block.getRelative(direction))) {
@@ -147,8 +170,25 @@ public class FreezeBlockIsolationListener implements Listener {
         return false;
     }
 
+    private static boolean containsProtectedAtDestination(Iterable<Block> blocks, BlockFace direction) {
+        for (Block block : blocks) {
+            if (isProtected(block.getRelative(direction))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static boolean isFrozen(Block block) {
         return FreezeBlockManager.isFreezeBlock(block.getLocation());
+    }
+
+    private static boolean isProtected(Block block) {
+        return FreezeBlockManager.isProtectedAttachable(block.getLocation());
+    }
+
+    private static boolean maintainProtected(Block block) {
+        return FreezeBlockManager.maintainProtectedAttachable(block);
     }
 
     private static void correctRailShapeIfNeeded(Block block) {

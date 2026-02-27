@@ -31,6 +31,7 @@ public class FreezeBlockManager {
 
     private static final HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
     private static final HashMap<UUID, ArrayList<FreezeBlockData>> playerFrozenBlockData = new HashMap<>();
+    private static final HashMap<FreezeLocation, String> protectedAttachableBlocks = new HashMap<>();
 
     public static void freezeBlock(UUID playerUUID, Block block) {
         Location location = block.getLocation();
@@ -92,6 +93,7 @@ public class FreezeBlockManager {
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
                 restoreAttachableNeighborSnapshot(attachableSnapshot);
+                registerProtectedAttachableSnapshot(attachableSnapshot);
                 restoreAttachableNeighborSnapshotNextTick(attachableSnapshot);
                 resendRealBlockToPlayer(playerUUID, block);
                 resendAttachableNeighborSnapshotToPlayer(playerUUID, attachableSnapshot);
@@ -116,6 +118,7 @@ public class FreezeBlockManager {
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
             restoreAttachableNeighborSnapshot(attachableSnapshot);
+            registerProtectedAttachableSnapshot(attachableSnapshot);
             restoreAttachableNeighborSnapshotNextTick(attachableSnapshot);
             resendRealBlockToPlayer(playerUUID, f.getBlock());
             resendAttachableNeighborSnapshotToPlayer(playerUUID, attachableSnapshot);
@@ -145,6 +148,7 @@ public class FreezeBlockManager {
                 removeAllPlayerFrozenBlock(playerUUID);
             }
         }
+        protectedAttachableBlocks.clear();
         if (!freezeBlockLocations.isEmpty()) {
             for (FreezeLocation freezeLocation : freezeBlockLocations) {
                 freezeLocation.getLocation().getBlock().setType(Material.AIR, false);
@@ -285,5 +289,42 @@ public class FreezeBlockManager {
                 player.sendBlockChange(neighbor.getLocation(), neighbor.getBlockData());
             }
         });
+    }
+
+    public static boolean isProtectedAttachable(Location location) {
+        return protectedAttachableBlocks.containsKey(new FreezeLocation(location));
+    }
+
+    public static boolean maintainProtectedAttachable(Block block) {
+        FreezeLocation freezeLocation = new FreezeLocation(block.getLocation());
+        String expectedData = protectedAttachableBlocks.get(freezeLocation);
+        if (expectedData == null) {
+            return false;
+        }
+
+        if (!(block.getBlockData() instanceof FaceAttachable)) {
+            block.setBlockData(Bukkit.createBlockData(expectedData), false);
+        }
+
+        if (!block.getBlockData().getAsString().equals(expectedData)) {
+            block.setBlockData(Bukkit.createBlockData(expectedData), false);
+        }
+
+        if (!(block.getBlockData() instanceof FaceAttachable)) {
+            protectedAttachableBlocks.remove(freezeLocation);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void removeProtectedAttachable(Location location) {
+        protectedAttachableBlocks.remove(new FreezeLocation(location));
+    }
+
+    private static void registerProtectedAttachableSnapshot(Map<FreezeLocation, String> snapshot) {
+        for (Map.Entry<FreezeLocation, String> entry : snapshot.entrySet()) {
+            protectedAttachableBlocks.put(entry.getKey(), entry.getValue());
+        }
     }
 }
