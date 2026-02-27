@@ -72,15 +72,16 @@ public class FreezeBlockManager {
         while (iterator.hasNext()) {
             FreezeBlockData f = iterator.next();
             if (f.getBlock().getLocation().equals(block.getLocation())) {
-                SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
-                block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
-                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
-                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
                 iterator.remove();
                 freezeBlockLocations.remove(freezeLocation);
                 if (freezeBlocks.isEmpty()) {
                     playerFrozenBlockData.remove(playerUUID);
                 }
+
+                SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
+                block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
+                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
+                Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
                 break;
             }
         }
@@ -88,21 +89,20 @@ public class FreezeBlockManager {
 
     // when player left-click, remove all this player frozen blocks
     public static void removeAllPlayerFrozenBlock(UUID playerUUID) {
-        if (!playerFrozenBlockData.containsKey(playerUUID)) {
+        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.remove(playerUUID);
+        if (freezeBlocks == null) {
             return;
         }
-        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
         for (FreezeBlockData f : freezeBlocks) {
             SendFakeBarrier.removeFakeBarrier(playerUUID, f.getBlock().getLocation());
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
+            freezeBlockLocations.remove(freezeLocation);
 
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
             f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
-            freezeBlockLocations.remove(freezeLocation);
 
         }
-        playerFrozenBlockData.remove(playerUUID);
     }
 
     public static boolean isFreezeBlock(Location location) {
@@ -123,7 +123,7 @@ public class FreezeBlockManager {
 
     public static void removeOnServerClose() {
         if (!playerFrozenBlockData.isEmpty()) {
-            for (UUID playerUUID : playerFrozenBlockData.keySet()) {
+            for (UUID playerUUID : new ArrayList<>(playerFrozenBlockData.keySet())) {
                 removeAllPlayerFrozenBlock(playerUUID);
             }
         }

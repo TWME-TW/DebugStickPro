@@ -104,6 +104,10 @@ public class FreezeRightClick {
     }
 
     private static Block resolveAdjacentFrozenBlock(Block clickedBlock, BlockFace clickedFace) {
+        if (!(clickedBlock.getBlockData() instanceof FaceAttachable)) {
+            return null;
+        }
+
         if (clickedFace != null && clickedFace != BlockFace.SELF) {
             Block preferred = clickedBlock.getRelative(clickedFace.getOppositeFace());
             if (FreezeBlockManager.isFreezeBlock(preferred.getLocation())) {
@@ -111,20 +115,13 @@ public class FreezeRightClick {
             }
         }
 
-        Block found = null;
         for (BlockFace face : SURROUNDING_FACES) {
             Block neighbor = clickedBlock.getRelative(face);
-            if (!FreezeBlockManager.isFreezeBlock(neighbor.getLocation())) {
-                continue;
+            if (FreezeBlockManager.isFreezeBlock(neighbor.getLocation())) {
+                return neighbor;
             }
-
-            if (found != null) {
-                // Ambiguous case: multiple frozen neighbors around the clicked block.
-                return null;
-            }
-            found = neighbor;
         }
 
-        return found;
+        return null;
     }
 }
