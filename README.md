@@ -29,10 +29,10 @@
 ## 🆕 What's New in v0.5.0
 
 ### **Revolutionary Freeze Mode Enhancement**
-- **🔧 Packet-Based Update Control**: Dedicated PacketEvents layer for deterministic protected-block syncing
-- **🧱 Server-Anchor Freeze Core**: Frozen blocks are anchored as `BARRIER` server-side and restored deterministically
-- **⚡ Enhanced Stability**: Improved freeze/unfreeze logic with dependent-block maintenance and cleanup
-- **🧹 Simplified Architecture**: Modernized freeze path without stage-based fake block transport
+- **🔧 Packet-Based Block Freezing**: Complete rewrite using PacketEvents for client-side visual effects
+- **👻 Ghost-Free Experience**: No more server-side `BARRIER` blocks - smoother and cleaner freeze operations
+- **⚡ Enhanced Performance**: Improved freeze/unfreeze logic with better cleanup and tracking
+- **🧹 Simplified Architecture**: Modernized codebase with PacketEvents and EntityLib integration
 
 ### **Technical Improvements**
 - **New Dependencies**: PacketEvents 2.9.4 and EntityLib integration
@@ -90,9 +90,6 @@ Same as regular debugging stick operation:
  >  The status of frozen blocks will not be updated.
  - Right-click to freeze/unfreeze a block.
  - Left-click to unfreeze all frozen blocks.
- - Frozen blocks act as full-cube support while frozen (`BARRIER` anchor model).
- - Dependent neighbors (for example buttons/rails) are restored and maintained after unfreeze.
- - No placement guards are added; unusual placements remain possible.
 ### How to change mode:
  - Press the `Swap Hand` key to switch mode. (Default: F)
 
@@ -115,3 +112,4 @@ Same as regular debugging stick operation:
 
 ### Known Issues:
  - You have to sneak in order to change the Lit value of the candle.
+
