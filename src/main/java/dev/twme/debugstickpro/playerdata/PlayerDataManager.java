@@ -10,7 +10,10 @@ import dev.twme.debugstickpro.mode.freeze.FreezeLeftClick;
 import dev.twme.debugstickpro.mode.freeze.FreezeRightClick;
 import dev.twme.debugstickpro.utils.CustomModelDataManager;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -217,8 +220,11 @@ public class PlayerDataManager {
      * player right click
      *
      * @param uuid player UUID
+     * @param action click action
+     * @param clickedBlock clicked block
+     * @param clickedFace clicked face
      */
-    public static void playerRightClick(UUID uuid) {
+    public static void playerRightClick(UUID uuid, Action action, Block clickedBlock, BlockFace clickedFace) {
 
         PlayerData playerData = getPlayerData(uuid);
 
@@ -230,7 +236,7 @@ public class PlayerDataManager {
                 CopyRightClick.onRightClick(uuid, playerData);
                 break;
             case FREEZE:
-                FreezeRightClick.onRightClick(uuid);
+                FreezeRightClick.onRightClick(uuid, action, clickedBlock, clickedFace);
                 break;
         }
     }

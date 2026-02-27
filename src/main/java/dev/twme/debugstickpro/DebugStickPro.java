@@ -171,6 +171,7 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new ChunkLoadEventListener());
         registerListener(new BlockPlaceEventListenerCanBuildChecker());
         registerListener(new ChunkUnloadEventListener());
+        registerListener(new FreezeBlockIsolationListener());
         registerListener(new RightClickListener());
         registerListener(new LeftClickListener());
         registerListener(new PlayerQuitListener());
@@ -184,7 +185,6 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerDropItemListener());
-        // registerListener(new BlockPhysicsEventListener());
     }
 
     /**

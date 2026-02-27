@@ -4,7 +4,6 @@ import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import com.github.retrooper.packetevents.util.Vector3f;
-import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.PersistentKeys;
 import dev.twme.debugstickpro.utils.SendFakeBarrier;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
@@ -16,7 +15,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -70,18 +68,22 @@ public class FreezeBlockManager {
 
         ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
 
-        for (FreezeBlockData f : freezeBlocks) {
+        Iterator<FreezeBlockData> iterator = freezeBlocks.iterator();
+        while (iterator.hasNext()) {
+            FreezeBlockData f = iterator.next();
             if (f.getBlock().getLocation().equals(block.getLocation())) {
                 SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
                 block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
-                freezeBlocks.remove(f);
+                iterator.remove();
                 freezeBlockLocations.remove(freezeLocation);
+                if (freezeBlocks.isEmpty()) {
+                    playerFrozenBlockData.remove(playerUUID);
+                }
                 break;
             }
         }
-        block.getState().update();
     }
 
     // when player left-click, remove all this player frozen blocks
@@ -97,7 +99,6 @@ public class FreezeBlockManager {
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
             f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
-            f.getBlock().getState().update();
             freezeBlockLocations.remove(freezeLocation);
 
         }
@@ -172,7 +173,7 @@ public class FreezeBlockManager {
         wrapperBlockDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(location1));
         addViewer(wrapperBlockDisplayEntity);
 
-        return new FreezeBlockData(blockDisplayUUID, itemDisplayUUID, block);
+        return new FreezeBlockData(itemDisplayUUID, blockDisplayUUID, block);
     }
 
     private static void addViewer(WrapperEntity wrapperEntity) {
