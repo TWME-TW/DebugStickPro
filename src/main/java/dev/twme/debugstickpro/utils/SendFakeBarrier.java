@@ -148,6 +148,9 @@ public class SendFakeBarrier {
                 if (playerBarriers.isEmpty()) {
                     playerFakeBarriers.remove(playerUUID);
                 }
+
+                // Force client to resync with real server-side block.
+                player.sendBlockChange(location, location.getBlock().getBlockData());
             }
         }
     }

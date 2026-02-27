@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import com.github.retrooper.packetevents.util.Vector3f;
+import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.PersistentKeys;
 import dev.twme.debugstickpro.utils.SendFakeBarrier;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
@@ -78,10 +79,11 @@ public class FreezeBlockManager {
                     playerFrozenBlockData.remove(playerUUID);
                 }
 
+                restoreBlockDataIfChanged(block, f.getBlockString());
                 SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
-                block.setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
+                resendRealBlockToPlayer(playerUUID, block);
                 break;
             }
         }
@@ -94,13 +96,14 @@ public class FreezeBlockManager {
             return;
         }
         for (FreezeBlockData f : freezeBlocks) {
-            SendFakeBarrier.removeFakeBarrier(playerUUID, f.getBlock().getLocation());
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
             freezeBlockLocations.remove(freezeLocation);
 
+            restoreBlockDataIfChanged(f.getBlock(), f.getBlockString());
+            SendFakeBarrier.removeFakeBarrier(playerUUID, f.getBlock().getLocation());
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
-            f.getBlock().setBlockData(Bukkit.createBlockData(f.getBlockString()), false);
+            resendRealBlockToPlayer(playerUUID, f.getBlock());
 
         }
     }
@@ -180,5 +183,30 @@ public class FreezeBlockManager {
         for(Player player : Bukkit.getOnlinePlayers()) {
             wrapperEntity.addViewer(player.getUniqueId());
         }
+    }
+
+    private static void restoreBlockDataIfChanged(Block block, String blockString) {
+        if (!block.getBlockData().getAsString().equals(blockString)) {
+            block.setBlockData(Bukkit.createBlockData(blockString), false);
+        }
+    }
+
+    private static void resendRealBlockToPlayer(UUID playerUUID, Block block) {
+        Player player = Bukkit.getPlayer(playerUUID);
+        if (player == null) {
+            return;
+        }
+
+        player.sendBlockChange(block.getLocation(), block.getBlockData());
+
+        DebugStickPro plugin = DebugStickPro.getInstance();
+        if (plugin == null || !plugin.isEnabled()) {
+            return;
+        }
+
+        // One tick delay ensures fake-stage removal is fully applied before resyncing.
+        Bukkit.getScheduler().runTask(plugin, () ->
+                player.sendBlockChange(block.getLocation(), block.getBlockData())
+        );
     }
 }
