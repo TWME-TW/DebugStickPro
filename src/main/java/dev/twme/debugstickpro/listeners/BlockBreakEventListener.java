@@ -20,6 +20,6 @@ public class BlockBreakEventListener implements Listener {
             return;
         }
 
-        FreezeBlockManager.removeProtectedAttachable(location);
+        FreezeBlockManager.removeProtectedDependent(location);
     }
 }

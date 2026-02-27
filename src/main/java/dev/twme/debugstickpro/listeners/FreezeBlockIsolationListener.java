@@ -3,8 +3,6 @@ package dev.twme.debugstickpro.listeners;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Rail;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -22,161 +20,127 @@ import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 public class FreezeBlockIsolationListener implements Listener {
-    private static final BlockFace[] HORIZONTAL_FACES = {
-            BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST
-    };
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPhysics(BlockPhysicsEvent event) {
-        boolean protectedTarget = maintainProtected(event.getBlock());
-        boolean protectedSource = maintainProtected(event.getSourceBlock());
+        boolean protectedTarget = FreezeBlockManager.maintainProtectedDependent(event.getBlock());
+        boolean protectedSource = FreezeBlockManager.maintainProtectedDependent(event.getSourceBlock());
         if (protectedTarget || protectedSource) {
             event.setCancelled(true);
             return;
         }
 
-        correctRailShapeIfNeeded(event.getBlock());
-        if (isFrozen(event.getBlock()) || isFrozen(event.getSourceBlock())) {
+        if (isFrozenOrProtected(event.getBlock()) || isFrozenOrProtected(event.getSourceBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onLeavesDecay(LeavesDecayEvent event) {
-        if (isFrozen(event.getBlock())) {
+        if (isFrozenOrProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockFade(BlockFadeEvent event) {
-        if (isFrozen(event.getBlock())) {
+        if (isFrozenOrProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockForm(BlockFormEvent event) {
-        if (isFrozen(event.getBlock())) {
+        if (isFrozenOrProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockFromTo(BlockFromToEvent event) {
-        if (isFrozen(event.getBlock()) || isFrozen(event.getToBlock())) {
+        if (isFrozenOrProtected(event.getBlock()) || isFrozenOrProtected(event.getToBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockGrow(BlockGrowEvent event) {
-        if (isFrozen(event.getBlock())) {
+        if (isFrozenOrProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockSpread(BlockSpreadEvent event) {
-        if (isFrozen(event.getBlock())) {
+        if (isFrozenOrProtected(event.getBlock()) || isFrozenOrProtected(event.getSource())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityChangeBlock(EntityChangeBlockEvent event) {
-        if (isFrozen(event.getBlock())) {
+        if (isFrozenOrProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockExplode(BlockExplodeEvent event) {
-        event.blockList().removeIf(block -> isFrozen(block) || isProtected(block));
-        if (isFrozen(event.getBlock()) || isProtected(event.getBlock())) {
+        event.blockList().removeIf(FreezeBlockIsolationListener::isFrozenOrProtected);
+        if (isFrozenOrProtected(event.getBlock())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityExplode(EntityExplodeEvent event) {
-        event.blockList().removeIf(block -> isFrozen(block) || isProtected(block));
+        event.blockList().removeIf(FreezeBlockIsolationListener::isFrozenOrProtected);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-        if (isFrozen(event.getBlock())
-                || isProtected(event.getBlock())
-                || containsFrozen(event.getBlocks())
-                || containsProtected(event.getBlocks())
-                || containsFrozenAtDestination(event.getBlocks(), event.getDirection())
-                || containsProtectedAtDestination(event.getBlocks(), event.getDirection())) {
+        if (isFrozenOrProtected(event.getBlock())
+                || containsFrozenOrProtected(event.getBlocks())
+                || containsFrozenOrProtectedAtDestination(event.getBlocks(), event.getDirection())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-        if (isFrozen(event.getBlock())
-                || isProtected(event.getBlock())
-                || containsFrozen(event.getBlocks())
-                || containsProtected(event.getBlocks())
-                || containsFrozenAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())
-                || containsProtectedAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())) {
+        if (isFrozenOrProtected(event.getBlock())
+                || containsFrozenOrProtected(event.getBlocks())
+                || containsFrozenOrProtectedAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        Block placedBlock = event.getBlockPlaced();
-        FreezeBlockManager.removeProtectedAttachable(placedBlock.getLocation());
-        correctRailShapeIfNeeded(placedBlock);
-        for (BlockFace face : HORIZONTAL_FACES) {
-            correctRailShapeIfNeeded(placedBlock.getRelative(face));
-        }
+        FreezeBlockManager.removeProtectedDependent(event.getBlockPlaced().getLocation());
     }
 
-    private static boolean containsFrozen(Iterable<Block> blocks) {
+    private static boolean containsFrozenOrProtected(Iterable<Block> blocks) {
         for (Block block : blocks) {
-            if (isFrozen(block)) {
+            if (isFrozenOrProtected(block)) {
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean containsProtected(Iterable<Block> blocks) {
+    private static boolean containsFrozenOrProtectedAtDestination(Iterable<Block> blocks, BlockFace direction) {
         for (Block block : blocks) {
-            if (isProtected(block)) {
+            if (isFrozenOrProtected(block.getRelative(direction))) {
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean containsFrozenAtDestination(Iterable<Block> blocks, BlockFace direction) {
-        for (Block block : blocks) {
-            if (isFrozen(block.getRelative(direction))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean containsProtectedAtDestination(Iterable<Block> blocks, BlockFace direction) {
-        for (Block block : blocks) {
-            if (isProtected(block.getRelative(direction))) {
-                return true;
-            }
-        }
-        return false;
+    private static boolean isFrozenOrProtected(Block block) {
+        return isFrozen(block) || isProtected(block);
     }
 
     private static boolean isFrozen(Block block) {
@@ -184,129 +148,6 @@ public class FreezeBlockIsolationListener implements Listener {
     }
 
     private static boolean isProtected(Block block) {
-        return FreezeBlockManager.isProtectedAttachable(block.getLocation());
-    }
-
-    private static boolean maintainProtected(Block block) {
-        return FreezeBlockManager.maintainProtectedAttachable(block);
-    }
-
-    private static void correctRailShapeIfNeeded(Block block) {
-        if (isFrozen(block)) {
-            return;
-        }
-
-        BlockData blockData = block.getBlockData();
-        if (!(blockData instanceof Rail rail)) {
-            return;
-        }
-
-        if (!hasFrozenRailNeighbor(block)) {
-            return;
-        }
-
-        Rail.Shape currentShape = rail.getShape();
-        Rail.Shape correctedShape = chooseShapeIgnoringFrozenNeighbors(block, rail, currentShape);
-        if (correctedShape == currentShape) {
-            return;
-        }
-
-        rail.setShape(correctedShape);
-        block.setBlockData(rail, false);
-    }
-
-    private static Rail.Shape chooseShapeIgnoringFrozenNeighbors(Block block, Rail rail, Rail.Shape currentShape) {
-        Set<Rail.Shape> supportedShapes = rail.getShapes();
-        List<Rail.Shape> candidates = new ArrayList<>();
-        Set<Rail.Shape> added = new HashSet<>();
-
-        boolean north = isNonFrozenRail(block.getRelative(BlockFace.NORTH));
-        boolean south = isNonFrozenRail(block.getRelative(BlockFace.SOUTH));
-        boolean east = isNonFrozenRail(block.getRelative(BlockFace.EAST));
-        boolean west = isNonFrozenRail(block.getRelative(BlockFace.WEST));
-
-        if (north && south) addCandidate(candidates, added, Rail.Shape.NORTH_SOUTH);
-        if (east && west) addCandidate(candidates, added, Rail.Shape.EAST_WEST);
-        if (north && east) addCandidate(candidates, added, Rail.Shape.NORTH_EAST);
-        if (north && west) addCandidate(candidates, added, Rail.Shape.NORTH_WEST);
-        if (south && east) addCandidate(candidates, added, Rail.Shape.SOUTH_EAST);
-        if (south && west) addCandidate(candidates, added, Rail.Shape.SOUTH_WEST);
-
-        if (north || south) addCandidate(candidates, added, Rail.Shape.NORTH_SOUTH);
-        if (east || west) addCandidate(candidates, added, Rail.Shape.EAST_WEST);
-
-        // If only frozen rail neighbors are present, choose the perpendicular straight shape.
-        if (!north && !south && !east && !west) {
-            boolean frozenNorthSouth = isFrozenRail(block.getRelative(BlockFace.NORTH))
-                    || isFrozenRail(block.getRelative(BlockFace.SOUTH));
-            boolean frozenEastWest = isFrozenRail(block.getRelative(BlockFace.EAST))
-                    || isFrozenRail(block.getRelative(BlockFace.WEST));
-
-            if (frozenEastWest) addCandidate(candidates, added, Rail.Shape.NORTH_SOUTH);
-            if (frozenNorthSouth) addCandidate(candidates, added, Rail.Shape.EAST_WEST);
-        }
-
-        addCandidate(candidates, added, currentShape);
-
-        for (Rail.Shape candidate : candidates) {
-            if (!supportedShapes.contains(candidate)) {
-                continue;
-            }
-            if (!shapeTouchesFrozenRailNeighbor(block, candidate)) {
-                return candidate;
-            }
-        }
-
-        for (Rail.Shape candidate : candidates) {
-            if (supportedShapes.contains(candidate)) {
-                return candidate;
-            }
-        }
-
-        return currentShape;
-    }
-
-    private static void addCandidate(List<Rail.Shape> candidates, Set<Rail.Shape> added, Rail.Shape shape) {
-        if (added.add(shape)) {
-            candidates.add(shape);
-        }
-    }
-
-    private static boolean shapeTouchesFrozenRailNeighbor(Block block, Rail.Shape shape) {
-        BlockFace[] connectedFaces = getConnectedFaces(shape);
-        for (BlockFace face : connectedFaces) {
-            if (isFrozenRail(block.getRelative(face))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static BlockFace[] getConnectedFaces(Rail.Shape shape) {
-        return switch (shape) {
-            case NORTH_SOUTH, ASCENDING_NORTH, ASCENDING_SOUTH -> new BlockFace[]{BlockFace.NORTH, BlockFace.SOUTH};
-            case EAST_WEST, ASCENDING_EAST, ASCENDING_WEST -> new BlockFace[]{BlockFace.EAST, BlockFace.WEST};
-            case NORTH_EAST -> new BlockFace[]{BlockFace.NORTH, BlockFace.EAST};
-            case NORTH_WEST -> new BlockFace[]{BlockFace.NORTH, BlockFace.WEST};
-            case SOUTH_EAST -> new BlockFace[]{BlockFace.SOUTH, BlockFace.EAST};
-            case SOUTH_WEST -> new BlockFace[]{BlockFace.SOUTH, BlockFace.WEST};
-        };
-    }
-
-    private static boolean hasFrozenRailNeighbor(Block block) {
-        for (BlockFace face : HORIZONTAL_FACES) {
-            if (isFrozenRail(block.getRelative(face))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean isNonFrozenRail(Block block) {
-        return !isFrozen(block) && block.getBlockData() instanceof Rail;
-    }
-
-    private static boolean isFrozenRail(Block block) {
-        return isFrozen(block) && block.getBlockData() instanceof Rail;
+        return FreezeBlockManager.isProtectedDependent(block.getLocation());
     }
 }

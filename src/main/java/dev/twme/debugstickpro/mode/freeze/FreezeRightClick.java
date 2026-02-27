@@ -6,6 +6,7 @@ import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -13,9 +14,6 @@ import org.bukkit.event.block.Action;
 import java.util.UUID;
 
 public class FreezeRightClick {
-    private static final BlockFace[] SURROUNDING_FACES = {
-            BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN
-    };
 
     public static void onRightClick(UUID playerUUID, Action action, Block clickedBlock, BlockFace clickedFace) {
 
@@ -25,7 +23,6 @@ public class FreezeRightClick {
         }
 
         Block block = resolveTargetBlock(player, action, clickedBlock, clickedFace);
-
         if (block == null) {
             return;
         }
@@ -35,24 +32,21 @@ public class FreezeRightClick {
         }
 
         if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
-            // remove a freeze block
-
             FreezeModeUnFreezeBlockEvent freezeModeUnFreezeBlockEvent = new FreezeModeUnFreezeBlockEvent(playerUUID, block);
             Bukkit.getPluginManager().callEvent(freezeModeUnFreezeBlockEvent);
             if (freezeModeUnFreezeBlockEvent.isCancelled()) {
                 return;
             }
             FreezeBlockManager.removeOneBlock(playerUUID, block);
-        } else {
-            // start add a freeze block
-            FreezeModeFreezeBlockEvent event = new FreezeModeFreezeBlockEvent(playerUUID, block);
-            Bukkit.getPluginManager().callEvent(event);
-            // if event is cancelled, do nothing
-            if (event.isCancelled()) {
-                return;
-            }
-            FreezeBlockManager.freezeBlock(playerUUID, block);
+            return;
         }
+
+        FreezeModeFreezeBlockEvent event = new FreezeModeFreezeBlockEvent(playerUUID, block);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
+        FreezeBlockManager.freezeBlock(playerUUID, block);
     }
 
     private static Block resolveTargetBlock(Player player, Action action, Block clickedBlock, BlockFace clickedFace) {
@@ -61,14 +55,9 @@ public class FreezeRightClick {
                 return clickedBlock;
             }
 
-            Block supportBlock = resolveAttachedSupport(clickedBlock, clickedFace);
+            Block supportBlock = resolveFrozenSupportBlock(clickedBlock, clickedFace);
             if (supportBlock != null) {
                 return supportBlock;
-            }
-
-            Block adjacentFrozenBlock = resolveAdjacentFrozenBlock(clickedBlock, clickedFace);
-            if (adjacentFrozenBlock != null) {
-                return adjacentFrozenBlock;
             }
 
             return clickedBlock;
@@ -81,47 +70,39 @@ public class FreezeRightClick {
         return null;
     }
 
-    private static Block resolveAttachedSupport(Block clickedBlock, BlockFace clickedFace) {
-        if (!(clickedBlock.getBlockData() instanceof FaceAttachable)) {
+    private static Block resolveFrozenSupportBlock(Block clickedBlock, BlockFace clickedFace) {
+        if (!(clickedBlock.getBlockData() instanceof FaceAttachable faceAttachable)) {
             return null;
         }
 
-        if (clickedFace != null && clickedFace != BlockFace.SELF) {
-            Block supportFromFace = clickedBlock.getRelative(clickedFace.getOppositeFace());
-            if (FreezeBlockManager.isFreezeBlock(supportFromFace.getLocation())) {
-                return supportFromFace;
-            }
+        BlockFace supportFace = resolveSupportFace(clickedBlock, faceAttachable, clickedFace);
+        if (supportFace == null || supportFace == BlockFace.SELF) {
+            return null;
         }
 
-        for (BlockFace face : SURROUNDING_FACES) {
-            Block support = clickedBlock.getRelative(face);
-            if (FreezeBlockManager.isFreezeBlock(support.getLocation())) {
-                return support;
-            }
+        Block supportBlock = clickedBlock.getRelative(supportFace);
+        if (FreezeBlockManager.isFreezeBlock(supportBlock.getLocation())) {
+            return supportBlock;
         }
 
         return null;
     }
 
-    private static Block resolveAdjacentFrozenBlock(Block clickedBlock, BlockFace clickedFace) {
-        if (!(clickedBlock.getBlockData() instanceof FaceAttachable)) {
-            return null;
-        }
+    private static BlockFace resolveSupportFace(Block clickedBlock, FaceAttachable faceAttachable, BlockFace clickedFace) {
+        return switch (faceAttachable.getAttachedFace()) {
+            case FLOOR -> BlockFace.DOWN;
+            case CEILING -> BlockFace.UP;
+            case WALL -> {
+                if (clickedBlock.getBlockData() instanceof Directional directional) {
+                    yield directional.getFacing().getOppositeFace();
+                }
 
-        if (clickedFace != null && clickedFace != BlockFace.SELF) {
-            Block preferred = clickedBlock.getRelative(clickedFace.getOppositeFace());
-            if (FreezeBlockManager.isFreezeBlock(preferred.getLocation())) {
-                return preferred;
+                if (clickedFace != null && clickedFace != BlockFace.SELF) {
+                    yield clickedFace.getOppositeFace();
+                }
+
+                yield null;
             }
-        }
-
-        for (BlockFace face : SURROUNDING_FACES) {
-            Block neighbor = clickedBlock.getRelative(face);
-            if (FreezeBlockManager.isFreezeBlock(neighbor.getLocation())) {
-                return neighbor;
-            }
-        }
-
-        return null;
+        };
     }
 }
