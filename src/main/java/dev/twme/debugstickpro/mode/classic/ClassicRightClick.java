@@ -39,7 +39,7 @@ public class ClassicRightClick {
             return;
         }
 
-        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
+        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block, playerUUID);
 
         if (subBlockDataList.isEmpty()) {
             return;

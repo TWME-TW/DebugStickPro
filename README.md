@@ -65,6 +65,9 @@
 [lang](https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/resources/lang)
 ### Permissions:
 [plugin.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/plugin.yml)
+- Blacklist bypass:
+  - `debugstickpro.bypassblacklist` (bypass all blacklisted BlockData)
+  - `debugstickpro.bypassblacklist.<subblockdatatype-lowercase>` (example: `debugstickpro.bypassblacklist.waterloggeddata`)
 
 ### Commands:
  > `/debugstickpro` = `/dsp` ≒ `/dsp help`
@@ -112,4 +115,3 @@ Same as regular debugging stick operation:
 
 ### Known Issues:
  - You have to sneak in order to change the Lit value of the candle.
-

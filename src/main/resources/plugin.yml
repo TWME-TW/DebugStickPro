@@ -54,6 +54,11 @@ permissions:
   debugstickpro.bypassregion:
     description: Allows bypass region protection
     default: op
+  debugstickpro.bypassblacklist:
+    description: Allows bypass block data blacklist filters
+    default: op
+    # Per-type bypass pattern:
+    # debugstickpro.bypassblacklist.<subblockdatatype-lowercase>
   debugstickpro.basic:
     description: Allows basic usage of the DebugStickPro
     default: op
@@ -71,3 +76,4 @@ permissions:
       - debugstickpro.basic
       - debugstickpro.reload
       - debugstickpro.bypassregion
+      - debugstickpro.bypassblacklist

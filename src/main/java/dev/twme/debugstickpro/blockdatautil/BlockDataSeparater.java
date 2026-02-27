@@ -12,15 +12,20 @@ import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireSou
 import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireWestData;
 import dev.twme.debugstickpro.blockdatautil.subdata.wallheight.*;
 import dev.twme.debugstickpro.config.ConfigFile;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.*;
 import org.bukkit.block.data.type.*;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Separate BlockData into SubBlockData.
@@ -40,7 +45,17 @@ public class BlockDataSeparater {
      */
 
     public static ArrayList<SubBlockData> separate(Block block) {
-        return separate(block.getBlockData());
+        return separate(block.getBlockData(), null);
+    }
+
+    /**
+     * Separate BlockData into SubBlockData for a specific player.
+     * @param block Block to separate.
+     * @param playerUUID Player UUID used for permission-aware filtering.
+     * @return ArrayList of SubBlockData.
+     */
+    public static ArrayList<SubBlockData> separate(Block block, UUID playerUUID) {
+        return separate(block.getBlockData(), playerUUID);
     }
 
     // 清除快取
@@ -80,14 +95,36 @@ public class BlockDataSeparater {
      * @return ArrayList of SubBlockData.
      */
 
-    private static ArrayList<SubBlockData> filterSubBlockData(ArrayList<SubBlockData> blockDataList) {
+    private static ArrayList<SubBlockData> cloneForBlockData(List<SubBlockData> subBlockDataTemplates, BlockData blockData) {
+        ArrayList<SubBlockData> clonedBlockDataList = new ArrayList<>();
+        for (SubBlockData subBlockData : subBlockDataTemplates) {
+            clonedBlockDataList.add(subBlockData.fromBlockData(blockData));
+        }
+        return clonedBlockDataList;
+    }
+
+    private static ArrayList<SubBlockData> filterSubBlockDataForPlayer(ArrayList<SubBlockData> blockDataList, Player player) {
 
         if (ConfigFile.BlockDataFilter.Whitelist.Enabled && !ConfigFile.BlockDataFilter.Whitelist.Whitelist.contains("*")) {
             blockDataList.removeIf(subBlockData -> !ConfigFile.BlockDataFilter.Whitelist.Whitelist.contains(subBlockData.name()));
         }
 
         if (ConfigFile.BlockDataFilter.Blacklist.Enabled || ConfigFile.BlockDataFilter.Blacklist.Blacklist.contains("*")) {
-            blockDataList.removeIf(subBlockData -> ConfigFile.BlockDataFilter.Blacklist.Blacklist.contains(subBlockData.name()));
+            boolean hasGlobalBypass = player != null && player.hasPermission("debugstickpro.bypassblacklist");
+            if (!hasGlobalBypass) {
+                blockDataList.removeIf(subBlockData -> {
+                    if (!ConfigFile.BlockDataFilter.Blacklist.Blacklist.contains(subBlockData.name())) {
+                        return false;
+                    }
+
+                    if (player == null) {
+                        return true;
+                    }
+
+                    String perTypeBypassPermission = "debugstickpro.bypassblacklist." + subBlockData.name().toLowerCase(Locale.ROOT);
+                    return !player.hasPermission(perTypeBypassPermission);
+                });
+            }
         }
 
         return blockDataList;
@@ -103,6 +140,22 @@ public class BlockDataSeparater {
      */
 
     public static ArrayList<SubBlockData> separate(BlockData blockData) {
+        return separate(blockData, null);
+    }
+
+    /**
+     * Separate BlockData into SubBlockData with permission-aware filters.
+     * @param blockData BlockData to separate.
+     * @param playerUUID Player UUID used for permission-aware filtering.
+     * @return ArrayList of SubBlockData.
+     */
+    public static ArrayList<SubBlockData> separate(BlockData blockData, UUID playerUUID) {
+        Player player = playerUUID == null ? null : Bukkit.getPlayer(playerUUID);
+        ArrayList<SubBlockData> blockDataList = separateRaw(blockData);
+        return filterSubBlockDataForPlayer(blockDataList, player);
+    }
+
+    private static ArrayList<SubBlockData> separateRaw(BlockData blockData) {
 
 
         ArrayList<SubBlockData> blockDataList = new ArrayList<>();
@@ -113,11 +166,7 @@ public class BlockDataSeparater {
 
         // when cached, use it
         if (cache.containsKey(blockData.getMaterial())) {
-
-            for (SubBlockData subBlockData : cache.get(blockData.getMaterial())) {
-                blockDataList.add(subBlockData.fromBlockData(blockData));
-            }
-            return blockDataList;
+            return cloneForBlockData(cache.get(blockData.getMaterial()), blockData);
         }
 
         // start separate !!
@@ -802,9 +851,8 @@ public class BlockDataSeparater {
             }
         }
 
-        blockDataList = filterSubBlockData(blockDataList);
         cache.put(blockData.getMaterial(), blockDataList);
 
-        return blockDataList;
+        return cloneForBlockData(blockDataList, blockData);
     }
 }
