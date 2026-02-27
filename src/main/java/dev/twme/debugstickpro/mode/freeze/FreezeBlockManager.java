@@ -16,6 +16,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -23,6 +25,10 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 
 public class FreezeBlockManager {
+    private static final BlockFace[] ADJACENT_FACES = {
+            BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN
+    };
+
     private static final HashSet<FreezeLocation> freezeBlockLocations = new HashSet<>();
     private static final HashMap<UUID, ArrayList<FreezeBlockData>> playerFrozenBlockData = new HashMap<>();
 
@@ -73,6 +79,8 @@ public class FreezeBlockManager {
         while (iterator.hasNext()) {
             FreezeBlockData f = iterator.next();
             if (f.getBlock().getLocation().equals(block.getLocation())) {
+                Map<FreezeLocation, String> attachableSnapshot = captureAttachableNeighborSnapshot(block);
+
                 iterator.remove();
                 freezeBlockLocations.remove(freezeLocation);
                 if (freezeBlocks.isEmpty()) {
@@ -83,6 +91,8 @@ public class FreezeBlockManager {
                 SendFakeBarrier.removeFakeBarrier(playerUUID, block.getLocation());
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
                 Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
+                restoreAttachableNeighborSnapshot(attachableSnapshot);
+                restoreAttachableNeighborSnapshotNextTick(attachableSnapshot);
                 resendRealBlockToPlayer(playerUUID, block);
                 break;
             }
@@ -96,6 +106,7 @@ public class FreezeBlockManager {
             return;
         }
         for (FreezeBlockData f : freezeBlocks) {
+            Map<FreezeLocation, String> attachableSnapshot = captureAttachableNeighborSnapshot(f.getBlock());
             FreezeLocation freezeLocation = new FreezeLocation(f.getBlock().getLocation());
             freezeBlockLocations.remove(freezeLocation);
 
@@ -103,6 +114,8 @@ public class FreezeBlockManager {
             SendFakeBarrier.removeFakeBarrier(playerUUID, f.getBlock().getLocation());
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getItemDisplay())).remove();
             Objects.requireNonNull(EntityLib.getApi().getEntity(f.getBlockDisplay())).remove();
+            restoreAttachableNeighborSnapshot(attachableSnapshot);
+            restoreAttachableNeighborSnapshotNextTick(attachableSnapshot);
             resendRealBlockToPlayer(playerUUID, f.getBlock());
 
         }
@@ -208,5 +221,39 @@ public class FreezeBlockManager {
         Bukkit.getScheduler().runTask(plugin, () ->
                 player.sendBlockChange(block.getLocation(), block.getBlockData())
         );
+    }
+
+    private static Map<FreezeLocation, String> captureAttachableNeighborSnapshot(Block center) {
+        Map<FreezeLocation, String> snapshot = new HashMap<>();
+        for (BlockFace face : ADJACENT_FACES) {
+            Block neighbor = center.getRelative(face);
+            if (neighbor.getBlockData() instanceof FaceAttachable) {
+                snapshot.put(new FreezeLocation(neighbor.getLocation()), neighbor.getBlockData().getAsString());
+            }
+        }
+        return snapshot;
+    }
+
+    private static void restoreAttachableNeighborSnapshot(Map<FreezeLocation, String> snapshot) {
+        for (Map.Entry<FreezeLocation, String> entry : snapshot.entrySet()) {
+            Block block = entry.getKey().getLocation().getBlock();
+            String expectedData = entry.getValue();
+            if (!block.getBlockData().getAsString().equals(expectedData)) {
+                block.setBlockData(Bukkit.createBlockData(expectedData), false);
+            }
+        }
+    }
+
+    private static void restoreAttachableNeighborSnapshotNextTick(Map<FreezeLocation, String> snapshot) {
+        if (snapshot.isEmpty()) {
+            return;
+        }
+
+        DebugStickPro plugin = DebugStickPro.getInstance();
+        if (plugin == null || !plugin.isEnabled()) {
+            return;
+        }
+
+        Bukkit.getScheduler().runTask(plugin, () -> restoreAttachableNeighborSnapshot(snapshot));
     }
 }
