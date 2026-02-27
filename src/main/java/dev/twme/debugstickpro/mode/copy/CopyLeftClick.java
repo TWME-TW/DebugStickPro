@@ -38,7 +38,7 @@ public class CopyLeftClick {
 
         }
 
-        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block);
+        ArrayList<SubBlockData> subBlockDataList = BlockDataSeparater.separate(block, playerUUID);
         playerData.setCopiedSubBlockData(subBlockDataList);
 
         if (block.getType() == Material.PLAYER_HEAD) {

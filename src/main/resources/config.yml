@@ -76,6 +76,9 @@ BlockDataFilter:
   Blacklist:
     # If enabled, the specified block data will not be displayed.
     # This option takes precedence over the whitelist.
+    # Permission bypass:
+    # - Global: debugstickpro.bypassblacklist
+    # - Per-type: debugstickpro.bypassblacklist.<subblockdatatype-lowercase> (example: debugstickpro.bypassblacklist.waterloggeddata)
     # Default: false
     Enabled: false
     # Options to fill in: https://github.com/TWME-TW/DebugStickPro/tree/main/src/main/java/dev/twme/debugstickpro/blockdatautil/subdata

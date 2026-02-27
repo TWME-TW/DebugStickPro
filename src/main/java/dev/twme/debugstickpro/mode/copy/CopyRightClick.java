@@ -61,7 +61,7 @@ public class CopyRightClick {
             }
         }
 
-        List<SubBlockData> oldSubBlockDataList = BlockDataSeparater.separate(block);
+        List<SubBlockData> oldSubBlockDataList = BlockDataSeparater.separate(block, playerUUID);
         List<SubBlockData> newSubBlockDataList = playerData.getCopiedSubBlockData();
 
         CopyModeChangingBlockEvent copyModeChangingBlockEvent = new CopyModeChangingBlockEvent(playerUUID, block, oldSubBlockDataList, newSubBlockDataList);
