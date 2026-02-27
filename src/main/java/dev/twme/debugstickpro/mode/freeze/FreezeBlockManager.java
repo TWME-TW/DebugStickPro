@@ -94,6 +94,7 @@ public class FreezeBlockManager {
                 restoreAttachableNeighborSnapshot(attachableSnapshot);
                 restoreAttachableNeighborSnapshotNextTick(attachableSnapshot);
                 resendRealBlockToPlayer(playerUUID, block);
+                resendAttachableNeighborSnapshotToPlayer(playerUUID, attachableSnapshot);
                 break;
             }
         }
@@ -117,6 +118,7 @@ public class FreezeBlockManager {
             restoreAttachableNeighborSnapshot(attachableSnapshot);
             restoreAttachableNeighborSnapshotNextTick(attachableSnapshot);
             resendRealBlockToPlayer(playerUUID, f.getBlock());
+            resendAttachableNeighborSnapshotToPlayer(playerUUID, attachableSnapshot);
 
         }
     }
@@ -255,5 +257,33 @@ public class FreezeBlockManager {
         }
 
         Bukkit.getScheduler().runTask(plugin, () -> restoreAttachableNeighborSnapshot(snapshot));
+    }
+
+    private static void resendAttachableNeighborSnapshotToPlayer(UUID playerUUID, Map<FreezeLocation, String> snapshot) {
+        if (snapshot.isEmpty()) {
+            return;
+        }
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        if (player == null) {
+            return;
+        }
+
+        for (FreezeLocation freezeLocation : snapshot.keySet()) {
+            Block neighbor = freezeLocation.getLocation().getBlock();
+            player.sendBlockChange(neighbor.getLocation(), neighbor.getBlockData());
+        }
+
+        DebugStickPro plugin = DebugStickPro.getInstance();
+        if (plugin == null || !plugin.isEnabled()) {
+            return;
+        }
+
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            for (FreezeLocation freezeLocation : snapshot.keySet()) {
+                Block neighbor = freezeLocation.getLocation().getBlock();
+                player.sendBlockChange(neighbor.getLocation(), neighbor.getBlockData());
+            }
+        });
     }
 }
