@@ -126,12 +126,6 @@
             <version>+eba7ada-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>dev.twme</groupId>
-            <artifactId>blocket-api</artifactId>
-            <version>1.1.1.1</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <distributionManagement>

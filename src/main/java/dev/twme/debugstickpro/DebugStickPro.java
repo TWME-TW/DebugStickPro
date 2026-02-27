@@ -1,7 +1,6 @@
 package dev.twme.debugstickpro;
 
 import com.github.retrooper.packetevents.PacketEvents;
-import dev.twme.blocket.api.BlocketAPI;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.commands.MainCommandTabComplete;
@@ -14,6 +13,7 @@ import dev.twme.debugstickpro.listeners.*;
 import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
+import dev.twme.debugstickpro.mode.freeze.FreezePacketLayer;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
@@ -74,8 +74,7 @@ public final class DebugStickPro extends JavaPlugin {
 
         //Initialize!
         PacketEvents.getAPI().init();
-
-        BlocketAPI.initialize(this);
+        FreezePacketLayer.initialize();
 
         SpigotEntityLibPlatform platform = new SpigotEntityLibPlatform(this);
         APIConfig settings = new APIConfig(PacketEvents.getAPI())
@@ -128,6 +127,7 @@ public final class DebugStickPro extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        FreezePacketLayer.shutdown();
         FreezeBlockManager.removeOnServerClose();
         //Terminate the instance (clean up process)
         PacketEvents.getAPI().terminate();
@@ -171,6 +171,7 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new ChunkLoadEventListener());
         registerListener(new BlockPlaceEventListenerCanBuildChecker());
         registerListener(new ChunkUnloadEventListener());
+        registerListener(new FreezeBlockIsolationListener());
         registerListener(new RightClickListener());
         registerListener(new LeftClickListener());
         registerListener(new PlayerQuitListener());
@@ -184,7 +185,6 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerDropItemListener());
-        // registerListener(new BlockPhysicsEventListener());
     }
 
     /**
