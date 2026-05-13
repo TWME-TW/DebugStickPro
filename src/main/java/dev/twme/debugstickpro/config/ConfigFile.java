@@ -1,10 +1,11 @@
 package dev.twme.debugstickpro.config;
 
-import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
-
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import org.bukkit.Material;
+
+import net.kyori.adventure.text.Component;
 
 public class ConfigFile {
 
@@ -47,6 +48,18 @@ public class ConfigFile {
 
     public static class AutoRegionProtection {
         public static boolean Enabled;
+    }
+
+    public static class BlockFilter {
+        public static class Whitelist {
+            public static boolean Enabled;
+            public static HashSet<String> Blocks;
+        }
+
+        public static class Blacklist {
+            public static boolean Enabled;
+            public static HashSet<String> Blocks;
+        }
     }
 
     public static class BlockDataFilter {

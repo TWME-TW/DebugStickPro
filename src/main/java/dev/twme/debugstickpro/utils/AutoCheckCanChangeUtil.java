@@ -1,13 +1,14 @@
 package dev.twme.debugstickpro.utils;
 
-import dev.twme.debugstickpro.config.ConfigFile;
-import dev.twme.debugstickpro.listeners.BlockPlaceEventListenerCanBuildChecker;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
+import dev.twme.debugstickpro.config.ConfigFile;
+import dev.twme.debugstickpro.listeners.BlockPlaceEventListenerCanBuildChecker;
 
 public final class AutoCheckCanChangeUtil {
     /**
@@ -48,6 +49,12 @@ public final class AutoCheckCanChangeUtil {
                 if (!BlockPlaceEventListenerCanBuildChecker.canBuild(block, playerUUID)) {
                     canChange = false;
                 }
+            }
+        }
+
+        if (canChange) {
+            if (!BlockFilterUtil.isAllowed(playerUUID, block)) {
+                canChange = false;
             }
         }
 
