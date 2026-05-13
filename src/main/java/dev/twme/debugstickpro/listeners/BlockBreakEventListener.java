@@ -19,5 +19,7 @@ public class BlockBreakEventListener implements Listener {
             event.setCancelled(true);
             return;
         }
+
+        FreezeBlockManager.removeProtectedDependent(location);
     }
 }

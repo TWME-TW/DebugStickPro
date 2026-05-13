@@ -1,19 +1,13 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
-import dev.twme.debugstickpro.utils.SendFakeBarrier;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-
-import java.util.Objects;
 
 public class RightClickListener implements Listener {
     @EventHandler
@@ -39,6 +33,11 @@ public class RightClickListener implements Listener {
 
         event.setCancelled(true);
 
-        PlayerDataManager.playerRightClick(player.getUniqueId());
+        PlayerDataManager.playerRightClick(
+                player.getUniqueId(),
+                event.getAction(),
+                event.getClickedBlock(),
+                event.getBlockFace()
+        );
     }
 }
