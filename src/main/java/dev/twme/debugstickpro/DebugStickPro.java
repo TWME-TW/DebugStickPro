@@ -1,6 +1,16 @@
 package dev.twme.debugstickpro;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
+
 import com.github.retrooper.packetevents.PacketEvents;
+
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.commands.MainCommand;
 import dev.twme.debugstickpro.commands.MainCommandTabComplete;
@@ -9,7 +19,22 @@ import dev.twme.debugstickpro.config.ConfigLoader;
 import dev.twme.debugstickpro.display.ActionBarDisplayTask;
 import dev.twme.debugstickpro.hook.CoreProtectUtil;
 import dev.twme.debugstickpro.hook.PlaceholderAPIUtil;
-import dev.twme.debugstickpro.listeners.*;
+import dev.twme.debugstickpro.listeners.BlockBreakEventListener;
+import dev.twme.debugstickpro.listeners.BlockPlaceEventListenerCanBuildChecker;
+import dev.twme.debugstickpro.listeners.ChunkLoadEventListener;
+import dev.twme.debugstickpro.listeners.ChunkUnloadEventListener;
+import dev.twme.debugstickpro.listeners.FreezeBlockIsolationListener;
+import dev.twme.debugstickpro.listeners.LeftClickListener;
+import dev.twme.debugstickpro.listeners.PlayerChangeDebugStickModeEventListener;
+import dev.twme.debugstickpro.listeners.PlayerChangedWorldEventListener;
+import dev.twme.debugstickpro.listeners.PlayerDropItemListener;
+import dev.twme.debugstickpro.listeners.PlayerItemHeldListener;
+import dev.twme.debugstickpro.listeners.PlayerJoinListener;
+import dev.twme.debugstickpro.listeners.PlayerLocaleChangeEventListener;
+import dev.twme.debugstickpro.listeners.PlayerQuitListener;
+import dev.twme.debugstickpro.listeners.PlayerSwapHandItemsEventListener;
+import dev.twme.debugstickpro.listeners.RightClickListener;
+import dev.twme.debugstickpro.listeners.WorldUnloadEventListener;
 import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
@@ -22,14 +47,6 @@ import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder
 import me.tofaa.entitylib.APIConfig;
 import me.tofaa.entitylib.EntityLib;
 import me.tofaa.entitylib.spigot.SpigotEntityLibPlatform;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
-
-import java.util.UUID;
 
 public final class DebugStickPro extends JavaPlugin {
     /**
@@ -46,7 +63,7 @@ public final class DebugStickPro extends JavaPlugin {
     /**
      * This is the version of the plugin
      */
-    public static final int CONFIG_VERSION = 6;
+    public static final int CONFIG_VERSION = 7;
 
     /**
      * This is the version of the language file

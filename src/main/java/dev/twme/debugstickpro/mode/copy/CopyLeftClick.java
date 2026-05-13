@@ -1,19 +1,20 @@
 package dev.twme.debugstickpro.mode.copy;
 
-import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
-import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.events.CopyModeCopyBlockDataEvent;
-import dev.twme.debugstickpro.playerdata.PlayerData;
-import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.events.CopyModeCopyBlockDataEvent;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 
 public class CopyLeftClick {
     public static void onLeftClick(UUID playerUUID, PlayerData playerData) {

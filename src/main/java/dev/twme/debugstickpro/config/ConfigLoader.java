@@ -1,18 +1,19 @@
 package dev.twme.debugstickpro.config;
 
-import dev.twme.debugstickpro.DebugStickPro;
-import dev.twme.debugstickpro.utils.Log;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.utils.Log;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class ConfigLoader {
     private final static ConfigLoader instance = new ConfigLoader();
@@ -95,6 +96,11 @@ public class ConfigLoader {
         ConfigFile.BlacklistWorlds.Worlds = new HashSet<>(config.getStringList("BlacklistWorlds.Worlds"));
 
         ConfigFile.AutoRegionProtection.Enabled = config.getBoolean("AutoRegionProtection.Enabled");
+
+        ConfigFile.BlockFilter.Whitelist.Enabled = config.getBoolean("BlockFilter.Whitelist.Enabled");
+        ConfigFile.BlockFilter.Whitelist.Blocks = new HashSet<>(config.getStringList("BlockFilter.Whitelist.Blocks"));
+        ConfigFile.BlockFilter.Blacklist.Enabled = config.getBoolean("BlockFilter.Blacklist.Enabled");
+        ConfigFile.BlockFilter.Blacklist.Blocks = new HashSet<>(config.getStringList("BlockFilter.Blacklist.Blocks"));
 
         ConfigFile.BlockDataFilter.Whitelist.Enabled = config.getBoolean("BlockDataFilter.Whitelist.Enabled");
         ConfigFile.BlockDataFilter.Whitelist.Whitelist = new HashSet<>(config.getStringList("BlockDataFilter.Whitelist.Whitelist"));

@@ -1,14 +1,16 @@
 package dev.twme.debugstickpro.mode.classic;
 
-import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
-import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.playerdata.PlayerData;
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.utils.BlockFilterUtil;
 
 public class ClassicLeftClick {
 
@@ -21,6 +23,10 @@ public class ClassicLeftClick {
         Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
+            return;
+        }
+
+        if (!BlockFilterUtil.isAllowed(player, block)) {
             return;
         }
 

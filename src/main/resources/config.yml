@@ -1,5 +1,5 @@
 # Don't touch this value
-ConfigVersion: 6
+ConfigVersion: 7
 
 Language:
   # Language files are located in the "lang" folder.
@@ -85,6 +85,23 @@ BlockDataFilter:
     Blacklist:
       - "AgeableData"
       - "WaterloggedData"
+
+BlockFilter:
+  # Permission bypass for both whitelist and blacklist: debugstickpro.bypassblockfilter
+  Whitelist:
+    # If enabled, the debug stick will only work on the specified blocks.
+    Enabled: false
+    # Options to fill: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    Blocks:
+      - "*"
+  Blacklist:
+    # If enabled, the debug stick will not work on the specified blocks.
+    # This option takes precedence over the whitelist.
+    Enabled: false
+    # Options to fill: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    Blocks:
+      - "BEDROCK"
+      - "BARRIER"
 
 ModeSetting:
   ClassicMode:

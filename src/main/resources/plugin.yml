@@ -59,6 +59,9 @@ permissions:
     default: op
     # Per-type bypass pattern:
     # debugstickpro.bypassblacklist.<subblockdatatype-lowercase>
+  debugstickpro.bypassblockfilter:
+    description: Allows bypassing the BlockFilter whitelist and blacklist
+    default: op
   debugstickpro.basic:
     description: Allows basic usage of the DebugStickPro
     default: op
@@ -77,3 +80,4 @@ permissions:
       - debugstickpro.reload
       - debugstickpro.bypassregion
       - debugstickpro.bypassblacklist
+      - debugstickpro.bypassblockfilter

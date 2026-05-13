@@ -1,13 +1,14 @@
 package dev.twme.debugstickpro.utils;
 
-import dev.twme.debugstickpro.config.ConfigFile;
-import dev.twme.debugstickpro.listeners.BlockPlaceEventListenerCanBuildChecker;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
+import dev.twme.debugstickpro.config.ConfigFile;
+import dev.twme.debugstickpro.listeners.BlockPlaceEventListenerCanBuildChecker;
 
 public final class AutoCheckCanChangeUtil {
     /**
@@ -19,11 +20,11 @@ public final class AutoCheckCanChangeUtil {
      */
     public static boolean canChange(UUID playerUUID, Block block) {
         Player player = Bukkit.getPlayer(playerUUID);
-        World world = block.getWorld();
-
-        if (player.hasPermission("debugstickpro.bypassregion")) {
-            return true;
+        if (player == null) {
+            return false;
         }
+
+        World world = block.getWorld();
 
         boolean canChange = true;
 
@@ -43,12 +44,14 @@ public final class AutoCheckCanChangeUtil {
             }
         }
 
-        if (ConfigFile.AutoRegionProtection.Enabled) {
-            if (canChange) {
-                if (!BlockPlaceEventListenerCanBuildChecker.canBuild(block, playerUUID)) {
-                    canChange = false;
-                }
+        if (ConfigFile.AutoRegionProtection.Enabled && canChange && !player.hasPermission("debugstickpro.bypassregion")) {
+            if (!BlockPlaceEventListenerCanBuildChecker.canBuild(block, playerUUID)) {
+                canChange = false;
             }
+        }
+
+        if (canChange && !BlockFilterUtil.isAllowed(player, block)) {
+            canChange = false;
         }
 
         return canChange;
