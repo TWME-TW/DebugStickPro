@@ -25,7 +25,7 @@ public class FreezeBlockIsolationListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockPhysics(BlockPhysicsEvent event) {
         boolean protectedTarget = FreezeBlockManager.maintainProtectedDependent(event.getBlock());
-        boolean protectedSource = FreezeBlockManager.maintainProtectedDependent(event.getSourceBlock());
+        boolean protectedSource = !protectedTarget && FreezeBlockManager.maintainProtectedDependent(event.getSourceBlock());
         if (protectedTarget || protectedSource) {
             event.setCancelled(true);
             return;

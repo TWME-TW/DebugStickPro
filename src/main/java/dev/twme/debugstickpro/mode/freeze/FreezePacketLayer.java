@@ -111,6 +111,9 @@ public final class FreezePacketLayer {
 
         private static String getExpectedData(World world, int x, int y, int z) {
             Location location = new Location(world, x, y, z);
+            if (FreezeBlockManager.isFreezeBlock(location)) {
+                return "minecraft:barrier";
+            }
             return FreezeBlockManager.getProtectedDependentData(location);
         }
     }

@@ -81,8 +81,8 @@ public class FreezeBlockManager {
             restoreFrozenBlock(block, frozenData);
             restoreDependentNeighborSnapshot(dependentSnapshot);
             registerProtectedDependentSnapshot(dependentSnapshot);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L);
+            restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L, false);
+            restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L, true);
 
             removeDisplayEntity(frozenData.getItemDisplay());
             removeDisplayEntity(frozenData.getBlockDisplay());
@@ -109,8 +109,8 @@ public class FreezeBlockManager {
             restoreFrozenBlock(block, frozenData);
             restoreDependentNeighborSnapshot(dependentSnapshot);
             registerProtectedDependentSnapshot(dependentSnapshot);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L);
+            restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L, false);
+            restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L, true);
 
             removeDisplayEntity(frozenData.getItemDisplay());
             removeDisplayEntity(frozenData.getBlockDisplay());
@@ -256,7 +256,7 @@ public class FreezeBlockManager {
         }
     }
 
-    private static void restoreDependentNeighborSnapshotLater(Map<FreezeLocation, String> snapshot, long delayTicks) {
+    private static void restoreDependentNeighborSnapshotLater(Map<FreezeLocation, String> snapshot, long delayTicks, boolean cleanupAfter) {
         if (snapshot.isEmpty()) {
             return;
         }
@@ -266,7 +266,22 @@ public class FreezeBlockManager {
             return;
         }
 
-        Bukkit.getScheduler().runTaskLater(plugin, () -> restoreDependentNeighborSnapshot(snapshot), delayTicks);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            restoreDependentNeighborSnapshot(snapshot);
+            if (cleanupAfter) {
+                cleanupVerifiedDependents(snapshot);
+            }
+        }, delayTicks);
+    }
+
+    private static void cleanupVerifiedDependents(Map<FreezeLocation, String> snapshot) {
+        for (Map.Entry<FreezeLocation, String> entry : snapshot.entrySet()) {
+            String expected = entry.getValue();
+            Block block = entry.getKey().getLocation().getBlock();
+            if (expected.equals(block.getBlockData().getAsString())) {
+                protectedDependentBlocks.remove(entry.getKey());
+            }
+        }
     }
 
     private static void registerProtectedDependentSnapshot(Map<FreezeLocation, String> snapshot) {
