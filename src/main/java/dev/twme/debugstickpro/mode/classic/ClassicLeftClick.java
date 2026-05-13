@@ -26,7 +26,7 @@ public class ClassicLeftClick {
             return;
         }
 
-        if (!BlockFilterUtil.isAllowed(playerUUID, block)) {
+        if (!BlockFilterUtil.isAllowed(player, block)) {
             return;
         }
 

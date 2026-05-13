@@ -20,11 +20,11 @@ public final class AutoCheckCanChangeUtil {
      */
     public static boolean canChange(UUID playerUUID, Block block) {
         Player player = Bukkit.getPlayer(playerUUID);
-        World world = block.getWorld();
-
-        if (player.hasPermission("debugstickpro.bypassregion")) {
-            return true;
+        if (player == null) {
+            return false;
         }
+
+        World world = block.getWorld();
 
         boolean canChange = true;
 
@@ -44,18 +44,14 @@ public final class AutoCheckCanChangeUtil {
             }
         }
 
-        if (ConfigFile.AutoRegionProtection.Enabled) {
-            if (canChange) {
-                if (!BlockPlaceEventListenerCanBuildChecker.canBuild(block, playerUUID)) {
-                    canChange = false;
-                }
+        if (ConfigFile.AutoRegionProtection.Enabled && canChange && !player.hasPermission("debugstickpro.bypassregion")) {
+            if (!BlockPlaceEventListenerCanBuildChecker.canBuild(block, playerUUID)) {
+                canChange = false;
             }
         }
 
-        if (canChange) {
-            if (!BlockFilterUtil.isAllowed(playerUUID, block)) {
-                canChange = false;
-            }
+        if (canChange && !BlockFilterUtil.isAllowed(player, block)) {
+            canChange = false;
         }
 
         return canChange;

@@ -87,6 +87,7 @@ BlockDataFilter:
       - "WaterloggedData"
 
 BlockFilter:
+  # Permission bypass for both whitelist and blacklist: debugstickpro.bypassblockfilter
   Whitelist:
     # If enabled, the debug stick will only work on the specified blocks.
     Enabled: false
@@ -96,7 +97,6 @@ BlockFilter:
   Blacklist:
     # If enabled, the debug stick will not work on the specified blocks.
     # This option takes precedence over the whitelist.
-    # Permission bypass: debugstickpro.bypassblockfilter
     Enabled: false
     # Options to fill: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
     Blocks:

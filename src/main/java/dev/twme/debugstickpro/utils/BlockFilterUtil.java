@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.utils;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -12,17 +13,16 @@ public final class BlockFilterUtil {
     /**
      * Check if the block is allowed by the BlockFilter settings.
      *
-     * @param playerUUID player UUID
-     * @param block      the block to check
+     * @param player the player to check
+     * @param block the block to check
      * @return true if the block is allowed, false if it is filtered out
      */
-    public static boolean isAllowed(UUID playerUUID, Block block) {
-        Player player = org.bukkit.Bukkit.getPlayer(playerUUID);
+    public static boolean isAllowed(Player player, Block block) {
         if (player == null) {
             return false;
         }
 
-        // bypass permission
+        // Bypass permission applies to both whitelist and blacklist.
         if (player.hasPermission("debugstickpro.bypassblockfilter")) {
             return true;
         }
@@ -46,5 +46,9 @@ public final class BlockFilterUtil {
         }
 
         return true;
+    }
+
+    public static boolean isAllowed(UUID playerUUID, Block block) {
+        return isAllowed(Bukkit.getPlayer(playerUUID), block);
     }
 }
