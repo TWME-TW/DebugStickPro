@@ -1,9 +1,10 @@
 package dev.twme.debugstickpro.blockdatautil.subdata;
 
-import dev.twme.debugstickpro.blockdatautil.SubBlockData;
-import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.FlowerBed;
+
+import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import dev.twme.debugstickpro.localization.Lang;
 
 public class FlowerBedData extends SubBlockData {
     private int flowerAmount;
@@ -27,7 +28,7 @@ public class FlowerBedData extends SubBlockData {
     public SubBlockData nextData() {
         FlowerBed flowerBeds = ((FlowerBed) blockData);
         if (flowerAmount >= flowerBeds.getMaximumFlowerAmount()) {
-            flowerAmount = 0;
+            flowerAmount = flowerBeds.getMinimumFlowerAmount();
         } else {
             flowerAmount++;
         }
@@ -38,7 +39,7 @@ public class FlowerBedData extends SubBlockData {
     @Override
     public SubBlockData previousData() {
         FlowerBed flowerBeds = ((FlowerBed) blockData);
-        if (flowerAmount <= 0) {
+        if (flowerAmount <= flowerBeds.getMinimumFlowerAmount()) {
             flowerAmount = flowerBeds.getMaximumFlowerAmount();
         } else {
             flowerAmount--;
