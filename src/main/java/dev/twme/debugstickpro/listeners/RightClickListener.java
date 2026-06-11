@@ -1,13 +1,18 @@
 package dev.twme.debugstickpro.listeners;
 
-import dev.twme.debugstickpro.playerdata.PlayerDataManager;
-import dev.twme.debugstickpro.utils.DebugStickItem;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+
+import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
+import dev.twme.debugstickpro.playerdata.DebugStickMode;
+import dev.twme.debugstickpro.playerdata.PlayerData;
+import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.utils.DebugStickItem;
 
 public class RightClickListener implements Listener {
     @EventHandler
@@ -29,6 +34,15 @@ public class RightClickListener implements Listener {
 
         if (!DebugStickItem.checkPlayer(player)) {
             return;
+        }
+
+        // In classic mode, don't cancel the event if the target block has no available SubBlockData
+        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+        if (playerData != null && playerData.getDebugStickMode() == DebugStickMode.CLASSIC) {
+            Block targetBlock = player.getTargetBlockExact(5);
+            if (targetBlock == null || BlockDataSeparater.separate(targetBlock, player.getUniqueId()).isEmpty()) {
+                return;
+            }
         }
 
         event.setCancelled(true);
