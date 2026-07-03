@@ -55,6 +55,16 @@ public class PlayerDataManager {
     }
 
     /**
+     * get player data or create it if it is missing
+     *
+     * @param uuid player UUID
+     * @return player data
+     */
+    public static PlayerData getOrCreatePlayerData(UUID uuid) {
+        return playerDataMap.computeIfAbsent(uuid, ignored -> new PlayerData());
+    }
+
+    /**
      * remove player data
      *
      * @param uuid player UUID
@@ -109,7 +119,7 @@ public class PlayerDataManager {
             return;
         }
 
-        PlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getOrCreatePlayerData(uuid);
 
         ActionbarUtil.removeActionBar(uuid);
         switch (playerData.getDebugStickMode()) {
@@ -149,7 +159,7 @@ public class PlayerDataManager {
      */
     public static void previousDebugStickMode(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
-        PlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getOrCreatePlayerData(uuid);
 
         ActionbarUtil.removeActionBar(uuid);
         switch (playerData.getDebugStickMode()) {
@@ -201,7 +211,7 @@ public class PlayerDataManager {
      */
     public static void playerLeftClick(UUID uuid) {
 
-        PlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getOrCreatePlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case CLASSIC:
@@ -226,7 +236,7 @@ public class PlayerDataManager {
      */
     public static void playerRightClick(UUID uuid, Action action, Block clickedBlock, BlockFace clickedFace) {
 
-        PlayerData playerData = getPlayerData(uuid);
+        PlayerData playerData = getOrCreatePlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case CLASSIC:

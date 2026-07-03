@@ -37,8 +37,8 @@ public class RightClickListener implements Listener {
         }
 
         // In classic mode, don't cancel the event if the target block has no available SubBlockData
-        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
-        if (playerData != null && playerData.getDebugStickMode() == DebugStickMode.CLASSIC) {
+        PlayerData playerData = PlayerDataManager.getOrCreatePlayerData(player.getUniqueId());
+        if (playerData.getDebugStickMode() == DebugStickMode.CLASSIC) {
             Block targetBlock = player.getTargetBlockExact(5);
             if (targetBlock == null || BlockDataSeparater.separate(targetBlock, player.getUniqueId()).isEmpty()) {
                 return;

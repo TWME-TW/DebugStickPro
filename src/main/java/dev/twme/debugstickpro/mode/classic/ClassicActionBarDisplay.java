@@ -19,7 +19,7 @@ public class ClassicActionBarDisplay {
         boolean hasIsUsingType = false;
 
         // 獲取玩家資料
-        PlayerData playerData = PlayerDataManager.getPlayerData(playerUUID);
+        PlayerData playerData = PlayerDataManager.getOrCreatePlayerData(playerUUID);
 
         // 獲取方塊拆分後的資料
         ArrayList<SubBlockData> displayList = BlockDataSeparater.separate(blockData, playerUUID);

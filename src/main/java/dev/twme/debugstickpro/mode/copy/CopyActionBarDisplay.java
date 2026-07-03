@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CopyActionBarDisplay {
     public static String getDisplay(UUID playerUUID) {
 
-        PlayerData playerData = PlayerDataManager.getPlayerData(playerUUID);
+        PlayerData playerData = PlayerDataManager.getOrCreatePlayerData(playerUUID);
         List<SubBlockData> copiedSubBlockData = playerData.getCopiedSubBlockData();
 
         if (copiedSubBlockData.isEmpty()) {

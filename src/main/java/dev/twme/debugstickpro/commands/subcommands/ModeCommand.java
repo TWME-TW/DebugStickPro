@@ -43,7 +43,7 @@ public class ModeCommand {
         if (args.length != 2) {
             return false;
         }
-        PlayerData playerData = PlayerDataManager.getPlayerData(player.getUniqueId());
+        PlayerData playerData = PlayerDataManager.getOrCreatePlayerData(player.getUniqueId());
         if (args[1].equalsIgnoreCase("classic")) {
 
 
@@ -83,7 +83,7 @@ public class ModeCommand {
                     return true;
                 }
 
-                PlayerDataManager.setPlayerData(player.getUniqueId(), PlayerDataManager.getPlayerData(player.getUniqueId()).setDebugStickMode(DebugStickMode.FREEZE));
+                PlayerDataManager.setPlayerData(player.getUniqueId(), playerData.setDebugStickMode(DebugStickMode.FREEZE));
 
                 CustomModelDataManager.updateItem(player, DebugStickMode.FREEZE);
 

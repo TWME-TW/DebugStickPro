@@ -161,7 +161,7 @@ public final class DebugStickPro extends JavaPlugin {
             PlayerDataManager.setPlayerData(playerUUID, new PlayerData());
 
             if (!player.hasPermission("debugstickpro.use")) {
-                return;
+                continue;
             }
             ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -199,7 +199,6 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new WorldUnloadEventListener());
         registerListener(new PlayerChangedWorldEventListener());
         registerListener(new PlayerChangeDebugStickModeEventListener());
-        registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerDropItemListener());
     }

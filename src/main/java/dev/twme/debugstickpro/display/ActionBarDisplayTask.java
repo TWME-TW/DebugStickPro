@@ -10,12 +10,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 public class ActionBarDisplayTask implements Runnable {
     @Override
     public void run() {
-        for (UUID uuid : PlayerDataManager.getDisplaySet()) {
+        for (UUID uuid : new HashSet<>(PlayerDataManager.getDisplaySet())) {
             Player player = Bukkit.getPlayer(uuid);
 
             Block block;
@@ -36,7 +37,7 @@ public class ActionBarDisplayTask implements Runnable {
                 continue;
             }
 
-            PlayerData playerData = PlayerDataManager.getPlayerData(uuid);
+            PlayerData playerData = PlayerDataManager.getOrCreatePlayerData(uuid);
 
             switch (playerData.getDebugStickMode()) {
                 case CLASSIC:
