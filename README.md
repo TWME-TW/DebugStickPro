@@ -99,7 +99,7 @@ Same as regular debugging stick operation:
 ## How to install:
 
 ### Requirements
-- **Java 21** or higher
+- **Java 25** or higher
 - **Paper 26.2+**
 - **[PacketEvents](https://github.com/retrooper/packetevents) 2.13.0+** (Required for v0.5.0+)
 
