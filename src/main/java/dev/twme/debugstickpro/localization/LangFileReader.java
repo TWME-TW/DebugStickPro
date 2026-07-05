@@ -122,6 +122,16 @@ public class LangFileReader {
     }
 
     /**
+     * Get a string without falling back to the default language or modifying the file.
+     *
+     * @param key the key of the string
+     * @return the string of the key, or null if it is not configured
+     */
+    public String getOptionalString(String key) {
+        return this.langFile.getString(key);
+    }
+
+    /**
      * Get the list of the key
      *
      * @param key the key of the list

@@ -194,4 +194,17 @@ public class Lang {
         public final static String WaterloggedDataName = "DataKeyName.WaterloggedDataName";
 
     }
+
+    public final static class DataValueName {
+        private final static String Root = "DataValueName";
+        private final static String Common = Root + ".Common";
+
+        public static String value(String dataType, String value) {
+            return Root + "." + dataType + "." + value;
+        }
+
+        public static String common(String value) {
+            return Common + "." + value;
+        }
+    }
 }
