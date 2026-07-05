@@ -22,13 +22,15 @@ public class LangFileReader {
     /**
      * This is the cache of the language file
      */
-    private static HashMap<String,String> cache = new HashMap<>();
+    private static final HashMap<String, String> cache = new HashMap<>();
+    private static final HashMap<String, String> optionalStringCache = new HashMap<>();
 
     /**
      * Clear the cache of the language file
      */
     public static void clearCache() {
         cache.clear();
+        optionalStringCache.clear();
     }
 
     /**
@@ -99,15 +101,19 @@ public class LangFileReader {
      */
     public String getString(String key) {
 
-        if (cache.containsKey(locale + key)) {
-            return cache.get(locale + key);
+        String cacheKey = cacheKey(key);
+        if (cache.containsKey(cacheKey)) {
+            return cache.get(cacheKey);
         }
 
+        String value;
         try {
-            if (this.langFile.getString(key) == null) {
+            value = this.langFile.getString(key);
+            if (value == null) {
                 set(key, LangFileManager.getLang("en_US").getString(key));
                 Log.warning("Missing key: " + key + " in " + locale + ".yml");
-                if (this.langFile.getString(key) == null) {
+                value = this.langFile.getString(key);
+                if (value == null) {
                     LangFileManager.getLang("en_US").set(key, "Missing...");
                     return "Missing key: \"" + key + "\" in en_US.yml";
                 }
@@ -117,8 +123,8 @@ public class LangFileReader {
             return "Missing key: \"" + key + "\"" + " in " + locale + ".yml";
         }
 
-        cache.put(locale + key, this.langFile.getString(key));
-        return this.langFile.getString(key);
+        cache.put(cacheKey, value);
+        return value;
     }
 
     /**
@@ -128,7 +134,14 @@ public class LangFileReader {
      * @return the string of the key, or null if it is not configured
      */
     public String getOptionalString(String key) {
-        return this.langFile.getString(key);
+        String cacheKey = cacheKey(key);
+        if (optionalStringCache.containsKey(cacheKey)) {
+            return optionalStringCache.get(cacheKey);
+        }
+
+        String value = this.langFile.getString(key);
+        optionalStringCache.put(cacheKey, value);
+        return value;
     }
 
     /**
@@ -164,7 +177,13 @@ public class LangFileReader {
      */
     public void set(String path, Object value) {
         this.langFile.set(path, value);
+        cache.remove(cacheKey(path));
+        optionalStringCache.remove(cacheKey(path));
         save();
+    }
+
+    private String cacheKey(String key) {
+        return locale + ":" + key;
     }
 
     /**

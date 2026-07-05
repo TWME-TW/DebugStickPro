@@ -10,6 +10,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public final class DebugStickItem {
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+
     public static boolean isDebugStickItem(ItemStack item) {
         if (item == null) {
             return false;
@@ -17,10 +19,11 @@ public final class DebugStickItem {
         if (item.getType() != ConfigFile.DebugStickItem.Material) {
             return false;
         }
-        if (item.getItemMeta() == null) {
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta == null) {
             return false;
         }
-        if (!item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)) {
+        if (!itemMeta.getPersistentDataContainer().has(PersistentKeys.DEBUG_STICK_ITEM)) {
             return false;
         }
         return true;
@@ -34,8 +37,7 @@ public final class DebugStickItem {
     public static ItemStack getDebugStickItem() {
         ItemStack itemStack = new ItemStack(ConfigFile.DebugStickItem.Material);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        MiniMessage mm = MiniMessage.miniMessage();
-        Component displayName = mm.deserialize(ConfigFile.DebugStickItem.DisplayName);
+        Component displayName = MINI_MESSAGE.deserialize(ConfigFile.DebugStickItem.DisplayName);
         itemMeta.displayName(displayName);
         itemMeta.lore(ConfigFile.DebugStickItem.Lore);
         itemMeta.getPersistentDataContainer().set(PersistentKeys.DEBUG_STICK_ITEM, PersistentDataType.STRING, "debugstickpro");

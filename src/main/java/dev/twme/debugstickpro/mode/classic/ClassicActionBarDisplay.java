@@ -47,20 +47,24 @@ public class ClassicActionBarDisplay {
         }
 
         int sort = 0;
+        int displayListSize = displayList.size();
         if (ConfigFile.ActionBarDisplay.AutoToCenter) {
-            sort = selectedIndex - displayList.size() / 2 + 1 + displayList.size() - (displayList.size() % 2);
+            sort = selectedIndex - displayListSize / 2 + 1 + displayListSize - (displayListSize % 2);
         }
 
         // 排序顯示順序
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(displayListSize * 32);
+        String selectedDataFormat = I18n.string(playerUUID, Lang.ActionBar.SelectedDataFormat);
+        String notSelectedDataFormat = I18n.string(playerUUID, Lang.ActionBar.NotSelectedDataFormat);
 
-        for (int i = 0; i < displayList.size(); i++) {
-            SubBlockData subBlockData = displayList.get((i + sort) % displayList.size());
+        for (int i = 0; i < displayListSize; i++) {
+            SubBlockData subBlockData = displayList.get((i + sort) % displayListSize);
             String value = I18n.blockDataValue(playerUUID, subBlockData);
+            String dataName = I18n.string(playerUUID, subBlockData.dataName());
             if (subBlockData.isUsing()) {
-                stringBuilder.append(Lang.ActionBar.formatSelectedData(I18n.string(playerUUID, Lang.ActionBar.SelectedDataFormat), I18n.string(playerUUID, subBlockData.dataName()), value)).append(" ");
+                stringBuilder.append(Lang.ActionBar.formatSelectedData(selectedDataFormat, dataName, value)).append(" ");
             } else {
-                stringBuilder.append(Lang.ActionBar.formatNotSelectedData(I18n.string(playerUUID, Lang.ActionBar.NotSelectedDataFormat), I18n.string(playerUUID, subBlockData.dataName()), value)).append(" ");
+                stringBuilder.append(Lang.ActionBar.formatNotSelectedData(notSelectedDataFormat, dataName, value)).append(" ");
             }
         }
         return stringBuilder.toString();

@@ -10,30 +10,30 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.UUID;
 
 public class ActionBarDisplayTask implements Runnable {
     @Override
     public void run() {
-        for (UUID uuid : new HashSet<>(PlayerDataManager.getDisplaySet())) {
+        Iterator<UUID> iterator = PlayerDataManager.getDisplaySet().iterator();
+        while (iterator.hasNext()) {
+            UUID uuid = iterator.next();
             Player player = Bukkit.getPlayer(uuid);
-
-            Block block;
 
             // player is offline or something
             if (player == null) {
+                iterator.remove();
                 continue;
             }
-            block = player.getTargetBlockExact(5);
 
             if (!player.hasPermission("debugstickpro.use")) {
-                PlayerDataManager.removePlayerFromDisplayList(uuid);
+                removeFromDisplayList(iterator, uuid);
                 continue;
             }
 
             if (!DebugStickItem.checkPlayer(player)) {
-                PlayerDataManager.removePlayerFromDisplayList(uuid);
+                removeFromDisplayList(iterator, uuid);
                 continue;
             }
 
@@ -41,6 +41,7 @@ public class ActionBarDisplayTask implements Runnable {
 
             switch (playerData.getDebugStickMode()) {
                 case CLASSIC:
+                    Block block = player.getTargetBlockExact(5);
                     if (block == null) {
                         ActionbarUtil.removeActionBar(uuid);
                         continue;
@@ -55,5 +56,10 @@ public class ActionBarDisplayTask implements Runnable {
                     continue;
             }
         }
+    }
+
+    private void removeFromDisplayList(Iterator<UUID> iterator, UUID uuid) {
+        iterator.remove();
+        ActionbarUtil.removeActionBar(uuid);
     }
 }
