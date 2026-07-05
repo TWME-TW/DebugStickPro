@@ -5,6 +5,7 @@ import dev.twme.debugstickpro.blockdatautil.subdata.brewingstandbottle.BrewingSt
 import dev.twme.debugstickpro.blockdatautil.subdata.brewingstandbottle.BrewingStandBottle_1;
 import dev.twme.debugstickpro.blockdatautil.subdata.brewingstandbottle.BrewingStandBottle_2;
 import dev.twme.debugstickpro.blockdatautil.subdata.chiseledbookshelfslot.*;
+import dev.twme.debugstickpro.blockdatautil.subdata.mossycarpetheight.*;
 import dev.twme.debugstickpro.blockdatautil.subdata.multiplefacing.*;
 import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireEastData;
 import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireNorthData;
@@ -347,11 +348,10 @@ public class BlockDataSeparater {
             SubBlockData daylightDetectorData = new DaylightDetectorData(blockData);
             blockDataList.add(daylightDetectorData);
         }
-        /* NOTE: Not Used
         if (blockData instanceof DecoratedPot) {
-
+            SubBlockData decoratedPotCracked = new DecoratedPotCrackedData(blockData);
+            blockDataList.add(decoratedPotCracked);
         }
-        */
         if (blockData instanceof Directional) {
             SubBlockData directionalData = new DirectionalData(blockData);
             blockDataList.add(directionalData);
@@ -428,6 +428,10 @@ public class BlockDataSeparater {
         if (blockData instanceof Hangable) {
             SubBlockData hangable = new HangableData(blockData);
             blockDataList.add(hangable);
+        }
+        if (blockData instanceof HangingMoss) {
+            SubBlockData hangingMossTip = new HangingMossTipData(blockData);
+            blockDataList.add(hangingMossTip);
         }
         /* NOTE: Not Used
         if (blockData instanceof HangingSign) {
@@ -579,6 +583,19 @@ public class BlockDataSeparater {
             }
         }
 
+        if (blockData instanceof MossyCarpet) {
+            SubBlockData mossyCarpetBottom = new MossyCarpetBottomData(blockData);
+            blockDataList.add(mossyCarpetBottom);
+            SubBlockData mossyCarpetHeightEast = new MossyCarpetHeightEastData(blockData);
+            blockDataList.add(mossyCarpetHeightEast);
+            SubBlockData mossyCarpetHeightNorth = new MossyCarpetHeightNorthData(blockData);
+            blockDataList.add(mossyCarpetHeightNorth);
+            SubBlockData mossyCarpetHeightSouth = new MossyCarpetHeightSouthData(blockData);
+            blockDataList.add(mossyCarpetHeightSouth);
+            SubBlockData mossyCarpetHeightWest = new MossyCarpetHeightWestData(blockData);
+            blockDataList.add(mossyCarpetHeightWest);
+        }
+
         if (blockData instanceof NoteBlock) {
             SubBlockData noteBlockInstrument = new NoteBlockInstrumentData(blockData);
             blockDataList.add(noteBlockInstrument);
@@ -614,6 +631,10 @@ public class BlockDataSeparater {
             SubBlockData pistonHeadShort = new PistonHeadData(blockData);
             blockDataList.add(pistonHeadShort);
         }
+        if (blockData instanceof PotentSulfur) {
+            SubBlockData potentSulfurState = new PotentSulfurStateData(blockData);
+            blockDataList.add(potentSulfurState);
+        }
         /* NOTE: Not Used
         if (blockData instanceof PitcherCrop) {
 
@@ -624,6 +645,11 @@ public class BlockDataSeparater {
             blockDataList.add(pointedDripstoneThickness);
             SubBlockData pointedDripstoneVerticalDirection = new PointedDripstoneVerticalDirectionData(blockData);
             blockDataList.add(pointedDripstoneVerticalDirection);
+        } else if (blockData instanceof Speleothem) {
+            SubBlockData speleothemThickness = new SpeleothemThicknessData(blockData);
+            blockDataList.add(speleothemThickness);
+            SubBlockData speleothemVerticalDirection = new SpeleothemVerticalDirectionData(blockData);
+            blockDataList.add(speleothemVerticalDirection);
         }
 
         if (blockData instanceof Powerable) {

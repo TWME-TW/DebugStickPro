@@ -6,13 +6,13 @@
 
     <groupId>dev.twme</groupId>
     <artifactId>DebugStickPro</artifactId>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
     <packaging>jar</packaging>
 
     <name>DebugStickPro</name>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -99,7 +99,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.10-R0.1-SNAPSHOT</version>
+            <version>26.2.build.48-alpha</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
