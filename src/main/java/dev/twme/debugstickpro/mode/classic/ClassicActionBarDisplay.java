@@ -56,10 +56,11 @@ public class ClassicActionBarDisplay {
 
         for (int i = 0; i < displayList.size(); i++) {
             SubBlockData subBlockData = displayList.get((i + sort) % displayList.size());
+            String value = I18n.blockDataValue(playerUUID, subBlockData);
             if (subBlockData.isUsing()) {
-                stringBuilder.append(Lang.ActionBar.formatSelectedData(I18n.string(playerUUID, Lang.ActionBar.SelectedDataFormat), I18n.string(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase())).append(" ");
+                stringBuilder.append(Lang.ActionBar.formatSelectedData(I18n.string(playerUUID, Lang.ActionBar.SelectedDataFormat), I18n.string(playerUUID, subBlockData.dataName()), value)).append(" ");
             } else {
-                stringBuilder.append(Lang.ActionBar.formatNotSelectedData(I18n.string(playerUUID, Lang.ActionBar.NotSelectedDataFormat), I18n.string(playerUUID, subBlockData.dataName()), subBlockData.getDataAsString().toLowerCase())).append(" ");
+                stringBuilder.append(Lang.ActionBar.formatNotSelectedData(I18n.string(playerUUID, Lang.ActionBar.NotSelectedDataFormat), I18n.string(playerUUID, subBlockData.dataName()), value)).append(" ");
             }
         }
         return stringBuilder.toString();
