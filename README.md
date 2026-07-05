@@ -7,7 +7,7 @@
 
 > **⚠️ v0.5.0+ Requirement**: This plugin now requires [PacketEvents](https://github.com/retrooper/packetevents) to function properly. Please install PacketEvents before using v0.5.0+.
 
-> Support for Paper 1.19.4 ~ 1.21.8+
+> Support for Paper 26.2+
 ---
 ## Features:
 ### Dynamically display block data:
@@ -100,8 +100,8 @@ Same as regular debugging stick operation:
 
 ### Requirements
 - **Java 21** or higher
-- **Paper 1.19.4 ~ 1.21.8+**
-- **[PacketEvents](https://github.com/retrooper/packetevents) 2.9.4+** (Required for v0.5.0+)
+- **Paper 26.2+**
+- **[PacketEvents](https://github.com/retrooper/packetevents) 2.13.0+** (Required for v0.5.0+)
 
 ### Installation Steps
 1. Install [PacketEvents](https://github.com/retrooper/packetevents) if not already installed

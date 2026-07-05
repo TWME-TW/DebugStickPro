@@ -96,6 +96,7 @@ public class Lang {
         public final static String CreakingHeartNaturalDataName = "DataKeyName.CreakingHeartNaturalDataName";
         public final static String CreakingHeartStateDataName = "DataKeyName.CreakingHeartStateDataName";
         public final static String DaylightDetectorDataName = "DataKeyName.DaylightDetectorDataName";
+        public final static String DecoratedPotCrackedDataName = "DataKeyName.DecoratedPotCrackedDataName";
         public final static String DirectionalDataName = "DataKeyName.DirectionalDataName";
         public final static String DispenserDataName = "DataKeyName.DispenserDataName";
         public final static String DriedGhastHydrationDataName = "DataKeyName.DriedGhastHydrationDataName";
@@ -105,6 +106,7 @@ public class Lang {
         public final static String FarmlandDataName = "DataKeyName.FarmlandDataName";
         public final static String GateDataName = "DataKeyName.GateDataName";
         public final static String HangableDataName = "DataKeyName.HangableDataName";
+        public final static String HangingMossTipDataName = "DataKeyName.HangingMossTipDataName";
         public final static String HatchableDataName = "DataKeyName.HatchableDataName";
         public final static String HopperDataName = "DataKeyName.HopperDataName";
         public final static String JigsawDataName = "DataKeyName.JigsawDataName";
@@ -133,6 +135,11 @@ public class Lang {
         public final static String MultipleFacingWestDataName = "DataKeyName.MultipleFacingWestDataName";
         public final static String MultipleFacingWestNorthWestDataName = "DataKeyName.MultipleFacingWestNorthWestDataName";
         public final static String MultipleFacingWestSouthWestDataName = "DataKeyName.MultipleFacingWestSouthWestDataName";
+        public final static String MossyCarpetBottomDataName = "DataKeyName.MossyCarpetBottomDataName";
+        public final static String MossyCarpetHeightEastDataName = "DataKeyName.MossyCarpetHeightEastDataName";
+        public final static String MossyCarpetHeightNorthDataName = "DataKeyName.MossyCarpetHeightNorthDataName";
+        public final static String MossyCarpetHeightSouthDataName = "DataKeyName.MossyCarpetHeightSouthDataName";
+        public final static String MossyCarpetHeightWestDataName = "DataKeyName.MossyCarpetHeightWestDataName";
         public final static String NoteBlockInstrumentDataName = "DataKeyName.NoteBlockInstrumentDataName";
         public final static String NoteBlockNoteDataName = "DataKeyName.NoteBlockNoteDataName";
         public final static String OpenableDataName = "DataKeyName.OpenableDataName";
@@ -142,6 +149,7 @@ public class Lang {
         public final static String PistonHeadDataName = "DataKeyName.PistonHeadDataName";
         public final static String PointedDripstoneThicknessDataName = "DataKeyName.PointedDripstoneThicknessDataName";
         public final static String PointedDripstoneVerticalDirectionDataName = "DataKeyName.PointedDripstoneVerticalDirectionDataName";
+        public final static String PotentSulfurStateDataName = "DataKeyName.PotentSulfurStateDataName";
         public final static String PowerableDataName = "DataKeyName.PowerableDataName";
         public final static String RailDataName = "DataKeyName.RailDataName";
         public final static String RedstoneWireEastDataName = "DataKeyName.RedstoneWireEastDataName";
@@ -166,6 +174,8 @@ public class Lang {
         public final static String SlabDataName = "DataKeyName.SlabDataName";
         public final static String SnowableDataName = "DataKeyName.SnowableDataName";
         public final static String SnowDataName = "DataKeyName.SnowDataName";
+        public final static String SpeleothemThicknessDataName = "DataKeyName.SpeleothemThicknessDataName";
+        public final static String SpeleothemVerticalDirectionDataName = "DataKeyName.SpeleothemVerticalDirectionDataName";
         public final static String StairsDataName = "DataKeyName.StairsDataName";
         public final static String StructureBlockDataName = "DataKeyName.StructureBlockDataName";
         public final static String TechnicalPistonDataName = "DataKeyName.TechnicalPistonDataName";
