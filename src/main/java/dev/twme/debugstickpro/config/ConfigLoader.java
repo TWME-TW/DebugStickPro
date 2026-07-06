@@ -69,6 +69,7 @@ public class ConfigLoader {
 
     private void loadValues() {
 
+        ConfigFile.Language.LangFiles.clear();
         ConfigFile.Language.LangFiles.addAll(config.getStringList("Language.LangFiles"));
         ConfigFile.Language.DefaultLanguage = config.getString("Language.DefaultLanguage");
 

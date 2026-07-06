@@ -10,7 +10,9 @@ import java.util.UUID;
 
 public class ActionbarUtil {
 
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
     private static final Set<UUID> lastIsRemove = new java.util.HashSet<>();
+
     public static void removeActionBar(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
         if (lastIsRemove.contains(uuid)) {
@@ -23,8 +25,7 @@ public class ActionbarUtil {
     }
 
     public static void sendActionBar(Player player, String message) {
-        var mm = MiniMessage.miniMessage();
-        Component parsed = mm.deserialize(message);
+        Component parsed = MINI_MESSAGE.deserialize(message);
         player.sendActionBar(parsed);
         lastIsRemove.remove(player.getUniqueId());
     }
