@@ -17,6 +17,7 @@ CommandsMessages:
     Success: "已將除錯棒給予 %player%。"
   Mode:
     Usage: "用法: <b><u>/dsp mode [classic|copy|freeze]</u></b>"
+    MustHoldDebugStick: "您必須手持除錯棒才能更改其模式。"
     SuccessSetToClassic: "模式已設置為 <b><u>經典</u></b>。"
     SuccessSetToCopy: "模式已設置為 <b><u>複製</u></b>。"
     SuccessSetToFreeze: "模式已設置為 <b><u>凍結</u></b>。"
