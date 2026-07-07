@@ -19,6 +19,7 @@ public class Lang {
 
         public final static class Mode {
             public final static String Usage = "CommandsMessages.Mode.Usage";
+            public final static String MustHoldDebugStick = "CommandsMessages.Mode.MustHoldDebugStick";
             public final static String SuccessSetToClassic = "CommandsMessages.Mode.SuccessSetToClassic";
             public final static String SuccessSetToCopy = "CommandsMessages.Mode.SuccessSetToCopy";
             public final static String SuccessSetToFreeze = "CommandsMessages.Mode.SuccessSetToFreeze";

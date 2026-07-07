@@ -14,6 +14,9 @@ import java.util.UUID;
 
 public class ClassicActionBarDisplay {
     public static String getDisplay(UUID playerUUID, BlockData blockData) {
+        if (blockData == null) {
+            return I18n.string(playerUUID, Lang.Tips.classicModeIntroduction);
+        }
 
         // 用於確認是否有任何 SubBlockData 類型被使用的變數
         boolean hasIsUsingType = false;
@@ -24,9 +27,8 @@ public class ClassicActionBarDisplay {
         // 獲取方塊拆分後的資料
         ArrayList<SubBlockData> displayList = BlockDataSeparater.separate(blockData, playerUUID);
 
-        // TODO: 需檢查這邊的返回是否是冗於
         if (displayList.isEmpty()) {
-            return " ";
+            return I18n.string(playerUUID, Lang.Tips.classicModeIntroduction);
         }
 
         int selectedIndex;
