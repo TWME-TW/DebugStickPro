@@ -100,18 +100,14 @@ public class FreezeBlockIsolationListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-        if (isFrozenOrProtected(event.getBlock())
-                || containsFrozenOrProtected(event.getBlocks())
-                || containsFrozenOrProtectedAtDestination(event.getBlocks(), event.getDirection())) {
+        if (isPistonOperationBlocked(event.getBlock(), event.getDirection(), event.getBlocks(), event.getDirection())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-        if (isFrozenOrProtected(event.getBlock())
-                || containsFrozenOrProtected(event.getBlocks())
-                || containsFrozenOrProtectedAtDestination(event.getBlocks(), event.getDirection().getOppositeFace())) {
+        if (isPistonOperationBlocked(event.getBlock(), event.getDirection(), event.getBlocks(), event.getDirection().getOppositeFace())) {
             event.setCancelled(true);
         }
     }
@@ -137,6 +133,18 @@ public class FreezeBlockIsolationListener implements Listener {
             }
         }
         return false;
+    }
+
+    private static boolean isPistonOperationBlocked(Block piston, BlockFace direction,
+                                                    Iterable<Block> blocks, BlockFace destinationDirection) {
+        // A piston event can have an empty block list when the piston head or the
+        // adjacent block is not movable. Check those positions explicitly so a
+        // frozen piston assembly cannot still complete a pending movement.
+        return isFrozenOrProtected(piston)
+                || isFrozenOrProtected(piston.getRelative(direction))
+                || isFrozenOrProtected(piston.getRelative(direction, 2))
+                || containsFrozenOrProtected(blocks)
+                || containsFrozenOrProtectedAtDestination(blocks, destinationDirection);
     }
 
     private static boolean isFrozenOrProtected(Block block) {
