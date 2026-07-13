@@ -10,10 +10,12 @@ import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.util.BlockIterator;
 
 import java.util.UUID;
 
 public class FreezeRightClick {
+    private static final int TARGET_DISTANCE = 5;
 
     public static void onRightClick(UUID playerUUID, Action action, Block clickedBlock, BlockFace clickedFace) {
 
@@ -64,10 +66,29 @@ public class FreezeRightClick {
         }
 
         if (action == Action.RIGHT_CLICK_AIR || clickedBlock == null) {
-            return player.getTargetBlockExact(5);
+            return resolveAirTarget(player);
         }
 
         return null;
+    }
+
+    private static Block resolveAirTarget(Player player) {
+        Block normalTarget = player.getTargetBlockExact(TARGET_DISTANCE);
+        // BlockIterator also visits air cells, so display-only frozen blocks remain targetable.
+        BlockIterator sightLine = new BlockIterator(player, TARGET_DISTANCE);
+
+        while (sightLine.hasNext()) {
+            Block block = sightLine.next();
+            if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
+                return block;
+            }
+
+            if (normalTarget != null && normalTarget.equals(block)) {
+                return normalTarget;
+            }
+        }
+
+        return normalTarget;
     }
 
     private static Block resolveFrozenSupportBlock(Block clickedBlock, BlockFace clickedFace) {
