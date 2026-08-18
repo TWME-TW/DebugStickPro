@@ -67,7 +67,6 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: temurin
       - name: Set up Node.js
-        if: matrix.mode == 'mineflayer'
         uses: actions/setup-node@v6
         with:
           node-version: 24
