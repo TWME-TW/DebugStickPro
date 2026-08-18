@@ -1,9 +1,10 @@
 package dev.twme.debugstickpro.config;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.Log;
+import dev.twme.debugstickpro.utils.YamlDefaultMerger;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -39,32 +41,39 @@ public class ConfigLoader {
             Log.warning(e.getMessage());
         }
 
+        YamlConfiguration defaults = loadDefaults();
+        boolean changed = defaults != null && YamlDefaultMerger.addMissingValues(config, defaults);
+        if (config.getInt("ConfigVersion") < DebugStickPro.CONFIG_VERSION) {
+            config.set("ConfigVersion", DebugStickPro.CONFIG_VERSION);
+            changed = true;
+        } else if (config.getInt("ConfigVersion") > DebugStickPro.CONFIG_VERSION) {
+            Log.warning("Config file is newer than this version of the plugin.");
+        }
         ConfigFile.ConfigVersion = config.getInt("ConfigVersion");
 
-        if (!checkConfigVersion()) {
-            load();
-            return;
+        if (changed) {
+            Log.info("Updated config.yml with missing default values.");
+            save();
         }
 
         loadValues();
     }
 
-    private boolean checkConfigVersion() {
-        if (ConfigFile.ConfigVersion != DebugStickPro.CONFIG_VERSION) {
-            Log.warning("Config file version is not compatible with this version of the plugin.");
-            Date date = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-            String strDate = formatter.format(date);
-            String backupFileName = file.getAbsolutePath().replace("config", "config-" + strDate);
-            File newFile = new File(backupFileName);
-            if (file.renameTo(newFile)) {
-                Log.warning("Old config file has been backed up to " + newFile.getName());
-            } else {
-                Log.warning("Failed to backup old config file");
+    private YamlConfiguration loadDefaults() {
+        try (InputStream stream = DebugStickPro.getInstance().getResource("config.yml")) {
+            if (stream == null) {
+                Log.warning("Bundled config.yml not found.");
+                return null;
             }
-            return false;
+
+            YamlConfiguration defaults = new YamlConfiguration();
+            defaults.options().parseComments(true);
+            defaults.load(new InputStreamReader(stream, StandardCharsets.UTF_8));
+            return defaults;
+        } catch (Exception e) {
+            Log.warning("Failed to load bundled config.yml: " + e.getMessage());
+            return null;
         }
-        return true;
     }
 
     private void loadValues() {

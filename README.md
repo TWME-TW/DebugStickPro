@@ -61,6 +61,10 @@
 ### Configuration File:
 [config.yml](https://github.com/TWME-TW/DebugStickPro/blob/main/src/main/resources/config.yml)
 
+Missing settings in an existing `config.yml` and missing entries in language files
+are filled automatically from the bundled defaults when the plugin loads. Existing
+values and translations are preserved.
+
 `BlockDataFilter.AllowUnsafeBisectedData` is disabled by default to prevent invalid
 double-block structures and duplicate drops. Enable it only when multi-block
 `Bisected` properties are intentionally needed.
