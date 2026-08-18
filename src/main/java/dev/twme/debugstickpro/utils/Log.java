@@ -3,10 +3,10 @@ package dev.twme.debugstickpro.utils;
 import dev.twme.debugstickpro.DebugStickPro;
 import org.bukkit.Bukkit;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class Log {
-    private static final HashMap<String,Long> warnCooldown = new HashMap<>();
+    private static final ConcurrentHashMap<String, Long> warnCooldown = new ConcurrentHashMap<>();
 
     private static final String prefix = "[DebugStickPro] ";
 

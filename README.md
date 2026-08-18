@@ -7,7 +7,12 @@
 
 > **⚠️ v0.5.0+ Requirement**: This plugin now requires [PacketEvents](https://github.com/retrooper/packetevents) to function properly. Please install PacketEvents before using v0.5.0+.
 
-> Support for Paper 26.2+
+> Supports Spigot, Paper, and Folia from Minecraft 1.19.4 through 26.2. Paper is the primary platform.
+
+The compatibility matrix is exercised against both ends of the supported range.
+Mineflayer verifies commands, MiniMessage item output, and VirtualEntities display
+spawn/removal on 1.19.4; 26.2 receives startup and plugin-enable tests because
+Mineflayer does not yet support that protocol.
 ---
 ## Features:
 ### Dynamically display block data:
@@ -32,10 +37,10 @@
 - **🔧 Packet-Based Block Freezing**: Complete rewrite using PacketEvents for client-side visual effects
 - **👻 Ghost-Free Experience**: No more server-side `BARRIER` blocks - smoother and cleaner freeze operations
 - **⚡ Enhanced Performance**: Improved freeze/unfreeze logic with better cleanup and tracking
-- **🧹 Simplified Architecture**: Modernized codebase with PacketEvents and EntityLib integration
+- **🧹 Simplified Architecture**: Modernized codebase with PacketEvents and VirtualEntities integration
 
 ### **Technical Improvements**
-- **New Dependencies**: PacketEvents 2.9.4 and EntityLib integration
+- **New Dependencies**: PacketEvents 2.13.0 and VirtualEntities integration
 - **API Modernization**: Updated to use standard Bukkit enums for better compatibility  
 - **Better Physics Handling**: Enhanced BlockPhysicsEventListener for improved freeze functionality
 - **Advanced Tracking**: Sophisticated duplicate prevention and state management
@@ -107,9 +112,13 @@ Same as regular debugging stick operation:
 ## How to install:
 
 ### Requirements
-- **Java 25** or higher
-- **Paper 26.2+**
+- **Java 17-20** for legacy 1.19.4 servers, or the Java version required by your server release
+- **JDK 25** to build DebugStickPro (the published JAR targets Java 17 for the full server range)
+- **Spigot, Paper, or Folia 1.19.4-26.2** (Paper is recommended)
 - **[PacketEvents](https://github.com/retrooper/packetevents) 2.13.0+** (Required for v0.5.0+)
+
+Spigot builds are tested locally with the official BuildTools. Paper and Folia
+endpoint tests run for every pull request.
 
 ### Installation Steps
 1. Install [PacketEvents](https://github.com/retrooper/packetevents) if not already installed

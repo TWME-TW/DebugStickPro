@@ -1,7 +1,7 @@
 package dev.twme.debugstickpro.playerdata;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
+import org.bukkit.profile.PlayerProfile;
 
 import java.util.ArrayList;
 import java.util.List;

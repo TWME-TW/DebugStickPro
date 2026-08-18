@@ -17,7 +17,7 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.locale().toString());
+        PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.getLocale());
 
         UUID playerUUID = event.getPlayer().getUniqueId();
         PlayerDataManager.setPlayerData(playerUUID, new PlayerData());

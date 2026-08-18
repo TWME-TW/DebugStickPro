@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import com.github.retrooper.packetevents.PacketEvents;
 
@@ -41,12 +40,12 @@ import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.mode.freeze.FreezePacketLayer;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
+import dev.twme.debugstickpro.scheduler.PlatformScheduler;
 import dev.twme.debugstickpro.utils.DebugStickItem;
 import dev.twme.debugstickpro.utils.Log;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
-import me.tofaa.entitylib.APIConfig;
-import me.tofaa.entitylib.EntityLib;
-import me.tofaa.entitylib.spigot.SpigotEntityLibPlatform;
+import io.github.twme.virtualentities.VirtualEntities;
+import io.github.twme.virtualentities.VirtualEntityManager;
 
 public final class DebugStickPro extends JavaPlugin {
     /**
@@ -54,11 +53,12 @@ public final class DebugStickPro extends JavaPlugin {
      */
 
     private static DebugStickPro instance;
+    private VirtualEntityManager virtualEntityManager;
 
     /**
      * This is the task ID of the action bar task
      */
-    private int actionBarTaskID;
+    private PlatformScheduler.Cancellable actionBarTask;
 
     /**
      * This is the version of the plugin
@@ -92,13 +92,7 @@ public final class DebugStickPro extends JavaPlugin {
         //Initialize!
         PacketEvents.getAPI().init();
         FreezePacketLayer.initialize();
-
-        SpigotEntityLibPlatform platform = new SpigotEntityLibPlatform(this);
-        APIConfig settings = new APIConfig(PacketEvents.getAPI())
-                .tickTickables()
-                .usePlatformLogger();
-
-        EntityLib.init(platform, settings);
+        virtualEntityManager = VirtualEntities.create();
 
         boolean isCoreProtectLoaded = CoreProtectUtil.initCoreProtect();
         if (!isCoreProtectLoaded) {
@@ -144,8 +138,13 @@ public final class DebugStickPro extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        unregisterTasks();
         FreezePacketLayer.shutdown();
         FreezeBlockManager.removeOnServerClose();
+        if (virtualEntityManager != null) {
+            virtualEntityManager.close();
+            virtualEntityManager = null;
+        }
         //Terminate the instance (clean up process)
         PacketEvents.getAPI().terminate();
     }
@@ -155,7 +154,7 @@ public final class DebugStickPro extends JavaPlugin {
      */
     public void onServerReloadCommand() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.locale().toString());
+            PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.getLocale());
 
             UUID playerUUID = player.getUniqueId();
             PlayerDataManager.setPlayerData(playerUUID, new PlayerData());
@@ -218,8 +217,11 @@ public final class DebugStickPro extends JavaPlugin {
     private void registerTasks() {
 
         // this is a task that will display the action bar
-        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        actionBarTaskID = scheduler.scheduleSyncRepeatingTask(this, new ActionBarDisplayTask(), 0L, ConfigFile.ActionBarDisplay.UpdateInterval);
+        actionBarTask = PlatformScheduler.runGlobalAtFixedRate(
+                this,
+                new ActionBarDisplayTask(this),
+                ConfigFile.ActionBarDisplay.UpdateInterval
+        );
     }
 
     /**
@@ -227,7 +229,10 @@ public final class DebugStickPro extends JavaPlugin {
      */
 
     private void unregisterTasks() {
-        Bukkit.getScheduler().cancelTask(actionBarTaskID);
+        if (actionBarTask != null) {
+            actionBarTask.cancel();
+            actionBarTask = null;
+        }
     }
 
     /**
@@ -236,5 +241,12 @@ public final class DebugStickPro extends JavaPlugin {
 
     public static DebugStickPro getInstance() {
         return instance;
+    }
+
+    public VirtualEntityManager getVirtualEntityManager() {
+        if (virtualEntityManager == null) {
+            throw new IllegalStateException("VirtualEntities is not initialized");
+        }
+        return virtualEntityManager;
     }
 }

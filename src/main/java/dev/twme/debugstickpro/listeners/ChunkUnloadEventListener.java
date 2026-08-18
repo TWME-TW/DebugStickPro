@@ -14,7 +14,7 @@ public class ChunkUnloadEventListener implements Listener {
 
         Entity[] entities = event.getChunk().getEntities();
         for (Entity entity : entities) {
-            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY)){
+            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY, org.bukkit.persistence.PersistentDataType.STRING)){
                 FreezeBlockManager.removeOnChunkLoadOrUnload(entity);
             }
         }

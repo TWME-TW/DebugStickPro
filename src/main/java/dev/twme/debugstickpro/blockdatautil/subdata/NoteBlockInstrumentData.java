@@ -32,7 +32,7 @@ public class NoteBlockInstrumentData extends SubBlockData {
         NoteBlock noteBlock = ((NoteBlock) blockData);
         List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
         if (instruments.indexOf(instrument) == instruments.size() - 1) {
-            instrument = instruments.getFirst();
+            instrument = instruments.get(0);
         } else {
             instrument = instruments.get(instruments.indexOf(instrument) + 1);
         }
@@ -45,7 +45,7 @@ public class NoteBlockInstrumentData extends SubBlockData {
         NoteBlock noteBlock = ((NoteBlock) blockData);
         List<Instrument> instruments = Arrays.stream(Instrument.values()).toList();
         if (instruments.indexOf(instrument) == 0) {
-            instrument = instruments.getLast();
+            instrument = instruments.get(instruments.size() - 1);
         } else {
             instrument = instruments.get(instruments.indexOf(instrument) - 1);
         }

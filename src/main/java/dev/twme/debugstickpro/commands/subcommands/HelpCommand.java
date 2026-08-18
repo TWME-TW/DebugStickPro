@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.commands.subcommands;
 
 import dev.twme.debugstickpro.localization.I18n;
 import dev.twme.debugstickpro.localization.Lang;
+import dev.twme.debugstickpro.utils.TextUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
@@ -17,11 +18,11 @@ public class HelpCommand {
         }
         if (!player.hasPermission("debugstickpro.help")) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
         for (String message : I18n.list(playerUUID, Lang.CommandsMessages.Help.HelpMessage)) {
-            player.sendMessage(mm.deserialize(message));
+            TextUtil.send(player, mm.deserialize(message));
         }
         return true;
     }

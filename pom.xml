@@ -13,6 +13,10 @@
 
     <properties>
         <java.version>25</java.version>
+        <java.release>17</java.release>
+        <paper.version>26.2.build.112-stable</paper.version>
+        <adventure.compile.version>5.2.0</adventure.compile.version>
+        <adventure.runtime.version>4.26.1</adventure.runtime.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -23,14 +27,42 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.release}</release>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.6.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[${java.version},26)</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.6.1</version>
+                <configuration>
+                    <extraArtifacts>
+                        <extraArtifact>net.kyori:adventure-api:${adventure.runtime.version}</extraArtifact>
+                        <extraArtifact>net.kyori:adventure-key:${adventure.runtime.version}</extraArtifact>
+                        <extraArtifact>net.kyori:adventure-text-minimessage:${adventure.runtime.version}</extraArtifact>
+                        <extraArtifact>net.kyori:adventure-text-serializer-legacy:${adventure.runtime.version}</extraArtifact>
+                        <extraArtifact>net.kyori:examination-api:1.3.0</extraArtifact>
+                        <extraArtifact>net.kyori:examination-string:1.3.0</extraArtifact>
+                    </extraArtifacts>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -84,6 +116,10 @@
             <url>https://repo.codemc.io/repository/maven-snapshots/</url>
         </repository>
         <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
             <id>twme-repo-releases</id>
             <name>TWME Repository</name>
             <url>https://repo.twme.dev/releases</url>
@@ -99,7 +135,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>26.2.build.48-alpha</version>
+            <version>${paper.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -121,10 +157,27 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.tofaa2</groupId>
-            <artifactId>spigot</artifactId>
-            <version>3.3.3+119e9e1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>com.github.twme-ai</groupId>
+            <artifactId>VirtualEntities</artifactId>
+            <version>v0.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>${adventure.compile.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>${adventure.compile.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-legacy</artifactId>
+            <version>${adventure.compile.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

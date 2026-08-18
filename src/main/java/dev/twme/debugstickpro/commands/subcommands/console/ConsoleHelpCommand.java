@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.commands.subcommands.console;
 
 import dev.twme.debugstickpro.localization.I18n;
 import dev.twme.debugstickpro.localization.Lang;
+import dev.twme.debugstickpro.utils.TextUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
@@ -15,11 +16,11 @@ public class ConsoleHelpCommand {
         }
         if (!sender.hasPermission("debugstickpro.help")) {
             Component parsed = mm.deserialize(I18n.string(Lang.CommandsMessages.NoPermission));
-            sender.sendMessage(parsed);
+            TextUtil.send(sender, parsed);
             return true;
         }
         for (String message : I18n.list(Lang.CommandsMessages.Help.HelpMessage)) {
-            sender.sendMessage(mm.deserialize(message));
+            TextUtil.send(sender, mm.deserialize(message));
         }
         return true;
     }

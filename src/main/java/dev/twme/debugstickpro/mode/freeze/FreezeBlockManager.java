@@ -5,12 +5,14 @@ import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import com.github.retrooper.packetevents.util.Vector3f;
 import dev.twme.debugstickpro.DebugStickPro;
+import dev.twme.debugstickpro.scheduler.PlatformScheduler;
 import dev.twme.debugstickpro.utils.PersistentKeys;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
-import me.tofaa.entitylib.EntityLib;
-import me.tofaa.entitylib.meta.display.BlockDisplayMeta;
-import me.tofaa.entitylib.meta.display.ItemDisplayMeta;
-import me.tofaa.entitylib.wrapper.WrapperEntity;
+import io.github.twme.virtualentities.VirtualEntity;
+import io.github.twme.virtualentities.VirtualEntityManager;
+import io.github.twme.virtualentities.VirtualViewer;
+import io.github.twme.virtualentities.metadata.EntityMetadataFlags;
+import io.github.twme.virtualentities.metadata.GeneratedEntityMetadataKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,21 +29,20 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FreezeBlockManager {
     private static final BlockFace[] ADJACENT_FACES = {
             BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN
     };
 
-    private static final Set<FreezeLocation> freezeBlockLocations = new HashSet<>();
-    private static final Map<UUID, ArrayList<FreezeBlockData>> playerFrozenBlockData = new HashMap<>();
+    private static final Set<FreezeLocation> freezeBlockLocations = ConcurrentHashMap.newKeySet();
+    private static final Map<UUID, CopyOnWriteArrayList<FreezeBlockData>> playerFrozenBlockData = new ConcurrentHashMap<>();
     private static final Map<FreezeLocation, String> protectedDependentBlocks = new ConcurrentHashMap<>();
 
     public static void freezeBlock(UUID playerUUID, Block block) {
@@ -50,7 +51,10 @@ public class FreezeBlockManager {
             return;
         }
 
-        ArrayList<FreezeBlockData> freezeBlockList = playerFrozenBlockData.computeIfAbsent(playerUUID, ignored -> new ArrayList<>());
+        CopyOnWriteArrayList<FreezeBlockData> freezeBlockList = playerFrozenBlockData.computeIfAbsent(
+                playerUUID,
+                ignored -> new CopyOnWriteArrayList<>()
+        );
         FreezeBlockData freezeBlock = freezeBlockBuilder(block.getLocation());
         freezeBlockList.add(freezeBlock);
         freezeBlockLocations.add(freezeLocation);
@@ -59,7 +63,7 @@ public class FreezeBlockManager {
     }
 
     public static void removeOneBlock(UUID playerUUID, Block block) {
-        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
+        CopyOnWriteArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
         if (freezeBlocks == null) {
             return;
         }
@@ -69,9 +73,7 @@ public class FreezeBlockManager {
             return;
         }
 
-        Iterator<FreezeBlockData> iterator = freezeBlocks.iterator();
-        while (iterator.hasNext()) {
-            FreezeBlockData frozenData = iterator.next();
+        for (FreezeBlockData frozenData : freezeBlocks) {
             if (!frozenData.getBlock().getLocation().equals(block.getLocation())) {
                 continue;
             }
@@ -88,7 +90,7 @@ public class FreezeBlockManager {
             removeDisplayEntity(frozenData.getBlockDisplay());
 
             freezeBlockLocations.remove(freezeLocation);
-            iterator.remove();
+            freezeBlocks.remove(frozenData);
             if (freezeBlocks.isEmpty()) {
                 playerFrozenBlockData.remove(playerUUID);
             }
@@ -97,7 +99,7 @@ public class FreezeBlockManager {
     }
 
     public static void removeAllPlayerFrozenBlock(UUID playerUUID) {
-        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.remove(playerUUID);
+        CopyOnWriteArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.remove(playerUUID);
         if (freezeBlocks == null) {
             return;
         }
@@ -144,7 +146,7 @@ public class FreezeBlockManager {
     }
 
     public static int getFreezeBlockCount(UUID playerUUID) {
-        ArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
+        CopyOnWriteArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
         return freezeBlocks == null ? 0 : freezeBlocks.size();
     }
 
@@ -195,28 +197,43 @@ public class FreezeBlockManager {
         UUID itemDisplayUUID = UUID.randomUUID();
         UUID blockDisplayUUID = UUID.randomUUID();
 
-        WrapperEntity wrapperItemDisplayEntity = new WrapperEntity(itemDisplayUUID, EntityTypes.ITEM_DISPLAY);
-        ItemDisplayMeta itemDisplayMeta = (ItemDisplayMeta) wrapperItemDisplayEntity.getEntityMeta();
+        VirtualEntityManager entityManager = DebugStickPro.getInstance().getVirtualEntityManager();
+        VirtualEntity itemDisplay = entityManager.entity(EntityTypes.ITEM_DISPLAY)
+                .uuid(itemDisplayUUID)
+                .metadata()
+                .build();
         ItemStack itemStack = ItemStack.builder().type(ItemTypes.TINTED_GLASS).amount(1).build();
-        itemDisplayMeta.setItem(itemStack);
-        itemDisplayMeta.setScale(new Vector3f(1.001F, 1.001F, 1.001F));
-        itemDisplayMeta.setGlowing(true);
-        addViewer(wrapperItemDisplayEntity);
-        wrapperItemDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(entityLocation));
+        itemDisplay.metadata()
+                .set(GeneratedEntityMetadataKeys.ItemDisplay.ITEM_STACK, itemStack)
+                .set(GeneratedEntityMetadataKeys.Display.SCALE, new Vector3f(1.001F, 1.001F, 1.001F))
+                .setFlag(EntityMetadataFlags.GLOWING, true);
+        addViewers(itemDisplay);
+        itemDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(entityLocation));
 
         Location blockDisplayLocation = SpecialBlockFilter.filter(block.getType(), location);
-        WrapperEntity wrapperBlockDisplayEntity = new WrapperEntity(blockDisplayUUID, EntityTypes.BLOCK_DISPLAY);
-        BlockDisplayMeta blockDisplayMeta = (BlockDisplayMeta) wrapperBlockDisplayEntity.getEntityMeta();
-        blockDisplayMeta.setBlockId(SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId());
-        wrapperBlockDisplayEntity.spawn(SpigotConversionUtil.fromBukkitLocation(blockDisplayLocation));
-        addViewer(wrapperBlockDisplayEntity);
+        VirtualEntity blockDisplay = entityManager.entity(EntityTypes.BLOCK_DISPLAY)
+                .uuid(blockDisplayUUID)
+                .metadata()
+                .build();
+        blockDisplay.metadata().set(
+                GeneratedEntityMetadataKeys.BlockDisplay.BLOCK_STATE,
+                SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId()
+        );
+        addViewers(blockDisplay);
+        blockDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(blockDisplayLocation));
 
         return new FreezeBlockData(itemDisplayUUID, blockDisplayUUID, block, originalState);
     }
 
-    private static void addViewer(WrapperEntity wrapperEntity) {
+    private static void addViewers(VirtualEntity virtualEntity) {
+        var playerManager = com.github.retrooper.packetevents.PacketEvents.getAPI().getPlayerManager();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            wrapperEntity.addViewer(player.getUniqueId());
+            VirtualViewer viewer = VirtualViewer.of(
+                    player.getUniqueId(),
+                    playerManager.getClientVersion(player),
+                    packet -> playerManager.sendPacket(player, packet)
+            );
+            virtualEntity.addViewer(viewer);
         }
     }
 
@@ -266,21 +283,28 @@ public class FreezeBlockManager {
             return;
         }
 
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            restoreDependentNeighborSnapshot(snapshot);
-            if (cleanupAfter) {
-                cleanupVerifiedDependents(snapshot);
-            }
-        }, delayTicks);
+        for (Map.Entry<FreezeLocation, String> entry : snapshot.entrySet()) {
+            Location location = entry.getKey().getLocation();
+            PlatformScheduler.runAtLocationLater(plugin, location, () -> {
+                restoreDependentNeighbor(entry);
+                if (cleanupAfter) {
+                    cleanupVerifiedDependent(entry);
+                }
+            }, delayTicks);
+        }
     }
 
-    private static void cleanupVerifiedDependents(Map<FreezeLocation, String> snapshot) {
-        for (Map.Entry<FreezeLocation, String> entry : snapshot.entrySet()) {
-            String expected = entry.getValue();
-            Block block = entry.getKey().getLocation().getBlock();
-            if (expected.equals(block.getBlockData().getAsString())) {
-                protectedDependentBlocks.remove(entry.getKey());
-            }
+    private static void restoreDependentNeighbor(Map.Entry<FreezeLocation, String> entry) {
+        Block block = entry.getKey().getLocation().getBlock();
+        String expectedData = entry.getValue();
+        if (!expectedData.equals(block.getBlockData().getAsString())) {
+            block.setBlockData(Bukkit.createBlockData(expectedData), false);
+        }
+    }
+
+    private static void cleanupVerifiedDependent(Map.Entry<FreezeLocation, String> entry) {
+        if (entry.getValue().equals(entry.getKey().getLocation().getBlock().getBlockData().getAsString())) {
+            protectedDependentBlocks.remove(entry.getKey());
         }
     }
 
@@ -289,9 +313,6 @@ public class FreezeBlockManager {
     }
 
     private static void removeDisplayEntity(UUID entityUUID) {
-        WrapperEntity wrapperEntity = EntityLib.getApi().getEntity(entityUUID);
-        if (wrapperEntity != null) {
-            wrapperEntity.remove();
-        }
+        DebugStickPro.getInstance().getVirtualEntityManager().find(entityUUID).ifPresent(VirtualEntity::remove);
     }
 }

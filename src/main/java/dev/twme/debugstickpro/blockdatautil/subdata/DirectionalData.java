@@ -31,7 +31,7 @@ public class DirectionalData extends SubBlockData {
         List<BlockFace> blockFaces = ((Directional) blockData).getFaces().stream().toList();
         int index = blockFaces.indexOf(direction);
         if (index >= blockFaces.size() - 1) {
-            ((Directional) blockData).setFacing(blockFaces.getFirst());
+            ((Directional) blockData).setFacing(blockFaces.get(0));
         } else {
             ((Directional) blockData).setFacing(blockFaces.get(index + 1));
         }
@@ -44,7 +44,7 @@ public class DirectionalData extends SubBlockData {
         List<BlockFace> blockFaces = ((Directional) blockData).getFaces().stream().toList();
         int index = blockFaces.indexOf(direction);
         if (index <= 0) {
-            ((Directional) blockData).setFacing(blockFaces.getLast());
+            ((Directional) blockData).setFacing(blockFaces.get(blockFaces.size() - 1));
         } else {
             ((Directional) blockData).setFacing(blockFaces.get(index - 1));
         }

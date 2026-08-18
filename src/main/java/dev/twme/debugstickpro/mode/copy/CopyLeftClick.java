@@ -45,7 +45,7 @@ public class CopyLeftClick {
         if (block.getType() == Material.PLAYER_HEAD) {
             if (block.getState() instanceof Skull) {
                 if (((Skull) block.getState()).hasOwner()) {
-                    playerData.setCopiedSkullBlockPlayerProfile(((Skull) block.getState()).getPlayerProfile());
+                    playerData.setCopiedSkullBlockPlayerProfile(((Skull) block.getState()).getOwnerProfile());
                 }
             }
         } else {

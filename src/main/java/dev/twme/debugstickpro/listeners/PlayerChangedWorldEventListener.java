@@ -10,7 +10,7 @@ public class PlayerChangedWorldEventListener implements Listener {
     @EventHandler
     public void onPlayerChangedWorldEvent(PlayerChangedWorldEvent event) {
         event.getFrom().getEntities().forEach(entity -> {
-            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY)) {
+            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY, org.bukkit.persistence.PersistentDataType.STRING)) {
                 FreezeBlockManager.removeOnChunkLoadOrUnload(entity);
             }
         });

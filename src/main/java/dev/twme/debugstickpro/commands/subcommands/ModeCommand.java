@@ -8,6 +8,7 @@ import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.CustomModelDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
+import dev.twme.debugstickpro.utils.TextUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -31,14 +32,14 @@ public class ModeCommand {
         UUID playerUUID = player.getUniqueId();
         if (!player.hasPermission("debugstickpro.mode")) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
         // If no mode is specified, display the usage message
         if (args.length == 1) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.Usage));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
@@ -50,19 +51,19 @@ public class ModeCommand {
 
         if (newMode == null) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.Usage));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
         if (!hasModePermission(player, newMode)) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
         if (!DebugStickItem.checkPlayer(player)) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Mode.MustHoldDebugStick));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
@@ -77,7 +78,7 @@ public class ModeCommand {
         CustomModelDataManager.updateItem(player, newMode);
 
         Component parsed = mm.deserialize(I18n.string(playerUUID, successMessageKey(newMode)));
-        player.sendMessage(parsed);
+        TextUtil.send(player, parsed);
         return true;
     }
 

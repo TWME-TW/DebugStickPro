@@ -2,15 +2,15 @@ package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.config.ConfigFile;
 
-import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerLanguageManager {
 
     /**
      * This is the map of the player language
      */
-    private static final HashMap<UUID, String> playerLang = new HashMap<>();
+    private static final ConcurrentHashMap<UUID, String> playerLang = new ConcurrentHashMap<>();
 
     /**
      * Get the locale of the player

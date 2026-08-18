@@ -15,9 +15,9 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Player data manager
@@ -27,12 +27,12 @@ public class PlayerDataManager {
     /**
      * player data map
      */
-    private static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<>();
+    private static final ConcurrentHashMap<UUID, PlayerData> playerDataMap = new ConcurrentHashMap<>();
 
     /**
      * player enable display set
      */
-    private static final HashSet<UUID> playerEnableDisplaySet = new HashSet<>();
+    private static final Set<UUID> playerEnableDisplaySet = ConcurrentHashMap.newKeySet();
 
     /**
      * set player data
@@ -97,8 +97,8 @@ public class PlayerDataManager {
      *
      * @return display set
      */
-    public static HashSet<UUID> getDisplaySet() {
-        return playerEnableDisplaySet;
+    public static Set<UUID> getDisplaySetSnapshot() {
+        return Set.copyOf(playerEnableDisplaySet);
     }
 
     /**

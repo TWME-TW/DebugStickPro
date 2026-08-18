@@ -34,14 +34,8 @@ public class SpecialBlockFilter {
             }
         }
 
-        if (isValidMaterial("GRASS")) {
-            if (material == Material.valueOf("GRASS")) {
-                return calculateLocationWithY(location, 0.25f, 0.2F);
-            }
-        } else {
-            if (material == Material.SHORT_GRASS) {
-                return calculateLocationWithY(location, 0.25f, 0.2F);
-            }
+        if (material.name().equals("GRASS") || material.name().equals("SHORT_GRASS")) {
+            return calculateLocationWithY(location, 0.25f, 0.2F);
         }
 
 
@@ -92,12 +86,12 @@ public class SpecialBlockFilter {
 
     private static Location transformBlockDisplayLocationARoundCenter(Location input, float angle) {
         double radAngle = Math.toRadians(angle); // Angle in radians
-        double centerX = input.x() + 0.5;
+        double centerX = input.getX() + 0.5;
         // double centerY = input.y() + 0.5;
-        double centerZ = input.z() + 0.5;
+        double centerZ = input.getZ() + 0.5;
 
-        double relX = input.x() - centerX;
-        double relZ = input.z() - centerZ;
+        double relX = input.getX() - centerX;
+        double relZ = input.getZ() - centerZ;
 
         double rotatedX = relX * Math.cos(radAngle) - relZ * Math.sin(radAngle);
         double rotatedZ = relX * Math.sin(radAngle) + relZ * Math.cos(radAngle);
@@ -105,20 +99,7 @@ public class SpecialBlockFilter {
         double finalX = rotatedX + centerX;
         double finalZ = rotatedZ + centerZ;
 
-        return new Location(input.getWorld(), finalX, input.y(), finalZ, angle, 0);
+        return new Location(input.getWorld(), finalX, input.getY(), finalZ, angle, 0);
     }
 
-    private static boolean isValidMaterial(String material) {
-
-        if (material == null) {
-            return false;
-        } else {
-            try {
-                Material.valueOf(material);
-                return true;
-            } catch (IllegalArgumentException var3) {
-                return false;
-            }
-        }
-    }
 }

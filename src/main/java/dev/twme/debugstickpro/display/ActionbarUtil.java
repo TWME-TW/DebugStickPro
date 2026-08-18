@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.display;
 
+import dev.twme.debugstickpro.utils.TextUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class ActionbarUtil {
 
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
-    private static final Set<UUID> lastIsRemove = new java.util.HashSet<>();
+    private static final Set<UUID> lastIsRemove = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     public static void removeActionBar(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
@@ -19,14 +20,13 @@ public class ActionbarUtil {
             return;
         }
         if (player != null) {
-            player.sendActionBar(Component.text(" "));
+            TextUtil.sendActionBar(player, Component.text(" "));
             lastIsRemove.add(uuid);
         }
     }
 
     public static void sendActionBar(Player player, String message) {
-        Component parsed = MINI_MESSAGE.deserialize(message);
-        player.sendActionBar(parsed);
+        TextUtil.sendActionBar(player, MINI_MESSAGE.deserialize(message));
         lastIsRemove.remove(player.getUniqueId());
     }
 }

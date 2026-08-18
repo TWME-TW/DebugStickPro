@@ -5,6 +5,7 @@ import dev.twme.debugstickpro.localization.Lang;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.CustomModelDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
+import dev.twme.debugstickpro.utils.TextUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -18,7 +19,7 @@ public class GiveCommand {
         UUID playerUUID = player.getUniqueId();
         if (!player.hasPermission("debugstickpro.give")) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.NoPermission));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
@@ -27,7 +28,7 @@ public class GiveCommand {
             player.getInventory().addItem(DebugStickItem.getDebugStickItem());
 
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", player.getName()));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             if (DebugStickItem.checkPlayer(player)) {
                 PlayerDataManager.addPlayerToDisplayList(player.getUniqueId());
             }
@@ -43,7 +44,7 @@ public class GiveCommand {
         // Check if player not exist
         if (onlinePlayer == null) {
             Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.NoPlayer));
-            player.sendMessage(parsed);
+            TextUtil.send(player, parsed);
             return true;
         }
 
@@ -51,7 +52,7 @@ public class GiveCommand {
         onlinePlayer.getInventory().addItem(DebugStickItem.getDebugStickItem());
         CustomModelDataManager.updatePlayerMode(onlinePlayer);
         Component parsed = mm.deserialize(I18n.string(playerUUID, Lang.CommandsMessages.Give.Success).replace("%player%", onlinePlayer.getName()));
-        player.sendMessage(parsed);
+        TextUtil.send(player, parsed);
 
         if (DebugStickItem.checkPlayer(onlinePlayer)) {
             PlayerDataManager.addPlayerToDisplayList(onlinePlayer.getUniqueId());

@@ -10,7 +10,7 @@ public class WorldUnloadEventListener implements Listener {
     @EventHandler
     public void onWorldUnloadEvent(WorldUnloadEvent event) {
         event.getWorld().getEntities().forEach(entity -> {
-            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY)) {
+            if (entity.getPersistentDataContainer().has(PersistentKeys.FREEZE_BLOCK_DISPLAY, org.bukkit.persistence.PersistentDataType.STRING)) {
                 FreezeBlockManager.removeOnChunkLoadOrUnload(entity);
             }
         });

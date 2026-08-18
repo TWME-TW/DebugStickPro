@@ -1,7 +1,8 @@
 name: DebugStickPro
 version: '${project.version}'
 main: dev.twme.debugstickpro.DebugStickPro
-api-version: '26.2'
+api-version: '1.19'
+folia-supported: true
 prefix: DebugStickPro
 authors: [TWME]
 website: https://github.com/TWME-TW/DebugStickPro

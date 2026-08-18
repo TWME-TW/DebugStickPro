@@ -31,13 +31,13 @@ public class OrientableData extends SubBlockData {
         Orientable orientable = (Orientable) blockData;
         List<Axis> axisList = orientable.getAxes().stream().toList();
         if (axisList.size() == 1) {
-            orientable.setAxis(axisList.getFirst());
-            this.axis = axisList.getFirst();
+            orientable.setAxis(axisList.get(0));
+            this.axis = axisList.get(0);
         } else {
             int index = axisList.indexOf(axis);
             if (index == axisList.size() - 1) {
-                orientable.setAxis(axisList.getFirst());
-                this.axis = axisList.getFirst();
+                orientable.setAxis(axisList.get(0));
+                this.axis = axisList.get(0);
             } else {
                 orientable.setAxis(axisList.get(index + 1));
                 this.axis = axisList.get(index + 1);
@@ -52,13 +52,13 @@ public class OrientableData extends SubBlockData {
         Orientable orientable = (Orientable) blockData;
         List<Axis> axisList = orientable.getAxes().stream().toList();
         if (axisList.size() == 1) {
-            orientable.setAxis(axisList.getFirst());
-            this.axis = axisList.getFirst();
+            orientable.setAxis(axisList.get(0));
+            this.axis = axisList.get(0);
         } else {
             int index = axisList.indexOf(axis);
             if (index == 0) {
-                orientable.setAxis(axisList.getLast());
-                this.axis = axisList.getLast();
+                orientable.setAxis(axisList.get(axisList.size() - 1));
+                this.axis = axisList.get(axisList.size() - 1);
             } else {
                 orientable.setAxis(axisList.get(index - 1));
                 this.axis = axisList.get(index - 1);

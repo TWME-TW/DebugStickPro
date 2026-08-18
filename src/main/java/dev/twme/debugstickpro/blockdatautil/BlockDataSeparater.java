@@ -5,7 +5,6 @@ import dev.twme.debugstickpro.blockdatautil.subdata.brewingstandbottle.BrewingSt
 import dev.twme.debugstickpro.blockdatautil.subdata.brewingstandbottle.BrewingStandBottle_1;
 import dev.twme.debugstickpro.blockdatautil.subdata.brewingstandbottle.BrewingStandBottle_2;
 import dev.twme.debugstickpro.blockdatautil.subdata.chiseledbookshelfslot.*;
-import dev.twme.debugstickpro.blockdatautil.subdata.mossycarpetheight.*;
 import dev.twme.debugstickpro.blockdatautil.subdata.multiplefacing.*;
 import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireEastData;
 import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireNorthData;
@@ -13,6 +12,7 @@ import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireSou
 import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireWestData;
 import dev.twme.debugstickpro.blockdatautil.subdata.wallheight.*;
 import dev.twme.debugstickpro.config.ConfigFile;
+import dev.twme.debugstickpro.localization.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,11 +22,12 @@ import org.bukkit.block.data.type.*;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Separate BlockData into SubBlockData.
@@ -37,7 +38,7 @@ public class BlockDataSeparater {
      * This is a cache for results of BlockDataSeparater.separate(BlockData).
      */
 
-    private static final HashMap<Material, ArrayList<SubBlockData>> cache = new HashMap<>();
+    private static final Map<Material, ArrayList<SubBlockData>> cache = new ConcurrentHashMap<>();
 
     /**
      * Separate BlockData into SubBlockData.
@@ -67,25 +68,6 @@ public class BlockDataSeparater {
 
     public static void clearCache() {
         cache.clear();
-    }
-
-    /**
-     * Check if the material is valid.
-     * @param material name of the material.
-     * @return true if the material is valid.
-     */
-
-    private static boolean isValidMaterial(String material) {
-        if (material == null) {
-            return false;
-        } else {
-            try {
-                Material.valueOf(material.toUpperCase());
-                return true;
-            } catch (IllegalArgumentException var3) {
-                return false;
-            }
-        }
     }
 
     // filter SubBlockData
@@ -236,11 +218,9 @@ public class BlockDataSeparater {
             blockDataList.add(brewingStandBottle_2);
         }
 
-        if (isValidMaterial("suspicious_sand")) {
-            if (blockData instanceof Brushable) {
-                SubBlockData brushable = new BrushableData(blockData);
-                blockDataList.add(brushable);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.Brushable")) {
+            blockDataList.add(rangedProperty(blockData, "BrushableData", Lang.DataKeyName.BrushableDataName,
+                    "getDusted", "setDusted", null, "getMaximumDusted"));
         }
         if (blockData instanceof BubbleColumn) {
             SubBlockData BubbleColumnData = new BubbleColumnData(blockData);
@@ -324,33 +304,29 @@ public class BlockDataSeparater {
 
         }
         */
-        if (isValidMaterial("crafter")) {
-            if (blockData instanceof Crafter) {
-                SubBlockData crafterOrientation = new CrafterOrientationData(blockData);
-                blockDataList.add(crafterOrientation);
-                SubBlockData crafterCrafting = new CrafterCraftingData(blockData);
-                blockDataList.add(crafterCrafting);
-                SubBlockData crafterTriggered = new CrafterTriggerData(blockData);
-                blockDataList.add(crafterTriggered);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.Crafter")) {
+            blockDataList.add(property(blockData, "CrafterOrientationData", Lang.DataKeyName.CrafterOrientationDataName,
+                    "getOrientation", "setOrientation"));
+            blockDataList.add(property(blockData, "CrafterCraftingData", Lang.DataKeyName.CrafterCraftingDataName,
+                    "isCrafting", "setCrafting"));
+            blockDataList.add(property(blockData, "CrafterTriggerData", Lang.DataKeyName.CrafterTriggerDataName,
+                    "isTriggered", "setTriggered"));
         }
 
-        if (isValidMaterial("creaking_heart")) {
-            if (blockData instanceof CreakingHeart) {
-                SubBlockData creakingHeartNatural = new CreakingHeartNaturalData(blockData);
-                blockDataList.add(creakingHeartNatural);
-                SubBlockData creakingHeartState = new CreakingHeartStateData(blockData);
-                blockDataList.add(creakingHeartState);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.CreakingHeart")) {
+            blockDataList.add(property(blockData, "CreakingHeartNaturalData", Lang.DataKeyName.CreakingHeartNaturalDataName,
+                    "isNatural", "setNatural"));
+            blockDataList.add(property(blockData, "CreakingHeartStateData", Lang.DataKeyName.CreakingHeartStateDataName,
+                    "getCreakingHeartState", "setCreakingHeartState"));
         }
 
         if (blockData instanceof DaylightDetector) {
             SubBlockData daylightDetectorData = new DaylightDetectorData(blockData);
             blockDataList.add(daylightDetectorData);
         }
-        if (blockData instanceof DecoratedPot) {
-            SubBlockData decoratedPotCracked = new DecoratedPotCrackedData(blockData);
-            blockDataList.add(decoratedPotCracked);
+        if (blockData instanceof DecoratedPot && hasMethod(blockData, "isCracked")) {
+            blockDataList.add(property(blockData, "DecoratedPotCrackedData",
+                    Lang.DataKeyName.DecoratedPotCrackedDataName, "isCracked", "setCracked"));
         }
         if (blockData instanceof Directional) {
             SubBlockData directionalData = new DirectionalData(blockData);
@@ -429,18 +405,18 @@ public class BlockDataSeparater {
             SubBlockData hangable = new HangableData(blockData);
             blockDataList.add(hangable);
         }
-        if (blockData instanceof HangingMoss) {
-            SubBlockData hangingMossTip = new HangingMossTipData(blockData);
-            blockDataList.add(hangingMossTip);
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.HangingMoss")) {
+            blockDataList.add(property(blockData, "HangingMossTipData", Lang.DataKeyName.HangingMossTipDataName,
+                    "isTip", "setTip"));
         }
         /* NOTE: Not Used
         if (blockData instanceof HangingSign) {
 
         }
         */
-        if (blockData instanceof Hatchable) {
-            SubBlockData hatchable = new HatchableData(blockData);
-            blockDataList.add(hatchable);
+        if (isBlockDataType(blockData, "org.bukkit.block.data.Hatchable")) {
+            blockDataList.add(rangedProperty(blockData, "HatchableData", Lang.DataKeyName.HatchableDataName,
+                    "getHatch", "setHatch", null, "getMaximumHatch"));
         }
 
         if (blockData instanceof Hopper) {
@@ -449,8 +425,8 @@ public class BlockDataSeparater {
         }
 
         if (blockData instanceof Jigsaw) {
-            SubBlockData jigsaw = new JigsawData(blockData);
-            blockDataList.add(jigsaw);
+            blockDataList.add(property(blockData, "JigsawData", Lang.DataKeyName.JigsawDataName,
+                    "getOrientation", "setOrientation"));
         }
 
         if (blockData instanceof Jukebox) {
@@ -583,17 +559,17 @@ public class BlockDataSeparater {
             }
         }
 
-        if (blockData instanceof MossyCarpet) {
-            SubBlockData mossyCarpetBottom = new MossyCarpetBottomData(blockData);
-            blockDataList.add(mossyCarpetBottom);
-            SubBlockData mossyCarpetHeightEast = new MossyCarpetHeightEastData(blockData);
-            blockDataList.add(mossyCarpetHeightEast);
-            SubBlockData mossyCarpetHeightNorth = new MossyCarpetHeightNorthData(blockData);
-            blockDataList.add(mossyCarpetHeightNorth);
-            SubBlockData mossyCarpetHeightSouth = new MossyCarpetHeightSouthData(blockData);
-            blockDataList.add(mossyCarpetHeightSouth);
-            SubBlockData mossyCarpetHeightWest = new MossyCarpetHeightWestData(blockData);
-            blockDataList.add(mossyCarpetHeightWest);
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.MossyCarpet")) {
+            blockDataList.add(property(blockData, "MossyCarpetBottomData", Lang.DataKeyName.MossyCarpetBottomDataName,
+                    "isBottom", "setBottom"));
+            blockDataList.add(keyedProperty(blockData, "MossyCarpetHeightEastData", Lang.DataKeyName.MossyCarpetHeightEastDataName,
+                    BlockFace.EAST));
+            blockDataList.add(keyedProperty(blockData, "MossyCarpetHeightNorthData", Lang.DataKeyName.MossyCarpetHeightNorthDataName,
+                    BlockFace.NORTH));
+            blockDataList.add(keyedProperty(blockData, "MossyCarpetHeightSouthData", Lang.DataKeyName.MossyCarpetHeightSouthDataName,
+                    BlockFace.SOUTH));
+            blockDataList.add(keyedProperty(blockData, "MossyCarpetHeightWestData", Lang.DataKeyName.MossyCarpetHeightWestDataName,
+                    BlockFace.WEST));
         }
 
         if (blockData instanceof NoteBlock) {
@@ -617,9 +593,9 @@ public class BlockDataSeparater {
             blockDataList.add(orientable);
         }
 
-        if (blockData instanceof FlowerBed) {
-            SubBlockData flowerBedPetals = new FlowerBedData(blockData);
-            blockDataList.add(flowerBedPetals);
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.FlowerBed")) {
+            blockDataList.add(rangedProperty(blockData, "FlowerBedData", Lang.DataKeyName.PinkPetalsDataname,
+                    "getFlowerAmount", "setFlowerAmount", "getMinimumFlowerAmount", "getMaximumFlowerAmount"));
         }
 
         if (blockData instanceof Piston) {
@@ -631,9 +607,9 @@ public class BlockDataSeparater {
             SubBlockData pistonHeadShort = new PistonHeadData(blockData);
             blockDataList.add(pistonHeadShort);
         }
-        if (blockData instanceof PotentSulfur) {
-            SubBlockData potentSulfurState = new PotentSulfurStateData(blockData);
-            blockDataList.add(potentSulfurState);
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.PotentSulfur")) {
+            blockDataList.add(property(blockData, "PotentSulfurStateData", Lang.DataKeyName.PotentSulfurStateDataName,
+                    "getPotentSulfurState", "setPotentSulfurState"));
         }
         /* NOTE: Not Used
         if (blockData instanceof PitcherCrop) {
@@ -645,11 +621,12 @@ public class BlockDataSeparater {
             blockDataList.add(pointedDripstoneThickness);
             SubBlockData pointedDripstoneVerticalDirection = new PointedDripstoneVerticalDirectionData(blockData);
             blockDataList.add(pointedDripstoneVerticalDirection);
-        } else if (blockData instanceof Speleothem) {
-            SubBlockData speleothemThickness = new SpeleothemThicknessData(blockData);
-            blockDataList.add(speleothemThickness);
-            SubBlockData speleothemVerticalDirection = new SpeleothemVerticalDirectionData(blockData);
-            blockDataList.add(speleothemVerticalDirection);
+        } else if (isBlockDataType(blockData, "org.bukkit.block.data.type.Speleothem")) {
+            blockDataList.add(property(blockData, "SpeleothemThicknessData", Lang.DataKeyName.SpeleothemThicknessDataName,
+                    "getThickness", "setThickness"));
+            blockDataList.add(constrainedProperty(blockData, "SpeleothemVerticalDirectionData",
+                    Lang.DataKeyName.SpeleothemVerticalDirectionDataName, "getVerticalDirection", "setVerticalDirection",
+                    "getVerticalDirections"));
         }
 
         if (blockData instanceof Powerable) {
@@ -790,11 +767,9 @@ public class BlockDataSeparater {
 
         }
         */
-        if (isValidMaterial("trial_spawner")) {
-            if (blockData instanceof TrialSpawner) {
-                SubBlockData trialSpawnerDelay = new TrialSpawnerData(blockData);
-                blockDataList.add(trialSpawnerDelay);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.TrialSpawner")) {
+            blockDataList.add(property(blockData, "TrialSpawnerData", Lang.DataKeyName.TrialSpawnerDataName,
+                    "getTrialSpawnerState", "setTrialSpawnerState"));
         }
         if (blockData instanceof Tripwire) {
             SubBlockData tripwire = new TripwireData(blockData);
@@ -810,13 +785,11 @@ public class BlockDataSeparater {
             blockDataList.add(turtleEggCount);
         }
 
-        if(isValidMaterial("vault")) {
-            if (blockData instanceof Vault) {
-                SubBlockData vaultOminous = new VaultOminousData(blockData);
-                blockDataList.add(vaultOminous);
-                SubBlockData vaultState = new VaultStateData(blockData);
-                blockDataList.add(vaultState);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.Vault")) {
+            blockDataList.add(property(blockData, "VaultOminousData", Lang.DataKeyName.VaultOminousDataName,
+                    "isOminous", "setOminous"));
+            blockDataList.add(property(blockData, "VaultStateData", Lang.DataKeyName.VaultStateDataName,
+                    "getVaultState", "setVaultState"));
         }
 
         if (blockData instanceof Wall) {
@@ -847,34 +820,27 @@ public class BlockDataSeparater {
         }
 
         // 1.21.9
-        if (isValidMaterial("copper_chain")) {
-            if (blockData instanceof CopperGolemStatue) {
-                SubBlockData copperGolemStatuePose = new CopperGolemStatuePoseData(blockData);
-                blockDataList.add(copperGolemStatuePose);
-            }
-            if (blockData instanceof SideChaining) {
-                SubBlockData sideChaining = new SideChainingData(blockData);
-                blockDataList.add(sideChaining);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.CopperGolemStatue")) {
+            blockDataList.add(property(blockData, "CopperGolemStatuePoseData",
+                    Lang.DataKeyName.CopperGolemStatuePoseDataName, "getCopperGolemPose", "setCopperGolemPose"));
+        }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.SideChaining")) {
+            blockDataList.add(property(blockData, "SideChainingData", Lang.DataKeyName.SideChainingDataName,
+                    "getSideChain", "setSideChain"));
         }
 
-        if (isValidMaterial("leaf_litter")) {
-            if (blockData instanceof Segmentable) {
-                SubBlockData segmentable = new SegmentableData(blockData);
-                blockDataList.add(segmentable);
-            }
-
-            if (blockData instanceof TestBlock) {
-                SubBlockData testBlock = new TestBlockData(blockData);
-                blockDataList.add(testBlock);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.Segmentable")) {
+            blockDataList.add(rangedProperty(blockData, "SegmentableData", Lang.DataKeyName.SegmentableDataName,
+                    "getSegmentAmount", "setSegmentAmount", "getMinimumSegmentAmount", "getMaximumSegmentAmount"));
         }
-
-        if (isValidMaterial("dried_ghast")) {
-            if (blockData instanceof DriedGhast) {
-                SubBlockData driedGhastState = new DriedGhastHydrationData(blockData);
-                blockDataList.add(driedGhastState);
-            }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.TestBlock")) {
+            blockDataList.add(property(blockData, "TestBlockData", Lang.DataKeyName.TestBlockDataName,
+                    "getMode", "setMode"));
+        }
+        if (isBlockDataType(blockData, "org.bukkit.block.data.type.DriedGhast")) {
+            blockDataList.add(rangedProperty(blockData, "DriedGhastHydrationData",
+                    Lang.DataKeyName.DriedGhastHydrationDataName, "getHydration", "setHydration", null,
+                    "getMaximumHydration"));
         }
 
         cache.put(blockData.getMaterial(), blockDataList);
@@ -892,5 +858,41 @@ public class BlockDataSeparater {
         // lets one side become a second bottom half and duplicate its drops.
         return blockData instanceof Bisected
                 && (blockData instanceof Stairs || blockData instanceof TrapDoor);
+    }
+
+    private static boolean isBlockDataType(BlockData blockData, String className) {
+        return ReflectiveBlockDataProperty.isType(blockData, className);
+    }
+
+    private static SubBlockData property(BlockData blockData, String name, String displayName,
+                                         String getter, String setter) {
+        return ReflectiveBlockDataProperty.property(blockData, name, displayName, getter, setter);
+    }
+
+    private static SubBlockData rangedProperty(BlockData blockData, String name, String displayName,
+                                               String getter, String setter, String minimumGetter,
+                                               String maximumGetter) {
+        return ReflectiveBlockDataProperty.rangedProperty(
+                blockData, name, displayName, getter, setter, minimumGetter, maximumGetter);
+    }
+
+    private static SubBlockData constrainedProperty(BlockData blockData, String name, String displayName,
+                                                    String getter, String setter, String valuesGetter) {
+        return ReflectiveBlockDataProperty.constrainedProperty(
+                blockData, name, displayName, getter, setter, valuesGetter);
+    }
+
+    private static SubBlockData keyedProperty(BlockData blockData, String name, String displayName, BlockFace face) {
+        return ReflectiveBlockDataProperty.keyedProperty(
+                blockData, name, displayName, "getHeight", "setHeight", face);
+    }
+
+    private static boolean hasMethod(BlockData blockData, String methodName) {
+        for (java.lang.reflect.Method method : blockData.getClass().getMethods()) {
+            if (method.getName().equals(methodName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

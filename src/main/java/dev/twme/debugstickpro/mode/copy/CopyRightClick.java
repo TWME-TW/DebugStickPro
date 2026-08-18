@@ -1,6 +1,5 @@
 package dev.twme.debugstickpro.mode.copy;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.twme.debugstickpro.blockdatautil.BlockDataSeparater;
 import dev.twme.debugstickpro.blockdatautil.SubBlockData;
 import dev.twme.debugstickpro.events.CopyModeChangingBlockEvent;
@@ -14,6 +13,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 import org.bukkit.profile.PlayerTextures;
+import org.bukkit.profile.PlayerProfile;
 
 import java.util.List;
 import java.util.UUID;
@@ -47,14 +47,14 @@ public class CopyRightClick {
             if (block.getState() instanceof Skull) {
                 Skull skull = (Skull) block.getState();
                 if (playerData.getCopiedSkullBlockPlayerProfile() != null) {
-                    skull.setPlayerProfile(playerData.getCopiedSkullBlockPlayerProfile());
+                    skull.setOwnerProfile(playerData.getCopiedSkullBlockPlayerProfile());
                 } else {
                     if (skull.hasOwner()) {
-                        PlayerProfile playerProfile = skull.getPlayerProfile();
+                        PlayerProfile playerProfile = skull.getOwnerProfile();
                         PlayerTextures textures = playerProfile.getTextures();
                         textures.clear();
                         playerProfile.setTextures(textures);
-                        skull.setPlayerProfile(playerProfile);
+                        skull.setOwnerProfile(playerProfile);
                     }
                 }
                 skull.update(true);
