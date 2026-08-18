@@ -63,6 +63,8 @@ public class ConfigFile {
     }
 
     public static class BlockDataFilter {
+        public static boolean AllowUnsafeBisectedData;
+
         public static class Whitelist {
             public static boolean Enabled;
             public static HashSet<String> Whitelist;

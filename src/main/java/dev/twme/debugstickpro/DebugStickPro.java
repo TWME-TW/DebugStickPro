@@ -63,7 +63,7 @@ public final class DebugStickPro extends JavaPlugin {
     /**
      * This is the version of the plugin
      */
-    public static final int CONFIG_VERSION = 7;
+    public static final int CONFIG_VERSION = 8;
 
     /**
      * This is the version of the language file

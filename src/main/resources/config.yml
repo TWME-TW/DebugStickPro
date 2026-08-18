@@ -1,5 +1,5 @@
 # Don't touch this value
-ConfigVersion: 7
+ConfigVersion: 8
 
 Language:
   # Language files are located in the "lang" folder.
@@ -67,6 +67,10 @@ AutoRegionProtection:
   Enabled: true
 
 BlockDataFilter:
+  # If enabled, exposes the half property of multi-block structures such as doors
+  # and double plants. This can create invalid block pairs and duplicate drops.
+  # Default: false
+  AllowUnsafeBisectedData: false
   Whitelist:
     # If enabled, only the specified block data will be displayed.
     Enabled: false

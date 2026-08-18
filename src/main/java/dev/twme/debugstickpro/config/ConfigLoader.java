@@ -107,6 +107,7 @@ public class ConfigLoader {
         ConfigFile.BlockDataFilter.Whitelist.Whitelist = new HashSet<>(config.getStringList("BlockDataFilter.Whitelist.Whitelist"));
         ConfigFile.BlockDataFilter.Blacklist.Enabled = config.getBoolean("BlockDataFilter.Blacklist.Enabled");
         ConfigFile.BlockDataFilter.Blacklist.Blacklist = new HashSet<>(config.getStringList("BlockDataFilter.Blacklist.Blacklist"));
+        ConfigFile.BlockDataFilter.AllowUnsafeBisectedData = config.getBoolean("BlockDataFilter.AllowUnsafeBisectedData");
 
         ConfigFile.ModeSetting.ClassicMode.ClearSelectedDataTypeWhenModeChange = config.getBoolean("ModeSetting.ClassicMode.ClearSelectedDataTypeWhenModeChange");
         ConfigFile.ModeSetting.CopyMode.ClearStoredDataWhenModeChange = config.getBoolean("ModeSetting.CopyMode.ClearStoredDataWhenModeChange");

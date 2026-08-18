@@ -222,7 +222,7 @@ public class BlockDataSeparater {
             blockDataList.add(bigDripleafData);
         }
 
-        if (blockData instanceof Bisected) {
+        if (isBisectedHalfSafeToModify(blockData)) {
             SubBlockData bisectedData = new BisectedData(blockData);
             blockDataList.add(bisectedData);
         }
@@ -880,5 +880,17 @@ public class BlockDataSeparater {
         cache.put(blockData.getMaterial(), blockDataList);
 
         return cloneForBlockData(blockDataList, blockData);
+    }
+
+    static boolean isBisectedHalfSafeToModify(BlockData blockData) {
+        if (ConfigFile.BlockDataFilter.AllowUnsafeBisectedData) {
+            return blockData instanceof Bisected;
+        }
+
+        // Stairs and trapdoors use half as a single-block placement property. Other
+        // Bisected blocks depend on a matching block above or below; exposing half
+        // lets one side become a second bottom half and duplicate its drops.
+        return blockData instanceof Bisected
+                && (blockData instanceof Stairs || blockData instanceof TrapDoor);
     }
 }
