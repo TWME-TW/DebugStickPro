@@ -9,10 +9,11 @@
 
 > Supports Spigot, Paper, and Folia from Minecraft 1.19.4 through 26.2. Paper is the primary platform.
 
-The compatibility matrix is exercised against both ends of the supported range.
-Mineflayer verifies commands, MiniMessage item output, and VirtualEntities display
-spawn/removal on 1.19.4; 26.2 receives startup and plugin-enable tests because
-Mineflayer does not yet support that protocol.
+The compatibility matrix starts every stable Paper and Folia release available
+between 1.19.4 and 26.2. Mineflayer additionally verifies commands, MiniMessage
+item output, and VirtualEntities display spawn/removal at the 1.19, 1.20, and
+1.21 protocol generations. The 26.x releases receive startup and plugin-enable
+tests because Mineflayer does not yet support those protocols.
 ---
 ## Features:
 ### Dynamically display block data:
@@ -117,8 +118,8 @@ Same as regular debugging stick operation:
 - **Spigot, Paper, or Folia 1.19.4-26.2** (Paper is recommended)
 - **[PacketEvents](https://github.com/retrooper/packetevents) 2.13.0+** (Required for v0.5.0+)
 
-Spigot builds are tested locally with the official BuildTools. Paper and Folia
-endpoint tests run for every pull request.
+Spigot protocol checkpoints are tested locally with the official BuildTools.
+The complete stable Paper and Folia version matrix runs for every pull request.
 
 ### Installation Steps
 1. Install [PacketEvents](https://github.com/retrooper/packetevents) if not already installed

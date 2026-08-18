@@ -41,24 +41,77 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: paper
-            minecraft: 1.19.4
+          - name: paper Java 17
+            id: paper-java17
+            platform: paper
             java: 17
-            mode: mineflayer
-          - platform: folia
-            minecraft: 1.19.4
+            cases: >-
+              1.19.4:mineflayer
+              1.20:startup
+              1.20.1:startup
+              1.20.2:startup
+              1.20.4:mineflayer
+          - name: paper Java 21 (1.20-1.21.4)
+            id: paper-java21-early
+            platform: paper
+            java: 21
+            cases: >-
+              1.20.5:startup
+              1.20.6:mineflayer
+              1.21:startup
+              1.21.1:mineflayer
+              1.21.3:startup
+              1.21.4:startup
+          - name: paper Java 21 (1.21.5-1.21.11)
+            id: paper-java21-late
+            platform: paper
+            java: 21
+            cases: >-
+              1.21.5:startup
+              1.21.6:startup
+              1.21.7:startup
+              1.21.8:startup
+              1.21.9:startup
+              1.21.10:startup
+              1.21.11:startup
+          - name: paper Java 25
+            id: paper-java25
+            platform: paper
+            java: 25
+            cases: >-
+              26.1.1:startup
+              26.1.2:startup
+              26.2:startup
+          - name: folia Java 17
+            id: folia-java17
+            platform: folia
             java: 17
-            mode: mineflayer
-          - platform: paper
-            minecraft: '26.2'
+            cases: >-
+              1.19.4:mineflayer
+              1.20.1:startup
+              1.20.2:startup
+              1.20.4:mineflayer
+          - name: folia Java 21
+            id: folia-java21
+            platform: folia
+            java: 21
+            cases: >-
+              1.20.6:mineflayer
+              1.21.4:startup
+              1.21.5:startup
+              1.21.6:startup
+              1.21.8:startup
+              1.21.11:startup
+          - name: folia Java 25
+            id: folia-java25
+            platform: folia
             java: 25
-            mode: startup
-          - platform: folia
-            minecraft: '26.2'
-            java: 25
-            mode: startup
+            cases: >-
+              26.1.2:startup
+              26.2:startup
 
-    name: ${{ matrix.platform }} ${{ matrix.minecraft }}
+    name: ${{ matrix.name }}
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v6
       - name: Set up JDK ${{ matrix.java }}
@@ -81,10 +134,9 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.cache/debugstickpro-e2e
-          key: debugstickpro-${{ matrix.platform }}-${{ matrix.minecraft }}
+          key: debugstickpro-runtime-v2-${{ matrix.id }}
       - name: Run server integration test
         env:
           DSP_E2E_PLATFORM: ${{ matrix.platform }}
-          DSP_E2E_VERSION: ${{ matrix.minecraft }}
-          DSP_E2E_MODE: ${{ matrix.mode }}
-        run: integration/mineflayer/run-server-e2e.sh
+          DSP_E2E_CASES: ${{ matrix.cases }}
+        run: integration/mineflayer/run-version-group.sh
