@@ -2,11 +2,13 @@ package dev.twme.debugstickpro.localization;
 
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.utils.Log;
+import dev.twme.debugstickpro.utils.YamlDefaultMerger;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,9 +65,40 @@ public class LangFileReader {
             Log.warning(e.getMessage());
         }
 
+        YamlConfiguration defaults = loadDefaults();
+        boolean changed = defaults != null && YamlDefaultMerger.addMissingValues(this.langFile, defaults);
+        if (this.langFile.getInt(Lang.LangFileVersion) < DebugStickPro.LANG_VERSION) {
+            this.langFile.set(Lang.LangFileVersion, DebugStickPro.LANG_VERSION);
+            changed = true;
+        } else if (this.langFile.getInt(Lang.LangFileVersion) > DebugStickPro.LANG_VERSION) {
+            Log.warning(locale + ".yml is newer than this version of the plugin.");
+        }
         langFileVersion = this.langFile.getInt(Lang.LangFileVersion);
-        if (!checkLangFileVersion()) {
-            return;
+
+        if (changed) {
+            Log.info("Updated " + locale + ".yml with missing default values.");
+            save();
+        }
+    }
+
+    private YamlConfiguration loadDefaults() {
+        String resourcePath = "lang/" + locale + ".yml";
+        InputStream stream = DebugStickPro.getInstance().getResource(resourcePath);
+        if (stream == null && !"en_US".equals(locale)) {
+            stream = DebugStickPro.getInstance().getResource("lang/en_US.yml");
+        }
+        if (stream == null) {
+            return null;
+        }
+
+        try (InputStream defaultsStream = stream) {
+            YamlConfiguration defaults = new YamlConfiguration();
+            defaults.options().parseComments(true);
+            defaults.load(new InputStreamReader(defaultsStream, StandardCharsets.UTF_8));
+            return defaults;
+        } catch (Exception e) {
+            Log.warning("Failed to load bundled defaults for " + locale + ".yml: " + e.getMessage());
+            return null;
         }
     }
 
@@ -75,22 +108,7 @@ public class LangFileReader {
      * @return true if the version is compatible
      */
     public boolean checkLangFileVersion() {
-        if (langFileVersion != DebugStickPro.LANG_VERSION) {
-            Log.warning("Lang file version is not compatible with this version of the plugin.");
-            Date date = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-            String strDate = formatter.format(date);
-            String backupFileName = file.getAbsolutePath().replace(locale, locale + strDate);
-
-            File newFile = new File(backupFileName);
-            if (file.renameTo(newFile)) {
-                Log.warning("Old lang file has been backed up to " + newFile.getName());
-            } else {
-                Log.warning("Failed to backed up old lang file to " + newFile.getName());
-            }
-            return false;
-        }
-        return true;
+        return langFileVersion == DebugStickPro.LANG_VERSION;
     }
 
     /**
