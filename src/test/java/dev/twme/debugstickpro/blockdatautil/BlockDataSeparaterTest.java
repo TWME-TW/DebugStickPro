@@ -9,6 +9,8 @@ import org.bukkit.block.data.type.Stairs;
 import org.bukkit.block.data.type.TrapDoor;
 import org.junit.Test;
 
+import dev.twme.debugstickpro.config.ConfigFile;
+
 import java.lang.reflect.Proxy;
 
 import static org.junit.Assert.assertFalse;
@@ -28,6 +30,17 @@ public class BlockDataSeparaterTest {
         assertFalse(BlockDataSeparater.isBisectedHalfSafeToModify(blockData(Door.class)));
         assertFalse(BlockDataSeparater.isBisectedHalfSafeToModify(blockData(SmallDripleaf.class)));
         assertFalse(BlockDataSeparater.isBisectedHalfSafeToModify(blockData(PitcherCrop.class)));
+    }
+
+    @Test
+    public void allowsUnsafeBisectedPropertiesWhenConfigured() {
+        ConfigFile.BlockDataFilter.AllowUnsafeBisectedData = true;
+        try {
+            assertTrue(BlockDataSeparater.isBisectedHalfSafeToModify(blockData(Bisected.class)));
+            assertTrue(BlockDataSeparater.isBisectedHalfSafeToModify(blockData(Door.class)));
+        } finally {
+            ConfigFile.BlockDataFilter.AllowUnsafeBisectedData = false;
+        }
     }
 
     @Test

@@ -883,6 +883,10 @@ public class BlockDataSeparater {
     }
 
     static boolean isBisectedHalfSafeToModify(BlockData blockData) {
+        if (ConfigFile.BlockDataFilter.AllowUnsafeBisectedData) {
+            return blockData instanceof Bisected;
+        }
+
         // Stairs and trapdoors use half as a single-block placement property. Other
         // Bisected blocks depend on a matching block above or below; exposing half
         // lets one side become a second bottom half and duplicate its drops.
