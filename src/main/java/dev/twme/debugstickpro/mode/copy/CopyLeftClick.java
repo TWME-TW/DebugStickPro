@@ -17,9 +17,8 @@ import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 
 public class CopyLeftClick {
-    public static void onLeftClick(UUID playerUUID, PlayerData playerData) {
+    public static void onLeftClick(UUID playerUUID, PlayerData playerData, Block block) {
         Player player = Bukkit.getPlayer(playerUUID);
-        Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
             return;

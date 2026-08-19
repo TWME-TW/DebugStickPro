@@ -18,11 +18,9 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class ClassicRightClick {
-    public static void changeSelectedSubBlockDataValue(UUID playerUUID, PlayerData playerData) {
+    public static void changeSelectedSubBlockDataValue(UUID playerUUID, PlayerData playerData, Block block) {
 
         Player player = Bukkit.getPlayer(playerUUID);
-
-        Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
             return;

@@ -56,16 +56,45 @@ function waitFor(predicate, description, timeout = timeoutMs) {
   })
 }
 
-async function rightClickBlock(target) {
+async function rightClickBlock(target, cursorHeight = 0.5, cursorInset = 0, includeOffhand = false) {
   const swingArm = bot.swingArm
   bot.swingArm = () => {}
   try {
     const westFace = target.position.offset(-1, 0, 0).minus(target.position)
-    const westFaceCenter = target.position.offset(0, 0.5, 0.5).minus(target.position)
+    const westFaceCenter = target.position.offset(cursorInset, cursorHeight, 0.5).minus(target.position)
     await bot.activateBlock(target, westFace, westFaceCenter)
+    if (includeOffhand) {
+      bot._client.write('block_place', {
+        location: target.position,
+        direction: 4,
+        hand: 1,
+        cursorX: cursorInset,
+        cursorY: cursorHeight,
+        cursorZ: 0.5,
+        insideBlock: false,
+        sequence: 0,
+        worldBorderHit: false
+      })
+    }
   } finally {
     bot.swingArm = swingArm
   }
+}
+
+async function leftClickBlock(target) {
+  const packet = {
+    location: target.position,
+    face: 1
+  }
+  bot._client.write('block_dig', { ...packet, status: 0 })
+  bot.swingArm('right')
+  await bot.waitForTicks(1)
+  bot._client.write('block_dig', { ...packet, status: 1 })
+  await bot.waitForTicks(2)
+}
+
+function blockProperty(position, property) {
+  return bot.blockAt(position)?.getProperties()?.[property]
 }
 
 async function exerciseFreezeLifecycle(target, expectedBlockName) {
@@ -140,6 +169,46 @@ try {
   await bot.equip(debugStick, 'hand')
   await bot.waitForTicks(20)
 
+  const targetPosition = bot.entity.position.floored().offset(1, 0, 0)
+  bot.chat(`/setblock ${targetPosition.x} ${targetPosition.y} ${targetPosition.z} minecraft:candle[lit=false]`)
+  const candle = await waitFor(() => {
+    const block = bot.blockAt(targetPosition)
+    return block?.name === 'candle' ? block : null
+  }, 'integration-test candle block')
+  await bot.lookAt(candle.position.offset(0.5, 0.2, 0.5), true)
+
+  // The first right click initializes CandleData; one left click then advances to LightableData.
+  await rightClickBlock(candle, 0.2, 0.4375)
+  await leftClickBlock(bot.blockAt(targetPosition))
+  bot.chat(`/setblock ${targetPosition.x} ${targetPosition.y} ${targetPosition.z} minecraft:candle[lit=false]`)
+  await waitFor(
+    () => blockProperty(targetPosition, 'lit') === false,
+    'candle selection reset'
+  )
+
+  bot.setControlState('sneak', true)
+  await bot.waitForTicks(2)
+  await rightClickBlock(candle, 0.2, 0.4375)
+  await waitFor(
+    () => blockProperty(targetPosition, 'lit') === true,
+    'candle lighting while sneaking'
+  )
+
+  bot.setControlState('sneak', false)
+  await bot.waitForTicks(2)
+  bot.chat(`/setblock ${targetPosition.x} ${targetPosition.y} ${targetPosition.z} minecraft:candle[lit=false]`)
+  await waitFor(
+    () => blockProperty(targetPosition, 'lit') === false,
+    'unlit candle reset'
+  )
+  await rightClickBlock(bot.blockAt(targetPosition), 0.2, 0.4375, true)
+  await bot.waitForTicks(10)
+  assert.equal(
+    blockProperty(targetPosition, 'lit'),
+    true,
+    'Classic mode must light a candle without sneaking'
+  )
+
   bot.chat('/dsp mode freeze')
   await waitFor(
     () => messages.some(message => /freeze|凍結/i.test(message)),
@@ -147,7 +216,6 @@ try {
   )
   await bot.waitForTicks(10)
 
-  const targetPosition = bot.entity.position.floored().offset(1, 0, 0)
   bot.chat(`/setblock ${targetPosition.x} ${targetPosition.y} ${targetPosition.z} minecraft:stone`)
   const target = await waitFor(() => {
     const block = bot.blockAt(targetPosition)
@@ -172,6 +240,7 @@ try {
     version,
     locale: 'zh_TW',
     command: true,
+    candleWithoutSneaking: true,
     miniMessageItem: debugStick.customName?.toString() ?? debugStick.displayName,
     virtualEntities: ['item_display', 'block_display'],
     removal: true,
