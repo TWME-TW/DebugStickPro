@@ -91,6 +91,7 @@ public class FreezeBlockManager {
 
             freezeBlockLocations.remove(freezeLocation);
             freezeBlocks.remove(frozenData);
+            FreezePacketLayer.resyncBlock(block);
             if (freezeBlocks.isEmpty()) {
                 playerFrozenBlockData.remove(playerUUID);
             }
@@ -117,6 +118,7 @@ public class FreezeBlockManager {
             removeDisplayEntity(frozenData.getItemDisplay());
             removeDisplayEntity(frozenData.getBlockDisplay());
             freezeBlockLocations.remove(new FreezeLocation(block.getLocation()));
+            FreezePacketLayer.resyncBlock(block);
         }
     }
 

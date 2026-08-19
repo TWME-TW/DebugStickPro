@@ -52,11 +52,17 @@ public class FreezeRightClick {
     }
 
     private static Block resolveTargetBlock(Player player, Action action, Block clickedBlock, BlockFace clickedFace) {
-        if (action == Action.RIGHT_CLICK_BLOCK && clickedBlock != null) {
-            if (FreezeBlockManager.isFreezeBlock(clickedBlock.getLocation())) {
-                return clickedBlock;
-            }
+        Block frozenClickedTarget = resolveFrozenClickedTarget(clickedBlock, clickedFace);
+        if (frozenClickedTarget != null) {
+            return frozenClickedTarget;
+        }
 
+        Block frozenSightTarget = resolveFrozenSightTarget(player, clickedBlock);
+        if (frozenSightTarget != null) {
+            return frozenSightTarget;
+        }
+
+        if (action == Action.RIGHT_CLICK_BLOCK && clickedBlock != null) {
             Block supportBlock = resolveFrozenSupportBlock(clickedBlock, clickedFace);
             if (supportBlock != null) {
                 return supportBlock;
@@ -69,6 +75,35 @@ public class FreezeRightClick {
             return resolveAirTarget(player);
         }
 
+        return null;
+    }
+
+    private static Block resolveFrozenClickedTarget(Block clickedBlock, BlockFace clickedFace) {
+        if (clickedBlock == null) {
+            return null;
+        }
+        if (FreezeBlockManager.isFreezeBlock(clickedBlock.getLocation())) {
+            return clickedBlock;
+        }
+        if (clickedFace == null || clickedFace == BlockFace.SELF) {
+            return null;
+        }
+
+        Block blockInFront = clickedBlock.getRelative(clickedFace);
+        return FreezeBlockManager.isFreezeBlock(blockInFront.getLocation()) ? blockInFront : null;
+    }
+
+    private static Block resolveFrozenSightTarget(Player player, Block clickedBlock) {
+        BlockIterator sightLine = new BlockIterator(player, TARGET_DISTANCE);
+        while (sightLine.hasNext()) {
+            Block block = sightLine.next();
+            if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
+                return block;
+            }
+            if (clickedBlock != null && clickedBlock.equals(block)) {
+                return null;
+            }
+        }
         return null;
     }
 
