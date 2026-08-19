@@ -36,6 +36,7 @@ import dev.twme.debugstickpro.listeners.RightClickListener;
 import dev.twme.debugstickpro.listeners.WorldUnloadEventListener;
 import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
+import dev.twme.debugstickpro.localization.PlayerLocaleResolver;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.mode.freeze.FreezePacketLayer;
 import dev.twme.debugstickpro.playerdata.PlayerData;
@@ -154,7 +155,7 @@ public final class DebugStickPro extends JavaPlugin {
      */
     public void onServerReloadCommand() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), player.getLocale());
+            PlayerLanguageManager.setPlayerLocale(player.getUniqueId(), PlayerLocaleResolver.resolve(player));
 
             UUID playerUUID = player.getUniqueId();
             PlayerDataManager.setPlayerData(playerUUID, new PlayerData());

@@ -12,6 +12,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerBl
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerMultiBlockChange;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public final class FreezePacketLayer {
@@ -41,6 +42,22 @@ public final class FreezePacketLayer {
             listener = null;
         }
         initialized = false;
+    }
+
+    public static void resyncBlock(Block block) {
+        var playerManager = PacketEvents.getAPI().getPlayerManager();
+        Vector3i position = new Vector3i(block.getX(), block.getY(), block.getZ());
+        String blockData = block.getBlockData().getAsString();
+
+        for (Player player : block.getWorld().getPlayers()) {
+            WrappedBlockState state = WrappedBlockState.getByString(
+                    playerManager.getClientVersion(player),
+                    blockData
+            );
+            if (state != null) {
+                playerManager.sendPacket(player, new WrapperPlayServerBlockChange(position, state));
+            }
+        }
     }
 
     private static final class FreezePacketListener extends SimplePacketListenerAbstract {

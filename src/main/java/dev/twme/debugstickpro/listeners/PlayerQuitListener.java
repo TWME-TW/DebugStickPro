@@ -1,5 +1,6 @@
 package dev.twme.debugstickpro.listeners;
 
+import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import org.bukkit.event.EventHandler;
@@ -14,6 +15,7 @@ public class PlayerQuitListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         PlayerDataManager.removePlayerFromDisplayList(uuid);
         PlayerDataManager.removePlayerData(uuid);
+        PlayerLanguageManager.removePlayerLocale(uuid);
         FreezeBlockManager.removeAllPlayerFrozenBlock(uuid);
     }
 }
