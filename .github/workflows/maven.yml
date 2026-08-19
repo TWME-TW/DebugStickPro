@@ -32,7 +32,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: DebugStickPro
-          path: target/DebugStickPro-0.5.3.jar
+          path: target/DebugStickPro-*.jar
+          if-no-files-found: error
 
   runtime-test:
     needs: build
