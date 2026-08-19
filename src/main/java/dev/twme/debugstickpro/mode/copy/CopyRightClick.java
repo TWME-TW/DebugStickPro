@@ -19,9 +19,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class CopyRightClick {
-    public static void onRightClick(UUID playerUUID, PlayerData playerData) {
+    public static void onRightClick(UUID playerUUID, PlayerData playerData, Block block) {
         Player player = Bukkit.getPlayer(playerUUID);
-        Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
             return;

@@ -16,11 +16,9 @@ public class ClassicLeftClick {
 
     // 更改選擇的 SubBlockData 類型
     // change selected SubBlockData type
-    public static void changeSelectedSubBlockType(UUID playerUUID, PlayerData playerData) {
+    public static void changeSelectedSubBlockType(UUID playerUUID, PlayerData playerData, Block block) {
 
         Player player = Bukkit.getPlayer(playerUUID);
-
-        Block block = player.getTargetBlockExact(5);
 
         if (block == null) {
             return;

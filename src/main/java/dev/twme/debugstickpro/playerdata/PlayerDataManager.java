@@ -208,17 +208,18 @@ public class PlayerDataManager {
      * player left click
      *
      * @param uuid player UUID
+     * @param targetBlock interaction target, or null when no block was targeted
      */
-    public static void playerLeftClick(UUID uuid) {
+    public static void playerLeftClick(UUID uuid, Block targetBlock) {
 
         PlayerData playerData = getOrCreatePlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case CLASSIC:
-                ClassicLeftClick.changeSelectedSubBlockType(uuid, playerData);
+                ClassicLeftClick.changeSelectedSubBlockType(uuid, playerData, targetBlock);
                 break;
             case COPY:
-                CopyLeftClick.onLeftClick(uuid, playerData);
+                CopyLeftClick.onLeftClick(uuid, playerData, targetBlock);
                 break;
             case FREEZE:
                 FreezeLeftClick.onLeftClick(uuid);
@@ -231,19 +232,20 @@ public class PlayerDataManager {
      *
      * @param uuid player UUID
      * @param action click action
+     * @param targetBlock interaction target, or null when no block was targeted
      * @param clickedBlock clicked block
      * @param clickedFace clicked face
      */
-    public static void playerRightClick(UUID uuid, Action action, Block clickedBlock, BlockFace clickedFace) {
+    public static void playerRightClick(UUID uuid, Action action, Block targetBlock, Block clickedBlock, BlockFace clickedFace) {
 
         PlayerData playerData = getOrCreatePlayerData(uuid);
 
         switch (playerData.getDebugStickMode()) {
             case CLASSIC:
-                ClassicRightClick.changeSelectedSubBlockDataValue(uuid, playerData);
+                ClassicRightClick.changeSelectedSubBlockDataValue(uuid, playerData, targetBlock);
                 break;
             case COPY:
-                CopyRightClick.onRightClick(uuid, playerData);
+                CopyRightClick.onRightClick(uuid, playerData, targetBlock);
                 break;
             case FREEZE:
                 FreezeRightClick.onRightClick(uuid, action, clickedBlock, clickedFace);

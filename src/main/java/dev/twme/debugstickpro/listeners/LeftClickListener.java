@@ -2,6 +2,7 @@ package dev.twme.debugstickpro.listeners;
 
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.utils.DebugStickItem;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,10 +27,14 @@ public class LeftClickListener implements Listener {
             return;
         }
 
+        Block targetBlock = event.getClickedBlock();
+        if (targetBlock == null) {
+            targetBlock = player.getTargetBlockExact(5);
+        }
+
         event.setCancelled(true);
 
-        // TODO: 未來改成這個版本
-        PlayerDataManager.playerLeftClick(player.getUniqueId());
+        PlayerDataManager.playerLeftClick(player.getUniqueId(), targetBlock);
 
     }
 }

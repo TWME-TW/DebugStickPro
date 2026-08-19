@@ -231,8 +231,6 @@ for custom locales, from English. Existing translations are preserved.
 | Existing sticks stop working after an item config change | Reissue them with `/dsp give`; recognition uses the currently configured material. |
 | Frozen blocks need to be released | The player can left-click in Freeze mode, or an administrator can run `/dsp reload`. |
 
-Known limitation: players must sneak to change a candle's `lit` value.
-
 ### Compatibility testing
 
 Continuous integration builds the plugin and starts every stable Paper and Folia
