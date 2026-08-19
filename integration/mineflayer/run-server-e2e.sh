@@ -63,12 +63,26 @@ if [[ ! -f "${PACKETEVENTS_JAR}" ]] || ! echo "${PACKETEVENTS_SHA256}  ${PACKETE
 fi
 echo "${PACKETEVENTS_SHA256}  ${PACKETEVENTS_JAR}" | sha256sum --check --status
 
-if [[ ! -f "${PROJECT_DIR}/target/DebugStickPro-0.5.3.jar" ]]; then
+find_plugin_jars() {
+  find "${PROJECT_DIR}/target" -maxdepth 1 -type f \
+    -name 'DebugStickPro-*.jar' -print 2>/dev/null | sort
+}
+
+mapfile -t plugin_jars < <(find_plugin_jars)
+if (( ${#plugin_jars[@]} == 0 )); then
   mvn -B -f "${PROJECT_DIR}/pom.xml" package
+  mapfile -t plugin_jars < <(find_plugin_jars)
 fi
+if (( ${#plugin_jars[@]} != 1 )); then
+  echo "Expected exactly one DebugStickPro JAR in target, found ${#plugin_jars[@]}" >&2
+  printf '  %s\n' "${plugin_jars[@]}" >&2
+  exit 1
+fi
+readonly PLUGIN_JAR="${plugin_jars[0]}"
+
 cp "${SERVER_JAR}" "${SERVER_DIR}/server.jar"
 cp "${PACKETEVENTS_JAR}" "${SERVER_DIR}/plugins/packetevents.jar"
-cp "${PROJECT_DIR}/target/DebugStickPro-0.5.3.jar" "${SERVER_DIR}/plugins/DebugStickPro.jar"
+cp "${PLUGIN_JAR}" "${SERVER_DIR}/plugins/DebugStickPro.jar"
 
 printf 'eula=true\n' >"${SERVER_DIR}/eula.txt"
 printf '%s\n' \
