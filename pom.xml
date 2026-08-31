@@ -14,7 +14,7 @@
     <properties>
         <java.version>25</java.version>
         <java.release>17</java.release>
-        <paper.version>26.2.build.112-stable</paper.version>
+        <paper.version>26.2.build.119-stable</paper.version>
         <adventure.compile.version>5.2.0</adventure.compile.version>
         <adventure.runtime.version>4.26.1</adventure.runtime.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
