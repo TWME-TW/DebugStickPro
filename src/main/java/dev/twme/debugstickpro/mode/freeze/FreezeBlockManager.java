@@ -24,6 +24,7 @@ import org.bukkit.block.data.Rail;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,8 @@ public class FreezeBlockManager {
         addToIndex(playerFrozenBlocks, playerUUID, location);
         addToIndex(frozenChunks, location.chunk(), location);
         protectedDependentBlocks.remove(location);
+        // Record the anchor before placing it, so a crash can never leave an unrecorded barrier.
+        FreezePersistence.save(frozenBlocks.values());
 
         block.setBlockData(Material.BARRIER.createBlockData(), false);
 
@@ -108,6 +111,10 @@ public class FreezeBlockManager {
         playerFrozenBlocks.clear();
         frozenChunks.clear();
         protectedDependentBlocks.clear();
+    }
+
+    static Collection<FreezeBlockData> getFrozenBlocks() {
+        return frozenBlocks.values();
     }
 
     public static boolean isFreezeBlock(Location location) {
@@ -233,9 +240,11 @@ public class FreezeBlockManager {
         removeFromIndex(playerFrozenBlocks, frozenData.getOwner(), location);
         removeFromIndex(frozenChunks, location.chunk(), location);
         frozenData.getOutline().remove();
+        FreezePersistence.release(frozenData);
 
         Block block = location.getBlock();
         if (block == null) {
+            FreezePersistence.save(frozenBlocks.values());
             return true;
         }
 
@@ -251,6 +260,7 @@ public class FreezeBlockManager {
     private static void restore(Block block, FreezeBlockData frozenData) {
         // Another plugin or command replaced the anchor while frozen; keep its result.
         if (block.getType() != Material.BARRIER) {
+            FreezePersistence.save(frozenBlocks.values());
             FreezePacketLayer.resyncBlock(block);
             return;
         }
@@ -263,6 +273,7 @@ public class FreezeBlockManager {
         restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L, false);
         restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L, true);
 
+        FreezePersistence.save(frozenBlocks.values());
         FreezePacketLayer.resyncBlock(block);
     }
 

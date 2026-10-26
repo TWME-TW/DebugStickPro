@@ -32,12 +32,15 @@ import dev.twme.debugstickpro.listeners.PlayerLocaleChangeEventListener;
 import dev.twme.debugstickpro.listeners.PlayerQuitListener;
 import dev.twme.debugstickpro.listeners.PlayerSwapHandItemsEventListener;
 import dev.twme.debugstickpro.listeners.RightClickListener;
+import dev.twme.debugstickpro.listeners.WorldLoadEventListener;
+import dev.twme.debugstickpro.listeners.WorldSaveEventListener;
 import dev.twme.debugstickpro.listeners.WorldUnloadEventListener;
 import dev.twme.debugstickpro.localization.LangFileManager;
 import dev.twme.debugstickpro.localization.PlayerLanguageManager;
 import dev.twme.debugstickpro.localization.PlayerLocaleResolver;
 import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.mode.freeze.FreezePacketLayer;
+import dev.twme.debugstickpro.mode.freeze.FreezePersistence;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.scheduler.PlatformScheduler;
@@ -93,6 +96,7 @@ public final class DebugStickPro extends JavaPlugin {
         PacketEvents.getAPI().init();
         FreezePacketLayer.initialize();
         virtualEntityManager = VirtualEntities.create();
+        FreezePersistence.initialize(this);
 
         boolean isCoreProtectLoaded = CoreProtectUtil.initCoreProtect();
         if (!isCoreProtectLoaded) {
@@ -195,6 +199,8 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new PlayerJoinListener());
         registerListener(new BlockBreakEventListener());
         registerListener(new PlayerSwapHandItemsEventListener());
+        registerListener(new WorldLoadEventListener());
+        registerListener(new WorldSaveEventListener());
         registerListener(new WorldUnloadEventListener());
         registerListener(new PlayerChangeDebugStickModeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());

@@ -4,7 +4,9 @@ import io.github.twme.virtualentities.VirtualEntity;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -16,6 +18,7 @@ public class FreezeBlockData {
     private final FreezeLocation location;
     private final BlockState originalState;
     private final String blockString;
+    private final Map<Integer, ItemStack> contents;
     private final int clientStateId;
     private final VirtualEntity outline;
 
@@ -24,6 +27,7 @@ public class FreezeBlockData {
         this.location = FreezeLocation.of(block);
         this.originalState = block.getState();
         this.blockString = block.getBlockData().getAsString();
+        this.contents = FreezePersistence.captureContents(originalState);
         this.clientStateId = clientStateId;
         this.outline = outline;
     }
@@ -46,6 +50,13 @@ public class FreezeBlockData {
 
     public Material getOriginalMaterial() {
         return originalState.getType();
+    }
+
+    /**
+     * @return container contents saved for crash recovery, keyed by slot
+     */
+    public Map<Integer, ItemStack> getContents() {
+        return contents;
     }
 
     /**

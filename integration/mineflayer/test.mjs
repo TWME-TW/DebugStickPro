@@ -111,7 +111,19 @@ function waitForOutline(packetOffset, description) {
   ), description)
 }
 
+// Every loaded block column around the target, so a lost chunk section shows up as a change.
+function surroundingColumns(target) {
+  const columns = []
+  for (let dx = -18; dx <= 18; dx += 3) {
+    for (let dz = -18; dz <= 18; dz += 3) {
+      columns.push(bot.blockAt(target.position.offset(dx, -1, dz))?.name ?? 'unloaded')
+    }
+  }
+  return columns
+}
+
 async function exerciseFreezeLifecycle(target, expectedBlockName) {
+  const columnsBefore = surroundingColumns(target)
   const packetOffset = entityPackets.length
   await rightClickBlock(target)
 
@@ -135,6 +147,11 @@ async function exerciseFreezeLifecycle(target, expectedBlockName) {
   await waitFor(
     () => bot.blockAt(target.position)?.name === expectedBlockName,
     `${expectedBlockName} frozen state after chunk reload`
+  )
+  // Chunks arrive gradually after a teleport; a chunk the client dropped never comes back.
+  await waitFor(
+    () => JSON.stringify(surroundingColumns(target)) === JSON.stringify(columnsBefore),
+    'the chunks around a frozen block to arrive intact after a reload'
   )
 
   await bot.waitForTicks(5)
