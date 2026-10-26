@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.utils;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -19,6 +20,18 @@ public final class AutoCheckCanChangeUtil {
      * @return true if the player can change the block
      */
     public static boolean canChange(UUID playerUUID, Block block) {
+        return canChange(playerUUID, block, block.getType());
+    }
+
+    /**
+     * Check if the player can change the block, filtering by a material other than the current one
+     *
+     * @param playerUUID player UUID
+     * @param block block
+     * @param material material checked against the block filter
+     * @return true if the player can change the block
+     */
+    public static boolean canChange(UUID playerUUID, Block block, Material material) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player == null) {
             return false;
@@ -50,7 +63,7 @@ public final class AutoCheckCanChangeUtil {
             }
         }
 
-        if (canChange && !BlockFilterUtil.isAllowed(player, block)) {
+        if (canChange && !BlockFilterUtil.isAllowed(player, material)) {
             canChange = false;
         }
 

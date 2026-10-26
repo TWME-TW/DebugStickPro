@@ -4,6 +4,7 @@ import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.mode.classic.ClassicActionBarDisplay;
 import dev.twme.debugstickpro.mode.copy.CopyActionBarDisplay;
 import dev.twme.debugstickpro.mode.freeze.FreezeActionBarDisplay;
+import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import dev.twme.debugstickpro.playerdata.PlayerData;
 import dev.twme.debugstickpro.playerdata.PlayerDataManager;
 import dev.twme.debugstickpro.scheduler.PlatformScheduler;
@@ -52,7 +53,7 @@ public class ActionBarDisplayTask implements Runnable {
         switch (playerData.getDebugStickMode()) {
             case CLASSIC:
                 Block block = player.getTargetBlockExact(5);
-                ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block == null ? null : block.getBlockData()));
+                ActionbarUtil.sendActionBar(player, ClassicActionBarDisplay.getDisplay(uuid, block == null || FreezeBlockManager.isFreezeBlock(block) ? null : block.getBlockData()));
                 break;
             case COPY:
                 ActionbarUtil.sendActionBar(player, CopyActionBarDisplay.getDisplay(uuid));

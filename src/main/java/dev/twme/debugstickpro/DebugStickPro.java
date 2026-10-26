@@ -25,7 +25,6 @@ import dev.twme.debugstickpro.listeners.ChunkUnloadEventListener;
 import dev.twme.debugstickpro.listeners.FreezeBlockIsolationListener;
 import dev.twme.debugstickpro.listeners.LeftClickListener;
 import dev.twme.debugstickpro.listeners.PlayerChangeDebugStickModeEventListener;
-import dev.twme.debugstickpro.listeners.PlayerChangedWorldEventListener;
 import dev.twme.debugstickpro.listeners.PlayerDropItemListener;
 import dev.twme.debugstickpro.listeners.PlayerItemHeldListener;
 import dev.twme.debugstickpro.listeners.PlayerJoinListener;
@@ -197,7 +196,6 @@ public final class DebugStickPro extends JavaPlugin {
         registerListener(new BlockBreakEventListener());
         registerListener(new PlayerSwapHandItemsEventListener());
         registerListener(new WorldUnloadEventListener());
-        registerListener(new PlayerChangedWorldEventListener());
         registerListener(new PlayerChangeDebugStickModeEventListener());
         registerListener(new PlayerLocaleChangeEventListener());
         registerListener(new PlayerDropItemListener());

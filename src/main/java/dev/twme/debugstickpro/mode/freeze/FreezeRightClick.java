@@ -5,41 +5,64 @@ import dev.twme.debugstickpro.events.FreezeModeUnFreezeBlockEvent;
 import dev.twme.debugstickpro.utils.AutoCheckCanChangeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Directional;
-import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.util.BlockIterator;
 
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FreezeRightClick {
     private static final int TARGET_DISTANCE = 5;
 
-    public static void onRightClick(UUID playerUUID, Action action, Block clickedBlock, BlockFace clickedFace) {
+    /**
+     * A client follows a passed block interaction with an item use; both arrive together.
+     */
+    private static final long FOLLOW_UP_WINDOW_NANOS = 100_000_000L;
+
+    private static final Map<UUID, Long> lastBlockInteraction = new ConcurrentHashMap<>();
+
+    public static void onRightClick(UUID playerUUID, Action action, Block clickedBlock) {
 
         Player player = Bukkit.getPlayer(playerUUID);
         if (player == null) {
             return;
         }
 
-        Block block = resolveTargetBlock(player, action, clickedBlock, clickedFace);
+        long now = System.nanoTime();
+        if (action == Action.RIGHT_CLICK_BLOCK) {
+            lastBlockInteraction.put(playerUUID, now);
+        } else {
+            Long last = lastBlockInteraction.get(playerUUID);
+            if (last != null && now - last < FOLLOW_UP_WINDOW_NANOS) {
+                // Otherwise the follow-up would toggle the block that was just frozen back off.
+                return;
+            }
+        }
+
+        Block block = resolveTargetBlock(player, action, clickedBlock);
         if (block == null) {
             return;
         }
 
-        if (!AutoCheckCanChangeUtil.canChange(playerUUID, block)) {
-            return;
-        }
+        FreezeBlockData frozenData = FreezeBlockManager.getFrozenBlock(block);
+        if (frozenData != null) {
+            // The server block is the barrier anchor; check permissions against the frozen block.
+            if (!AutoCheckCanChangeUtil.canChange(playerUUID, block, frozenData.getOriginalMaterial())) {
+                return;
+            }
 
-        if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
             FreezeModeUnFreezeBlockEvent freezeModeUnFreezeBlockEvent = new FreezeModeUnFreezeBlockEvent(playerUUID, block);
             Bukkit.getPluginManager().callEvent(freezeModeUnFreezeBlockEvent);
             if (freezeModeUnFreezeBlockEvent.isCancelled()) {
                 return;
             }
-            FreezeBlockManager.removeOneBlock(playerUUID, block);
+            FreezeBlockManager.unfreezeBlock(block);
+            return;
+        }
+
+        if (block.getType().isAir() || !AutoCheckCanChangeUtil.canChange(playerUUID, block)) {
             return;
         }
 
@@ -51,114 +74,37 @@ public class FreezeRightClick {
         FreezeBlockManager.freezeBlock(playerUUID, block);
     }
 
-    private static Block resolveTargetBlock(Player player, Action action, Block clickedBlock, BlockFace clickedFace) {
-        Block frozenClickedTarget = resolveFrozenClickedTarget(clickedBlock, clickedFace);
-        if (frozenClickedTarget != null) {
-            return frozenClickedTarget;
-        }
-
-        Block frozenSightTarget = resolveFrozenSightTarget(player, clickedBlock);
-        if (frozenSightTarget != null) {
-            return frozenSightTarget;
-        }
-
+    /**
+     * Frozen blocks occupy their whole cell on the server even when the client shows a smaller
+     * shape, so the first frozen cell on the sight line wins over the block the client hit.
+     */
+    private static Block resolveTargetBlock(Player player, Action action, Block clickedBlock) {
         if (action == Action.RIGHT_CLICK_BLOCK && clickedBlock != null) {
-            Block supportBlock = resolveFrozenSupportBlock(clickedBlock, clickedFace);
-            if (supportBlock != null) {
-                return supportBlock;
-            }
-
-            return clickedBlock;
+            Block frozenOnSightLine = findFrozenOnSightLine(player, clickedBlock);
+            return frozenOnSightLine != null ? frozenOnSightLine : clickedBlock;
         }
 
-        if (action == Action.RIGHT_CLICK_AIR || clickedBlock == null) {
-            return resolveAirTarget(player);
-        }
-
-        return null;
+        // The client hit nothing, e.g. a frozen fluid or the empty part of a frozen torch.
+        // The server ray trace stops at barrier anchors, so frozen blocks are found as well.
+        return player.getTargetBlockExact(TARGET_DISTANCE);
     }
 
-    private static Block resolveFrozenClickedTarget(Block clickedBlock, BlockFace clickedFace) {
-        if (clickedBlock == null) {
-            return null;
-        }
-        if (FreezeBlockManager.isFreezeBlock(clickedBlock.getLocation())) {
-            return clickedBlock;
-        }
-        if (clickedFace == null || clickedFace == BlockFace.SELF) {
+    private static Block findFrozenOnSightLine(Player player, Block clickedBlock) {
+        if (clickedBlock.getWorld() != player.getWorld()) {
             return null;
         }
 
-        Block blockInFront = clickedBlock.getRelative(clickedFace);
-        return FreezeBlockManager.isFreezeBlock(blockInFront.getLocation()) ? blockInFront : null;
-    }
-
-    private static Block resolveFrozenSightTarget(Player player, Block clickedBlock) {
-        BlockIterator sightLine = new BlockIterator(player, TARGET_DISTANCE);
+        int distance = (int) Math.ceil(player.getEyeLocation().distance(clickedBlock.getLocation().add(0.5, 0.5, 0.5))) + 1;
+        BlockIterator sightLine = new BlockIterator(player, Math.max(1, distance));
         while (sightLine.hasNext()) {
             Block block = sightLine.next();
-            if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
-                return block;
-            }
-            if (clickedBlock != null && clickedBlock.equals(block)) {
+            if (block.equals(clickedBlock)) {
                 return null;
             }
-        }
-        return null;
-    }
-
-    private static Block resolveAirTarget(Player player) {
-        Block normalTarget = player.getTargetBlockExact(TARGET_DISTANCE);
-        // BlockIterator also visits air cells, so display-only frozen blocks remain targetable.
-        BlockIterator sightLine = new BlockIterator(player, TARGET_DISTANCE);
-
-        while (sightLine.hasNext()) {
-            Block block = sightLine.next();
-            if (FreezeBlockManager.isFreezeBlock(block.getLocation())) {
+            if (FreezeBlockManager.isFreezeBlock(block)) {
                 return block;
             }
-
-            if (normalTarget != null && normalTarget.equals(block)) {
-                return normalTarget;
-            }
         }
-
-        return normalTarget;
-    }
-
-    private static Block resolveFrozenSupportBlock(Block clickedBlock, BlockFace clickedFace) {
-        if (!(clickedBlock.getBlockData() instanceof FaceAttachable faceAttachable)) {
-            return null;
-        }
-
-        BlockFace supportFace = resolveSupportFace(clickedBlock, faceAttachable, clickedFace);
-        if (supportFace == null || supportFace == BlockFace.SELF) {
-            return null;
-        }
-
-        Block supportBlock = clickedBlock.getRelative(supportFace);
-        if (FreezeBlockManager.isFreezeBlock(supportBlock.getLocation())) {
-            return supportBlock;
-        }
-
         return null;
-    }
-
-    private static BlockFace resolveSupportFace(Block clickedBlock, FaceAttachable faceAttachable, BlockFace clickedFace) {
-        return switch (faceAttachable.getAttachedFace()) {
-            case FLOOR -> BlockFace.DOWN;
-            case CEILING -> BlockFace.UP;
-            case WALL -> {
-                if (clickedBlock.getBlockData() instanceof Directional directional) {
-                    yield directional.getFacing().getOppositeFace();
-                }
-
-                if (clickedFace != null && clickedFace != BlockFace.SELF) {
-                    yield clickedFace.getOppositeFace();
-                }
-
-                yield null;
-            }
-        };
     }
 }

@@ -13,6 +13,7 @@ import dev.twme.debugstickpro.blockdatautil.subdata.redstonewire.RedstoneWireWes
 import dev.twme.debugstickpro.blockdatautil.subdata.wallheight.*;
 import dev.twme.debugstickpro.config.ConfigFile;
 import dev.twme.debugstickpro.localization.Lang;
+import dev.twme.debugstickpro.mode.freeze.FreezeBlockManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -57,6 +58,10 @@ public class BlockDataSeparater {
      * @return ArrayList of SubBlockData.
      */
     public static ArrayList<SubBlockData> separate(Block block, UUID playerUUID) {
+        // A frozen block is a barrier anchor on the server and must not be edited in place.
+        if (FreezeBlockManager.isFreezeBlock(block)) {
+            return new ArrayList<>();
+        }
         return separate(block.getBlockData(), playerUUID);
     }
 
