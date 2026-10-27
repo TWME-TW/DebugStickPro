@@ -1,43 +1,41 @@
 package dev.twme.debugstickpro.mode.freeze;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 
 import java.util.UUID;
 
-public class FreezeLocation {
-    private final int x;
-    private final int y;
-    private final int z;
-    private final Location location;
-    private final UUID worldUUID;
+/**
+ * Immutable block coordinate that does not keep a world reference alive.
+ */
+public record FreezeLocation(UUID worldUUID, int x, int y, int z) {
 
+    public static FreezeLocation of(Location location) {
+        return new FreezeLocation(location.getWorld().getUID(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
 
-    public FreezeLocation(Location location) {
-        this.location = location;
-        this.worldUUID = location.getWorld().getUID();
-        this.x = (int) location.getX();
-        this.y = (int) location.getY();
-        this.z = (int) location.getZ();
+    public static FreezeLocation of(Block block) {
+        return new FreezeLocation(block.getWorld().getUID(), block.getX(), block.getY(), block.getZ());
+    }
+
+    public FreezeChunk chunk() {
+        return new FreezeChunk(worldUUID, x >> 4, z >> 4);
+    }
+
+    /**
+     * @return the block at this location, or null when its world is no longer loaded
+     */
+    public Block getBlock() {
+        World world = Bukkit.getWorld(worldUUID);
+        return world == null ? null : world.getBlockAt(x, y, z);
     }
 
     public Location getLocation() {
-        return location;
+        return new Location(Bukkit.getWorld(worldUUID), x, y, z);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FreezeLocation thisData)) return false;
-
-        return thisData.x == this.x && thisData.y == this.y && thisData.z == this.z && thisData.worldUUID.equals(this.worldUUID);
-    }
-
-    @Override
-    public int hashCode() {
-        long result = worldUUID.hashCode();
-        result = 31 * result + x;
-        result = 31 * result + y;
-        result = 31 * result + z;
-        return (int) (result % Integer.MAX_VALUE);
+    public record FreezeChunk(UUID worldUUID, int x, int z) {
     }
 }

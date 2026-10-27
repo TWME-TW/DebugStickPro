@@ -17,5 +17,6 @@ public class PlayerQuitListener implements Listener {
         PlayerDataManager.removePlayerData(uuid);
         PlayerLanguageManager.removePlayerLocale(uuid);
         FreezeBlockManager.removeAllPlayerFrozenBlock(uuid);
+        FreezeBlockManager.removeViewer(uuid);
     }
 }

@@ -59,8 +59,9 @@ Copy mode only applies properties shared by the source and destination. It does 
 replace the destination block's material or copy container contents.
 
 Freeze mode is temporary. Frozen blocks are restored when their owner disconnects,
-when the plugin is disabled, or when an administrator reloads DebugStickPro. It is
-not a persistent block-lock system.
+when the plugin is disabled, or when an administrator reloads DebugStickPro. If the
+server stops unexpectedly, they are restored the next time DebugStickPro starts. It
+is not a persistent block-lock system.
 
 ### Mode previews
 

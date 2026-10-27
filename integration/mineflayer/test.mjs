@@ -97,46 +97,81 @@ function blockProperty(position, property) {
   return bot.blockAt(position)?.getProperties()?.[property]
 }
 
+function spawnedDisplays(packetOffset) {
+  return entityPackets.slice(packetOffset).filter(packet =>
+    packet.name.includes('spawn_entity') &&
+    (packet.type === bot.registry.entitiesByName.item_display.id ||
+      packet.type === bot.registry.entitiesByName.block_display.id)
+  )
+}
+
+function waitForOutline(packetOffset, description) {
+  return waitFor(() => spawnedDisplays(packetOffset).find(packet =>
+    packet.type === bot.registry.entitiesByName.item_display.id
+  ), description)
+}
+
+// Every loaded block column around the target, so a lost chunk section shows up as a change.
+function surroundingColumns(target) {
+  const columns = []
+  for (let dx = -18; dx <= 18; dx += 3) {
+    for (let dz = -18; dz <= 18; dz += 3) {
+      columns.push(bot.blockAt(target.position.offset(dx, -1, dz))?.name ?? 'unloaded')
+    }
+  }
+  return columns
+}
+
 async function exerciseFreezeLifecycle(target, expectedBlockName) {
+  const columnsBefore = surroundingColumns(target)
   const packetOffset = entityPackets.length
   await rightClickBlock(target)
 
-  const displays = await waitFor(() => {
-    const packets = entityPackets.slice(packetOffset)
-    const itemDisplay = packets.find(packet =>
-      packet.name.includes('spawn_entity') && packet.type === bot.registry.entitiesByName.item_display.id
-    )
-    const blockDisplay = packets.find(packet =>
-      packet.name.includes('spawn_entity') && packet.type === bot.registry.entitiesByName.block_display.id
-    )
-    return itemDisplay && blockDisplay ? { itemDisplay, blockDisplay } : null
-  }, 'VirtualEntities Item Display and Block Display')
+  const outline = await waitForOutline(packetOffset, 'frozen block outline')
+  await bot.waitForTicks(5)
+  assert.equal(
+    bot.blockAt(target.position)?.name,
+    expectedBlockName,
+    'a frozen block must stay visible as its frozen state instead of the server anchor'
+  )
+
+  // Leave and re-enter the chunk: the client drops entities and receives the barrier anchor again.
+  const home = bot.entity.position.clone()
+  bot.chat(`/tp ${Math.floor(home.x) + 2000} ${Math.floor(home.y)} ${Math.floor(home.z)}`)
+  await waitFor(() => bot.entity.position.distanceTo(home) > 1000, 'teleport away')
+  await bot.waitForTicks(40)
+  const reloadOffset = entityPackets.length
+  bot.chat(`/tp ${home.x} ${home.y} ${home.z}`)
+  await waitFor(() => bot.entity.position.distanceTo(home) < 1, 'teleport back')
+  const replayedOutline = await waitForOutline(reloadOffset, 'outline after chunk reload')
+  await waitFor(
+    () => bot.blockAt(target.position)?.name === expectedBlockName,
+    `${expectedBlockName} frozen state after chunk reload`
+  )
+  // Chunks arrive gradually after a teleport; a chunk the client dropped never comes back.
+  await waitFor(
+    () => JSON.stringify(surroundingColumns(target)) === JSON.stringify(columnsBefore),
+    'the chunks around a frozen block to arrive intact after a reload'
+  )
 
   await bot.waitForTicks(5)
   await bot.lookAt(target.position.offset(0.5, 0.5, 0.5), true)
-  await rightClickBlock(target)
+  await rightClickBlock(bot.blockAt(target.position))
 
   await waitFor(
-    () => {
-      const destroyPackets = entityPackets.slice(packetOffset)
-        .filter(packet => packet.name === 'entity_destroy')
-      const removed = entityId => destroyPackets.some(packet =>
-        Array.from(packet.entityIds ?? []).includes(entityId)
-      )
-      return removed(displays.itemDisplay.entityId) && removed(displays.blockDisplay.entityId)
-    },
-    'VirtualEntities removal'
+    () => entityPackets.slice(reloadOffset)
+      .filter(packet => packet.name === 'entity_destroy')
+      .some(packet => Array.from(packet.entityIds ?? []).includes(replayedOutline.entityId)),
+    'outline removal'
   )
 
   await bot.waitForTicks(10)
-  const displayEntityIds = new Set(entityPackets.slice(packetOffset)
-    .filter(packet =>
-      packet.name.includes('spawn_entity') &&
-      (packet.type === bot.registry.entitiesByName.item_display.id ||
-        packet.type === bot.registry.entitiesByName.block_display.id)
-    )
-    .map(packet => packet.entityId))
-  assert.equal(displayEntityIds.size, 2, 'unfreezing must not freeze a block behind the target')
+  const displayEntityIds = new Set(spawnedDisplays(packetOffset).map(packet => packet.entityId))
+  assert.deepEqual(
+    [...displayEntityIds],
+    [outline.entityId],
+    'one outline per frozen block, and unfreezing must not freeze a block behind the target'
+  )
   await waitFor(
     () => bot.blockAt(target.position)?.name === expectedBlockName,
     `${expectedBlockName} block restoration`
@@ -242,7 +277,9 @@ try {
     command: true,
     candleWithoutSneaking: true,
     miniMessageItem: debugStick.customName?.toString() ?? debugStick.displayName,
-    virtualEntities: ['item_display', 'block_display'],
+    outline: 'item_display',
+    fakeFrozenBlock: true,
+    chunkReload: true,
     removal: true,
     barrierRestoration: true
   }))

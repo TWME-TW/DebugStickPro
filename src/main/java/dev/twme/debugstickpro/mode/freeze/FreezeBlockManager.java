@@ -1,167 +1,181 @@
 package dev.twme.debugstickpro.mode.freeze;
 
+import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import com.github.retrooper.packetevents.util.Vector3f;
 import dev.twme.debugstickpro.DebugStickPro;
 import dev.twme.debugstickpro.scheduler.PlatformScheduler;
-import dev.twme.debugstickpro.utils.PersistentKeys;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import io.github.twme.virtualentities.VirtualEntity;
-import io.github.twme.virtualentities.VirtualEntityManager;
 import io.github.twme.virtualentities.VirtualViewer;
 import io.github.twme.virtualentities.metadata.EntityMetadataFlags;
 import io.github.twme.virtualentities.metadata.GeneratedEntityMetadataKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.block.data.Rail;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Frozen blocks are anchored as barriers on the server, so neighbor shape updates
+ * cannot change them. Clients keep seeing the frozen block state through fake
+ * block packets (see {@link FreezePacketLayer}) and a glowing outline entity.
+ */
 public class FreezeBlockManager {
     private static final BlockFace[] ADJACENT_FACES = {
             BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN
     };
 
-    private static final Set<FreezeLocation> freezeBlockLocations = ConcurrentHashMap.newKeySet();
-    private static final Map<UUID, CopyOnWriteArrayList<FreezeBlockData>> playerFrozenBlockData = new ConcurrentHashMap<>();
+    private static final Map<FreezeLocation, FreezeBlockData> frozenBlocks = new ConcurrentHashMap<>();
+    private static final Map<UUID, Set<FreezeLocation>> playerFrozenBlocks = new ConcurrentHashMap<>();
+    private static final Map<FreezeLocation.FreezeChunk, Set<FreezeLocation>> frozenChunks = new ConcurrentHashMap<>();
     private static final Map<FreezeLocation, String> protectedDependentBlocks = new ConcurrentHashMap<>();
 
     public static void freezeBlock(UUID playerUUID, Block block) {
-        FreezeLocation freezeLocation = new FreezeLocation(block.getLocation());
-        if (freezeBlockLocations.contains(freezeLocation)) {
+        FreezeLocation location = FreezeLocation.of(block);
+        if (frozenBlocks.containsKey(location)) {
             return;
         }
 
-        CopyOnWriteArrayList<FreezeBlockData> freezeBlockList = playerFrozenBlockData.computeIfAbsent(
-                playerUUID,
-                ignored -> new CopyOnWriteArrayList<>()
-        );
-        FreezeBlockData freezeBlock = freezeBlockBuilder(block.getLocation());
-        freezeBlockList.add(freezeBlock);
-        freezeBlockLocations.add(freezeLocation);
+        int clientStateId = SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId();
+        FreezeBlockData frozenData = new FreezeBlockData(playerUUID, block, clientStateId, createOutline(block));
+
+        // Register before the anchor is placed so the barrier update is rewritten to the frozen state.
+        frozenBlocks.put(location, frozenData);
+        addToIndex(playerFrozenBlocks, playerUUID, location);
+        addToIndex(frozenChunks, location.chunk(), location);
+        protectedDependentBlocks.remove(location);
+        // Record the anchor before placing it, so a crash can never leave an unrecorded barrier.
+        FreezePersistence.save(frozenBlocks.values());
 
         block.setBlockData(Material.BARRIER.createBlockData(), false);
+
+        for (Player player : block.getWorld().getPlayers()) {
+            FreezePacketLayer.sendBlockState(player, location, clientStateId);
+            frozenData.getOutline().addViewer(viewerOf(player));
+        }
     }
 
-    public static void removeOneBlock(UUID playerUUID, Block block) {
-        CopyOnWriteArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
-        if (freezeBlocks == null) {
-            return;
-        }
-
-        FreezeLocation freezeLocation = new FreezeLocation(block.getLocation());
-        if (!freezeBlockLocations.contains(freezeLocation)) {
-            return;
-        }
-
-        for (FreezeBlockData frozenData : freezeBlocks) {
-            if (!frozenData.getBlock().getLocation().equals(block.getLocation())) {
-                continue;
-            }
-
-            Map<FreezeLocation, String> dependentSnapshot = captureDependentNeighborSnapshot(block);
-
-            restoreFrozenBlock(block, frozenData);
-            restoreDependentNeighborSnapshot(dependentSnapshot);
-            registerProtectedDependentSnapshot(dependentSnapshot);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L, false);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L, true);
-
-            removeDisplayEntity(frozenData.getItemDisplay());
-            removeDisplayEntity(frozenData.getBlockDisplay());
-
-            freezeBlockLocations.remove(freezeLocation);
-            freezeBlocks.remove(frozenData);
-            FreezePacketLayer.resyncBlock(block);
-            if (freezeBlocks.isEmpty()) {
-                playerFrozenBlockData.remove(playerUUID);
-            }
-            return;
-        }
+    /**
+     * Unfreezes a block regardless of which player froze it.
+     *
+     * @return true if the block was frozen
+     */
+    public static boolean unfreezeBlock(Block block) {
+        return unfreeze(FreezeLocation.of(block), true);
     }
 
     public static void removeAllPlayerFrozenBlock(UUID playerUUID) {
-        CopyOnWriteArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.remove(playerUUID);
-        if (freezeBlocks == null) {
+        Set<FreezeLocation> locations = playerFrozenBlocks.remove(playerUUID);
+        if (locations == null) {
             return;
         }
 
-        for (FreezeBlockData frozenData : freezeBlocks) {
-            Block block = frozenData.getBlock();
-            Map<FreezeLocation, String> dependentSnapshot = captureDependentNeighborSnapshot(block);
-
-            restoreFrozenBlock(block, frozenData);
-            restoreDependentNeighborSnapshot(dependentSnapshot);
-            registerProtectedDependentSnapshot(dependentSnapshot);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L, false);
-            restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L, true);
-
-            removeDisplayEntity(frozenData.getItemDisplay());
-            removeDisplayEntity(frozenData.getBlockDisplay());
-            freezeBlockLocations.remove(new FreezeLocation(block.getLocation()));
-            FreezePacketLayer.resyncBlock(block);
+        for (FreezeLocation location : locations) {
+            unfreeze(location, true);
         }
     }
 
-    public static boolean isFreezeBlock(Location location) {
-        return freezeBlockLocations.contains(new FreezeLocation(location));
-    }
-
-    public static void removeOnChunkLoadOrUnload(Entity entity) {
-        PersistentDataContainer container = entity.getPersistentDataContainer();
-        if (!container.has(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)) {
-            return;
+    public static void removeAllInWorld(World world) {
+        UUID worldUUID = world.getUID();
+        for (FreezeLocation location : new ArrayList<>(frozenBlocks.keySet())) {
+            if (location.worldUUID().equals(worldUUID)) {
+                unfreeze(location, false);
+            }
         }
-
-        UUID playerUUID = UUID.fromString(Objects.requireNonNull(container.get(PersistentKeys.FREEZE_BLOCK_DISPLAY, PersistentDataType.STRING)));
-        removeOneBlock(playerUUID, entity.getLocation().getBlock());
+        protectedDependentBlocks.keySet().removeIf(location -> location.worldUUID().equals(worldUUID));
     }
 
     public static void removeOnServerClose() {
-        if (!playerFrozenBlockData.isEmpty()) {
-            for (UUID playerUUID : new ArrayList<>(playerFrozenBlockData.keySet())) {
-                removeAllPlayerFrozenBlock(playerUUID);
-            }
+        for (FreezeLocation location : new ArrayList<>(frozenBlocks.keySet())) {
+            unfreeze(location, false);
         }
 
-        freezeBlockLocations.clear();
+        frozenBlocks.clear();
+        playerFrozenBlocks.clear();
+        frozenChunks.clear();
         protectedDependentBlocks.clear();
     }
 
+    static Collection<FreezeBlockData> getFrozenBlocks() {
+        return frozenBlocks.values();
+    }
+
+    public static boolean isFreezeBlock(Location location) {
+        return frozenBlocks.containsKey(FreezeLocation.of(location));
+    }
+
+    public static boolean isFreezeBlock(Block block) {
+        return frozenBlocks.containsKey(FreezeLocation.of(block));
+    }
+
+    /**
+     * @return the frozen block at this location, or null when it is not frozen
+     */
+    public static FreezeBlockData getFrozenBlock(Block block) {
+        return frozenBlocks.get(FreezeLocation.of(block));
+    }
+
+    static FreezeBlockData getFrozenBlock(FreezeLocation location) {
+        return frozenBlocks.get(location);
+    }
+
+    static List<FreezeBlockData> getFrozenBlocksInChunk(FreezeLocation.FreezeChunk chunk) {
+        Set<FreezeLocation> locations = frozenChunks.get(chunk);
+        if (locations == null) {
+            return List.of();
+        }
+
+        List<FreezeBlockData> result = new ArrayList<>(locations.size());
+        for (FreezeLocation location : locations) {
+            FreezeBlockData frozenData = frozenBlocks.get(location);
+            if (frozenData != null) {
+                result.add(frozenData);
+            }
+        }
+        return result;
+    }
+
     public static int getFreezeBlockCount(UUID playerUUID) {
-        CopyOnWriteArrayList<FreezeBlockData> freezeBlocks = playerFrozenBlockData.get(playerUUID);
-        return freezeBlocks == null ? 0 : freezeBlocks.size();
+        Set<FreezeLocation> locations = playerFrozenBlocks.get(playerUUID);
+        return locations == null ? 0 : locations.size();
+    }
+
+    /**
+     * Stops sending outline packets to a player that left the server.
+     */
+    public static void removeViewer(UUID playerUUID) {
+        for (FreezeBlockData frozenData : frozenBlocks.values()) {
+            removeOutlineViewer(frozenData, playerUUID);
+        }
     }
 
     public static boolean isProtectedDependent(Location location) {
-        return protectedDependentBlocks.containsKey(new FreezeLocation(location));
+        return protectedDependentBlocks.containsKey(FreezeLocation.of(location));
     }
 
-    public static String getProtectedDependentData(Location location) {
-        return protectedDependentBlocks.get(new FreezeLocation(location));
+    static String getProtectedDependentData(FreezeLocation location) {
+        return protectedDependentBlocks.get(location);
     }
 
     public static boolean maintainProtectedDependent(Block block) {
-        FreezeLocation freezeLocation = new FreezeLocation(block.getLocation());
+        FreezeLocation freezeLocation = FreezeLocation.of(block);
         String expectedData = protectedDependentBlocks.get(freezeLocation);
         if (expectedData == null) {
             return false;
@@ -187,21 +201,87 @@ public class FreezeBlockManager {
     }
 
     public static void removeProtectedDependent(Location location) {
-        protectedDependentBlocks.remove(new FreezeLocation(location));
+        protectedDependentBlocks.remove(FreezeLocation.of(location));
     }
 
-    private static FreezeBlockData freezeBlockBuilder(Location location) {
+    static VirtualViewer viewerOf(Player player) {
+        var playerManager = PacketEvents.getAPI().getPlayerManager();
+        return VirtualViewer.of(
+                player.getUniqueId(),
+                playerManager.getClientVersion(player),
+                packet -> playerManager.sendPacket(player, packet)
+        );
+    }
+
+    static void addOutlineViewer(FreezeBlockData frozenData, VirtualViewer viewer) {
+        try {
+            // A new viewer object makes VirtualEntities destroy and respawn the outline,
+            // which is required after the client dropped it together with its chunk.
+            frozenData.getOutline().addViewer(viewer);
+        } catch (IllegalStateException ignored) {
+            // The block was unfrozen concurrently.
+        }
+    }
+
+    static void removeOutlineViewer(FreezeBlockData frozenData, UUID viewerUUID) {
+        try {
+            frozenData.getOutline().removeViewer(viewerUUID);
+        } catch (IllegalStateException ignored) {
+            // The block was unfrozen concurrently.
+        }
+    }
+
+    private static boolean unfreeze(FreezeLocation location, boolean schedule) {
+        FreezeBlockData frozenData = frozenBlocks.remove(location);
+        if (frozenData == null) {
+            return false;
+        }
+
+        removeFromIndex(playerFrozenBlocks, frozenData.getOwner(), location);
+        removeFromIndex(frozenChunks, location.chunk(), location);
+        frozenData.getOutline().remove();
+        FreezePersistence.release(frozenData);
+
         Block block = location.getBlock();
-        BlockState originalState = block.getState();
+        if (block == null) {
+            FreezePersistence.save(frozenBlocks.values());
+            return true;
+        }
 
-        Location entityLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
+        DebugStickPro plugin = DebugStickPro.getInstance();
+        if (schedule && plugin != null && plugin.isEnabled()) {
+            PlatformScheduler.runAtLocation(plugin, block.getLocation(), () -> restore(block, frozenData));
+        } else {
+            restore(block, frozenData);
+        }
+        return true;
+    }
 
-        UUID itemDisplayUUID = UUID.randomUUID();
-        UUID blockDisplayUUID = UUID.randomUUID();
+    private static void restore(Block block, FreezeBlockData frozenData) {
+        // Another plugin or command replaced the anchor while frozen; keep its result.
+        if (block.getType() != Material.BARRIER) {
+            FreezePersistence.save(frozenBlocks.values());
+            FreezePacketLayer.resyncBlock(block);
+            return;
+        }
 
-        VirtualEntityManager entityManager = DebugStickPro.getInstance().getVirtualEntityManager();
-        VirtualEntity itemDisplay = entityManager.entity(EntityTypes.ITEM_DISPLAY)
-                .uuid(itemDisplayUUID)
+        Map<FreezeLocation, String> dependentSnapshot = captureDependentNeighborSnapshot(block);
+
+        restoreFrozenBlock(block, frozenData);
+        restoreDependentNeighborSnapshot(dependentSnapshot);
+        registerProtectedDependentSnapshot(dependentSnapshot);
+        restoreDependentNeighborSnapshotLater(dependentSnapshot, 1L, false);
+        restoreDependentNeighborSnapshotLater(dependentSnapshot, 2L, true);
+
+        FreezePersistence.save(frozenBlocks.values());
+        FreezePacketLayer.resyncBlock(block);
+    }
+
+    private static VirtualEntity createOutline(Block block) {
+        Location center = block.getLocation().add(0.5, 0.5, 0.5);
+        VirtualEntity itemDisplay = DebugStickPro.getInstance().getVirtualEntityManager()
+                .entity(EntityTypes.ITEM_DISPLAY)
+                .uuid(UUID.randomUUID())
                 .metadata()
                 .build();
         ItemStack itemStack = ItemStack.builder().type(ItemTypes.TINTED_GLASS).amount(1).build();
@@ -209,43 +289,12 @@ public class FreezeBlockManager {
                 .set(GeneratedEntityMetadataKeys.ItemDisplay.ITEM_STACK, itemStack)
                 .set(GeneratedEntityMetadataKeys.Display.SCALE, new Vector3f(1.001F, 1.001F, 1.001F))
                 .setFlag(EntityMetadataFlags.GLOWING, true);
-        addViewers(itemDisplay);
-        itemDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(entityLocation));
-
-        Location blockDisplayLocation = SpecialBlockFilter.filter(block.getType(), location);
-        VirtualEntity blockDisplay = entityManager.entity(EntityTypes.BLOCK_DISPLAY)
-                .uuid(blockDisplayUUID)
-                .metadata()
-                .build();
-        blockDisplay.metadata().set(
-                GeneratedEntityMetadataKeys.BlockDisplay.BLOCK_STATE,
-                SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId()
-        );
-        addViewers(blockDisplay);
-        blockDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(blockDisplayLocation));
-
-        return new FreezeBlockData(itemDisplayUUID, blockDisplayUUID, block, originalState);
-    }
-
-    private static void addViewers(VirtualEntity virtualEntity) {
-        var playerManager = com.github.retrooper.packetevents.PacketEvents.getAPI().getPlayerManager();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            VirtualViewer viewer = VirtualViewer.of(
-                    player.getUniqueId(),
-                    playerManager.getClientVersion(player),
-                    packet -> playerManager.sendPacket(player, packet)
-            );
-            virtualEntity.addViewer(viewer);
-        }
+        itemDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(center));
+        return itemDisplay;
     }
 
     private static void restoreFrozenBlock(Block block, FreezeBlockData frozenData) {
-        boolean restored = false;
-
-        BlockState originalState = frozenData.getOriginalState();
-        if (originalState != null) {
-            restored = originalState.update(true, false);
-        }
+        boolean restored = frozenData.getOriginalState().update(true, false);
 
         String expectedBlockData = frozenData.getBlockString();
         if (!restored || !expectedBlockData.equals(block.getBlockData().getAsString())) {
@@ -259,7 +308,7 @@ public class FreezeBlockManager {
             Block neighbor = center.getRelative(face);
             BlockData blockData = neighbor.getBlockData();
             if (blockData instanceof FaceAttachable || blockData instanceof Rail) {
-                snapshot.put(new FreezeLocation(neighbor.getLocation()), blockData.getAsString());
+                snapshot.put(FreezeLocation.of(neighbor), blockData.getAsString());
             }
         }
         return snapshot;
@@ -267,11 +316,7 @@ public class FreezeBlockManager {
 
     private static void restoreDependentNeighborSnapshot(Map<FreezeLocation, String> snapshot) {
         for (Map.Entry<FreezeLocation, String> entry : snapshot.entrySet()) {
-            Block block = entry.getKey().getLocation().getBlock();
-            String expectedData = entry.getValue();
-            if (!expectedData.equals(block.getBlockData().getAsString())) {
-                block.setBlockData(Bukkit.createBlockData(expectedData), false);
-            }
+            restoreDependentNeighbor(entry);
         }
     }
 
@@ -297,7 +342,11 @@ public class FreezeBlockManager {
     }
 
     private static void restoreDependentNeighbor(Map.Entry<FreezeLocation, String> entry) {
-        Block block = entry.getKey().getLocation().getBlock();
+        Block block = entry.getKey().getBlock();
+        if (block == null) {
+            return;
+        }
+
         String expectedData = entry.getValue();
         if (!expectedData.equals(block.getBlockData().getAsString())) {
             block.setBlockData(Bukkit.createBlockData(expectedData), false);
@@ -305,7 +354,8 @@ public class FreezeBlockManager {
     }
 
     private static void cleanupVerifiedDependent(Map.Entry<FreezeLocation, String> entry) {
-        if (entry.getValue().equals(entry.getKey().getLocation().getBlock().getBlockData().getAsString())) {
+        Block block = entry.getKey().getBlock();
+        if (block == null || entry.getValue().equals(block.getBlockData().getAsString())) {
             protectedDependentBlocks.remove(entry.getKey());
         }
     }
@@ -314,7 +364,18 @@ public class FreezeBlockManager {
         protectedDependentBlocks.putAll(snapshot);
     }
 
-    private static void removeDisplayEntity(UUID entityUUID) {
-        DebugStickPro.getInstance().getVirtualEntityManager().find(entityUUID).ifPresent(VirtualEntity::remove);
+    private static <K> void addToIndex(Map<K, Set<FreezeLocation>> index, K key, FreezeLocation location) {
+        index.compute(key, (ignored, locations) -> {
+            Set<FreezeLocation> result = locations == null ? ConcurrentHashMap.newKeySet() : locations;
+            result.add(location);
+            return result;
+        });
+    }
+
+    private static <K> void removeFromIndex(Map<K, Set<FreezeLocation>> index, K key, FreezeLocation location) {
+        index.computeIfPresent(key, (ignored, locations) -> {
+            locations.remove(location);
+            return locations.isEmpty() ? null : locations;
+        });
     }
 }
