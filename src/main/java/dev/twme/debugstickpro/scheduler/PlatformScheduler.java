@@ -36,6 +36,14 @@ public final class PlatformScheduler {
         runnable.run();
     }
 
+    public static void runAtLocation(Plugin plugin, Location location, Runnable runnable) {
+        if (FOLIA && !Bukkit.isOwnedByCurrentRegion(location)) {
+            Bukkit.getRegionScheduler().execute(plugin, location, runnable);
+            return;
+        }
+        runnable.run();
+    }
+
     public static void runAtLocationLater(Plugin plugin, Location location, Runnable runnable, long delayTicks) {
         long delay = Math.max(1L, delayTicks);
         if (FOLIA) {

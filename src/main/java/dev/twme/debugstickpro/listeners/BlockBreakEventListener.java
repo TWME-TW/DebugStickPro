@@ -15,7 +15,7 @@ public class BlockBreakEventListener implements Listener {
             return;
         }
 
-        if (FreezeBlockManager.isFreezeBlock(location)) {
+        if (FreezeBlockManager.isFreezeBlock(event.getBlock())) {
             event.setCancelled(true);
             return;
         }

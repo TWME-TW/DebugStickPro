@@ -248,7 +248,7 @@ public class PlayerDataManager {
                 CopyRightClick.onRightClick(uuid, playerData, targetBlock);
                 break;
             case FREEZE:
-                FreezeRightClick.onRightClick(uuid, action, clickedBlock, clickedFace);
+                FreezeRightClick.onRightClick(uuid, action, clickedBlock);
                 break;
         }
     }

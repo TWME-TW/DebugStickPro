@@ -114,6 +114,11 @@ public class FreezeBlockIsolationListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
+        // The client may show a replaceable block (grass, snow) where the server holds the anchor.
+        if (isFrozen(event.getBlockPlaced())) {
+            event.setCancelled(true);
+            return;
+        }
         FreezeBlockManager.removeProtectedDependent(event.getBlockPlaced().getLocation());
     }
 
@@ -152,7 +157,7 @@ public class FreezeBlockIsolationListener implements Listener {
     }
 
     private static boolean isFrozen(Block block) {
-        return FreezeBlockManager.isFreezeBlock(block.getLocation());
+        return FreezeBlockManager.isFreezeBlock(block);
     }
 
     private static boolean isProtected(Block block) {

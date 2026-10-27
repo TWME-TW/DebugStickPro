@@ -3,6 +3,7 @@ package dev.twme.debugstickpro.utils;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -18,6 +19,17 @@ public final class BlockFilterUtil {
      * @return true if the block is allowed, false if it is filtered out
      */
     public static boolean isAllowed(Player player, Block block) {
+        return isAllowed(player, block.getType());
+    }
+
+    /**
+     * Check if the material is allowed by the BlockFilter settings.
+     *
+     * @param player the player to check
+     * @param material the material to check
+     * @return true if the material is allowed, false if it is filtered out
+     */
+    public static boolean isAllowed(Player player, Material material) {
         if (player == null) {
             return false;
         }
@@ -27,7 +39,7 @@ public final class BlockFilterUtil {
             return true;
         }
 
-        String materialName = block.getType().name();
+        String materialName = material.name();
 
         // Whitelist check
         if (ConfigFile.BlockFilter.Whitelist.Enabled) {
