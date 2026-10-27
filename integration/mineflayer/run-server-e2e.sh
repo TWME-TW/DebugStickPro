@@ -13,9 +13,9 @@ readonly TEMP_DIR="$(mktemp -d)"
 readonly SERVER_DIR="${TEMP_DIR}/server"
 readonly CACHE_DIR="${DSP_E2E_CACHE:-${HOME}/.cache/debugstickpro-e2e}"
 readonly SERVER_JAR="${DSP_E2E_SERVER_JAR:-${CACHE_DIR}/${PLATFORM}-${MINECRAFT_VERSION}.jar}"
-readonly PACKETEVENTS_JAR="${CACHE_DIR}/packetevents-spigot-2.13.0.jar"
-readonly PACKETEVENTS_URL="https://github.com/retrooper/packetevents/releases/download/v2.13.0/packetevents-spigot-2.13.0.jar"
-readonly PACKETEVENTS_SHA256="6d9ece0d87ee727a79a20b7ffbd432021609c6f52bafcb654fc2d3e9b6f064c5"
+readonly PACKETEVENTS_JAR="${CACHE_DIR}/packetevents-spigot-2.14.0.jar"
+readonly PACKETEVENTS_URL="https://github.com/retrooper/packetevents/releases/download/v2.14.0/packetevents-spigot-2.14.0.jar"
+readonly PACKETEVENTS_SHA256="060087c58ec268eae7dd0eb1f17ac3bea1eaadda1693414141ff64e506091bd7"
 SERVER_PID=""
 
 cleanup() {

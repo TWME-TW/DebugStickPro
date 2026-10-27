@@ -6,7 +6,7 @@
 
     <groupId>dev.twme</groupId>
     <artifactId>DebugStickPro</artifactId>
-    <version>0.5.3</version>
+    <version>0.5.4</version>
     <packaging>jar</packaging>
 
     <name>DebugStickPro</name>
@@ -14,7 +14,7 @@
     <properties>
         <java.version>25</java.version>
         <java.release>17</java.release>
-        <paper.version>26.2.build.112-stable</paper.version>
+        <paper.version>26.3.build.226-stable</paper.version>
         <adventure.compile.version>5.2.0</adventure.compile.version>
         <adventure.runtime.version>4.26.1</adventure.runtime.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -153,7 +153,7 @@
         <dependency>
             <groupId>com.github.retrooper</groupId>
             <artifactId>packetevents-spigot</artifactId>
-            <version>2.13.0</version>
+            <version>2.14.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

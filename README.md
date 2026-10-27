@@ -16,6 +16,7 @@ integration.
 
 > DebugStickPro requires
 > [PacketEvents](https://github.com/retrooper/packetevents) 2.13.0 or later.
+> Minecraft 26.3 requires PacketEvents 2.14.0 or later.
 >
 > The plugin is under active development. Test updates on a non-production server
 > and report reproducible problems on the issue tracker.
@@ -95,9 +96,9 @@ The server owner decides which commands and modes players may use.
 
 | Component | Requirement |
 | --- | --- |
-| Server software | Spigot, Paper, or Folia from Minecraft 1.19.4 through 26.2. Paper is the primary and recommended platform. |
+| Server software | Spigot, Paper, or Folia from Minecraft 1.19.4 through 26.3. Paper is the primary and recommended platform. |
 | Java runtime | The plugin targets Java 17. Run the Java version required by your chosen Minecraft server release. |
-| Required plugin | [PacketEvents](https://github.com/retrooper/packetevents) 2.13.0 or later. |
+| Required plugin | [PacketEvents](https://github.com/retrooper/packetevents) 2.13.0 or later. Minecraft 26.3 requires 2.14.0 or later. |
 | Optional plugins | CoreProtect and PlaceholderAPI. |
 
 VirtualEntities is bundled inside DebugStickPro and does not need to be installed
@@ -224,7 +225,7 @@ for custom locales, from English. Existing translations are preserved.
 
 | Symptom | Check |
 | --- | --- |
-| DebugStickPro does not enable | Confirm PacketEvents 2.13.0 or later is installed and enabled first. Check that the server and Java versions match the support table. |
+| DebugStickPro does not enable | Confirm PacketEvents 2.13.0 or later is installed and enabled first. On Minecraft 26.3, PacketEvents must be 2.14.0 or later. Check that the server and Java versions match the support table. |
 | The stick does nothing | Hold a plugin-issued stick in the main hand; verify `debugstickpro.use`, world lists, block filters, and region protection. |
 | Copy or Freeze mode is skipped | Grant `debugstickpro.mode.copy` or `debugstickpro.mode.freeze`. Grant `debugstickpro.mode` as well when the player uses the mode command. |
 | A property is missing | Check `BlockDataFilter`, its per-type bypass permission, and `AllowUnsafeBisectedData`. Some properties are intentionally unavailable for safety. |
