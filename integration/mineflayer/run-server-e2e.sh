@@ -13,9 +13,9 @@ readonly TEMP_DIR="$(mktemp -d)"
 readonly SERVER_DIR="${TEMP_DIR}/server"
 readonly CACHE_DIR="${DSP_E2E_CACHE:-${HOME}/.cache/debugstickpro-e2e}"
 readonly SERVER_JAR="${DSP_E2E_SERVER_JAR:-${CACHE_DIR}/${PLATFORM}-${MINECRAFT_VERSION}.jar}"
-readonly PACKETEVENTS_VERSION="${DSP_E2E_PACKETEVENTS_VERSION:-2.14.0-SNAPSHOT}"
-readonly PACKETEVENTS_JAR="${CACHE_DIR}/packetevents-spigot-${PACKETEVENTS_VERSION}.jar"
-readonly PACKETEVENTS_FIXTURE="${PROJECT_DIR}/integration/packetevents/pom.xml"
+readonly PACKETEVENTS_JAR="${CACHE_DIR}/packetevents-spigot-2.14.0.jar"
+readonly PACKETEVENTS_URL="https://github.com/retrooper/packetevents/releases/download/v2.14.0/packetevents-spigot-2.14.0.jar"
+readonly PACKETEVENTS_SHA256="060087c58ec268eae7dd0eb1f17ac3bea1eaadda1693414141ff64e506091bd7"
 SERVER_PID=""
 
 cleanup() {
@@ -58,16 +58,10 @@ else
   echo "${server_sha256}  ${SERVER_JAR}" | sha256sum --check --status
 fi
 
-if [[ ! -f "${PACKETEVENTS_JAR}" ]]; then
-  # PacketEvents only publishes its unshaded modules, so the installable plugin
-  # JAR is reassembled from the same artifacts the official release uses.
-  mvn -B -q -f "${PACKETEVENTS_FIXTURE}" \
-    -Dpacketevents.version="${PACKETEVENTS_VERSION}" \
-    -Doutput.jar="${TEMP_DIR}/packetevents.jar" \
-    package
-  unzip -l "${TEMP_DIR}/packetevents.jar" plugin.yml >/dev/null
-  mv "${TEMP_DIR}/packetevents.jar" "${PACKETEVENTS_JAR}"
+if [[ ! -f "${PACKETEVENTS_JAR}" ]] || ! echo "${PACKETEVENTS_SHA256}  ${PACKETEVENTS_JAR}" | sha256sum --check --status; then
+  curl --fail --silent --show-error --location "${PACKETEVENTS_URL}" --output "${PACKETEVENTS_JAR}"
 fi
+echo "${PACKETEVENTS_SHA256}  ${PACKETEVENTS_JAR}" | sha256sum --check --status
 
 find_plugin_jars() {
   find "${PROJECT_DIR}/target" -maxdepth 1 -type f \

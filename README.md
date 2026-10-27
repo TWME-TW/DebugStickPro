@@ -16,8 +16,7 @@ integration.
 
 > DebugStickPro requires
 > [PacketEvents](https://github.com/retrooper/packetevents) 2.13.0 or later.
-> PacketEvents has no release with Minecraft 26.3 support yet, so 26.3 servers
-> need the 2.14.0 development build.
+> Minecraft 26.3 requires PacketEvents 2.14.0 or later.
 >
 > The plugin is under active development. Test updates on a non-production server
 > and report reproducible problems on the issue tracker.
@@ -99,7 +98,7 @@ The server owner decides which commands and modes players may use.
 | --- | --- |
 | Server software | Spigot, Paper, or Folia from Minecraft 1.19.4 through 26.3. Paper is the primary and recommended platform. |
 | Java runtime | The plugin targets Java 17. Run the Java version required by your chosen Minecraft server release. |
-| Required plugin | [PacketEvents](https://github.com/retrooper/packetevents) 2.13.0 or later. Minecraft 26.3 requires the 2.14.0 development build; 2.13.0 cannot load on 26.3. |
+| Required plugin | [PacketEvents](https://github.com/retrooper/packetevents) 2.13.0 or later. Minecraft 26.3 requires 2.14.0 or later. |
 | Optional plugins | CoreProtect and PlaceholderAPI. |
 
 VirtualEntities is bundled inside DebugStickPro and does not need to be installed
@@ -241,11 +240,6 @@ release covered by the support range. Representative 1.19, 1.20, and 1.21 protoc
 versions also run in-game command, item, display, locale, and mode tests. Spigot
 protocol checkpoints are tested separately with the official BuildTools. Paper
 remains the primary platform.
-
-Because PacketEvents only publishes its unshaded modules, the runtime tests
-reassemble the installable PacketEvents plugin JAR from the same artifacts the
-official release is built from (`integration/packetevents`). Set
-`DSP_E2E_PACKETEVENTS_VERSION` to test a different PacketEvents version.
 
 ## Building from source
 
